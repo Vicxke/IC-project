@@ -11,7 +11,7 @@ module lab_02;
         rand logic [7:0] payload [];
 
         constraint payload_size {payload.size > 0; payload.size < 15;}
-        // constraint payload_size_conflict {payload.size == 5;}
+        constraint payload_size_conflict {payload.size == 5;}
     endclass
 
 
@@ -142,6 +142,22 @@ module lab_02;
         endtask
     endclass: Test6
 
+    class Task2;
+        task run;
+            //$display("Task 2");
+            Packet packet;
+            packet = new();
+
+            $display("packet: %p", packet);
+
+            result = packet.randomize() with {
+                dest == packet.dest;
+            };
+            $display("packet: %p", packet);
+            $display("result: %p", result);
+        endtask
+    endclass: Task2;
+
 
     initial begin
         Test1 test1;
@@ -175,6 +191,9 @@ module lab_02;
 
         // Task 2
         // Create a class named "Task2" and in its "run" task call "randomize" in a way to only apply randomization to "src" and "payload" members of "Packet"
+        Task2 = new();
+        Task2.run();
+
 
         // Task 3
         // Create a class named "MyBus" that extends "Bus" and change its "address_rule" so that "addr[7:0]" can not be 8'hff and also not in the range 8'h11:8'h77
