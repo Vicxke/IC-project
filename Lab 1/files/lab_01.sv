@@ -28,13 +28,14 @@ module lab_01;
 
         // Task 1
         // Create a function that randomizes my_state 16 times in a way that it excludes START from the randomization
+        randomize_my_state_without_start();
 
         // Task 2
         // Create a function that randomizes data 16 times in a way that it is twice as likely to get data <= 10 than it is to get data >= 200 (and 0 likelihood for 10 < data < 200)
-
+        randomize_data_task_2();
         // Task 3
         // Create a function that randomizes data 16 times in a way that if my_state is [S1:S6] then 50 <= data <= 60 or 100 <= data <= 150, otherwise data <= 20
-
+        randomize_data_task_3();
     end
 
 
@@ -82,6 +83,49 @@ module lab_01;
                 }; 
             };
             $display(my_state.name);
+        end
+        $display("");
+    endfunction
+    
+    //task 1
+    function void randomize_my_state_without_start;
+        $display("Randomize 'my_state' without start");
+        repeat(16) begin
+            result = randomize(my_state) with { 
+                my_state inside {
+                    INIT,
+                    [S1:S6]
+                }; 
+            };
+            $display(my_state.name);
+        end
+        $display("");
+    endfunction
+
+    //task 2
+    function void randomize_data_task_2;
+        $display("Randomize 'data' task 2");
+        repeat(16) begin
+            result = randomize(data) with {
+                data dist {
+                    [0:10] := 2,
+                    [200:255] := 1
+                };
+            };
+            $display(data);
+        end
+        $display("");
+    endfunction
+
+    //task 3
+    function void randomize_data_task_3;
+        $display("Randomize 'data' task 3");
+        repeat(16) begin
+            result = randomize(data) with { 
+                my_state == [S1:S6] -> ((data >= 50 && data <= 60) || (data >= 100 && data <= 150));
+                my_state == [INIT:START] -> data < 20;
+            };
+            $display(data);
         end
         $display("");
     endfunction
