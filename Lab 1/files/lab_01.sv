@@ -28,7 +28,7 @@ module lab_01;
 
         // Task 1
         // Create a function that randomizes my_state 16 times in a way that it excludes START from the randomization
-        randomize_my_state_without_start();
+        randomize_my_state_task_1();
 
         // Task 2
         // Create a function that randomizes data 16 times in a way that it is twice as likely to get data <= 10 than it is to get data >= 200 (and 0 likelihood for 10 < data < 200)
@@ -37,7 +37,7 @@ module lab_01;
         // Create a function that randomizes data 16 times in a way that if my_state is [S1:S6] then 50 <= data <= 60 or 100 <= data <= 150, otherwise data <= 20
         my_state = INIT;
         randomize_data_task_3();
-        
+
         my_state = S4;
         randomize_data_task_3();
     end
@@ -92,8 +92,8 @@ module lab_01;
     endfunction
     
     //task 1
-    function void randomize_my_state_without_start;
-        $display("Randomize 'my_state' without start");
+    function void randomize_my_state_task_1;
+        $display("Randomize 'my_state' task 1");
         repeat(16) begin
             result = randomize(my_state) with { 
                 my_state inside {
