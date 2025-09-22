@@ -35,6 +35,10 @@ module lab_01;
         randomize_data_task_2();
         // Task 3
         // Create a function that randomizes data 16 times in a way that if my_state is [S1:S6] then 50 <= data <= 60 or 100 <= data <= 150, otherwise data <= 20
+        my_state = INIT;
+        randomize_data_task_3();
+        
+        my_state = S4;
         randomize_data_task_3();
     end
 
@@ -108,7 +112,7 @@ module lab_01;
         repeat(16) begin
             result = randomize(data) with {
                 data dist {
-                    [0:10] := 2,
+                    [0:10] := 112/11,
                     [200:255] := 1
                 };
             };
@@ -122,8 +126,8 @@ module lab_01;
         $display("Randomize 'data' task 3");
         repeat(16) begin
             result = randomize(data) with { 
-                my_state == [S1:S6] -> ((data >= 50 && data <= 60) || (data >= 100 && data <= 150));
-                my_state == [INIT:START] -> data < 20;
+                (my_state inside {[S1:S6]}) -> ((data >= 50 && data <= 60) || (data >= 100 && data <= 150));
+                (my_state inside {[INIT:START]}) -> data < 20;
             };
             $display(data);
         end
