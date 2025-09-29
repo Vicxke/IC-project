@@ -150,7 +150,7 @@ module lab_02;
             $display("Task 2\n");
 
 
-            packet.dest = 'h03;
+            //packet.dest = 'h03;
 
             $display("packet before randomization: %p", packet);
 
