@@ -1,0 +1,897 @@
+Coverage Report by instance with details
+
+=================================================================================
+=== Instance: /lab_05
+=== Design Unit: work.lab_05
+=================================================================================
+
+Covergroup Coverage:
+    Covergroups                      5        na        na    88.33%
+        Coverpoints/Crosses         11        na        na        na
+            Covergroup Bins        152       117        35    76.97%
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Covergroup                                             Metric       Goal       Bins    Status                Persistent Memory   Transient Memory     Peak Transient    PeakTransMemory 
+                                                                                                                                                           Memory              Time  
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ TYPE /lab_05/covergroup_1                            100.00%        100          -    Covered                           2.5KB              1.4KB              6.8KB               0 ns 
+    covered/total bins:                                    72         72          -                                   2.5KB              1.4KB              6.8KB               0 ns 
+    missing/total bins:                                     0         72          -                                   2.5KB              1.4KB              6.8KB               0 ns 
+    % Hit:                                            100.00%        100          -                                   2.5KB              1.4KB              6.8KB               0 ns 
+    type_option.weight=1
+    type_option.goal=100
+    type_option.comment=
+    type_option.strobe=0
+    type_option.merge_instances=auto(0)
+    Coverpoint c1                                     100.00%        100          -    Covered                            384B               712B               712B              15 ns 
+        covered/total bins:                                 8          8          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          8          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+    Coverpoint c2                                     100.00%        100          -    Covered                           1.3KB              5.2KB              5.2KB              95 ns 
+        covered/total bins:                                64         64          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0         64          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+ Covergroup instance \/lab_05/cover_inst1             100.00%        100          -    Covered                           2.5KB              1.4KB              6.8KB               0 ns 
+    covered/total bins:                                    72         72          -                                   2.5KB              1.4KB              6.8KB               0 ns 
+    missing/total bins:                                     0         72          -                                   2.5KB              1.4KB              6.8KB               0 ns 
+    % Hit:                                            100.00%        100          -                                   2.5KB              1.4KB              6.8KB               0 ns 
+    option.name=\/lab_05/cover_inst1 
+    option.weight=1
+    option.goal=100
+    option.comment=
+    option.at_least=1
+    option.auto_bin_max=64
+    option.cross_num_print_missing=0
+    option.detect_overlap=0
+    option.per_instance=0
+    option.get_inst_coverage=0
+    Coverpoint c1                                     100.00%        100          -    Covered                            384B               712B               712B              15 ns 
+        covered/total bins:                                 8          8          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          8          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin auto[0]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[1]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[2]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[3]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[4]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[5]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[6]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[7]                                    234867          1          -    Covered                              na                 na                 na                 na 
+    Coverpoint c2                                     100.00%        100          -    Covered                           1.3KB              5.2KB              5.2KB              95 ns 
+        covered/total bins:                                64         64          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0         64          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin auto[0:3]                                       4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[4:7]                                       4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[8:11]                                      4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[12:15]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[16:19]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[20:23]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[24:27]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[28:31]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[32:35]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[36:39]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[40:43]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[44:47]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[48:51]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[52:55]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[56:59]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[60:63]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[64:67]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[68:71]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[72:75]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[76:79]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[80:83]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[84:87]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[88:91]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[92:95]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[96:99]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[100:103]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[104:107]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[108:111]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[112:115]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[116:119]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[120:123]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[124:127]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[128:131]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[132:135]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[136:139]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[140:143]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[144:147]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[148:151]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[152:155]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[156:159]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[160:163]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[164:167]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[168:171]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[172:175]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[176:179]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[180:183]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[184:187]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[188:191]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[192:195]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[196:199]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[200:203]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[204:207]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[208:211]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[212:215]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[216:219]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[220:223]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[224:227]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[228:231]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[232:235]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[236:239]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[240:243]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[244:247]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[248:251]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[252:255]                              234614          1          -    Covered                              na                 na                 na                 na 
+ TYPE /lab_05/covergroup_2                            100.00%        100          -    Covered                           1.6KB              1.3KB              2.8KB         2348750 ns 
+    covered/total bins:                                    13         13          -                                   1.6KB              1.3KB              2.8KB         2348750 ns 
+    missing/total bins:                                     0         13          -                                   1.6KB              1.3KB              2.8KB         2348750 ns 
+    % Hit:                                            100.00%        100          -                                   1.6KB              1.3KB              2.8KB         2348750 ns 
+    type_option.weight=1
+    type_option.goal=100
+    type_option.comment=
+    type_option.strobe=0
+    type_option.merge_instances=auto(0)
+    Coverpoint c1                                     100.00%        100          -    Covered                            384B               664B               664B              15 ns 
+        covered/total bins:                                 8          8          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          8          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+    Coverpoint c2                                     100.00%        100          -    Covered                            408B               424B              1.9KB         2348750 ns 
+        covered/total bins:                                 5          5          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          5          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+ Covergroup instance \/lab_05/cover_inst2             100.00%        100          -    Covered                           1.6KB              1.3KB              2.8KB         2348750 ns 
+    covered/total bins:                                    13         13          -                                   1.6KB              1.3KB              2.8KB         2348750 ns 
+    missing/total bins:                                     0         13          -                                   1.6KB              1.3KB              2.8KB         2348750 ns 
+    % Hit:                                            100.00%        100          -                                   1.6KB              1.3KB              2.8KB         2348750 ns 
+    option.name=\/lab_05/cover_inst2 
+    option.weight=1
+    option.goal=100
+    option.comment=
+    option.at_least=1
+    option.auto_bin_max=64
+    option.cross_num_print_missing=0
+    option.detect_overlap=0
+    option.per_instance=0
+    option.get_inst_coverage=0
+    Coverpoint c1                                     100.00%        100          -    Covered                            384B               664B               664B              15 ns 
+        covered/total bins:                                 8          8          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          8          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin auto[0]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[1]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[2]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[3]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[4]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[5]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[6]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[7]                                    234867          1          -    Covered                              na                 na                 na                 na 
+    Coverpoint c2                                     100.00%        100          -    Covered                            408B               424B              1.9KB         2348750 ns 
+        covered/total bins:                                 5          5          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          5          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin data_bin[0]                                     1          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[1]                                     1          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[2]                                     1          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[5]                                     1          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[100]                                   1          1          -    Covered                              na                 na                 na                 na 
+ TYPE /lab_05/covergroup_3                            100.00%        100          -    Covered                           1.8KB              1.4KB              2.9KB         2348750 ns 
+    covered/total bins:                                    13         13          -                                   1.8KB              1.4KB              2.9KB         2348750 ns 
+    missing/total bins:                                     0         13          -                                   1.8KB              1.4KB              2.9KB         2348750 ns 
+    % Hit:                                            100.00%        100          -                                   1.8KB              1.4KB              2.9KB         2348750 ns 
+    type_option.weight=1
+    type_option.goal=100
+    type_option.comment=
+    type_option.strobe=0
+    type_option.merge_instances=auto(0)
+    Coverpoint c1                                     100.00%        100          -    Covered                            384B               664B               664B              15 ns 
+        covered/total bins:                                 8          8          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          8          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+    Coverpoint c2                                     100.00%        100          -    Covered                            472B               424B              1.9KB         2348750 ns 
+        covered/total bins:                                 5          5          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          5          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+ Covergroup instance \/lab_05/cover_inst3             100.00%        100          -    Covered                           1.8KB              1.4KB              2.9KB         2348750 ns 
+    covered/total bins:                                    13         13          -                                   1.8KB              1.4KB              2.9KB         2348750 ns 
+    missing/total bins:                                     0         13          -                                   1.8KB              1.4KB              2.9KB         2348750 ns 
+    % Hit:                                            100.00%        100          -                                   1.8KB              1.4KB              2.9KB         2348750 ns 
+    option.name=\/lab_05/cover_inst3 
+    option.weight=1
+    option.goal=100
+    option.comment=
+    option.at_least=1
+    option.auto_bin_max=64
+    option.cross_num_print_missing=0
+    option.detect_overlap=0
+    option.per_instance=0
+    option.get_inst_coverage=0
+    Coverpoint c1                                     100.00%        100          -    Covered                            384B               664B               664B              15 ns 
+        covered/total bins:                                 8          8          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          8          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin auto[0]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[1]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[2]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[3]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[4]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[5]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[6]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[7]                                    234867          1          -    Covered                              na                 na                 na                 na 
+    Coverpoint c2                                     100.00%        100          -    Covered                            472B               424B              1.9KB         2348750 ns 
+        covered/total bins:                                 5          5          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          5          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin data_bin[0]                                     1          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[1]                                     1          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[2]                                     1          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[5]                                     1          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[100]                                   1          1          -    Covered                              na                 na                 na                 na 
+        default bin data_bin_rest                      234870                     -    Occurred                             na                 na                 na                 na 
+ TYPE /lab_05/covergroup_4                            100.00%        100          -    Covered                           1.6KB              1.4KB              1.8KB               0 ns 
+    covered/total bins:                                    10         10          -                                   1.6KB              1.4KB              1.8KB               0 ns 
+    missing/total bins:                                     0         10          -                                   1.6KB              1.4KB              1.8KB               0 ns 
+    % Hit:                                            100.00%        100          -                                   1.6KB              1.4KB              1.8KB               0 ns 
+    type_option.weight=1
+    type_option.goal=100
+    type_option.comment=
+    type_option.strobe=0
+    type_option.merge_instances=auto(0)
+    Coverpoint c1                                     100.00%        100          -    Covered                            384B               664B               664B              15 ns 
+        covered/total bins:                                 8          8          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          8          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+    Coverpoint c2                                     100.00%        100          -    Covered                            336B               224B               224B              95 ns 
+        covered/total bins:                                 2          2          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          2          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+ Covergroup instance \/lab_05/cover_inst4             100.00%        100          -    Covered                           1.6KB              1.4KB              1.8KB               0 ns 
+    covered/total bins:                                    10         10          -                                   1.6KB              1.4KB              1.8KB               0 ns 
+    missing/total bins:                                     0         10          -                                   1.6KB              1.4KB              1.8KB               0 ns 
+    % Hit:                                            100.00%        100          -                                   1.6KB              1.4KB              1.8KB               0 ns 
+    option.name=\/lab_05/cover_inst4 
+    option.weight=1
+    option.goal=100
+    option.comment=
+    option.at_least=1
+    option.auto_bin_max=64
+    option.cross_num_print_missing=0
+    option.detect_overlap=0
+    option.per_instance=0
+    option.get_inst_coverage=0
+    Coverpoint c1                                     100.00%        100          -    Covered                            384B               664B               664B              15 ns 
+        covered/total bins:                                 8          8          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          8          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin auto[0]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[1]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[2]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[3]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[4]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[5]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[6]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[7]                                    234867          1          -    Covered                              na                 na                 na                 na 
+    Coverpoint c2                                     100.00%        100          -    Covered                            336B               224B               224B              95 ns 
+        covered/total bins:                                 2          2          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          2          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin data_bin_low                                  128          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin_high                              234738          1          -    Covered                              na                 na                 na                 na 
+ TYPE /lab_05/covergroup_5                             41.66%        100          -    Uncovered                         8.0KB              1.8KB              2.9KB               0 ns 
+    covered/total bins:                                     9         44          -                                   8.0KB              1.8KB              2.9KB               0 ns 
+    missing/total bins:                                    35         44          -                                   8.0KB              1.8KB              2.9KB               0 ns 
+    % Hit:                                             20.45%        100          -                                   8.0KB              1.8KB              2.9KB               0 ns 
+    type_option.weight=1
+    type_option.goal=100
+    type_option.comment=
+    type_option.strobe=0
+    type_option.merge_instances=auto(0)
+    Coverpoint c1                                      12.50%        100          -    Uncovered                          384B              1.1KB              1.1KB               5 ns 
+        covered/total bins:                                 1          8          -                                      na                 na                 na                 na 
+        missing/total bins:                                 7          8          -                                      na                 na                 na                 na 
+        % Hit:                                         12.50%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+    Coverpoint c2                                     100.00%        100          -    Covered                            320B               568B               568B               5 ns 
+        covered/total bins:                                 4          4          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          4          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+    Cross operations_x_registers                       12.50%        100          -    Uncovered                         6.2KB               240B               912B         2348750 ns 
+        covered/total bins:                                 4         32          -                                      na                 na                 na                 na 
+        missing/total bins:                                28         32          -                                      na                 na                 na                 na 
+        % Hit:                                         12.50%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+ Covergroup instance \/lab_05/cover_inst5              41.66%        100          -    Uncovered                         8.0KB              1.8KB              2.9KB               0 ns 
+    covered/total bins:                                     9         44          -                                   8.0KB              1.8KB              2.9KB               0 ns 
+    missing/total bins:                                    35         44          -                                   8.0KB              1.8KB              2.9KB               0 ns 
+    % Hit:                                             20.45%        100          -                                   8.0KB              1.8KB              2.9KB               0 ns 
+    option.name=\/lab_05/cover_inst5 
+    option.weight=1
+    option.goal=100
+    option.comment=
+    option.at_least=1
+    option.auto_bin_max=64
+    option.cross_num_print_missing=0
+    option.detect_overlap=0
+    option.per_instance=0
+    option.get_inst_coverage=0
+    Coverpoint c1                                      12.50%        100          -    Uncovered                          384B              1.1KB              1.1KB               5 ns 
+        covered/total bins:                                 1          8          -                                      na                 na                 na                 na 
+        missing/total bins:                                 7          8          -                                      na                 na                 na                 na 
+        % Hit:                                         12.50%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin auto[ADD]                                  234875          1          -    Covered                              na                 na                 na                 na 
+        bin auto[SUB]                                       0          1          -    ZERO                                 na                 na                 na                 na 
+        bin auto[AND]                                       0          1          -    ZERO                                 na                 na                 na                 na 
+        bin auto[OR]                                        0          1          -    ZERO                                 na                 na                 na                 na 
+        bin auto[XOR]                                       0          1          -    ZERO                                 na                 na                 na                 na 
+        bin auto[MUL]                                       0          1          -    ZERO                                 na                 na                 na                 na 
+        bin auto[DIV]                                       0          1          -    ZERO                                 na                 na                 na                 na 
+        bin auto[MOD]                                       0          1          -    ZERO                                 na                 na                 na                 na 
+    Coverpoint c2                                     100.00%        100          -    Covered                            320B               568B               568B               5 ns 
+        covered/total bins:                                 4          4          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          4          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin auto[REG0]                                  58719          1          -    Covered                              na                 na                 na                 na 
+        bin auto[REG1]                                  58719          1          -    Covered                              na                 na                 na                 na 
+        bin auto[REG2]                                  58719          1          -    Covered                              na                 na                 na                 na 
+        bin auto[REG3]                                  58718          1          -    Covered                              na                 na                 na                 na 
+    Cross operations_x_registers                       12.50%        100          -    Uncovered                         6.2KB               240B               912B         2348750 ns 
+        covered/total bins:                                 4         32          -                                      na                 na                 na                 na 
+        missing/total bins:                                28         32          -                                      na                 na                 na                 na 
+        % Hit:                                         12.50%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.cross_num_print_missing=0
+        Auto, Default and User Defined Bins:
+            bin <auto[ADD],auto[REG3]>                  58718          1          -    Covered                              na                 na                 na                 na 
+            bin <auto[ADD],auto[REG2]>                  58719          1          -    Covered                              na                 na                 na                 na 
+            bin <auto[ADD],auto[REG1]>                  58719          1          -    Covered                              na                 na                 na                 na 
+            bin <auto[ADD],auto[REG0]>                  58719          1          -    Covered                              na                 na                 na                 na 
+            bin <auto[MOD],*>                               0          1          4    ZERO                                 na                 na                 na                 na 
+            bin <auto[DIV],*>                               0          1          4    ZERO                                 na                 na                 na                 na 
+            bin <auto[MUL],*>                               0          1          4    ZERO                                 na                 na                 na                 na 
+            bin <auto[XOR],*>                               0          1          4    ZERO                                 na                 na                 na                 na 
+            bin <auto[OR],*>                                0          1          4    ZERO                                 na                 na                 na                 na 
+            bin <auto[AND],*>                               0          1          4    ZERO                                 na                 na                 na                 na 
+            bin <auto[SUB],*>                               0          1          4    ZERO                                 na                 na                 na                 na 
+
+COVERGROUP COVERAGE:
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Covergroup                                             Metric       Goal       Bins    Status                Persistent Memory   Transient Memory     Peak Transient    PeakTransMemory 
+                                                                                                                                                           Memory              Time  
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ TYPE /lab_05/covergroup_1                            100.00%        100          -    Covered                           2.5KB              1.4KB              6.8KB               0 ns 
+    covered/total bins:                                    72         72          -                                   2.5KB              1.4KB              6.8KB               0 ns 
+    missing/total bins:                                     0         72          -                                   2.5KB              1.4KB              6.8KB               0 ns 
+    % Hit:                                            100.00%        100          -                                   2.5KB              1.4KB              6.8KB               0 ns 
+    type_option.weight=1
+    type_option.goal=100
+    type_option.comment=
+    type_option.strobe=0
+    type_option.merge_instances=auto(0)
+    Coverpoint c1                                     100.00%        100          -    Covered                            384B               712B               712B              15 ns 
+        covered/total bins:                                 8          8          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          8          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+    Coverpoint c2                                     100.00%        100          -    Covered                           1.3KB              5.2KB              5.2KB              95 ns 
+        covered/total bins:                                64         64          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0         64          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+ Covergroup instance \/lab_05/cover_inst1             100.00%        100          -    Covered                           2.5KB              1.4KB              6.8KB               0 ns 
+    covered/total bins:                                    72         72          -                                   2.5KB              1.4KB              6.8KB               0 ns 
+    missing/total bins:                                     0         72          -                                   2.5KB              1.4KB              6.8KB               0 ns 
+    % Hit:                                            100.00%        100          -                                   2.5KB              1.4KB              6.8KB               0 ns 
+    option.name=\/lab_05/cover_inst1 
+    option.weight=1
+    option.goal=100
+    option.comment=
+    option.at_least=1
+    option.auto_bin_max=64
+    option.cross_num_print_missing=0
+    option.detect_overlap=0
+    option.per_instance=0
+    option.get_inst_coverage=0
+    Coverpoint c1                                     100.00%        100          -    Covered                            384B               712B               712B              15 ns 
+        covered/total bins:                                 8          8          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          8          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin auto[0]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[1]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[2]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[3]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[4]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[5]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[6]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[7]                                    234867          1          -    Covered                              na                 na                 na                 na 
+    Coverpoint c2                                     100.00%        100          -    Covered                           1.3KB              5.2KB              5.2KB              95 ns 
+        covered/total bins:                                64         64          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0         64          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin auto[0:3]                                       4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[4:7]                                       4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[8:11]                                      4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[12:15]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[16:19]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[20:23]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[24:27]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[28:31]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[32:35]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[36:39]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[40:43]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[44:47]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[48:51]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[52:55]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[56:59]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[60:63]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[64:67]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[68:71]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[72:75]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[76:79]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[80:83]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[84:87]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[88:91]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[92:95]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[96:99]                                     4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[100:103]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[104:107]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[108:111]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[112:115]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[116:119]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[120:123]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[124:127]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[128:131]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[132:135]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[136:139]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[140:143]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[144:147]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[148:151]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[152:155]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[156:159]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[160:163]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[164:167]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[168:171]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[172:175]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[176:179]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[180:183]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[184:187]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[188:191]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[192:195]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[196:199]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[200:203]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[204:207]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[208:211]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[212:215]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[216:219]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[220:223]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[224:227]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[228:231]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[232:235]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[236:239]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[240:243]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[244:247]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[248:251]                                   4          1          -    Covered                              na                 na                 na                 na 
+        bin auto[252:255]                              234614          1          -    Covered                              na                 na                 na                 na 
+ TYPE /lab_05/covergroup_2                            100.00%        100          -    Covered                           1.6KB              1.3KB              2.8KB         2348750 ns 
+    covered/total bins:                                    13         13          -                                   1.6KB              1.3KB              2.8KB         2348750 ns 
+    missing/total bins:                                     0         13          -                                   1.6KB              1.3KB              2.8KB         2348750 ns 
+    % Hit:                                            100.00%        100          -                                   1.6KB              1.3KB              2.8KB         2348750 ns 
+    type_option.weight=1
+    type_option.goal=100
+    type_option.comment=
+    type_option.strobe=0
+    type_option.merge_instances=auto(0)
+    Coverpoint c1                                     100.00%        100          -    Covered                            384B               664B               664B              15 ns 
+        covered/total bins:                                 8          8          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          8          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+    Coverpoint c2                                     100.00%        100          -    Covered                            408B               424B              1.9KB         2348750 ns 
+        covered/total bins:                                 5          5          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          5          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+ Covergroup instance \/lab_05/cover_inst2             100.00%        100          -    Covered                           1.6KB              1.3KB              2.8KB         2348750 ns 
+    covered/total bins:                                    13         13          -                                   1.6KB              1.3KB              2.8KB         2348750 ns 
+    missing/total bins:                                     0         13          -                                   1.6KB              1.3KB              2.8KB         2348750 ns 
+    % Hit:                                            100.00%        100          -                                   1.6KB              1.3KB              2.8KB         2348750 ns 
+    option.name=\/lab_05/cover_inst2 
+    option.weight=1
+    option.goal=100
+    option.comment=
+    option.at_least=1
+    option.auto_bin_max=64
+    option.cross_num_print_missing=0
+    option.detect_overlap=0
+    option.per_instance=0
+    option.get_inst_coverage=0
+    Coverpoint c1                                     100.00%        100          -    Covered                            384B               664B               664B              15 ns 
+        covered/total bins:                                 8          8          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          8          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin auto[0]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[1]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[2]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[3]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[4]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[5]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[6]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[7]                                    234867          1          -    Covered                              na                 na                 na                 na 
+    Coverpoint c2                                     100.00%        100          -    Covered                            408B               424B              1.9KB         2348750 ns 
+        covered/total bins:                                 5          5          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          5          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin data_bin[0]                                     1          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[1]                                     1          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[2]                                     1          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[5]                                     1          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[100]                                   1          1          -    Covered                              na                 na                 na                 na 
+ TYPE /lab_05/covergroup_3                            100.00%        100          -    Covered                           1.8KB              1.4KB              2.9KB         2348750 ns 
+    covered/total bins:                                    13         13          -                                   1.8KB              1.4KB              2.9KB         2348750 ns 
+    missing/total bins:                                     0         13          -                                   1.8KB              1.4KB              2.9KB         2348750 ns 
+    % Hit:                                            100.00%        100          -                                   1.8KB              1.4KB              2.9KB         2348750 ns 
+    type_option.weight=1
+    type_option.goal=100
+    type_option.comment=
+    type_option.strobe=0
+    type_option.merge_instances=auto(0)
+    Coverpoint c1                                     100.00%        100          -    Covered                            384B               664B               664B              15 ns 
+        covered/total bins:                                 8          8          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          8          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+    Coverpoint c2                                     100.00%        100          -    Covered                            472B               424B              1.9KB         2348750 ns 
+        covered/total bins:                                 5          5          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          5          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+ Covergroup instance \/lab_05/cover_inst3             100.00%        100          -    Covered                           1.8KB              1.4KB              2.9KB         2348750 ns 
+    covered/total bins:                                    13         13          -                                   1.8KB              1.4KB              2.9KB         2348750 ns 
+    missing/total bins:                                     0         13          -                                   1.8KB              1.4KB              2.9KB         2348750 ns 
+    % Hit:                                            100.00%        100          -                                   1.8KB              1.4KB              2.9KB         2348750 ns 
+    option.name=\/lab_05/cover_inst3 
+    option.weight=1
+    option.goal=100
+    option.comment=
+    option.at_least=1
+    option.auto_bin_max=64
+    option.cross_num_print_missing=0
+    option.detect_overlap=0
+    option.per_instance=0
+    option.get_inst_coverage=0
+    Coverpoint c1                                     100.00%        100          -    Covered                            384B               664B               664B              15 ns 
+        covered/total bins:                                 8          8          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          8          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin auto[0]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[1]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[2]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[3]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[4]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[5]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[6]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[7]                                    234867          1          -    Covered                              na                 na                 na                 na 
+    Coverpoint c2                                     100.00%        100          -    Covered                            472B               424B              1.9KB         2348750 ns 
+        covered/total bins:                                 5          5          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          5          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin data_bin[0]                                     1          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[1]                                     1          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[2]                                     1          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[5]                                     1          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[100]                                   1          1          -    Covered                              na                 na                 na                 na 
+        default bin data_bin_rest                      234870                     -    Occurred                             na                 na                 na                 na 
+ TYPE /lab_05/covergroup_4                            100.00%        100          -    Covered                           1.6KB              1.4KB              1.8KB               0 ns 
+    covered/total bins:                                    10         10          -                                   1.6KB              1.4KB              1.8KB               0 ns 
+    missing/total bins:                                     0         10          -                                   1.6KB              1.4KB              1.8KB               0 ns 
+    % Hit:                                            100.00%        100          -                                   1.6KB              1.4KB              1.8KB               0 ns 
+    type_option.weight=1
+    type_option.goal=100
+    type_option.comment=
+    type_option.strobe=0
+    type_option.merge_instances=auto(0)
+    Coverpoint c1                                     100.00%        100          -    Covered                            384B               664B               664B              15 ns 
+        covered/total bins:                                 8          8          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          8          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+    Coverpoint c2                                     100.00%        100          -    Covered                            336B               224B               224B              95 ns 
+        covered/total bins:                                 2          2          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          2          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+ Covergroup instance \/lab_05/cover_inst4             100.00%        100          -    Covered                           1.6KB              1.4KB              1.8KB               0 ns 
+    covered/total bins:                                    10         10          -                                   1.6KB              1.4KB              1.8KB               0 ns 
+    missing/total bins:                                     0         10          -                                   1.6KB              1.4KB              1.8KB               0 ns 
+    % Hit:                                            100.00%        100          -                                   1.6KB              1.4KB              1.8KB               0 ns 
+    option.name=\/lab_05/cover_inst4 
+    option.weight=1
+    option.goal=100
+    option.comment=
+    option.at_least=1
+    option.auto_bin_max=64
+    option.cross_num_print_missing=0
+    option.detect_overlap=0
+    option.per_instance=0
+    option.get_inst_coverage=0
+    Coverpoint c1                                     100.00%        100          -    Covered                            384B               664B               664B              15 ns 
+        covered/total bins:                                 8          8          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          8          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin auto[0]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[1]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[2]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[3]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[4]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[5]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[6]                                         1          1          -    Covered                              na                 na                 na                 na 
+        bin auto[7]                                    234867          1          -    Covered                              na                 na                 na                 na 
+    Coverpoint c2                                     100.00%        100          -    Covered                            336B               224B               224B              95 ns 
+        covered/total bins:                                 2          2          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          2          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin data_bin_low                                  128          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin_high                              234738          1          -    Covered                              na                 na                 na                 na 
+ TYPE /lab_05/covergroup_5                             41.66%        100          -    Uncovered                         8.0KB              1.8KB              2.9KB               0 ns 
+    covered/total bins:                                     9         44          -                                   8.0KB              1.8KB              2.9KB               0 ns 
+    missing/total bins:                                    35         44          -                                   8.0KB              1.8KB              2.9KB               0 ns 
+    % Hit:                                             20.45%        100          -                                   8.0KB              1.8KB              2.9KB               0 ns 
+    type_option.weight=1
+    type_option.goal=100
+    type_option.comment=
+    type_option.strobe=0
+    type_option.merge_instances=auto(0)
+    Coverpoint c1                                      12.50%        100          -    Uncovered                          384B              1.1KB              1.1KB               5 ns 
+        covered/total bins:                                 1          8          -                                      na                 na                 na                 na 
+        missing/total bins:                                 7          8          -                                      na                 na                 na                 na 
+        % Hit:                                         12.50%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+    Coverpoint c2                                     100.00%        100          -    Covered                            320B               568B               568B               5 ns 
+        covered/total bins:                                 4          4          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          4          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+    Cross operations_x_registers                       12.50%        100          -    Uncovered                         6.2KB               240B               912B         2348750 ns 
+        covered/total bins:                                 4         32          -                                      na                 na                 na                 na 
+        missing/total bins:                                28         32          -                                      na                 na                 na                 na 
+        % Hit:                                         12.50%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+ Covergroup instance \/lab_05/cover_inst5              41.66%        100          -    Uncovered                         8.0KB              1.8KB              2.9KB               0 ns 
+    covered/total bins:                                     9         44          -                                   8.0KB              1.8KB              2.9KB               0 ns 
+    missing/total bins:                                    35         44          -                                   8.0KB              1.8KB              2.9KB               0 ns 
+    % Hit:                                             20.45%        100          -                                   8.0KB              1.8KB              2.9KB               0 ns 
+    option.name=\/lab_05/cover_inst5 
+    option.weight=1
+    option.goal=100
+    option.comment=
+    option.at_least=1
+    option.auto_bin_max=64
+    option.cross_num_print_missing=0
+    option.detect_overlap=0
+    option.per_instance=0
+    option.get_inst_coverage=0
+    Coverpoint c1                                      12.50%        100          -    Uncovered                          384B              1.1KB              1.1KB               5 ns 
+        covered/total bins:                                 1          8          -                                      na                 na                 na                 na 
+        missing/total bins:                                 7          8          -                                      na                 na                 na                 na 
+        % Hit:                                         12.50%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin auto[ADD]                                  234875          1          -    Covered                              na                 na                 na                 na 
+        bin auto[SUB]                                       0          1          -    ZERO                                 na                 na                 na                 na 
+        bin auto[AND]                                       0          1          -    ZERO                                 na                 na                 na                 na 
+        bin auto[OR]                                        0          1          -    ZERO                                 na                 na                 na                 na 
+        bin auto[XOR]                                       0          1          -    ZERO                                 na                 na                 na                 na 
+        bin auto[MUL]                                       0          1          -    ZERO                                 na                 na                 na                 na 
+        bin auto[DIV]                                       0          1          -    ZERO                                 na                 na                 na                 na 
+        bin auto[MOD]                                       0          1          -    ZERO                                 na                 na                 na                 na 
+    Coverpoint c2                                     100.00%        100          -    Covered                            320B               568B               568B               5 ns 
+        covered/total bins:                                 4          4          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          4          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin auto[REG0]                                  58719          1          -    Covered                              na                 na                 na                 na 
+        bin auto[REG1]                                  58719          1          -    Covered                              na                 na                 na                 na 
+        bin auto[REG2]                                  58719          1          -    Covered                              na                 na                 na                 na 
+        bin auto[REG3]                                  58718          1          -    Covered                              na                 na                 na                 na 
+    Cross operations_x_registers                       12.50%        100          -    Uncovered                         6.2KB               240B               912B         2348750 ns 
+        covered/total bins:                                 4         32          -                                      na                 na                 na                 na 
+        missing/total bins:                                28         32          -                                      na                 na                 na                 na 
+        % Hit:                                         12.50%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.cross_num_print_missing=0
+        Auto, Default and User Defined Bins:
+            bin <auto[ADD],auto[REG3]>                  58718          1          -    Covered                              na                 na                 na                 na 
+            bin <auto[ADD],auto[REG2]>                  58719          1          -    Covered                              na                 na                 na                 na 
+            bin <auto[ADD],auto[REG1]>                  58719          1          -    Covered                              na                 na                 na                 na 
+            bin <auto[ADD],auto[REG0]>                  58719          1          -    Covered                              na                 na                 na                 na 
+            bin <auto[MOD],*>                               0          1          4    ZERO                                 na                 na                 na                 na 
+            bin <auto[DIV],*>                               0          1          4    ZERO                                 na                 na                 na                 na 
+            bin <auto[MUL],*>                               0          1          4    ZERO                                 na                 na                 na                 na 
+            bin <auto[XOR],*>                               0          1          4    ZERO                                 na                 na                 na                 na 
+            bin <auto[OR],*>                                0          1          4    ZERO                                 na                 na                 na                 na 
+            bin <auto[AND],*>                               0          1          4    ZERO                                 na                 na                 na                 na 
+            bin <auto[SUB],*>                               0          1          4    ZERO                                 na                 na                 na                 na 
+
+TOTAL COVERGROUP COVERAGE: 88.33%  COVERGROUP TYPES: 5
+Total Coverage By Instance (filtered view): 88.33%
+
+
+COVERGROUP MEMORY USAGE: Total 75.9KB, Peak 77.5KB at time 2348750 ns for total 11 coverpoints/crosses.
+ASSERT/COVER MEMORY USAGE: Total 0B Peak 0B at time 0 ns for total 0 threads.
+DYNAMIC OBJECTS MEMORY USAGE: Total Memory 240B and Peak Memory 240B used at time 0 ns for total 5 dynamic objects.

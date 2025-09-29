@@ -73,6 +73,7 @@ module lab_05 #(parameter PERIOD = 10) (
 
     initial begin
         #10 address = 0;
+        #10 address = 1;
         #10 address = 2;
         #10 address = 3;
         #10 address = 4;
@@ -80,7 +81,7 @@ module lab_05 #(parameter PERIOD = 10) (
         #10 address = 6;
         #10 address = 7;
 
-        for (int i = 0; i < 200; i++) begin
+        for (int i = 0; i < 255; i++) begin
             #10ns;
             data = i;
         end
@@ -97,7 +98,7 @@ module lab_05 #(parameter PERIOD = 10) (
 
 
     initial begin
-        for (operations_t op = my_operation.first; op < my_operation.last; op = op.next) begin            
+        for (operations_t op = my_operation.first; op <= my_operation.last; op = op.next) begin        // = added     
             my_operation = op;
             for (registers_t register = my_register.first; register < my_register.last; register = my_register.next) begin
                 my_register = register;

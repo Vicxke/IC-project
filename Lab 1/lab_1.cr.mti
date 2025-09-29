@@ -5,13 +5,6 @@ QuestaSim-64 vlog 2022.1 Compiler 2022.01 Jan 29 2022
 Top level modules:
 	lab_01
 
-} {} {}} {//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_05.sv} {1 {vlog -work work -vopt -sv -stats=none {//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_05.sv}
-QuestaSim-64 vlog 2022.1 Compiler 2022.01 Jan 29 2022
--- Compiling module lab_05
-
-Top level modules:
-	lab_05
-
 } {} {}} {//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_02.sv} {1 {vlog -work work -vopt -sv -stats=none {//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_02.sv}
 QuestaSim-64 vlog 2022.1 Compiler 2022.01 Jan 29 2022
 -- Compiling module lab_02
@@ -25,5 +18,12 @@ QuestaSim-64 vlog 2022.1 Compiler 2022.01 Jan 29 2022
 
 Top level modules:
 	lab_03
+
+} {} {}} {//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_04.sv} {1 {vlog -work work -vopt -sv -stats=none {//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_04.sv}
+QuestaSim-64 vlog 2022.1 Compiler 2022.01 Jan 29 2022
+-- Compiling module lab_04
+
+Top level modules:
+	lab_04
 
 } {} {}}
