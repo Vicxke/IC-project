@@ -2,7 +2,7 @@ module lab_02;
 
     int result;
 
-    //test
+    
     class Packet;
         logic [3:0] non_random;  // Non-random member (not affected by randomize)
 
@@ -144,16 +144,22 @@ module lab_02;
 
     class Task2;
         task run;
-            //$display("Task 2");
+
             Packet packet;
             packet = new();
+            $display("Task 2\n");
 
-            $display("packet: %p", packet);
 
-            result = packet.randomize() with {
-                dest == packet.dest;
-            };
-            $display("packet: %p", packet);
+            packet.dest = 'h03;
+
+            $display("packet before randomization: %p", packet);
+
+
+            //result = packet.randomize() with {dest == packet.dest;};
+            result = packet.randomize(src, payload);
+
+            
+            $display("packet after randomization: %p", packet);
             $display("result: %p", result);
         endtask
     endclass: Task2;
@@ -166,6 +172,7 @@ module lab_02;
         Test4 test4;
         Test5 test5;
         Test6 test6;
+        Task2 task2;
 
 
         test1 = new();
@@ -191,8 +198,8 @@ module lab_02;
 
         // Task 2
         // Create a class named "Task2" and in its "run" task call "randomize" in a way to only apply randomization to "src" and "payload" members of "Packet"
-        Task2 = new();
-        Task2.run();
+        task2 = new();
+        task2.run();
 
 
         // Task 3
