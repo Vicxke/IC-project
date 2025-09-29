@@ -12,7 +12,14 @@ QuestaSim-64 vlog 2022.1 Compiler 2022.01 Jan 29 2022
 Top level modules:
 	lab_05
 
-} {} {}} {//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_03.sv} {1 {vlog -work work -vopt -sv -stats=none {//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_03.sv}
+} {} {}} {//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_02.sv} {0 {vlog -work work -vopt -sv -stats=none {//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_02.sv}
+QuestaSim-64 vlog 2022.1 Compiler 2022.01 Jan 29 2022
+-- Compiling module lab_02
+** Error: //stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_02.sv(194): (vlog-2152) <type> = new syntax only allowed with embedded covergroups in classes
+** Error: (vlog-13069) //stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_02.sv(195): near ".": syntax error, unexpected '.', expecting IDENTIFIER or TYPE_IDENTIFIER or NETTYPE_IDENTIFIER or '='.
+** Error: //stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_02.sv(202): Illegal declaration after the statement near line '187'.  Declarations must precede statements.  Look for stray semicolons.
+
+} {4.0 7.0} {}} {//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_03.sv} {1 {vlog -work work -vopt -sv -stats=none {//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_03.sv}
 QuestaSim-64 vlog 2022.1 Compiler 2022.01 Jan 29 2022
 -- Compiling module lab_03
 
