@@ -2,7 +2,7 @@ module lab_02;
 
     int result;
 
-
+    //test
     class Packet;
         logic [3:0] non_random;  // Non-random member (not affected by randomize)
 
