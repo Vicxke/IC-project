@@ -59,9 +59,14 @@ module lab_04 #(parameter PERIOD = 10) (
 
     // Asset that if a and c are high this cycle, then 2 cycles later b must be high
     // But if a and c are high this cycle and reset happens we don't care about b anymore
-    assert_8 : assert property ( @(posedge clk) disable iff (reset) (b && c&& d) |-> ##2 d );
+    assert_8 : assert property ( @(posedge clk) disable iff (reset) (b && c&& d) |-> ##2 d ); // Task 2
 
     assert_9 : assert property ( @(posedge clk) data <= 200 ); // Task 3
+
+    // Assert that if a is high this cycle, and c is high the cycle after, and b is high 2 cycles after a was high, then d must be high 3 cycles after a was high
+    //assert_10 : assert property ( @(posedge clk) (a) |-> ##1 (c) |-> ##1 (b) |-> ##1 (d) ); // wrong
+    assert_10 : assert property ( @(posedge clk) a |-> ( ##1 c ##1 b ##1 d ) ); // Task 4
+
 
     initial begin
         reset = 0;
@@ -148,6 +153,25 @@ module lab_04 #(parameter PERIOD = 10) (
         // #10
         // reset = 1;
         // d = 0;
+
+        //Task 3
+        a = 0;
+        #10
+        a = 1;
+        #10
+        a = 0;
+        c= 1;
+        #10
+        b= 1;
+        #10
+        d= 1;
+        
+
+        
+        // a= 0;
+        // #10
+        // a=1;
+        // b=0;
 
 
         // Task 1
