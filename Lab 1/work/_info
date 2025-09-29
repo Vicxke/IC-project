@@ -37,6 +37,7 @@ R0
 R0
 R0
 R0
+R0
 !s11f vlog 2022.1 2022.01, Jan 29 2022
 13
 !s112 1.1
@@ -46,10 +47,10 @@ R0
 cModel Technology
 Z1 d//stu.net.lth.se/ti8188be-s/Documents/Lab 0/SystemVerilog
 T_opt
-!s110 1759136877
-V^IUTUX0aEfbiolRfhYMDQ1
+!s110 1759137129
+V7IV`z6I9I3RFZj8XQnV`J0
 04 6 4 work lab_04 fast 0
-=7-6c2b59f40ebd-68da4c6c-1fc-3c6c
+=8-6c2b59f40ebd-68da4d68-34f-3c6c
 R0
 Z2 !s124 OEM100
 Z3 o-quiet -auto_acc_if_foreign -work work +acc
@@ -154,23 +155,23 @@ R10
 R4
 vlab_04
 R6
-!s110 1759136847
+!s110 1759137103
 !i10b 1
-!s100 E@oKDEEn^maVlgUB5<E8e1
-IMHQbE471F3TU^6j53]2Bo2
+!s100 fgZOXD^od3^L6`4bAGB`F1
+IVdZQA9Id^T91V^5K3?JVH2
 S1
 R7
-w1759136843
+w1759137098
 8//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_04.sv
 F//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_04.sv
-!i122 44
-L0 1 166
+!i122 45
+L0 1 168
 R8
 R9
 r1
 !s85 0
 31
-!s108 1759136847.000000
+!s108 1759137103.000000
 !s107 //stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_04.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_04.sv|
 !i113 0

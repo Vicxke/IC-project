@@ -61,6 +61,7 @@ module lab_04 #(parameter PERIOD = 10) (
     // But if a and c are high this cycle and reset happens we don't care about b anymore
     assert_8 : assert property ( @(posedge clk) disable iff (reset) (b && c&& d) |-> ##2 d );
 
+    assert_9 : assert property ( @(posedge clk) data <= 200 ); // Task 3
 
     initial begin
         reset = 0;
@@ -117,36 +118,36 @@ module lab_04 #(parameter PERIOD = 10) (
         reset = 1;
 
         
-        //Task1
-        reset = 0;
+        // //Task1
+        // reset = 0;
 
-        c =1;
-        b=1;
-        d=1;
+        // c =1;
+        // b=1;
+        // d=1;
 
-        #30
-        reset = 1;
+        // #30
+        // reset = 1;
 
-        //Task2
-        // situation with reset before
-        reset = 0;
-        reset = 1; 
-        c =1;
-        b=1;
-        d=1;
+        // //Task2
+        // // situation with reset before
+        // reset = 0;
+        // reset = 1; 
+        // c =1;
+        // b=1;
+        // d=1;
 
-        #10
-        d = 0;
-        reset = 0;
+        // #10
+        // d = 0;
+        // reset = 0;
         
-        // situation with reset during process
-        c =1;
-        b=1;
-        d=1;
+        // // situation with reset during process
+        // c =1;
+        // b=1;
+        // d=1;
 
-        #10
-        reset = 1;
-        d = 0;
+        // #10
+        // reset = 1;
+        // d = 0;
 
 
         // Task 1
