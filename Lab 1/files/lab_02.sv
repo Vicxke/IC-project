@@ -32,6 +32,11 @@ module lab_02;
         constraint data_rule2 {data[31:16] > 'hafff;}
     endclass
 
+    class MyBus extends Bus;
+        constraint c1 { addr[7:0] inside { [8'h00:8'h10], [8'h78:8'hfe] }; }  
+
+    endclass
+
 
     class CylicIntro;
         rand logic [2:0] d_normal;
@@ -164,6 +169,26 @@ module lab_02;
         endtask
     endclass: Task2;
 
+    class Task3;
+            task run;
+
+                MyBus mybus;
+                mybus = new();
+
+                mybus.data_rule1.constraint_mode(0);  // Turn constraint off
+
+                $display("Task 3\n");
+
+                $displayh("mybus before randomization: %p", mybus);
+
+                result = mybus.randomize();
+                $displayh("round randomization: %p", mybus);
+                
+
+                $display("result: %p", result);
+            endtask
+        endclass: Task3;
+
 
     initial begin
         Test1 test1;
@@ -173,6 +198,7 @@ module lab_02;
         Test5 test5;
         Test6 test6;
         Task2 task2;
+        Task3 task3;
 
 
         test1 = new();
@@ -205,6 +231,8 @@ module lab_02;
         // Task 3
         // Create a class named "MyBus" that extends "Bus" and change its "address_rule" so that "addr[7:0]" can not be 8'hff and also not in the range 8'h11:8'h77
         // Randomize and test "MyBus" in a new class named "Task3", but turn off "data_rule1"
+        task3 = new();
+        task3.run();
 
     end
 
