@@ -27,6 +27,9 @@ R0
 R0
 R0
 R0
+R0
+R0
+R0
 !s11f vlog 2022.1 2022.01, Jan 29 2022
 13
 !s112 1.1
@@ -60,10 +63,10 @@ n@_opt1
 R5
 R1
 T_opt2
-!s110 1759133687
-V`n1bz4?VJUUoY??MaF@1i2
+!s110 1759134654
+V0B_OYI^THI2^F9]aDO6z61
 04 6 4 work lab_03 fast 0
-=2-6c2b59f40ebd-68da3ff6-390-2768
+=5-6c2b59f40ebd-68da43bd-19-2768
 R0
 R2
 R3
@@ -120,23 +123,23 @@ R10
 R4
 vlab_03
 R6
-!s110 1759133663
+!s110 1759134648
 !i10b 1
-!s100 PEG4WHE=TljD2@nDM2N1T2
-IU6ij<YNlCd4_`hedcSHX00
+!s100 5X8im3IX^mkS3e<f=BISO2
+I<]VUBbzOKFc`6l]>Ub>o01
 S1
 R7
-w1759133660
+w1759134644
 8//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_03.sv
 F//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_03.sv
-!i122 33
-L0 1 160
+!i122 36
+L0 1 192
 R8
 R9
 r1
 !s85 0
 31
-!s108 1759133663.000000
+!s108 1759134648.000000
 !s107 //stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_03.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_03.sv|
 !i113 0

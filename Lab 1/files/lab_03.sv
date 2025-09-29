@@ -96,23 +96,24 @@ module lab_03;
 
             #10 $display("Main - thread @ line %0d @ time %0t", `__LINE__, $time);
             #20 $display("Main - thread @ line %0d @ time %0t", `__LINE__, $time);
-
+            //870
             fork
                 #60 $display("Fork - thread 1 @ line %0d @ time %0t", `__LINE__, $time);
                 #10 $display("Fork - thread 2 @ line %0d @ time %0t", `__LINE__, $time);
-            join_any
+            join_any //if one is finished, continue - other thread runs in background
         
             fork
                 begin
+                    //880
                     #10 $display("Fork2 - thread 3 @ line %0d @ time %0t", `__LINE__, $time);
                     #20 $display("Fork2 - thread 3 @ line %0d @ time %0t", `__LINE__, $time);
                     #80 $display("Fork2 - thread 3 @ line %0d @ time %0t", `__LINE__, $time);
                 end
-            join_none
+            join_none //continue immediately - threads runs in background
 
             #10 $display("Main - thread @ line %0d @ time %0t", `__LINE__, $time);
 
-            wait fork;
+            wait fork; //wait for all threads in the fork to finish
 
             #100 $display("Main - thread @ line %0d @ time %0t", `__LINE__, $time);            
         endtask;
@@ -127,9 +128,9 @@ module lab_03;
             #20 $display("Main - thread @ line %0d @ time %0t", `__LINE__, $time);
 
             fork
-                #60 $display("Fork - thread 1 @ line %0d @ time %0t", `__LINE__, $time);
-                #10 $display("Fork - thread 2 @ line %0d @ time %0t", `__LINE__, $time);
-            join_any
+                #60 $display("Fork1 - thread 1 @ line %0d @ time %0t", `__LINE__, $time);
+                #10 $display("Fork1 - thread 2 @ line %0d @ time %0t", `__LINE__, $time);
+            join
         
             fork
                 begin
@@ -137,11 +138,9 @@ module lab_03;
                     #20 $display("Fork2 - thread 3 @ line %0d @ time %0t", `__LINE__, $time);
                     #80 $display("Fork2 - thread 3 @ line %0d @ time %0t", `__LINE__, $time);
                 end
-            join_none
+            join
 
             #10 $display("Main - thread @ line %0d @ time %0t", `__LINE__, $time);
-
-            wait fork;
 
             #100 $display("Main - thread @ line %0d @ time %0t", `__LINE__, $time);            
         endtask;
@@ -155,6 +154,7 @@ module lab_03;
         Test4 test4;
         Test5 test5;
         Task1 task1;         // Task 1
+        Task5 task5;         // Task 2
 
 
 
@@ -175,6 +175,9 @@ module lab_03;
 
         test5 = new();
         test5.run();
+
+        task5 = new();        // Task 2
+        task5.run();          // Task 2
 
         
 
