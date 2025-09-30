@@ -34,7 +34,7 @@ module lab_05 #(parameter PERIOD = 10) (
     covergroup covergroup_2 @(posedge clk);
         c1: coverpoint address;  // This creates automatic bins (7 bins)
         c2: coverpoint data {
-            bins data_bin[] = { 0, 1, 2, 5, 100 };  // This creates custom bins (5 bins)
+            bins data_bin = { 0, 1, 2, 5,100};  // ----------------------
         }
     endgroup: covergroup_2
 
@@ -42,8 +42,8 @@ module lab_05 #(parameter PERIOD = 10) (
     covergroup covergroup_3 @(posedge clk);
         c1: coverpoint address;  // This creates automatic bins (7 bins)
         c2: coverpoint data {
-            bins data_bin[] = { 0, 1, 2, 5, 100 };  // This creates custom bins (5 bins)
-            bins data_bin_rest = default;  // This creates 1 bin for all the remaining values
+            bins data_bin[] = { 0, 1, 2, 5, 100 };  // ----------------------
+            bins data_bin_rest = { [0:255] } with (!(item inside { 0, 1, 2, 5, 100 }));  // ---------------------- default; 
         }
     endgroup: covergroup_3
 
@@ -81,10 +81,9 @@ module lab_05 #(parameter PERIOD = 10) (
         #10 address = 6;
         #10 address = 7;
 
-        for (int i = 0; i < 255; i++) begin
+        for (int i = 0; i < 256; i++) begin
             #10ns;
             data = i;
-            $display("Loop 1: ", data);
         end
 
         // Task 1
@@ -97,18 +96,17 @@ module lab_05 #(parameter PERIOD = 10) (
         // Change covergroup_3 and achieve the same functionality without using the 'default' keyword        
     end
 
-
     initial begin
-        for (operations_t op = my_operation.first; op <= my_operation.last; op = op.next) begin        // = added     
+        for (operations_t op = my_operation.first; op <= my_operation.last; op = op.next) begin        // ---------------------- < changed into <=      
             my_operation = op;
-            for (registers_t register = my_register.first; register <= my_register.last; register = my_register.next) begin // < changed into <= 
+            for (registers_t register = my_register.first; register <= my_register.last; register = my_register.next) begin // ---------------------- < changed into <= 
                 my_register = register;
                 #10ns;
                 $display("My Register: ",my_register);
-                if (register == my_register.last) break;
+                if (register == my_register.last) break; // ---------------------- added because otherwise loop goes forever 
             end
             $display("My Operation: ",my_operation);
-            if (op == my_operation.last) break;          
+            if (op == my_operation.last) break;   // ---------------------- added because otherwise loop goes forever       
         end
         // Task 4
         // Change the testbench to achieve 100% cross coverage for covergroup_5 
