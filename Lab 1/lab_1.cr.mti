@@ -1,5 +1,11 @@
-{//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_01.sv} {1 {vlog -work work -vopt -sv -stats=none {//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_01.sv}
+{//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_01.sv} {2 {vlog -work work -vopt -sv -stats=none {//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_01.sv}
+-- Compiling module lab_05
 QuestaSim-64 vlog 2022.1 Compiler 2022.01 Jan 29 2022
+
+Top level modules:
+	lab_05
+** Warning: (vlog-6) -- Waiting for lock by "ti8188be-s@FOX-27, pid = 5264
+". Lockfile is "//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/work/_lock".
 -- Compiling module lab_01
 
 Top level modules:

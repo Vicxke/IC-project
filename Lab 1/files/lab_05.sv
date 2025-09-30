@@ -100,10 +100,10 @@ module lab_05 #(parameter PERIOD = 10) (
     initial begin
         for (operations_t op = my_operation.first; op <= my_operation.last; op = op.next) begin        // = added     
             my_operation = op;
-            for (registers_t register = my_register.first; register < my_register.last; register = my_register.next) begin
+            for (registers_t register = my_register.first; register <= my_register.last; register = my_register.next) begin // < changed into <= 
                 my_register = register;
                 #10ns;
-                $display(register);
+                $display(my_register);
             end           
         end
 
