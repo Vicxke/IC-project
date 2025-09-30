@@ -84,6 +84,7 @@ module lab_05 #(parameter PERIOD = 10) (
         for (int i = 0; i < 255; i++) begin
             #10ns;
             data = i;
+            $display("Loop 1: ", data);
         end
 
         // Task 1
@@ -109,7 +110,6 @@ module lab_05 #(parameter PERIOD = 10) (
             $display("My Operation: ",my_operation);
             if (op == my_operation.last) break;          
         end
-
         // Task 4
         // Change the testbench to achieve 100% cross coverage for covergroup_5 
     end
