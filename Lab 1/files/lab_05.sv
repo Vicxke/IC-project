@@ -103,8 +103,11 @@ module lab_05 #(parameter PERIOD = 10) (
             for (registers_t register = my_register.first; register <= my_register.last; register = my_register.next) begin // < changed into <= 
                 my_register = register;
                 #10ns;
-                $display(my_register);
-            end           
+                $display("My Register: ",my_register);
+                if (register == my_register.last) break;
+            end
+            $display("My Operation: ",my_operation);
+            if (op == my_operation.last) break;          
         end
 
         // Task 4

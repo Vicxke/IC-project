@@ -63,6 +63,9 @@ R0
 R0
 R0
 R0
+R0
+R0
+R0
 !s11f vlog 2022.1 2022.01, Jan 29 2022
 13
 !s112 1.1
@@ -84,10 +87,10 @@ n@_opt
 Z5 OL;O;2022.1;75
 R1
 T_opt1
-!s110 1759239709
-VeU5V8YjGaTPU>R[8aTOiI0
+!s110 1759241805
+V1V:@8bb9]0YZlELXBI`6Y2
 04 6 4 work lab_05 fast 0
-=6-6c2b59f005c4-68dbde1c-2f2-2998
+=9-6c2b59f005c4-68dbe64c-271-2998
 R0
 R2
 R3
@@ -204,23 +207,23 @@ R10
 R4
 vlab_05
 R6
-!s110 1759239617
+!s110 1759241774
 !i10b 1
-!s100 S?XSDdU466idg_kYcd3jl3
-ITH:WiX;B>3[[VlXbB;o5J3
+!s100 hnNT4Q@7oQaY81fV:F0412
+IMoeoMjkACcE>RdlLnKDLU2
 S1
 R7
-w1759239612
+w1759241759
 8//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_05.sv
 F//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_05.sv
-!i122 84
-L0 1 114
+!i122 88
+L0 1 117
 R8
 R9
 r1
 !s85 0
 31
-!s108 1759239617.000000
+!s108 1759241774.000000
 !s107 //stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_05.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1/files/lab_05.sv|
 !i113 0
