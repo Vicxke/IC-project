@@ -35,6 +35,8 @@ module simple_alu_tb;
     logic [7:0]    tb_result;
     logic [7:0]     tb_max_count;
     opcode          tb_opcode;
+    logic [7:0]     random; // ------------------- random value -> gets randomised
+
     
 
     //------------------------------------------------------------------------------
@@ -48,6 +50,8 @@ module simple_alu_tb;
         tb_operand_1 = 0;
         tb_operand_2 = 0;
         tb_max_count = 0;
+        
+
     end
 
     //------------------------------------------------------------------------------
@@ -120,7 +124,10 @@ module simple_alu_tb;
     //------------------------------------------------------------------------------
    
 
-    task automatic do_math(int a,int b,opcode code);
+    task automatic do_math(int a,int b,opcode code, bit randomise_a, bit randomise_b, bit randomise_op);
+
+
+
         if(randy.randomize() with {
             operand_1 inside {0,1,2,4,8,16,32,64,128,255};
             operand_2 inside {0,1,2,4,8,16,32,64,128,255};
@@ -129,19 +136,30 @@ module simple_alu_tb;
             $display("Randomization done! :D");
         else 
            $error("Failed to randomize :(");
-        $display("%0t do_math:   Opcode:%0s     First number=%0d Second Value=%0d",$time(),code.name(), a, b);
 
-        if (code == ADD)
-            if (a + b > 8'hFF)
-                $display("Test Result ADD = %0d", a + b);
+        if (!randomise_a)
+            randy.operand_1 = a;
+        if (!randomise_b)
+            randy.operand_2 = b;
+        if (!randomise_op)
+            randy.op = code;
+
+        
+        
+        $display("%0t do_math:   Opcode:%0s     First number=%0d Second Value=%0d",$time(),code.name(), a, b);
+        $display("%0t do_math:   Random Opcode:%0s First number=%0d Second Value=%0d",$time(),randy.op.name(), randy.operand_1, randy.operand_2);
+
+        if (randy.op == ADD)
+            if (randy.operand_1 + randy.operand_2 > 8'hFF)
+                $display("Test Result ADD = %0d", randy.operand_1 + randy.operand_2);
             else
                 $display("Test Result ADD fine");
 
         @(posedge tb_clock);
         tb_start_bit <= 1;
-        tb_operand_1 <= a;
-        tb_operand_2 <= b;
-        tb_opcode<= code;
+        tb_operand_1 <= randy.operand_1;
+        tb_operand_2 <= randy.operand_2;
+        tb_opcode<= randy.op;
         @(posedge tb_clock);
         tb_operand_1 <= '0;
         tb_operand_2 <= '0;
@@ -210,32 +228,33 @@ module simple_alu_tb;
     task test_case();
         reset(.delay(0), .length(2));
         
-        do_math(1, 2, ADD); // ------------------------- We kept the original values here for reference
+        do_math(1, 2, ADD,0,0,0); // ------------------------- We kept the original values here for reference
         reset(.delay(10), .length(2));
 
         for (opcode op = ADD; op <= MOD; op = opcode'(op + 1)) begin // ---------------- loop through all opcodes
             
             repeat(10)
-                do_math(randy.operand_1, randy.operand_2, op);
+                do_math(0, 0, op,1,1,0);
 
             
 
         end
 
-        repeat(10) // -------------------------- 10 times because of 10 different special values
-            do_math(0, randy.operand_2, ADD); // --------------------- so the result hits all the special values
-
-        repeat(10) // -------------------------- 10 times because of 10 different special values
-            do_math(randy.operand_1, 0, SUB);
-
-        repeat(10) // -------------------------- 10 times because of 10 different special values
-            do_math(1, randy.operand_2, MUL);
         
         repeat(10) // -------------------------- 10 times because of 10 different special values
-            do_math(randy.operand_1, 1, DIV);
+            do_math(0, random, ADD,0,1,0); // --------------------- so the result hits all the special values
 
         repeat(10) // -------------------------- 10 times because of 10 different special values
-            do_math(randy.operand_1, 255, MOD);
+            do_math(random, 0, SUB,1,0,0);
+
+        repeat(10) // -------------------------- 10 times because of 10 different special values
+            do_math(1, random, MUL,0,1,0);
+        
+        repeat(10) // -------------------------- 10 times because of 10 different special values
+            do_math(random, 1, DIV,1,0,0);
+
+        repeat(10) // -------------------------- 10 times because of 10 different special values
+            do_math(random, 255, MOD,1,0,0);
 
         reset(.delay(10), .length(2));
     
