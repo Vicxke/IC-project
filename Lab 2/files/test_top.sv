@@ -164,6 +164,12 @@ module simple_alu_tb;
             bins upper_half = { [128:$] };  
             bins data_bin[] = { 0, 1, 2, 4, 8, 16, 32, 64, 128, 255 }; 
         }
+        cross_operand_1: cross tb_operand_1,  tb_opcode_cp;
+        cross_operand_2: cross tb_operand_2,  tb_opcode_cp;
+        cross_operand_c: cross tb_operand_c,  tb_opcode_cp {
+            ignore_bins impossible_mod_255 = binsof(tb_operand_c) intersect {255} && binsof(tb_opcode_cp.mod); // ------------------- Ignore impossible case
+        }
+
         // --------------------------------- stop
     //Task 3: Expand our coverage...
 
@@ -188,12 +194,27 @@ module simple_alu_tb;
         do_math(1, 2, ADD); // ------------------------- We kept the original values here for reference
         reset(.delay(10), .length(2));
 
-        repeat(10) // -------------------------- 10 times because of 10 different special values
-        do_math(randy.operand_1, randy.operand_2, randy.op); // --------------------- give the random values to the DUT. They are randomized in the do_math function
+        for (opcode op = ADD; op <= MOD; op = opcode'(op + 1)) begin // ---------------- loop through all opcodes
 
+            repeat(10)
+                do_math(randy.operand_1, randy.operand_2, op);
+
+        end
 
         repeat(10) // -------------------------- 10 times because of 10 different special values
-        do_math(0, randy.operand_2, ADD); // --------------------- so the result hits all the special values
+                do_math(0, randy.operand_2, ADD); // --------------------- so the result hits all the special values
+
+        repeat(10) // -------------------------- 10 times because of 10 different special values
+                do_math(randy.operand_1, 0, SUB);
+
+        repeat(10) // -------------------------- 10 times because of 10 different special values
+                do_math(1, randy.operand_2, MUL);
+        
+        repeat(10) // -------------------------- 10 times because of 10 different special values
+                do_math(randy.operand_1, 1, DIV);
+
+        repeat(10) // -------------------------- 10 times because of 10 different special values
+                do_math(randy.operand_1, 255, MOD);
 
         reset(.delay(10), .length(2));
     
