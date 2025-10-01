@@ -5,9 +5,16 @@ import tb_pkg::*;
 //------------------------------------------------------------------------------------------------
 class RANDOMIZER;
     // Task 2: Modify this class so that we can randomize 
-    opcode op;
-    logic[7:0] operand_1;
-    logic[7:0] operand_2;
+    randc opcode op;
+    randc logic[7:0] operand_1;
+    randc logic[7:0] operand_2;
+endclass
+
+class RANDOMIZER_special_numbers;
+    // Task 2: Modify this class so that we can randomize 
+    randc opcode op;
+    randc logic[7:0] operand_1 = {0,1,2,4,8,16,32,64,128,255};
+    randc logic[7:0] operand_2 = {0,1,2,4,8,16,32,64,128,255};
 endclass
 
 module simple_alu_tb;
@@ -53,6 +60,7 @@ module simple_alu_tb;
         .mode_select(tb_opcode)
     );
     RANDOMIZER randy = new();
+    RANDOMIZER_special_numbers randy_special = new();
     //------------------------------------------------------------------------------
     // Section 4
     // Clock generator.
@@ -134,7 +142,32 @@ module simple_alu_tb;
             bins reset = { 0 };
             bins run=    { 1 };
         }
+        // ---------------------------------- start
+        tb_opcode_cp: coverpoint tb_opcode {
+            bins add = { ADD };
+            bins sub = { SUB };
+            bins mul = { MUL };
+            bins div = { DIV };
+            bins mod = { MOD };
+        }
+        tb_operand_1: coverpoint tb_operand_1 {
+            bins lower_half = { [0:127] };  
+            bins upper_half = { [128:$] };  
+            bins data_bin[] = { 0, 1, 2, 4, 8, 16, 32, 64, 128, 255 }; 
+        }
+        tb_operand_2: coverpoint tb_operand_2 {
+            bins lower_half = { [0:127] };  
+            bins upper_half = { [128:$] }; 
+            bins data_bin[] = { 0, 1, 2, 4, 8, 16, 32, 64, 128, 255 };  
+        }
+        tb_operand_c: coverpoint tb_result {
+            bins lower_half = { [0:127] };  
+            bins upper_half = { [128:$] };  
+            bins data_bin[] = { 0, 1, 2, 4, 8, 16, 32, 64, 128, 255 }; 
+        }
+        // --------------------------------- stop
     //Task 3: Expand our coverage...
+
     
 
     //Task 5: Add some crosses aswell to get some granularity going!
@@ -152,11 +185,19 @@ module simple_alu_tb;
     //------------------------------------------------------------------------------
     task test_case();
         reset(.delay(0), .length(2));
+        
+        do_math(1, 2, ADD); // ------------------------- We kept the original values here for reference
+        reset(.delay(10), .length(2));
 
-        repeat(2)
-        do_math(1,2,ADD);
+        repeat(5) // -------------------------- 5 times because of 5 different operations and randc
+        do_math(randy.operand_1, randy.operand_2, randy.op); // --------------------- give the random values to the DUT. They are randomized in the do_math function
 
         reset(.delay(10), .length(2));
+
+        repeat(10) // -------------------------- 10 special values
+        do_math(randy_special.operand_1, randy_special.operand_2, randy_special.op); // --------------------- give the random values to the DUT. They are randomized in the do_math function 
+
+
         // Task 1: The DUT is causing this assertion to be hit...
         assert (tb_result == 0) 
             $display ("Output reset");

@@ -21,7 +21,7 @@ module simple_alu(
     always_ff @(posedge clock or negedge reset_n) begin
         // Asynchronous reset
         if(~reset_n) begin
-            
+            internal_result <= '0;
         end
         else begin
             internal_result <= n_internal_result;
@@ -36,31 +36,36 @@ module simple_alu(
     always_comb begin
     
         c <= internal_result;
-        case (mode_select)
+        if (start) begin // -------------------------- added start detection
+            case (mode_select)
 
-            //ADD
-            ADD:  begin 
-                n_internal_result <= a+b;
-                
-            end
-            //SUB
-            SUB:  begin 
-                n_internal_result <= a-b;                      
-            end
-            //MUL
-            MUL:  begin 
-                n_internal_result <= a*b;
-            end
-            //DIV
-            DIV:  begin 
-                n_internal_result <= a/b;                        
-            end
-            //MOD
-            MOD:  begin 
-                n_internal_result <= a%b;
-            end
+                //ADD
+                ADD:  begin 
+                    n_internal_result <= a+b;
+                    
+                end
+                //SUB
+                SUB:  begin 
+                    n_internal_result <= a-b;                      
+                end
+                //MUL
+                MUL:  begin 
+                    n_internal_result <= a*b;
+                end
+                //DIV
+                DIV:  begin 
+                    n_internal_result <= a/b;                        
+                end
+                //MOD
+                MOD:  begin 
+                    n_internal_result <= a%b;
+                end
 
-        endcase
+            endcase
+        end 
+        else begin
+            n_internal_result <= internal_result; // ------------- hold value when not started. otherwise the value goes to x again after the reset is released
+        end
     end
 
 

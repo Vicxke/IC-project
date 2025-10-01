@@ -1,0 +1,335 @@
+Coverage Report by instance with details
+
+=================================================================================
+=== Instance: /simple_alu_tb
+=== Design Unit: work.simple_alu_tb
+=================================================================================
+
+Covergroup Coverage:
+    Covergroups                      1        na        na    63.33%
+        Coverpoints/Crosses          5        na        na        na
+            Covergroup Bins         43        21        22    48.83%
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Covergroup                                             Metric       Goal       Bins    Status                Persistent Memory   Transient Memory     Peak Transient    PeakTransMemory 
+                                                                                                                                                           Memory              Time  
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ TYPE /simple_alu_tb/basic_fcov                        63.33%        100          -    Uncovered                        10.9KB              2.4KB             11.5KB               0 ns 
+    covered/total bins:                                    21         43          -                                  10.9KB              2.4KB             11.5KB               0 ns 
+    missing/total bins:                                    22         43          -                                  10.9KB              2.4KB             11.5KB               0 ns 
+    % Hit:                                             48.83%        100          -                                  10.9KB              2.4KB             11.5KB               0 ns 
+    type_option.weight=1
+    type_option.goal=100
+    type_option.comment=
+    type_option.strobe=0
+    type_option.merge_instances=auto(0)
+    Coverpoint reset                                  100.00%        100          -    Covered                            288B               224B               224B              10 ns 
+        covered/total bins:                                 2          2          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          2          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+    Coverpoint tb_opcode_cp                           100.00%        100          -    Covered                            944B              1.2KB              1.2KB               0 ns 
+        covered/total bins:                                 5          5          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          5          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+    Coverpoint tb_operand_1                            41.66%        100          -    Uncovered                         2.3KB              3.0KB              4.5KB             575 ns 
+        covered/total bins:                                 5         12          -                                      na                 na                 na                 na 
+        missing/total bins:                                 7         12          -                                      na                 na                 na                 na 
+        % Hit:                                         41.66%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+    Coverpoint tb_operand_2                            50.00%        100          -    Uncovered                         2.3KB              3.0KB              4.5KB             575 ns 
+        covered/total bins:                                 6         12          -                                      na                 na                 na                 na 
+        missing/total bins:                                 6         12          -                                      na                 na                 na                 na 
+        % Hit:                                         50.00%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+    Coverpoint tb_operand_c                            25.00%        100          -    Uncovered                         2.3KB              3.0KB              4.5KB             575 ns 
+        covered/total bins:                                 3         12          -                                      na                 na                 na                 na 
+        missing/total bins:                                 9         12          -                                      na                 na                 na                 na 
+        % Hit:                                         25.00%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+ Covergroup instance \/simple_alu_tb/coverage_instance  
+                                                       63.33%        100          -    Uncovered                        10.9KB              2.4KB             11.5KB               0 ns 
+    covered/total bins:                                    21         43          -                                  10.9KB              2.4KB             11.5KB               0 ns 
+    missing/total bins:                                    22         43          -                                  10.9KB              2.4KB             11.5KB               0 ns 
+    % Hit:                                             48.83%        100          -                                  10.9KB              2.4KB             11.5KB               0 ns 
+    option.name=\/simple_alu_tb/coverage_instance 
+    option.weight=1
+    option.goal=100
+    option.comment=
+    option.at_least=1
+    option.auto_bin_max=64
+    option.cross_num_print_missing=0
+    option.detect_overlap=0
+    option.per_instance=0
+    option.get_inst_coverage=0
+    Coverpoint reset                                  100.00%        100          -    Covered                            288B               224B               224B              10 ns 
+        covered/total bins:                                 2          2          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          2          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin reset                                           5          1          -    Covered                              na                 na                 na                 na 
+        bin run                                            52          1          -    Covered                              na                 na                 na                 na 
+    Coverpoint tb_opcode_cp                           100.00%        100          -    Covered                            944B              1.2KB              1.2KB               0 ns 
+        covered/total bins:                                 5          5          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          5          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin add                                            16          1          -    Covered                              na                 na                 na                 na 
+        bin sub                                            14          1          -    Covered                              na                 na                 na                 na 
+        bin mul                                             2          1          -    Covered                              na                 na                 na                 na 
+        bin div                                             2          1          -    Covered                              na                 na                 na                 na 
+        bin mod                                             2          1          -    Covered                              na                 na                 na                 na 
+    Coverpoint tb_operand_1                            41.66%        100          -    Uncovered                         2.3KB              3.0KB              4.5KB             575 ns 
+        covered/total bins:                                 5         12          -                                      na                 na                 na                 na 
+        missing/total bins:                                 7         12          -                                      na                 na                 na                 na 
+        % Hit:                                         41.66%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin lower_half                                     44          1          -    Covered                              na                 na                 na                 na 
+        bin upper_half                                     13          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[0]                                    41          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[1]                                     1          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[2]                                     0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[4]                                     0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[8]                                     0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[16]                                    0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[32]                                    0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[64]                                    0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[128]                                   0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[255]                                  10          1          -    Covered                              na                 na                 na                 na 
+    Coverpoint tb_operand_2                            50.00%        100          -    Uncovered                         2.3KB              3.0KB              4.5KB             575 ns 
+        covered/total bins:                                 6         12          -                                      na                 na                 na                 na 
+        missing/total bins:                                 6         12          -                                      na                 na                 na                 na 
+        % Hit:                                         50.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin lower_half                                     45          1          -    Covered                              na                 na                 na                 na 
+        bin upper_half                                     12          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[0]                                    41          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[1]                                     0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[2]                                     1          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[4]                                     0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[8]                                     1          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[16]                                    0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[32]                                    0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[64]                                    0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[128]                                   0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[255]                                  10          1          -    Covered                              na                 na                 na                 na 
+    Coverpoint tb_operand_c                            25.00%        100          -    Uncovered                         2.3KB              3.0KB              4.5KB             575 ns 
+        covered/total bins:                                 3         12          -                                      na                 na                 na                 na 
+        missing/total bins:                                 9         12          -                                      na                 na                 na                 na 
+        % Hit:                                         25.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin lower_half                                     43          1          -    Covered                              na                 na                 na                 na 
+        bin upper_half                                     14          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[0]                                    31          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[1]                                     0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[2]                                     0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[4]                                     0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[8]                                     0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[16]                                    0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[32]                                    0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[64]                                    0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[128]                                   0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[255]                                   0          1          -    ZERO                                 na                 na                 na                 na 
+
+COVERGROUP COVERAGE:
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Covergroup                                             Metric       Goal       Bins    Status                Persistent Memory   Transient Memory     Peak Transient    PeakTransMemory 
+                                                                                                                                                           Memory              Time  
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ TYPE /simple_alu_tb/basic_fcov                        63.33%        100          -    Uncovered                        10.9KB              2.4KB             11.5KB               0 ns 
+    covered/total bins:                                    21         43          -                                  10.9KB              2.4KB             11.5KB               0 ns 
+    missing/total bins:                                    22         43          -                                  10.9KB              2.4KB             11.5KB               0 ns 
+    % Hit:                                             48.83%        100          -                                  10.9KB              2.4KB             11.5KB               0 ns 
+    type_option.weight=1
+    type_option.goal=100
+    type_option.comment=
+    type_option.strobe=0
+    type_option.merge_instances=auto(0)
+    Coverpoint reset                                  100.00%        100          -    Covered                            288B               224B               224B              10 ns 
+        covered/total bins:                                 2          2          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          2          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+    Coverpoint tb_opcode_cp                           100.00%        100          -    Covered                            944B              1.2KB              1.2KB               0 ns 
+        covered/total bins:                                 5          5          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          5          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+    Coverpoint tb_operand_1                            41.66%        100          -    Uncovered                         2.3KB              3.0KB              4.5KB             575 ns 
+        covered/total bins:                                 5         12          -                                      na                 na                 na                 na 
+        missing/total bins:                                 7         12          -                                      na                 na                 na                 na 
+        % Hit:                                         41.66%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+    Coverpoint tb_operand_2                            50.00%        100          -    Uncovered                         2.3KB              3.0KB              4.5KB             575 ns 
+        covered/total bins:                                 6         12          -                                      na                 na                 na                 na 
+        missing/total bins:                                 6         12          -                                      na                 na                 na                 na 
+        % Hit:                                         50.00%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+    Coverpoint tb_operand_c                            25.00%        100          -    Uncovered                         2.3KB              3.0KB              4.5KB             575 ns 
+        covered/total bins:                                 3         12          -                                      na                 na                 na                 na 
+        missing/total bins:                                 9         12          -                                      na                 na                 na                 na 
+        % Hit:                                         25.00%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+ Covergroup instance \/simple_alu_tb/coverage_instance  
+                                                       63.33%        100          -    Uncovered                        10.9KB              2.4KB             11.5KB               0 ns 
+    covered/total bins:                                    21         43          -                                  10.9KB              2.4KB             11.5KB               0 ns 
+    missing/total bins:                                    22         43          -                                  10.9KB              2.4KB             11.5KB               0 ns 
+    % Hit:                                             48.83%        100          -                                  10.9KB              2.4KB             11.5KB               0 ns 
+    option.name=\/simple_alu_tb/coverage_instance 
+    option.weight=1
+    option.goal=100
+    option.comment=
+    option.at_least=1
+    option.auto_bin_max=64
+    option.cross_num_print_missing=0
+    option.detect_overlap=0
+    option.per_instance=0
+    option.get_inst_coverage=0
+    Coverpoint reset                                  100.00%        100          -    Covered                            288B               224B               224B              10 ns 
+        covered/total bins:                                 2          2          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          2          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin reset                                           5          1          -    Covered                              na                 na                 na                 na 
+        bin run                                            52          1          -    Covered                              na                 na                 na                 na 
+    Coverpoint tb_opcode_cp                           100.00%        100          -    Covered                            944B              1.2KB              1.2KB               0 ns 
+        covered/total bins:                                 5          5          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0          5          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin add                                            16          1          -    Covered                              na                 na                 na                 na 
+        bin sub                                            14          1          -    Covered                              na                 na                 na                 na 
+        bin mul                                             2          1          -    Covered                              na                 na                 na                 na 
+        bin div                                             2          1          -    Covered                              na                 na                 na                 na 
+        bin mod                                             2          1          -    Covered                              na                 na                 na                 na 
+    Coverpoint tb_operand_1                            41.66%        100          -    Uncovered                         2.3KB              3.0KB              4.5KB             575 ns 
+        covered/total bins:                                 5         12          -                                      na                 na                 na                 na 
+        missing/total bins:                                 7         12          -                                      na                 na                 na                 na 
+        % Hit:                                         41.66%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin lower_half                                     44          1          -    Covered                              na                 na                 na                 na 
+        bin upper_half                                     13          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[0]                                    41          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[1]                                     1          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[2]                                     0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[4]                                     0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[8]                                     0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[16]                                    0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[32]                                    0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[64]                                    0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[128]                                   0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[255]                                  10          1          -    Covered                              na                 na                 na                 na 
+    Coverpoint tb_operand_2                            50.00%        100          -    Uncovered                         2.3KB              3.0KB              4.5KB             575 ns 
+        covered/total bins:                                 6         12          -                                      na                 na                 na                 na 
+        missing/total bins:                                 6         12          -                                      na                 na                 na                 na 
+        % Hit:                                         50.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin lower_half                                     45          1          -    Covered                              na                 na                 na                 na 
+        bin upper_half                                     12          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[0]                                    41          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[1]                                     0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[2]                                     1          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[4]                                     0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[8]                                     1          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[16]                                    0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[32]                                    0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[64]                                    0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[128]                                   0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[255]                                  10          1          -    Covered                              na                 na                 na                 na 
+    Coverpoint tb_operand_c                            25.00%        100          -    Uncovered                         2.3KB              3.0KB              4.5KB             575 ns 
+        covered/total bins:                                 3         12          -                                      na                 na                 na                 na 
+        missing/total bins:                                 9         12          -                                      na                 na                 na                 na 
+        % Hit:                                         25.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin lower_half                                     43          1          -    Covered                              na                 na                 na                 na 
+        bin upper_half                                     14          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[0]                                    31          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[1]                                     0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[2]                                     0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[4]                                     0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[8]                                     0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[16]                                    0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[32]                                    0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[64]                                    0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[128]                                   0          1          -    ZERO                                 na                 na                 na                 na 
+        bin data_bin[255]                                   0          1          -    ZERO                                 na                 na                 na                 na 
+
+TOTAL COVERGROUP COVERAGE: 63.33%  COVERGROUP TYPES: 1
+Total Coverage By Instance (filtered view): 63.33%
+
+
+COVERGROUP MEMORY USAGE: Total 48.4KB, Peak 50.0KB at time 575 ns for total 5 coverpoints/crosses.
+ASSERT/COVER MEMORY USAGE: Total 0B Peak 0B at time 0 ns for total 0 threads.
+CONSTRAINT SOLVER MEMORY USAGE: Total 624.9KB,Peak 625.0KB at time 155 ns for total 16 randomize() calls.
+CLASS OBJECTS MEMORY USAGE: Total Memory 35.0KB and Peak Memory 35.1KB used at time 15 ns for total 2 class objects.
+DYNAMIC OBJECTS MEMORY USAGE: Total Memory 48B and Peak Memory 112B used at time 155 ns for total 1 dynamic objects.
