@@ -8,6 +8,16 @@ class RANDOMIZER;
     randc opcode op;
     randc logic[7:0] operand_1;
     randc logic[7:0] operand_2;
+
+    constraint constraint_ADD { if (op == ADD) operand_1 + operand_2 <= 8'hff; } // ------------------- Added constraint to avoid overflow in ADD
+
+    constraint constraint_SUB { if (op == SUB) operand_1 - operand_2 >= 0; } // ------------------- Added constraint to avoid negative results in SUB
+
+    constraint constraint_MUL { if (op == MUL) operand_1 * operand_2 <= 8'hff; } // ------------------- Added constraint to avoid overflow in MUL
+
+    constraint constraint_DIV { if (op == DIV) operand_2 != 0; } // ------------------- Added constraint to avoid division by zero in DIV
+
+    constraint constraint_MOD { if (op == MOD) operand_2 != 0; } // ------------------- Added constraint to avoid division by zero in MOD
 endclass
 
 
@@ -108,6 +118,8 @@ module simple_alu_tb;
     // Section 7
     // Task to simplify generation of signals.
     //------------------------------------------------------------------------------
+   
+
     task automatic do_math(int a,int b,opcode code);
         if(randy.randomize() with {
             operand_1 inside {0,1,2,4,8,16,32,64,128,255};
@@ -118,6 +130,13 @@ module simple_alu_tb;
         else 
            $error("Failed to randomize :(");
         $display("%0t do_math:   Opcode:%0s     First number=%0d Second Value=%0d",$time(),code.name(), a, b);
+
+        if (code == ADD)
+            if (a + b > 8'hFF)
+                $display("Test Result ADD = %0d", a + b);
+            else
+                $display("Test Result ADD fine");
+
         @(posedge tb_clock);
         tb_start_bit <= 1;
         tb_operand_1 <= a;
@@ -195,26 +214,28 @@ module simple_alu_tb;
         reset(.delay(10), .length(2));
 
         for (opcode op = ADD; op <= MOD; op = opcode'(op + 1)) begin // ---------------- loop through all opcodes
-
+            
             repeat(10)
                 do_math(randy.operand_1, randy.operand_2, op);
+
+            
 
         end
 
         repeat(10) // -------------------------- 10 times because of 10 different special values
-                do_math(0, randy.operand_2, ADD); // --------------------- so the result hits all the special values
+            do_math(0, randy.operand_2, ADD); // --------------------- so the result hits all the special values
 
         repeat(10) // -------------------------- 10 times because of 10 different special values
-                do_math(randy.operand_1, 0, SUB);
+            do_math(randy.operand_1, 0, SUB);
 
         repeat(10) // -------------------------- 10 times because of 10 different special values
-                do_math(1, randy.operand_2, MUL);
+            do_math(1, randy.operand_2, MUL);
         
         repeat(10) // -------------------------- 10 times because of 10 different special values
-                do_math(randy.operand_1, 1, DIV);
+            do_math(randy.operand_1, 1, DIV);
 
         repeat(10) // -------------------------- 10 times because of 10 different special values
-                do_math(randy.operand_1, 255, MOD);
+            do_math(randy.operand_1, 255, MOD);
 
         reset(.delay(10), .length(2));
     
