@@ -12,6 +12,11 @@ R0
 R0
 R0
 R0
+R0
+R0
+R0
+R0
+R0
 !s11e vcom 2022.1 2022.01, Jan 29 2022
 !s11f vlog 2022.1 2022.01, Jan 29 2022
 13
@@ -22,17 +27,16 @@ R0
 cModel Technology
 Z1 dC:/Program Files/questasim64_2022.1/win64
 T_opt
-!s110 1759311322
-VJl_O8<0TfgJoCFeD2<9H:2
+!s110 1759312598
+VoCJO30Wl<8Gh?UX61gXnB2
 Z2 04 13 4 work simple_alu_tb fast 0
-=7-6c2b59f005c4-68dcf5d9-358-2b14
+=15-6c2b59f005c4-68dcfad5-9c-2b14
 R0
 Z3 !s124 OEM100
 o-quiet -auto_acc_if_foreign -work work +acc
 Z4 tCvgOpt 0
 n@_opt
 Z5 OL;O;2022.1;75
-R1
 T_opt1
 !s110 1759309804
 VkDWmGMlLeW1_=6OA3^4`;2
@@ -101,27 +105,27 @@ R4
 vsimple_alu_tb
 R6
 R7
-DXx4 work 16 test_top_sv_unit 0 22 oGABFU51ZK`JoHS>?^^Nf3
-Z20 !s110 1759311343
+DXx4 work 16 test_top_sv_unit 0 22 U<N@J?5hi>iJUkk:gB=>Y3
+Z20 !s110 1759312589
 R9
 r1
 !s85 0
 !i10b 1
-!s100 d[U6S<Yz@=8]BEAI6ICSd3
-IN;S?9PI>e:c5<mJY9mBh51
+!s100 4@WK3=M__LF27SC@VB6Gg0
+Ijho2VY0=dmo5L?JDC5@JZ3
 !s105 test_top_sv_unit
 S1
 R10
-Z21 w1759311305
+Z21 w1759312586
 Z22 8//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/test_top.sv
 Z23 F//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/test_top.sv
-!i122 16
-L0 20 216
+!i122 21
+L0 14 221
 R14
 31
-Z24 !s108 1759311343.000000
-!s107 //stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/test_top.sv|
-Z25 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/test_top.sv|
+Z24 !s108 1759312589.000000
+Z25 !s107 //stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/test_top.sv|
+Z26 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/test_top.sv|
 !i113 0
 R18
 R4
@@ -153,25 +157,25 @@ Xtest_top_sv_unit
 R6
 R7
 R20
-VoGABFU51ZK`JoHS>?^^Nf3
+VU<N@J?5hi>iJUkk:gB=>Y3
 r1
 !s85 0
 !i10b 1
-!s100 7fziaEm>CKiklIKKAiIf32
-IoGABFU51ZK`JoHS>?^^Nf3
+!s100 5Zz`6Kn_mR71SBfz78gIl3
+IU<N@J?5hi>iJUkk:gB=>Y3
 !i103 1
 S1
 R10
 R21
 R22
 R23
-!i122 16
+!i122 21
 R19
 R14
 31
 R24
-Z26 !s107 //stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/test_top.sv|
 R25
+R26
 !i113 0
 R18
 R4
