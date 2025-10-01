@@ -794,4 +794,4 @@ COVERGROUP MEMORY USAGE: Total 90.5KB, Peak 92.1KB at time 2275 ns for total 8 c
 ASSERT/COVER MEMORY USAGE: Total 0B Peak 0B at time 0 ns for total 0 threads.
 CONSTRAINT SOLVER MEMORY USAGE: Total 1.2MB,Peak 1.2MB at time 955 ns for total 101 randomize() calls.
 CLASS OBJECTS MEMORY USAGE: Total Memory 35.8KB and Peak Memory 35.9KB used at time 15 ns for total 1 class objects.
-DYNAMIC OBJECTS MEMORY USAGE: Total Memory 96B and Peak Memory 144B used at time 155 ns for total 4 dynamic objects.
+DYNAMIC OBJECTS MEMORY USAGE: Total Memory 112B and Peak Memory 112B used at time 155 ns for total 3 dynamic objects.
