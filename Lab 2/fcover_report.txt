@@ -6,17 +6,17 @@ Coverage Report by instance with details
 =================================================================================
 
 Covergroup Coverage:
-    Covergroups                      1        na        na    98.94%
+    Covergroups                      1        na        na    99.58%
         Coverpoints/Crosses          8        na        na        na
-            Covergroup Bins        221       216         5    97.73%
+            Covergroup Bins        221       219         2    99.09%
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Covergroup                                             Metric       Goal       Bins    Status                Persistent Memory   Transient Memory     Peak Transient    PeakTransMemory 
                                                                                                                                                            Memory              Time  
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
- TYPE /simple_alu_tb/basic_fcov                        98.94%        100          -    Uncovered                        36.0KB              4.1KB             12.6KB               0 ns 
-    covered/total bins:                                   216        221          -                                  36.0KB              4.1KB             12.6KB               0 ns 
-    missing/total bins:                                     5        221          -                                  36.0KB              4.1KB             12.6KB               0 ns 
-    % Hit:                                             97.73%        100          -                                  36.0KB              4.1KB             12.6KB               0 ns 
+ TYPE /simple_alu_tb/basic_fcov                        99.58%        100          -    Uncovered                        36.0KB              4.1KB             12.6KB               0 ns 
+    covered/total bins:                                   219        221          -                                  36.0KB              4.1KB             12.6KB               0 ns 
+    missing/total bins:                                     2        221          -                                  36.0KB              4.1KB             12.6KB               0 ns 
+    % Hit:                                             99.09%        100          -                                  36.0KB              4.1KB             12.6KB               0 ns 
     type_option.weight=1
     type_option.goal=100
     type_option.comment=
@@ -36,53 +36,53 @@ Covergroup                                             Metric       Goal       B
         type_option.weight=1
         type_option.goal=100
         type_option.comment=
-    Coverpoint tb_operand_1                           100.00%        100          -    Covered                           2.3KB              3.0KB              4.5KB            2275 ns 
+    Coverpoint tb_operand_1                           100.00%        100          -    Covered                           2.3KB              3.0KB              4.5KB            2775 ns 
         covered/total bins:                                12         12          -                                      na                 na                 na                 na 
         missing/total bins:                                 0         12          -                                      na                 na                 na                 na 
         % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
         type_option.weight=1
         type_option.goal=100
         type_option.comment=
-    Coverpoint tb_operand_2                           100.00%        100          -    Covered                           2.3KB              3.0KB              4.5KB            2275 ns 
+    Coverpoint tb_operand_2                           100.00%        100          -    Covered                           2.3KB              3.0KB              4.5KB            2775 ns 
         covered/total bins:                                12         12          -                                      na                 na                 na                 na 
         missing/total bins:                                 0         12          -                                      na                 na                 na                 na 
         % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
         type_option.weight=1
         type_option.goal=100
         type_option.comment=
-    Coverpoint tb_operand_c                           100.00%        100          -    Covered                           2.4KB              3.1KB              4.6KB            2275 ns 
+    Coverpoint tb_operand_c                           100.00%        100          -    Covered                           2.4KB              3.1KB              4.6KB            2775 ns 
         covered/total bins:                                12         12          -                                      na                 na                 na                 na 
         missing/total bins:                                 0         12          -                                      na                 na                 na                 na 
         % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
         type_option.weight=1
         type_option.goal=100
         type_option.comment=
-    Cross cross_operand_1                              96.66%        100          -    Uncovered                         7.8KB               288B               960B            2275 ns 
-        covered/total bins:                                58         60          -                                      na                 na                 na                 na 
-        missing/total bins:                                 2         60          -                                      na                 na                 na                 na 
-        % Hit:                                         96.66%        100          -                                      na                 na                 na                 na 
-        type_option.weight=1
-        type_option.goal=100
-        type_option.comment=
-    Cross cross_operand_2                              98.33%        100          -    Uncovered                         7.8KB               288B               960B            2275 ns 
+    Cross cross_operand_1                              98.33%        100          -    Uncovered                         7.8KB               288B               960B            2775 ns 
         covered/total bins:                                59         60          -                                      na                 na                 na                 na 
         missing/total bins:                                 1         60          -                                      na                 na                 na                 na 
         % Hit:                                         98.33%        100          -                                      na                 na                 na                 na 
         type_option.weight=1
         type_option.goal=100
         type_option.comment=
-    Cross cross_operand_c                              96.55%        100          -    Uncovered                         8.9KB               528B              1.2KB            2275 ns 
-        covered/total bins:                                56         58          -                                      na                 na                 na                 na 
-        missing/total bins:                                 2         58          -                                      na                 na                 na                 na 
-        % Hit:                                         96.55%        100          -                                      na                 na                 na                 na 
+    Cross cross_operand_2                              98.33%        100          -    Uncovered                         7.8KB               288B               960B            2775 ns 
+        covered/total bins:                                59         60          -                                      na                 na                 na                 na 
+        missing/total bins:                                 1         60          -                                      na                 na                 na                 na 
+        % Hit:                                         98.33%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+    Cross cross_operand_c                             100.00%        100          -    Covered                           8.9KB               528B              1.2KB            2775 ns 
+        covered/total bins:                                58         58          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0         58          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
         type_option.weight=1
         type_option.goal=100
         type_option.comment=
  Covergroup instance \/simple_alu_tb/coverage_instance  
-                                                       98.94%        100          -    Uncovered                        36.0KB              4.1KB             12.6KB               0 ns 
-    covered/total bins:                                   216        221          -                                  36.0KB              4.1KB             12.6KB               0 ns 
-    missing/total bins:                                     5        221          -                                  36.0KB              4.1KB             12.6KB               0 ns 
-    % Hit:                                             97.73%        100          -                                  36.0KB              4.1KB             12.6KB               0 ns 
+                                                       99.58%        100          -    Uncovered                        36.0KB              4.1KB             12.6KB               0 ns 
+    covered/total bins:                                   219        221          -                                  36.0KB              4.1KB             12.6KB               0 ns 
+    missing/total bins:                                     2        221          -                                  36.0KB              4.1KB             12.6KB               0 ns 
+    % Hit:                                             99.09%        100          -                                  36.0KB              4.1KB             12.6KB               0 ns 
     option.name=\/simple_alu_tb/coverage_instance 
     option.weight=1
     option.goal=100
@@ -104,7 +104,7 @@ Covergroup                                             Metric       Goal       B
         option.auto_bin_max=64
         option.detect_overlap=0
         bin reset                                           5          1          -    Covered                              na                 na                 na                 na 
-        bin run                                           222          1          -    Covered                              na                 na                 na                 na 
+        bin run                                           272          1          -    Covered                              na                 na                 na                 na 
     Coverpoint tb_opcode_cp                           100.00%        100          -    Covered                            944B              1.2KB              1.2KB               0 ns 
         covered/total bins:                                 5          5          -                                      na                 na                 na                 na 
         missing/total bins:                                 0          5          -                                      na                 na                 na                 na 
@@ -115,12 +115,12 @@ Covergroup                                             Metric       Goal       B
         option.at_least=1
         option.auto_bin_max=64
         option.detect_overlap=0
-        bin add                                            54          1          -    Covered                              na                 na                 na                 na 
-        bin sub                                            40          1          -    Covered                              na                 na                 na                 na 
-        bin mul                                            40          1          -    Covered                              na                 na                 na                 na 
-        bin div                                            40          1          -    Covered                              na                 na                 na                 na 
-        bin mod                                            51          1          -    Covered                              na                 na                 na                 na 
-    Coverpoint tb_operand_1                           100.00%        100          -    Covered                           2.3KB              3.0KB              4.5KB            2275 ns 
+        bin add                                            64          1          -    Covered                              na                 na                 na                 na 
+        bin sub                                            50          1          -    Covered                              na                 na                 na                 na 
+        bin mul                                            50          1          -    Covered                              na                 na                 na                 na 
+        bin div                                            50          1          -    Covered                              na                 na                 na                 na 
+        bin mod                                            61          1          -    Covered                              na                 na                 na                 na 
+    Coverpoint tb_operand_1                           100.00%        100          -    Covered                           2.3KB              3.0KB              4.5KB            2775 ns 
         covered/total bins:                                12         12          -                                      na                 na                 na                 na 
         missing/total bins:                                 0         12          -                                      na                 na                 na                 na 
         % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
@@ -130,19 +130,41 @@ Covergroup                                             Metric       Goal       B
         option.at_least=1
         option.auto_bin_max=64
         option.detect_overlap=0
-        bin lower_half                                    211          1          -    Covered                              na                 na                 na                 na 
-        bin upper_half                                     16          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[0]                                   145          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[1]                                    19          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[2]                                     7          1          -    Covered                              na                 na                 na                 na 
+        bin lower_half                                    255          1          -    Covered                              na                 na                 na                 na 
+        bin upper_half                                     22          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[0]                                   174          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[1]                                    25          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[2]                                     9          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[4]                                    10          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[8]                                     9          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[16]                                    9          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[32]                                   10          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[64]                                    9          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[128]                                  12          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[255]                                  10          1          -    Covered                              na                 na                 na                 na 
+    Coverpoint tb_operand_2                           100.00%        100          -    Covered                           2.3KB              3.0KB              4.5KB            2775 ns 
+        covered/total bins:                                12         12          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0         12          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin lower_half                                    245          1          -    Covered                              na                 na                 na                 na 
+        bin upper_half                                     32          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[0]                                   171          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[1]                                    22          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[2]                                    10          1          -    Covered                              na                 na                 na                 na 
         bin data_bin[4]                                     8          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[8]                                     8          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[16]                                    8          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[8]                                     9          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[16]                                    9          1          -    Covered                              na                 na                 na                 na 
         bin data_bin[32]                                    8          1          -    Covered                              na                 na                 na                 na 
         bin data_bin[64]                                    8          1          -    Covered                              na                 na                 na                 na 
         bin data_bin[128]                                   8          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[255]                                   8          1          -    Covered                              na                 na                 na                 na 
-    Coverpoint tb_operand_2                           100.00%        100          -    Covered                           2.3KB              3.0KB              4.5KB            2275 ns 
+        bin data_bin[255]                                  24          1          -    Covered                              na                 na                 na                 na 
+    Coverpoint tb_operand_c                           100.00%        100          -    Covered                           2.4KB              3.1KB              4.6KB            2775 ns 
         covered/total bins:                                12         12          -                                      na                 na                 na                 na 
         missing/total bins:                                 0         12          -                                      na                 na                 na                 na 
         % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
@@ -152,111 +174,19 @@ Covergroup                                             Metric       Goal       B
         option.at_least=1
         option.auto_bin_max=64
         option.detect_overlap=0
-        bin lower_half                                    202          1          -    Covered                              na                 na                 na                 na 
-        bin upper_half                                     25          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[0]                                   140          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[1]                                    17          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[2]                                     9          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[4]                                     7          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[8]                                     7          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[16]                                    7          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[32]                                    8          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[64]                                    7          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[128]                                   8          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[255]                                  17          1          -    Covered                              na                 na                 na                 na 
-    Coverpoint tb_operand_c                           100.00%        100          -    Covered                           2.4KB              3.1KB              4.6KB            2275 ns 
-        covered/total bins:                                12         12          -                                      na                 na                 na                 na 
-        missing/total bins:                                 0         12          -                                      na                 na                 na                 na 
-        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
-        option.weight=1
-        option.goal=100
-        option.comment=
-        option.at_least=1
-        option.auto_bin_max=64
-        option.detect_overlap=0
-        bin lower_half                                    187          1          -    Covered                              na                 na                 na                 na 
-        bin upper_half                                     40          1          -    Covered                              na                 na                 na                 na 
+        bin lower_half                                    221          1          -    Covered                              na                 na                 na                 na 
+        bin upper_half                                     56          1          -    Covered                              na                 na                 na                 na 
         bin data_bin[0]                                    51          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[1]                                    16          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[2]                                    16          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[4]                                    14          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[8]                                    22          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[16]                                   10          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[32]                                   16          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[64]                                   12          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[128]                                  12          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[255]                                   8          1          -    Covered                              na                 na                 na                 na 
-    Cross cross_operand_1                              96.66%        100          -    Uncovered                         7.8KB               288B               960B            2275 ns 
-        covered/total bins:                                58         60          -                                      na                 na                 na                 na 
-        missing/total bins:                                 2         60          -                                      na                 na                 na                 na 
-        % Hit:                                         96.66%        100          -                                      na                 na                 na                 na 
-        option.weight=1
-        option.goal=100
-        option.comment=
-        option.at_least=1
-        option.cross_num_print_missing=0
-        Auto, Default and User Defined Bins:
-            bin <data_bin[255],mod>                         2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[128],mod>                         3          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[64],mod>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[32],mod>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[8],mod>                           3          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[4],mod>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[2],mod>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[1],mod>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[0],mod>                          33          1          -    Covered                              na                 na                 na                 na 
-            bin <upper_half,mod>                            5          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,mod>                           46          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[255],div>                         2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[128],div>                         1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[64],div>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[32],div>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[16],div>                          4          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[8],div>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[4],div>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[2],div>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[1],div>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[0],div>                          21          1          -    Covered                              na                 na                 na                 na 
-            bin <upper_half,div>                            3          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,div>                           37          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[255],mul>                         1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[128],mul>                         1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[64],mul>                          1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[32],mul>                          1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[16],mul>                          1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[8],mul>                           1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[4],mul>                           1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[2],mul>                           1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[1],mul>                          10          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[0],mul>                          22          1          -    Covered                              na                 na                 na                 na 
-            bin <upper_half,mul>                            2          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,mul>                           38          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[255],sub>                         2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[128],sub>                         2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[64],sub>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[32],sub>                          1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[16],sub>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[8],sub>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[4],sub>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[2],sub>                           1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[1],sub>                           3          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[0],sub>                          23          1          -    Covered                              na                 na                 na                 na 
-            bin <upper_half,sub>                            4          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,sub>                           36          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[255],add>                         1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[128],add>                         1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[64],add>                          1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[32],add>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[16],add>                          1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[4],add>                           1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[2],add>                           1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[1],add>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[0],add>                          44          1          -    Covered                              na                 na                 na                 na 
-            bin <upper_half,add>                            2          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,add>                           52          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[16],mod>                          0          1          1    ZERO                                 na                 na                 na                 na 
-            bin <data_bin[8],add>                           0          1          1    ZERO                                 na                 na                 na                 na 
-    Cross cross_operand_2                              98.33%        100          -    Uncovered                         7.8KB               288B               960B            2275 ns 
+        bin data_bin[1]                                    26          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[2]                                    22          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[4]                                    20          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[8]                                    20          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[16]                                   16          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[32]                                   20          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[64]                                   16          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[128]                                  20          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[255]                                  16          1          -    Covered                              na                 na                 na                 na 
+    Cross cross_operand_1                              98.33%        100          -    Uncovered                         7.8KB               288B               960B            2775 ns 
         covered/total bins:                                59         60          -                                      na                 na                 na                 na 
         missing/total bins:                                 1         60          -                                      na                 na                 na                 na 
         % Hit:                                         98.33%        100          -                                      na                 na                 na                 na 
@@ -266,7 +196,77 @@ Covergroup                                             Metric       Goal       B
         option.at_least=1
         option.cross_num_print_missing=0
         Auto, Default and User Defined Bins:
-            bin <data_bin[255],mod>                        11          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[255],mod>                         2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[128],mod>                         3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[64],mod>                          3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[32],mod>                          3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[16],mod>                          1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[8],mod>                           2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[4],mod>                           3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[2],mod>                           3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[1],mod>                           3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[0],mod>                          38          1          -    Covered                              na                 na                 na                 na 
+            bin <upper_half,mod>                            5          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,mod>                           56          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[255],div>                         3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[128],div>                         3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[64],div>                          2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[32],div>                          3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[16],div>                          3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[8],div>                           3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[4],div>                           3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[2],div>                           2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[1],div>                           2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[0],div>                          26          1          -    Covered                              na                 na                 na                 na 
+            bin <upper_half,div>                            6          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,div>                           44          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[255],mul>                         1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[128],mul>                         1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[64],mul>                          1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[32],mul>                          1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[16],mul>                          1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[8],mul>                           1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[4],mul>                           1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[2],mul>                           1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[1],mul>                          15          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[0],mul>                          27          1          -    Covered                              na                 na                 na                 na 
+            bin <upper_half,mul>                            2          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,mul>                           48          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[255],sub>                         3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[128],sub>                         4          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[64],sub>                          2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[32],sub>                          1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[16],sub>                          3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[8],sub>                           3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[4],sub>                           2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[2],sub>                           2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[1],sub>                           3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[0],sub>                          27          1          -    Covered                              na                 na                 na                 na 
+            bin <upper_half,sub>                            7          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,sub>                           43          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[255],add>                         1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[128],add>                         1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[64],add>                          1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[32],add>                          2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[16],add>                          1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[4],add>                           1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[2],add>                           1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[1],add>                           2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[0],add>                          54          1          -    Covered                              na                 na                 na                 na 
+            bin <upper_half,add>                            2          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,add>                           62          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[8],add>                           0          1          1    ZERO                                 na                 na                 na                 na 
+    Cross cross_operand_2                              98.33%        100          -    Uncovered                         7.8KB               288B               960B            2775 ns 
+        covered/total bins:                                59         60          -                                      na                 na                 na                 na 
+        missing/total bins:                                 1         60          -                                      na                 na                 na                 na 
+        % Hit:                                         98.33%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.cross_num_print_missing=0
+        Auto, Default and User Defined Bins:
+            bin <data_bin[255],mod>                        16          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[128],mod>                         1          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[64],mod>                          1          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[32],mod>                          2          1          -    Covered                              na                 na                 na                 na 
@@ -274,9 +274,9 @@ Covergroup                                             Metric       Goal       B
             bin <data_bin[4],mod>                           1          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[2],mod>                           2          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[1],mod>                           1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[0],mod>                          31          1          -    Covered                              na                 na                 na                 na 
-            bin <upper_half,mod>                           12          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,mod>                           39          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[0],mod>                          36          1          -    Covered                              na                 na                 na                 na 
+            bin <upper_half,mod>                           17          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,mod>                           44          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[255],div>                         1          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[128],div>                         1          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[64],div>                          1          1          -    Covered                              na                 na                 na                 na 
@@ -285,22 +285,22 @@ Covergroup                                             Metric       Goal       B
             bin <data_bin[8],div>                           1          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[4],div>                           1          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[2],div>                           1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[1],div>                          11          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[0],div>                          20          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[1],div>                          16          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[0],div>                          25          1          -    Covered                              na                 na                 na                 na 
             bin <upper_half,div>                            2          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,div>                           38          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[255],mul>                         2          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,div>                           48          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[255],mul>                         3          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[128],mul>                         3          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[64],mul>                          2          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[32],mul>                          1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[16],mul>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[8],mul>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[4],mul>                           2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[16],mul>                          3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[8],mul>                           3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[4],mul>                           3          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[2],mul>                           2          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[1],mul>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[0],mul>                          22          1          -    Covered                              na                 na                 na                 na 
-            bin <upper_half,mul>                            5          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,mul>                           35          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[0],mul>                          28          1          -    Covered                              na                 na                 na                 na 
+            bin <upper_half,mul>                            6          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,mul>                           44          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[255],sub>                         1          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[128],sub>                         1          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[64],sub>                          1          1          -    Covered                              na                 na                 na                 na 
@@ -310,102 +310,102 @@ Covergroup                                             Metric       Goal       B
             bin <data_bin[4],sub>                           1          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[2],sub>                           1          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[1],sub>                           1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[0],sub>                          30          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[0],sub>                          40          1          -    Covered                              na                 na                 na                 na 
             bin <upper_half,sub>                            2          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,sub>                           38          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[255],add>                         2          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,sub>                           48          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[255],add>                         3          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[128],add>                         2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[64],add>                          2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[64],add>                          3          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[32],add>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[16],add>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[8],add>                           2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[16],add>                          3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[8],add>                           3          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[4],add>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[2],add>                           3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[2],add>                           4          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[1],add>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[0],add>                          35          1          -    Covered                              na                 na                 na                 na 
-            bin <upper_half,add>                            4          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,add>                           50          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[0],add>                          40          1          -    Covered                              na                 na                 na                 na 
+            bin <upper_half,add>                            5          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,add>                           59          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[16],mod>                          0          1          1    ZERO                                 na                 na                 na                 na 
-    Cross cross_operand_c                              96.55%        100          -    Uncovered                         8.9KB               528B              1.2KB            2275 ns 
-        covered/total bins:                                56         58          -                                      na                 na                 na                 na 
-        missing/total bins:                                 2         58          -                                      na                 na                 na                 na 
-        % Hit:                                         96.55%        100          -                                      na                 na                 na                 na 
+    Cross cross_operand_c                             100.00%        100          -    Covered                           8.9KB               528B              1.2KB            2775 ns 
+        covered/total bins:                                58         58          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0         58          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
         option.weight=1
         option.goal=100
         option.comment=
         option.at_least=1
         option.cross_num_print_missing=0
         Auto, Default and User Defined Bins:
-            bin <data_bin[255],div>                         2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[255],sub>                         2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[255],mul>                         2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[255],add>                         2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[255],div>                         4          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[255],sub>                         4          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[255],mul>                         3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[255],add>                         4          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[128],mod>                         1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[128],sub>                         2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[128],mul>                         4          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[128],div>                         4          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[128],sub>                         5          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[128],mul>                         5          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[128],add>                         4          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[64],mod>                          4          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[16],mod>                          1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[32],mod>                          4          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[8],mod>                          12          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[64],mod>                          6          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[16],mod>                          2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[32],mod>                          6          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[8],mod>                           2          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[64],div>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[16],div>                          3          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[32],div>                          4          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[8],div>                           4          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[16],div>                          2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[32],div>                          6          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[8],div>                           6          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[64],sub>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[16],sub>                          2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[16],sub>                          4          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[32],sub>                          3          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[8],sub>                           3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[8],sub>                           4          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[64],mul>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[16],mul>                          2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[16],mul>                          4          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[32],mul>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[8],mul>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[64],add>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[16],add>                          2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[8],mul>                           4          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[64],add>                          4          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[16],add>                          4          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[32],add>                          3          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[8],add>                           1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[4],mod>                           4          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[2],mod>                           4          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[4],div>                           5          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[8],add>                           4          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[4],mod>                           6          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[2],mod>                           6          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[4],div>                           6          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[2],div>                           4          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[4],sub>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[4],mul>                           1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[2],sub>                           3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[4],mul>                           4          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[2],mul>                           4          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[4],add>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[2],add>                           4          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[1],mod>                           5          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[2],add>                           5          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[1],mod>                          15          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[1],div>                           3          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[1],sub>                           2          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[1],mul>                           2          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[1],add>                           4          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[0],mod>                          13          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,mod>                           49          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,mod>                           58          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[0],div>                          11          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[0],sub>                           3          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[0],mul>                          14          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[0],sub>                           2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[0],mul>                          15          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[0],add>                           8          1          -    Covered                              na                 na                 na                 na 
-            bin <upper_half,div>                            2          1          -    Covered                              na                 na                 na                 na 
-            bin <upper_half,sub>                           15          1          -    Covered                              na                 na                 na                 na 
-            bin <upper_half,mul>                           11          1          -    Covered                              na                 na                 na                 na 
-            bin <upper_half,add>                           10          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,div>                           38          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,sub>                           25          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,mul>                           29          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,add>                           44          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[128],div>                         0          1          1    ZERO                                 na                 na                 na                 na 
-            bin <data_bin[2],sub>                           0          1          1    ZERO                                 na                 na                 na                 na 
+            bin <upper_half,div>                            8          1          -    Covered                              na                 na                 na                 na 
+            bin <upper_half,sub>                           20          1          -    Covered                              na                 na                 na                 na 
+            bin <upper_half,mul>                           13          1          -    Covered                              na                 na                 na                 na 
+            bin <upper_half,add>                           12          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,div>                           42          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,sub>                           30          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,mul>                           37          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,add>                           52          1          -    Covered                              na                 na                 na                 na 
         Illegal and Ignore Bins:
-            ignore_bin impossible_mod_255                   2                     -    Occurred                             na                 na                 na                 na 
+            ignore_bin impossible_mod_255                   3                     -    Occurred                             na                 na                 na                 na 
 
 COVERGROUP COVERAGE:
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Covergroup                                             Metric       Goal       Bins    Status                Persistent Memory   Transient Memory     Peak Transient    PeakTransMemory 
                                                                                                                                                            Memory              Time  
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
- TYPE /simple_alu_tb/basic_fcov                        98.94%        100          -    Uncovered                        36.0KB              4.1KB             12.6KB               0 ns 
-    covered/total bins:                                   216        221          -                                  36.0KB              4.1KB             12.6KB               0 ns 
-    missing/total bins:                                     5        221          -                                  36.0KB              4.1KB             12.6KB               0 ns 
-    % Hit:                                             97.73%        100          -                                  36.0KB              4.1KB             12.6KB               0 ns 
+ TYPE /simple_alu_tb/basic_fcov                        99.58%        100          -    Uncovered                        36.0KB              4.1KB             12.6KB               0 ns 
+    covered/total bins:                                   219        221          -                                  36.0KB              4.1KB             12.6KB               0 ns 
+    missing/total bins:                                     2        221          -                                  36.0KB              4.1KB             12.6KB               0 ns 
+    % Hit:                                             99.09%        100          -                                  36.0KB              4.1KB             12.6KB               0 ns 
     type_option.weight=1
     type_option.goal=100
     type_option.comment=
@@ -425,53 +425,53 @@ Covergroup                                             Metric       Goal       B
         type_option.weight=1
         type_option.goal=100
         type_option.comment=
-    Coverpoint tb_operand_1                           100.00%        100          -    Covered                           2.3KB              3.0KB              4.5KB            2275 ns 
+    Coverpoint tb_operand_1                           100.00%        100          -    Covered                           2.3KB              3.0KB              4.5KB            2775 ns 
         covered/total bins:                                12         12          -                                      na                 na                 na                 na 
         missing/total bins:                                 0         12          -                                      na                 na                 na                 na 
         % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
         type_option.weight=1
         type_option.goal=100
         type_option.comment=
-    Coverpoint tb_operand_2                           100.00%        100          -    Covered                           2.3KB              3.0KB              4.5KB            2275 ns 
+    Coverpoint tb_operand_2                           100.00%        100          -    Covered                           2.3KB              3.0KB              4.5KB            2775 ns 
         covered/total bins:                                12         12          -                                      na                 na                 na                 na 
         missing/total bins:                                 0         12          -                                      na                 na                 na                 na 
         % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
         type_option.weight=1
         type_option.goal=100
         type_option.comment=
-    Coverpoint tb_operand_c                           100.00%        100          -    Covered                           2.4KB              3.1KB              4.6KB            2275 ns 
+    Coverpoint tb_operand_c                           100.00%        100          -    Covered                           2.4KB              3.1KB              4.6KB            2775 ns 
         covered/total bins:                                12         12          -                                      na                 na                 na                 na 
         missing/total bins:                                 0         12          -                                      na                 na                 na                 na 
         % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
         type_option.weight=1
         type_option.goal=100
         type_option.comment=
-    Cross cross_operand_1                              96.66%        100          -    Uncovered                         7.8KB               288B               960B            2275 ns 
-        covered/total bins:                                58         60          -                                      na                 na                 na                 na 
-        missing/total bins:                                 2         60          -                                      na                 na                 na                 na 
-        % Hit:                                         96.66%        100          -                                      na                 na                 na                 na 
-        type_option.weight=1
-        type_option.goal=100
-        type_option.comment=
-    Cross cross_operand_2                              98.33%        100          -    Uncovered                         7.8KB               288B               960B            2275 ns 
+    Cross cross_operand_1                              98.33%        100          -    Uncovered                         7.8KB               288B               960B            2775 ns 
         covered/total bins:                                59         60          -                                      na                 na                 na                 na 
         missing/total bins:                                 1         60          -                                      na                 na                 na                 na 
         % Hit:                                         98.33%        100          -                                      na                 na                 na                 na 
         type_option.weight=1
         type_option.goal=100
         type_option.comment=
-    Cross cross_operand_c                              96.55%        100          -    Uncovered                         8.9KB               528B              1.2KB            2275 ns 
-        covered/total bins:                                56         58          -                                      na                 na                 na                 na 
-        missing/total bins:                                 2         58          -                                      na                 na                 na                 na 
-        % Hit:                                         96.55%        100          -                                      na                 na                 na                 na 
+    Cross cross_operand_2                              98.33%        100          -    Uncovered                         7.8KB               288B               960B            2775 ns 
+        covered/total bins:                                59         60          -                                      na                 na                 na                 na 
+        missing/total bins:                                 1         60          -                                      na                 na                 na                 na 
+        % Hit:                                         98.33%        100          -                                      na                 na                 na                 na 
+        type_option.weight=1
+        type_option.goal=100
+        type_option.comment=
+    Cross cross_operand_c                             100.00%        100          -    Covered                           8.9KB               528B              1.2KB            2775 ns 
+        covered/total bins:                                58         58          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0         58          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
         type_option.weight=1
         type_option.goal=100
         type_option.comment=
  Covergroup instance \/simple_alu_tb/coverage_instance  
-                                                       98.94%        100          -    Uncovered                        36.0KB              4.1KB             12.6KB               0 ns 
-    covered/total bins:                                   216        221          -                                  36.0KB              4.1KB             12.6KB               0 ns 
-    missing/total bins:                                     5        221          -                                  36.0KB              4.1KB             12.6KB               0 ns 
-    % Hit:                                             97.73%        100          -                                  36.0KB              4.1KB             12.6KB               0 ns 
+                                                       99.58%        100          -    Uncovered                        36.0KB              4.1KB             12.6KB               0 ns 
+    covered/total bins:                                   219        221          -                                  36.0KB              4.1KB             12.6KB               0 ns 
+    missing/total bins:                                     2        221          -                                  36.0KB              4.1KB             12.6KB               0 ns 
+    % Hit:                                             99.09%        100          -                                  36.0KB              4.1KB             12.6KB               0 ns 
     option.name=\/simple_alu_tb/coverage_instance 
     option.weight=1
     option.goal=100
@@ -493,7 +493,7 @@ Covergroup                                             Metric       Goal       B
         option.auto_bin_max=64
         option.detect_overlap=0
         bin reset                                           5          1          -    Covered                              na                 na                 na                 na 
-        bin run                                           222          1          -    Covered                              na                 na                 na                 na 
+        bin run                                           272          1          -    Covered                              na                 na                 na                 na 
     Coverpoint tb_opcode_cp                           100.00%        100          -    Covered                            944B              1.2KB              1.2KB               0 ns 
         covered/total bins:                                 5          5          -                                      na                 na                 na                 na 
         missing/total bins:                                 0          5          -                                      na                 na                 na                 na 
@@ -504,12 +504,12 @@ Covergroup                                             Metric       Goal       B
         option.at_least=1
         option.auto_bin_max=64
         option.detect_overlap=0
-        bin add                                            54          1          -    Covered                              na                 na                 na                 na 
-        bin sub                                            40          1          -    Covered                              na                 na                 na                 na 
-        bin mul                                            40          1          -    Covered                              na                 na                 na                 na 
-        bin div                                            40          1          -    Covered                              na                 na                 na                 na 
-        bin mod                                            51          1          -    Covered                              na                 na                 na                 na 
-    Coverpoint tb_operand_1                           100.00%        100          -    Covered                           2.3KB              3.0KB              4.5KB            2275 ns 
+        bin add                                            64          1          -    Covered                              na                 na                 na                 na 
+        bin sub                                            50          1          -    Covered                              na                 na                 na                 na 
+        bin mul                                            50          1          -    Covered                              na                 na                 na                 na 
+        bin div                                            50          1          -    Covered                              na                 na                 na                 na 
+        bin mod                                            61          1          -    Covered                              na                 na                 na                 na 
+    Coverpoint tb_operand_1                           100.00%        100          -    Covered                           2.3KB              3.0KB              4.5KB            2775 ns 
         covered/total bins:                                12         12          -                                      na                 na                 na                 na 
         missing/total bins:                                 0         12          -                                      na                 na                 na                 na 
         % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
@@ -519,19 +519,41 @@ Covergroup                                             Metric       Goal       B
         option.at_least=1
         option.auto_bin_max=64
         option.detect_overlap=0
-        bin lower_half                                    211          1          -    Covered                              na                 na                 na                 na 
-        bin upper_half                                     16          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[0]                                   145          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[1]                                    19          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[2]                                     7          1          -    Covered                              na                 na                 na                 na 
+        bin lower_half                                    255          1          -    Covered                              na                 na                 na                 na 
+        bin upper_half                                     22          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[0]                                   174          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[1]                                    25          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[2]                                     9          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[4]                                    10          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[8]                                     9          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[16]                                    9          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[32]                                   10          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[64]                                    9          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[128]                                  12          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[255]                                  10          1          -    Covered                              na                 na                 na                 na 
+    Coverpoint tb_operand_2                           100.00%        100          -    Covered                           2.3KB              3.0KB              4.5KB            2775 ns 
+        covered/total bins:                                12         12          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0         12          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.auto_bin_max=64
+        option.detect_overlap=0
+        bin lower_half                                    245          1          -    Covered                              na                 na                 na                 na 
+        bin upper_half                                     32          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[0]                                   171          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[1]                                    22          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[2]                                    10          1          -    Covered                              na                 na                 na                 na 
         bin data_bin[4]                                     8          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[8]                                     8          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[16]                                    8          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[8]                                     9          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[16]                                    9          1          -    Covered                              na                 na                 na                 na 
         bin data_bin[32]                                    8          1          -    Covered                              na                 na                 na                 na 
         bin data_bin[64]                                    8          1          -    Covered                              na                 na                 na                 na 
         bin data_bin[128]                                   8          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[255]                                   8          1          -    Covered                              na                 na                 na                 na 
-    Coverpoint tb_operand_2                           100.00%        100          -    Covered                           2.3KB              3.0KB              4.5KB            2275 ns 
+        bin data_bin[255]                                  24          1          -    Covered                              na                 na                 na                 na 
+    Coverpoint tb_operand_c                           100.00%        100          -    Covered                           2.4KB              3.1KB              4.6KB            2775 ns 
         covered/total bins:                                12         12          -                                      na                 na                 na                 na 
         missing/total bins:                                 0         12          -                                      na                 na                 na                 na 
         % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
@@ -541,111 +563,19 @@ Covergroup                                             Metric       Goal       B
         option.at_least=1
         option.auto_bin_max=64
         option.detect_overlap=0
-        bin lower_half                                    202          1          -    Covered                              na                 na                 na                 na 
-        bin upper_half                                     25          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[0]                                   140          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[1]                                    17          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[2]                                     9          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[4]                                     7          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[8]                                     7          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[16]                                    7          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[32]                                    8          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[64]                                    7          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[128]                                   8          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[255]                                  17          1          -    Covered                              na                 na                 na                 na 
-    Coverpoint tb_operand_c                           100.00%        100          -    Covered                           2.4KB              3.1KB              4.6KB            2275 ns 
-        covered/total bins:                                12         12          -                                      na                 na                 na                 na 
-        missing/total bins:                                 0         12          -                                      na                 na                 na                 na 
-        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
-        option.weight=1
-        option.goal=100
-        option.comment=
-        option.at_least=1
-        option.auto_bin_max=64
-        option.detect_overlap=0
-        bin lower_half                                    187          1          -    Covered                              na                 na                 na                 na 
-        bin upper_half                                     40          1          -    Covered                              na                 na                 na                 na 
+        bin lower_half                                    221          1          -    Covered                              na                 na                 na                 na 
+        bin upper_half                                     56          1          -    Covered                              na                 na                 na                 na 
         bin data_bin[0]                                    51          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[1]                                    16          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[2]                                    16          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[4]                                    14          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[8]                                    22          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[16]                                   10          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[32]                                   16          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[64]                                   12          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[128]                                  12          1          -    Covered                              na                 na                 na                 na 
-        bin data_bin[255]                                   8          1          -    Covered                              na                 na                 na                 na 
-    Cross cross_operand_1                              96.66%        100          -    Uncovered                         7.8KB               288B               960B            2275 ns 
-        covered/total bins:                                58         60          -                                      na                 na                 na                 na 
-        missing/total bins:                                 2         60          -                                      na                 na                 na                 na 
-        % Hit:                                         96.66%        100          -                                      na                 na                 na                 na 
-        option.weight=1
-        option.goal=100
-        option.comment=
-        option.at_least=1
-        option.cross_num_print_missing=0
-        Auto, Default and User Defined Bins:
-            bin <data_bin[255],mod>                         2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[128],mod>                         3          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[64],mod>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[32],mod>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[8],mod>                           3          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[4],mod>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[2],mod>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[1],mod>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[0],mod>                          33          1          -    Covered                              na                 na                 na                 na 
-            bin <upper_half,mod>                            5          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,mod>                           46          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[255],div>                         2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[128],div>                         1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[64],div>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[32],div>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[16],div>                          4          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[8],div>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[4],div>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[2],div>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[1],div>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[0],div>                          21          1          -    Covered                              na                 na                 na                 na 
-            bin <upper_half,div>                            3          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,div>                           37          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[255],mul>                         1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[128],mul>                         1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[64],mul>                          1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[32],mul>                          1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[16],mul>                          1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[8],mul>                           1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[4],mul>                           1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[2],mul>                           1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[1],mul>                          10          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[0],mul>                          22          1          -    Covered                              na                 na                 na                 na 
-            bin <upper_half,mul>                            2          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,mul>                           38          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[255],sub>                         2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[128],sub>                         2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[64],sub>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[32],sub>                          1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[16],sub>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[8],sub>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[4],sub>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[2],sub>                           1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[1],sub>                           3          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[0],sub>                          23          1          -    Covered                              na                 na                 na                 na 
-            bin <upper_half,sub>                            4          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,sub>                           36          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[255],add>                         1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[128],add>                         1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[64],add>                          1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[32],add>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[16],add>                          1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[4],add>                           1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[2],add>                           1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[1],add>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[0],add>                          44          1          -    Covered                              na                 na                 na                 na 
-            bin <upper_half,add>                            2          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,add>                           52          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[16],mod>                          0          1          1    ZERO                                 na                 na                 na                 na 
-            bin <data_bin[8],add>                           0          1          1    ZERO                                 na                 na                 na                 na 
-    Cross cross_operand_2                              98.33%        100          -    Uncovered                         7.8KB               288B               960B            2275 ns 
+        bin data_bin[1]                                    26          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[2]                                    22          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[4]                                    20          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[8]                                    20          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[16]                                   16          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[32]                                   20          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[64]                                   16          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[128]                                  20          1          -    Covered                              na                 na                 na                 na 
+        bin data_bin[255]                                  16          1          -    Covered                              na                 na                 na                 na 
+    Cross cross_operand_1                              98.33%        100          -    Uncovered                         7.8KB               288B               960B            2775 ns 
         covered/total bins:                                59         60          -                                      na                 na                 na                 na 
         missing/total bins:                                 1         60          -                                      na                 na                 na                 na 
         % Hit:                                         98.33%        100          -                                      na                 na                 na                 na 
@@ -655,7 +585,77 @@ Covergroup                                             Metric       Goal       B
         option.at_least=1
         option.cross_num_print_missing=0
         Auto, Default and User Defined Bins:
-            bin <data_bin[255],mod>                        11          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[255],mod>                         2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[128],mod>                         3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[64],mod>                          3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[32],mod>                          3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[16],mod>                          1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[8],mod>                           2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[4],mod>                           3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[2],mod>                           3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[1],mod>                           3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[0],mod>                          38          1          -    Covered                              na                 na                 na                 na 
+            bin <upper_half,mod>                            5          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,mod>                           56          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[255],div>                         3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[128],div>                         3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[64],div>                          2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[32],div>                          3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[16],div>                          3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[8],div>                           3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[4],div>                           3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[2],div>                           2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[1],div>                           2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[0],div>                          26          1          -    Covered                              na                 na                 na                 na 
+            bin <upper_half,div>                            6          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,div>                           44          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[255],mul>                         1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[128],mul>                         1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[64],mul>                          1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[32],mul>                          1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[16],mul>                          1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[8],mul>                           1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[4],mul>                           1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[2],mul>                           1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[1],mul>                          15          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[0],mul>                          27          1          -    Covered                              na                 na                 na                 na 
+            bin <upper_half,mul>                            2          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,mul>                           48          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[255],sub>                         3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[128],sub>                         4          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[64],sub>                          2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[32],sub>                          1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[16],sub>                          3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[8],sub>                           3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[4],sub>                           2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[2],sub>                           2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[1],sub>                           3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[0],sub>                          27          1          -    Covered                              na                 na                 na                 na 
+            bin <upper_half,sub>                            7          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,sub>                           43          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[255],add>                         1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[128],add>                         1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[64],add>                          1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[32],add>                          2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[16],add>                          1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[4],add>                           1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[2],add>                           1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[1],add>                           2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[0],add>                          54          1          -    Covered                              na                 na                 na                 na 
+            bin <upper_half,add>                            2          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,add>                           62          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[8],add>                           0          1          1    ZERO                                 na                 na                 na                 na 
+    Cross cross_operand_2                              98.33%        100          -    Uncovered                         7.8KB               288B               960B            2775 ns 
+        covered/total bins:                                59         60          -                                      na                 na                 na                 na 
+        missing/total bins:                                 1         60          -                                      na                 na                 na                 na 
+        % Hit:                                         98.33%        100          -                                      na                 na                 na                 na 
+        option.weight=1
+        option.goal=100
+        option.comment=
+        option.at_least=1
+        option.cross_num_print_missing=0
+        Auto, Default and User Defined Bins:
+            bin <data_bin[255],mod>                        16          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[128],mod>                         1          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[64],mod>                          1          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[32],mod>                          2          1          -    Covered                              na                 na                 na                 na 
@@ -663,9 +663,9 @@ Covergroup                                             Metric       Goal       B
             bin <data_bin[4],mod>                           1          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[2],mod>                           2          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[1],mod>                           1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[0],mod>                          31          1          -    Covered                              na                 na                 na                 na 
-            bin <upper_half,mod>                           12          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,mod>                           39          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[0],mod>                          36          1          -    Covered                              na                 na                 na                 na 
+            bin <upper_half,mod>                           17          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,mod>                           44          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[255],div>                         1          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[128],div>                         1          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[64],div>                          1          1          -    Covered                              na                 na                 na                 na 
@@ -674,22 +674,22 @@ Covergroup                                             Metric       Goal       B
             bin <data_bin[8],div>                           1          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[4],div>                           1          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[2],div>                           1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[1],div>                          11          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[0],div>                          20          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[1],div>                          16          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[0],div>                          25          1          -    Covered                              na                 na                 na                 na 
             bin <upper_half,div>                            2          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,div>                           38          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[255],mul>                         2          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,div>                           48          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[255],mul>                         3          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[128],mul>                         3          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[64],mul>                          2          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[32],mul>                          1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[16],mul>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[8],mul>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[4],mul>                           2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[16],mul>                          3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[8],mul>                           3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[4],mul>                           3          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[2],mul>                           2          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[1],mul>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[0],mul>                          22          1          -    Covered                              na                 na                 na                 na 
-            bin <upper_half,mul>                            5          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,mul>                           35          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[0],mul>                          28          1          -    Covered                              na                 na                 na                 na 
+            bin <upper_half,mul>                            6          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,mul>                           44          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[255],sub>                         1          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[128],sub>                         1          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[64],sub>                          1          1          -    Covered                              na                 na                 na                 na 
@@ -699,99 +699,99 @@ Covergroup                                             Metric       Goal       B
             bin <data_bin[4],sub>                           1          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[2],sub>                           1          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[1],sub>                           1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[0],sub>                          30          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[0],sub>                          40          1          -    Covered                              na                 na                 na                 na 
             bin <upper_half,sub>                            2          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,sub>                           38          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[255],add>                         2          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,sub>                           48          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[255],add>                         3          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[128],add>                         2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[64],add>                          2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[64],add>                          3          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[32],add>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[16],add>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[8],add>                           2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[16],add>                          3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[8],add>                           3          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[4],add>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[2],add>                           3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[2],add>                           4          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[1],add>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[0],add>                          35          1          -    Covered                              na                 na                 na                 na 
-            bin <upper_half,add>                            4          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,add>                           50          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[0],add>                          40          1          -    Covered                              na                 na                 na                 na 
+            bin <upper_half,add>                            5          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,add>                           59          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[16],mod>                          0          1          1    ZERO                                 na                 na                 na                 na 
-    Cross cross_operand_c                              96.55%        100          -    Uncovered                         8.9KB               528B              1.2KB            2275 ns 
-        covered/total bins:                                56         58          -                                      na                 na                 na                 na 
-        missing/total bins:                                 2         58          -                                      na                 na                 na                 na 
-        % Hit:                                         96.55%        100          -                                      na                 na                 na                 na 
+    Cross cross_operand_c                             100.00%        100          -    Covered                           8.9KB               528B              1.2KB            2775 ns 
+        covered/total bins:                                58         58          -                                      na                 na                 na                 na 
+        missing/total bins:                                 0         58          -                                      na                 na                 na                 na 
+        % Hit:                                        100.00%        100          -                                      na                 na                 na                 na 
         option.weight=1
         option.goal=100
         option.comment=
         option.at_least=1
         option.cross_num_print_missing=0
         Auto, Default and User Defined Bins:
-            bin <data_bin[255],div>                         2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[255],sub>                         2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[255],mul>                         2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[255],add>                         2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[255],div>                         4          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[255],sub>                         4          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[255],mul>                         3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[255],add>                         4          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[128],mod>                         1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[128],sub>                         2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[128],mul>                         4          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[128],div>                         4          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[128],sub>                         5          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[128],mul>                         5          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[128],add>                         4          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[64],mod>                          4          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[16],mod>                          1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[32],mod>                          4          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[8],mod>                          12          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[64],mod>                          6          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[16],mod>                          2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[32],mod>                          6          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[8],mod>                           2          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[64],div>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[16],div>                          3          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[32],div>                          4          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[8],div>                           4          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[16],div>                          2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[32],div>                          6          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[8],div>                           6          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[64],sub>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[16],sub>                          2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[16],sub>                          4          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[32],sub>                          3          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[8],sub>                           3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[8],sub>                           4          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[64],mul>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[16],mul>                          2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[16],mul>                          4          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[32],mul>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[8],mul>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[64],add>                          2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[16],add>                          2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[8],mul>                           4          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[64],add>                          4          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[16],add>                          4          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[32],add>                          3          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[8],add>                           1          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[4],mod>                           4          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[2],mod>                           4          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[4],div>                           5          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[8],add>                           4          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[4],mod>                           6          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[2],mod>                           6          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[4],div>                           6          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[2],div>                           4          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[4],sub>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[4],mul>                           1          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[2],sub>                           3          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[4],mul>                           4          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[2],mul>                           4          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[4],add>                           2          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[2],add>                           4          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[1],mod>                           5          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[2],add>                           5          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[1],mod>                          15          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[1],div>                           3          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[1],sub>                           2          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[1],mul>                           2          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[1],add>                           4          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[0],mod>                          13          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,mod>                           49          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,mod>                           58          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[0],div>                          11          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[0],sub>                           3          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[0],mul>                          14          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[0],sub>                           2          1          -    Covered                              na                 na                 na                 na 
+            bin <data_bin[0],mul>                          15          1          -    Covered                              na                 na                 na                 na 
             bin <data_bin[0],add>                           8          1          -    Covered                              na                 na                 na                 na 
-            bin <upper_half,div>                            2          1          -    Covered                              na                 na                 na                 na 
-            bin <upper_half,sub>                           15          1          -    Covered                              na                 na                 na                 na 
-            bin <upper_half,mul>                           11          1          -    Covered                              na                 na                 na                 na 
-            bin <upper_half,add>                           10          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,div>                           38          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,sub>                           25          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,mul>                           29          1          -    Covered                              na                 na                 na                 na 
-            bin <lower_half,add>                           44          1          -    Covered                              na                 na                 na                 na 
-            bin <data_bin[128],div>                         0          1          1    ZERO                                 na                 na                 na                 na 
-            bin <data_bin[2],sub>                           0          1          1    ZERO                                 na                 na                 na                 na 
+            bin <upper_half,div>                            8          1          -    Covered                              na                 na                 na                 na 
+            bin <upper_half,sub>                           20          1          -    Covered                              na                 na                 na                 na 
+            bin <upper_half,mul>                           13          1          -    Covered                              na                 na                 na                 na 
+            bin <upper_half,add>                           12          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,div>                           42          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,sub>                           30          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,mul>                           37          1          -    Covered                              na                 na                 na                 na 
+            bin <lower_half,add>                           52          1          -    Covered                              na                 na                 na                 na 
         Illegal and Ignore Bins:
-            ignore_bin impossible_mod_255                   2                     -    Occurred                             na                 na                 na                 na 
+            ignore_bin impossible_mod_255                   3                     -    Occurred                             na                 na                 na                 na 
 
-TOTAL COVERGROUP COVERAGE: 98.94%  COVERGROUP TYPES: 1
-Total Coverage By Instance (filtered view): 98.94%
+TOTAL COVERGROUP COVERAGE: 99.58%  COVERGROUP TYPES: 1
+Total Coverage By Instance (filtered view): 99.58%
 
 
-COVERGROUP MEMORY USAGE: Total 90.5KB, Peak 92.1KB at time 2275 ns for total 8 coverpoints/crosses.
+COVERGROUP MEMORY USAGE: Total 90.5KB, Peak 92.1KB at time 2775 ns for total 8 coverpoints/crosses.
 ASSERT/COVER MEMORY USAGE: Total 0B Peak 0B at time 0 ns for total 0 threads.
-CONSTRAINT SOLVER MEMORY USAGE: Total 1.2MB,Peak 1.2MB at time 955 ns for total 101 randomize() calls.
-CLASS OBJECTS MEMORY USAGE: Total Memory 35.8KB and Peak Memory 35.9KB used at time 15 ns for total 1 class objects.
-DYNAMIC OBJECTS MEMORY USAGE: Total Memory 112B and Peak Memory 112B used at time 155 ns for total 3 dynamic objects.
+CONSTRAINT SOLVER MEMORY USAGE: Total 1.2MB,Peak 1.2MB at time 955 ns for total 126 randomize() calls.
+CLASS OBJECTS MEMORY USAGE: Total Memory 34.8KB and Peak Memory 34.8KB used at time 15 ns for total 1 class objects.
+DYNAMIC OBJECTS MEMORY USAGE: Total Memory 112B and Peak Memory 112B used at time 775 ns for total 3 dynamic objects.

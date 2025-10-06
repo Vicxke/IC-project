@@ -274,25 +274,23 @@ module simple_alu_tb;
             
             repeat(10)
                 do_math(0, 0, op,1,1,0);
-
-            
-
+                
         end
 
         
-        repeat(10) // -------------------------- 10 times because of 10 different special values
+        repeat(15) // -------------------------- 10 times because of 10 different special values
             do_math(0, random, ADD,0,1,0); // --------------------- so the result hits all the special values
 
-        repeat(10) // -------------------------- 10 times because of 10 different special values
+        repeat(15) // -------------------------- 10 times because of 10 different special values
             do_math(random, 0, SUB,1,0,0);
 
-        repeat(10) // -------------------------- 10 times because of 10 different special values
+        repeat(15) // -------------------------- 10 times because of 10 different special values
             do_math(1, random, MUL,0,1,0);
         
-        repeat(10) // -------------------------- 10 times because of 10 different special values
+        repeat(15) // -------------------------- 10 times because of 10 different special values
             do_math(random, 1, DIV,1,0,0);
 
-        repeat(10) // -------------------------- 10 times because of 10 different special values
+        repeat(15) // -------------------------- 10 times because of 10 different special values
             do_math(random, 255, MOD,1,0,0);
 
         reset(.delay(10), .length(2));
