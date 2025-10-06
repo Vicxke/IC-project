@@ -109,6 +109,7 @@ Z3 o-quiet -auto_acc_if_foreign -work work +acc
 Z4 tCvgOpt 0
 n@_opt
 Z5 OL;O;2022.1;75
+R1
 T_opt1
 !s110 1759246680
 Vl3A?cmLeff0MTbRK13RY:1
@@ -136,20 +137,20 @@ R1
 vlab_01
 Z6 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
 Z7 !s110 1759735198
+Z8 VDg1SIo80bB@j0V0VzS_@n1
+r1
+!s85 0
 !i10b 1
 !s100 :H7lZd<dYVoViLNFF?U9@3
 Ika6ZG0z9]kW=Ed747L1Fb2
 S1
-Z8 dH:/Documents/GitHub/IC-project/Lab 1
-Z9 w1759303304
+Z9 dH:/Documents/GitHub/IC-project/Lab 1
+Z10 w1759303304
 8H:/Documents/GitHub/IC-project/Lab 1/files/lab_01.sv
 FH:/Documents/GitHub/IC-project/Lab 1/files/lab_01.sv
 !i122 119
 L0 1 165
-Z10 VDg1SIo80bB@j0V0VzS_@n1
 Z11 OL;L;2022.1;75
-r1
-!s85 0
 31
 Z12 !s108 1759735198.000000
 !s107 H:/Documents/GitHub/IC-project/Lab 1/files/lab_01.sv|
@@ -160,20 +161,20 @@ R4
 vlab_02
 R6
 R7
+R8
+r1
+!s85 0
 !i10b 1
 !s100 cHOzN9Y7nUbdMb4n[P@iR0
 IO2P_Z4M`I9Y8lU]BRgFk<1
 S1
-R8
 R9
+R10
 8H:/Documents/GitHub/IC-project/Lab 1/files/lab_02.sv
 FH:/Documents/GitHub/IC-project/Lab 1/files/lab_02.sv
 !i122 120
 L0 1 239
-R10
 R11
-r1
-!s85 0
 31
 R12
 !s107 H:/Documents/GitHub/IC-project/Lab 1/files/lab_02.sv|
@@ -184,20 +185,20 @@ R4
 vlab_03
 R6
 Z14 !s110 1759735199
+R8
+r1
+!s85 0
 !i10b 1
 !s100 5X8im3IX^mkS3e<f=BISO2
 I3L8K4GC;BoQhTnT_gSk]22
 S1
-R8
 R9
+R10
 8H:/Documents/GitHub/IC-project/Lab 1/files/lab_03.sv
 FH:/Documents/GitHub/IC-project/Lab 1/files/lab_03.sv
 !i122 121
 Z15 L0 1 192
-R10
 R11
-r1
-!s85 0
 31
 Z16 !s108 1759735199.000000
 !s107 H:/Documents/GitHub/IC-project/Lab 1/files/lab_03.sv|
@@ -208,20 +209,20 @@ R4
 vlab_04
 R6
 R14
+R8
+r1
+!s85 0
 !i10b 1
 !s100 kn`on3HHHG`D40YIN[S7Y3
 IlRZ6kaX`;G8F6]83m1_D^3
 S1
-R8
 R9
+R10
 8H:/Documents/GitHub/IC-project/Lab 1/files/lab_04.sv
 FH:/Documents/GitHub/IC-project/Lab 1/files/lab_04.sv
 !i122 122
 R15
-R10
 R11
-r1
-!s85 0
 31
 R16
 !s107 H:/Documents/GitHub/IC-project/Lab 1/files/lab_04.sv|
@@ -232,20 +233,20 @@ R4
 vlab_05
 R6
 !s110 1759735200
+R8
+r1
+!s85 0
 !i10b 1
 !s100 m>0oA;g>U:9>>QmYbI1Q:2
 I5`IMe8M=Ja>?V^aUk3LL<2
 S1
-R8
 R9
+R10
 8H:/Documents/GitHub/IC-project/Lab 1/files/lab_05.sv
 FH:/Documents/GitHub/IC-project/Lab 1/files/lab_05.sv
 !i122 123
 L0 1 115
-R10
 R11
-r1
-!s85 0
 31
 R16
 !s107 H:/Documents/GitHub/IC-project/Lab 1/files/lab_05.sv|
