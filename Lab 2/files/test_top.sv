@@ -231,13 +231,17 @@ module simple_alu_tb;
         do_math(1, 2, ADD,0,0,0); // ------------------------- We kept the original values here for reference
         reset(.delay(10), .length(2));
 
+        //restricting the randomization is not the best way to go since you are basicly restricting to much
+        //better just randomize all values and check all of them. And the bit flip idea was a good idea to use
+        //but the bitflip is done automatically somethimes by the program.
+
+        //this should be done with arandomzie function only just do it 50 times
+        // this would also make the do_math function easyier
         for (opcode op = ADD; op <= MOD; op = opcode'(op + 1)) begin // ---------------- loop through all opcodes
             
             repeat(10)
                 do_math(0, 0, op,1,1,0);
-
-            
-
+                
         end
 
         

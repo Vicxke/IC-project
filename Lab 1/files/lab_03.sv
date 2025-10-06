@@ -97,13 +97,13 @@ module lab_03;
             #10 $display("Main - thread @ line %0d @ time %0t", `__LINE__, $time);
             #20 $display("Main - thread @ line %0d @ time %0t", `__LINE__, $time);
             //870
-            fork
+            fork //create multiple threads
                 #60 $display("Fork - thread 1 @ line %0d @ time %0t", `__LINE__, $time);
                 #10 $display("Fork - thread 2 @ line %0d @ time %0t", `__LINE__, $time);
             join_any //if one is finished, continue - other thread runs in background
         
             fork
-                begin
+                begin //this means that its a single thread
                     //880
                     #10 $display("Fork2 - thread 3 @ line %0d @ time %0t", `__LINE__, $time);
                     #20 $display("Fork2 - thread 3 @ line %0d @ time %0t", `__LINE__, $time);
