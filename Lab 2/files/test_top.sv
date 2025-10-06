@@ -50,6 +50,7 @@ module simple_alu_tb;
         tb_operand_1 = 0;
         tb_operand_2 = 0;
         tb_max_count = 0;
+        random = 0; // ------------------- random value -> gets randomised
         
 
     end
@@ -126,17 +127,29 @@ module simple_alu_tb;
 
     task automatic do_math(int a,int b,opcode code, bit randomise_a, bit randomise_b, bit randomise_op);
 
+        //$display("%0t do_math:   Opcode:%0s     First number=%0d Second Value=%0d",$time(),code.name(), a, b);
 
+        if (randomise_op == 0) // ------------------- If we don't want to randomise the opcode, we set it to the given value so the right contraints are hit
+            if(randy.randomize() with {
+                operand_1 inside {0,1,2,4,8,16,32,64,128,255};
+                operand_2 inside {0,1,2,4,8,16,32,64,128,255};
+                op inside {code};
+            }) // -------------------- fixed constraint syntax
+                $display("Randomization done! :D");
+            else 
+            $error("Failed to randomize :(");
+        else // ------------------- If we want to randomise the opcode, we let it be random
+            if (randy.randomize() with {
+                operand_1 inside {0,1,2,4,8,16,32,64,128,255};
+                operand_2 inside {0,1,2,4,8,16,32,64,128,255};
+                op inside {ADD, SUB, MUL, DIV, MOD};
+            }) // -------------------- fixed constraint syntax
+                $display("Randomization done! :D");
+            else
+                $error("Failed to randomize :(");
 
-        if(randy.randomize() with {
-            operand_1 inside {0,1,2,4,8,16,32,64,128,255};
-            operand_2 inside {0,1,2,4,8,16,32,64,128,255};
-            op inside {ADD, SUB, MUL, DIV, MOD};
-        }) // -------------------- fixed constraint syntax
-            $display("Randomization done! :D");
-        else 
-           $error("Failed to randomize :(");
-
+        // ------------------- Set values based on whether we want to randomise them or not
+        
         if (!randomise_a)
             randy.operand_1 = a;
         if (!randomise_b)
@@ -146,14 +159,40 @@ module simple_alu_tb;
 
         
         
-        $display("%0t do_math:   Opcode:%0s     First number=%0d Second Value=%0d",$time(),code.name(), a, b);
         $display("%0t do_math:   Random Opcode:%0s First number=%0d Second Value=%0d",$time(),randy.op.name(), randy.operand_1, randy.operand_2);
 
+        // -------------------- Added checks for edge cases based on opcode
         if (randy.op == ADD)
             if (randy.operand_1 + randy.operand_2 > 8'hFF)
                 $display("Test Result ADD = %0d", randy.operand_1 + randy.operand_2);
             else
                 $display("Test Result ADD fine");
+
+        if (randy.op == SUB)
+            if (randy.operand_1 - randy.operand_2 < 0)
+                $display("Test Result SUB negative = %0d", randy.operand_1 - randy.operand_2);
+            else
+                $display("Test Result SUB fine");
+
+        if (randy.op == MUL)
+            if (randy.operand_1 * randy.operand_2 > 8'hFF)
+                $display("Test Result MUL = %0d", randy.operand_1 * randy.operand_2);
+            else
+                $display("Test Result MUL fine");
+
+        if (randy.op == DIV)
+            if (randy.operand_2 == 0)
+                $display("Test Result DIV by zero");
+            else
+                $display("Test Result DIV fine");
+
+        if (randy.op == MOD)
+            if (randy.operand_2 == 0)
+                $display("Test Result MOD by zero");
+            else
+                $display("Test Result MOD fine");
+
+        // -------------------- End of added checks for edge cases based on opcode
 
         @(posedge tb_clock);
         tb_start_bit <= 1;

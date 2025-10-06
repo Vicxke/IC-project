@@ -31,6 +31,11 @@ R0
 R0
 R0
 R0
+R0
+R0
+R0
+R0
+R0
 !s11e vcom 2022.1 2022.01, Jan 29 2022
 !s11f vlog 2022.1 2022.01, Jan 29 2022
 13
@@ -41,10 +46,10 @@ R0
 cModel Technology
 Z1 dC:/Program Files/questasim64_2022.1/win64
 T_opt
-!s110 1759322586
-VY<KFk:iPYmUOADfW1BBn@3
+!s110 1759324146
+VN3=TWS4LVU@bReYOjgc_Q1
 Z2 04 13 4 work simple_alu_tb fast 0
-=32-6c2b59f005c4-68dd21d9-a3-2b14
+=41-6c2b59f005c4-68dd27f1-227-2b14
 R0
 Z3 !s124 OEM100
 o-quiet -auto_acc_if_foreign -work work +acc
@@ -119,25 +124,25 @@ R4
 vsimple_alu_tb
 R6
 R7
-DXx4 work 16 test_top_sv_unit 0 22 P<5NMV0Q9QgA0eQE]YK@F3
-Z20 !s110 1759322581
+DXx4 work 16 test_top_sv_unit 0 22 gSH^n=SSUTz<MnJd_6jS32
+Z20 !s110 1759324086
 R9
 r1
 !s85 0
 !i10b 1
-!s100 R5EhzfQjhPc4dJaCG2DnC3
-I1iclzkOZb`Eb7AlzEj:UP0
+!s100 4<I7C7mIKab3oSRLmNTWn0
+IoaFBK?:8cm:@a>ao?PhL52
 !s105 test_top_sv_unit
 S1
 R10
-Z21 w1759322563
+Z21 w1759324083
 Z22 8//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/test_top.sv
 Z23 F//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/test_top.sv
-!i122 37
-L0 24 272
+!i122 42
+L0 24 311
 R14
 31
-Z24 !s108 1759322580.000000
+Z24 !s108 1759324086.000000
 Z25 !s107 //stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/test_top.sv|
 Z26 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/test_top.sv|
 !i113 0
@@ -171,19 +176,19 @@ Xtest_top_sv_unit
 R6
 R7
 R20
-VP<5NMV0Q9QgA0eQE]YK@F3
+VgSH^n=SSUTz<MnJd_6jS32
 r1
 !s85 0
 !i10b 1
-!s100 ?UF>][EIU[aWbnJi1AZMT1
-IP<5NMV0Q9QgA0eQE]YK@F3
+!s100 4FLhX2eRGofcGJQ@7Pl0m2
+IgSH^n=SSUTz<MnJd_6jS32
 !i103 1
 S1
 R10
 R21
 R22
 R23
-!i122 37
+!i122 42
 R19
 R14
 31
