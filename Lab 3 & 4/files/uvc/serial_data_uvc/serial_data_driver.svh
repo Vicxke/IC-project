@@ -55,6 +55,9 @@ class serial_data_driver extends uvm_driver #(serial_data_seq_item);
         forever begin
             // Wait for sequence item
             seq_item_port.get(seq_item);
+
+            //seq_item.serial_data = 8'b01010111; // for testing purpose only
+
             `uvm_info(get_name(),$sformatf("Start serial interface transaction. Delay start bit=%0d  Start bit length=%0d  Serial data=%08b", seq_item.start_bit_delay, seq_item.start_bit_length, seq_item.serial_data),UVM_HIGH)
             
             @(posedge m_config.m_vif.clk); // wait for clock edge before starting transmission after reset signal is 1
@@ -69,6 +72,21 @@ class serial_data_driver extends uvm_driver #(serial_data_seq_item);
                         `uvm_info(get_name(),$sformatf("Serial data Test=%0d",  m_config.m_vif.serial_data),UVM_HIGH);
 
                     end
+
+                    // Task 2.3
+                    if (m_config.parity_enable) begin 
+                          m_config.m_vif.serial_data <= $countones(seq_item.serial_data) % 2;
+                          `uvm_info(get_name(),$sformatf("Number of ones=%0d",  $countones(seq_item.serial_data)),UVM_HIGH);
+
+                            if (seq_item.parity_error) begin
+                                m_config.m_vif.serial_data <= ~m_config.m_vif.serial_data; // invert parity bit to introduce error
+                                `uvm_info(get_name(),$sformatf("Introduce parity error!"),UVM_HIGH);
+                            end
+
+                          @(posedge m_config.m_vif.clk);
+                          `uvm_info(get_name(),$sformatf("Parity bit=%0d",  m_config.m_vif.serial_data),UVM_HIGH);
+                    end
+                    
                 end
 
                 begin
@@ -84,8 +102,9 @@ class serial_data_driver extends uvm_driver #(serial_data_seq_item);
                     m_config.m_vif.start_bit <= 0;
 
                 end
-            join
+            join 
             
+
 
             m_config.m_vif.serial_data <= 0; // reset serial data after sending all bits
 

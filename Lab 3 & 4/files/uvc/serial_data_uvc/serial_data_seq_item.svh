@@ -25,7 +25,7 @@ class serial_data_seq_item extends uvm_sequence_item;
     rand bit [7:0] serial_data;
     // Generate parity error if parity is enabled
     //TASK 2.4: Introduce a random bit for parity_error.
-    
+    rand bit parity_error;
     // Monitor start bit value
     bit monitor_start_bit_value;
     // Monitor start bit value valid
