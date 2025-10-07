@@ -53,13 +53,26 @@ class serial_data_driver extends uvm_driver #(serial_data_seq_item);
             // Wait for sequence item
             seq_item_port.get(seq_item);
             `uvm_info(get_name(),$sformatf("Start serial interface transaction. Delay start bit=%0d  Start bit length=%0d  Serial data=%08b", seq_item.start_bit_delay, seq_item.start_bit_length, seq_item.serial_data),UVM_HIGH)
-                    
-                    
+            
+            @(posedge m_config.m_vif.clk); // wait for clock edge before starting transmission after reset signal is 1
 
-// Perform the requested action and send response back.
+            for (int i = 0; i <= seq_item.start_bit_delay; i++) begin // seq_item.start_bit_delay = 7
+                
+                if(i == 0) begin
+                    m_config.m_vif.start_bit <= 1;
+                end else if (i == 1) begin
+                    m_config.m_vif.start_bit <= 0;
+                end
+                m_config.m_vif.serial_data <= seq_item.serial_data[i];
+                
+                @(posedge m_config.m_vif.clk);
+                `uvm_info(get_name(),$sformatf("Serial data Test=%0d",  m_config.m_vif.serial_data),UVM_HIGH);
 
- 
-            seq_item_port.put(seq_item);
+            end
+
+            m_config.m_vif.serial_data <= 0; // reset serial data after sending all bits
+
+            seq_item_port.put(seq_item); // send response back.
         end
     endtask : run_phase
 endclass : serial_data_driver

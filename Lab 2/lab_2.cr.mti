@@ -1,11 +1,9 @@
-{//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/test_top.sv} {1 {vlog -work work -vopt -sv -stats=none {//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/test_top.sv}
+{//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/tb_pkg.sv} {1 {vlog -work work -vopt -sv -stats=none {//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/tb_pkg.sv}
 QuestaSim-64 vlog 2022.1 Compiler 2022.01 Jan 29 2022
--- Compiling package test_top_sv_unit
--- Importing package tb_pkg
--- Compiling module simple_alu_tb
+-- Compiling package tb_pkg
 
 Top level modules:
-	simple_alu_tb
+	--none--
 
 } {} {}} {//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/simple_alu.sv} {1 {vlog -work work -vopt -sv -stats=none {//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/simple_alu.sv}
 QuestaSim-64 vlog 2022.1 Compiler 2022.01 Jan 29 2022
@@ -15,12 +13,5 @@ QuestaSim-64 vlog 2022.1 Compiler 2022.01 Jan 29 2022
 
 Top level modules:
 	simple_alu
-
-} {} {}} {//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/tb_pkg.sv} {1 {vlog -work work -vopt -sv -stats=none {//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/tb_pkg.sv}
-QuestaSim-64 vlog 2022.1 Compiler 2022.01 Jan 29 2022
--- Compiling package tb_pkg
-
-Top level modules:
-	--none--
 
 } {} {}}
