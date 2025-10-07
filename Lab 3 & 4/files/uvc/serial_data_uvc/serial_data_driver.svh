@@ -48,6 +48,9 @@ class serial_data_driver extends uvm_driver #(serial_data_seq_item);
         m_config.m_vif.start_bit <= 0;
         m_config.m_vif.serial_data <= 0;
 
+        //m_config.m_vif.parity_enable <= 1; // Task 2.1
+
+        m_config.m_vif.parity_enable <= m_config.parity_enable; // Task 2.2
         
         forever begin
             // Wait for sequence item
@@ -83,19 +86,6 @@ class serial_data_driver extends uvm_driver #(serial_data_seq_item);
                 end
             join
             
-            // for (int i = 0; i <= seq_item.start_bit_delay; i++) begin // seq_item.start_bit_delay = 7
-                
-            //     if(i == 0) begin
-            //         m_config.m_vif.start_bit <= 1;
-            //     end else if (i == 1) begin
-            //         m_config.m_vif.start_bit <= 0;
-            //     end
-            //     m_config.m_vif.serial_data <= seq_item.serial_data[i];
-                
-            //     @(posedge m_config.m_vif.clk);
-            //     `uvm_info(get_name(),$sformatf("Serial data Test=%0d",  m_config.m_vif.serial_data),UVM_HIGH);
-
-            // end
 
             m_config.m_vif.serial_data <= 0; // reset serial data after sending all bits
 
