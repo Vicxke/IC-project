@@ -56,19 +56,46 @@ class serial_data_driver extends uvm_driver #(serial_data_seq_item);
             
             @(posedge m_config.m_vif.clk); // wait for clock edge before starting transmission after reset signal is 1
 
-            for (int i = 0; i <= seq_item.start_bit_delay; i++) begin // seq_item.start_bit_delay = 7
-                
-                if(i == 0) begin
-                    m_config.m_vif.start_bit <= 1;
-                end else if (i == 1) begin
-                    m_config.m_vif.start_bit <= 0;
-                end
-                m_config.m_vif.serial_data <= seq_item.serial_data[i];
-                
-                @(posedge m_config.m_vif.clk);
-                `uvm_info(get_name(),$sformatf("Serial data Test=%0d",  m_config.m_vif.serial_data),UVM_HIGH);
+            fork
+                begin
+                    for (int i = 0; i < $bits(seq_item.serial_data); i++) begin // seq_item.start_bit_delay = 7
+                        
+                        m_config.m_vif.serial_data <= seq_item.serial_data[i];
+                        
+                        @(posedge m_config.m_vif.clk);
+                        `uvm_info(get_name(),$sformatf("Serial data Test=%0d",  m_config.m_vif.serial_data),UVM_HIGH);
 
-            end
+                    end
+                end
+
+                begin
+                    repeat (seq_item.start_bit_delay) begin
+                        @(posedge m_config.m_vif.clk);
+                    end
+
+                    m_config.m_vif.start_bit <= 1;
+                    
+                    repeat (seq_item.start_bit_length) begin
+                        @(posedge m_config.m_vif.clk);
+                    end
+                    m_config.m_vif.start_bit <= 0;
+
+                end
+            join
+            
+            // for (int i = 0; i <= seq_item.start_bit_delay; i++) begin // seq_item.start_bit_delay = 7
+                
+            //     if(i == 0) begin
+            //         m_config.m_vif.start_bit <= 1;
+            //     end else if (i == 1) begin
+            //         m_config.m_vif.start_bit <= 0;
+            //     end
+            //     m_config.m_vif.serial_data <= seq_item.serial_data[i];
+                
+            //     @(posedge m_config.m_vif.clk);
+            //     `uvm_info(get_name(),$sformatf("Serial data Test=%0d",  m_config.m_vif.serial_data),UVM_HIGH);
+
+            // end
 
             m_config.m_vif.serial_data <= 0; // reset serial data after sending all bits
 
