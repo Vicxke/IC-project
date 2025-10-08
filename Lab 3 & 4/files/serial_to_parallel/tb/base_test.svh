@@ -73,6 +73,34 @@ class base_test extends uvm_test;
 
         reset.start(m_tb_env.m_reset_agent.m_sequencer);
         serial_data.start(m_tb_env.m_serial_data_agent.m_sequencer);
+
+        // -------------------------- Run more tests --------------------------
+
+        fork 
+            begin
+                repeat (20) begin // 20 repeats * 8 cc/repeats = 160 cycles
+                    if (!(serial_data.randomize() with{
+
+                    }))`uvm_fatal(get_name(), "Failed to randomize serial_data")
+
+                    serial_data.start(m_tb_env.m_serial_data_agent.m_sequencer);
+                    
+                end
+            end
+
+            begin
+                repeat (5) begin // goal is to get 5 reset in 160 cycles at random times
+                    if (!(reset.randomize() with {
+                        delay <= 30; // 160 cc / 5 reset = 32 cc average  => -2 cc of reset signal per repeat = 30 cc max 
+                        length == 2;
+                    })) `uvm_fatal(get_name(), "Failed to randomize reset")
+
+                    reset.start(m_tb_env.m_reset_agent.m_sequencer);
+                end
+            end
+        join
+
+
         // Fork two processes that running in parallel
 
 
