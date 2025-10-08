@@ -106,7 +106,7 @@ class serial_data_monitor  extends uvm_monitor;
                             else begin
                                 // Calculate parity error based on received serial parity bit
                                 //Task 2.5: When everything looks good, Uncomment this!
-                                parity_error = ($countones(rec_data) + m_config.m_vif.serial_data) & 1;
+                                parity_error = ($countones(rec_data) + m_config.m_vif.serial_data) & 1; // detection if there has been an error
                                 `uvm_info(get_name(),$sformatf("Received bitno=%0d parity=%0d", nn, m_config.m_vif.serial_data),UVM_HIGH)
                             end
                             @(negedge m_config.m_vif.clk);
