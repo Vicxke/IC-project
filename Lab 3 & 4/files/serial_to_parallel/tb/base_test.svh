@@ -60,7 +60,7 @@ class base_test extends uvm_test;
         // Raise objection if no UVM test is running
         phase.raise_objection(this);
         // Reset DUT before start
-        reset = reset_seq::type_id::create("reset");
+        reset = reset_seq::type_id::create("reset"); 
         if (!(reset.randomize() with {
             delay == 0;
             length == 2;

@@ -64,7 +64,7 @@ class serial_data_driver extends uvm_driver #(serial_data_seq_item);
 
             fork
                 begin
-                    for (int i = 0; i < $bits(seq_item.serial_data); i++) begin // seq_item.start_bit_delay = 7
+                    for (int i = 0; i < $bits(seq_item.serial_data); i++) begin 
                         
                         m_config.m_vif.serial_data <= seq_item.serial_data[i];
                         
@@ -78,7 +78,7 @@ class serial_data_driver extends uvm_driver #(serial_data_seq_item);
                           m_config.m_vif.serial_data <= $countones(seq_item.serial_data) % 2;
                           `uvm_info(get_name(),$sformatf("Number of ones=%0d",  $countones(seq_item.serial_data)),UVM_HIGH);
 
-                            if (seq_item.parity_error) begin
+                            if (seq_item.parity_error) begin // Task 2.4
                                 m_config.m_vif.serial_data <= ~m_config.m_vif.serial_data; // invert parity bit to introduce error
                                 `uvm_info(get_name(),$sformatf("Introduce parity error!"),UVM_HIGH);
                             end
