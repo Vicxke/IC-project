@@ -35,7 +35,7 @@ module tb_top;
     assign tb_reset_n = i_reset_if.reset_n;
 
     // Instantiate execution_stage interface and connect to the DUT
-    execute_stage_if i_execute_if(.clk(tb_clock), .rst_n(tb_reset_n));
+    execution_stage_if i_execute_if(.clk(tb_clock), .rst_n(tb_reset_n));
 
     // Instantiation of the execute_stage RTL DUT
     execute_stage dut_execute_stage (

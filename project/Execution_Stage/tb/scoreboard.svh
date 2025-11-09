@@ -21,12 +21,18 @@
 // coverage group.
 //
 //------------------------------------------------------------------------------
+// Instance analysis defines (creates unique analysis_imp types)
+`uvm_analysis_imp_decl(_scoreboard_reset)
+`uvm_analysis_imp_decl(_scoreboard_execution_stage)
+
 // Simplified scoreboard for execution_stage UVC
 class scoreboard extends uvm_component;
     `uvm_component_utils(scoreboard)
 
-    // analysis implementation to receive execution_stage monitor items
-    uvm_analysis_imp#(execution_stage_seq_item, scoreboard) m_execution_stage_ap;
+    // execution_stage analysis connection (uses a dedicated analysis_imp type)
+    uvm_analysis_imp_scoreboard_execution_stage#(execution_stage_seq_item, scoreboard) m_execution_stage_ap;
+    // reset analysis connection
+    uvm_analysis_imp_scoreboard_reset#(reset_seq_item, scoreboard) m_reset_ap;
 
     // basic counters
     int unsigned items_received = 0;
@@ -38,6 +44,7 @@ class scoreboard extends uvm_component;
     function void build_phase(uvm_phase phase);
         super.build_phase(phase);
         m_execution_stage_ap = new("m_execution_stage_ap", this);
+        m_reset_ap = new("m_reset_ap", this);
     endfunction: build_phase
 
     // connect_phase left empty for now
@@ -45,16 +52,20 @@ class scoreboard extends uvm_component;
         super.connect_phase(phase);
     endfunction: connect_phase
 
-    // write callback from analysis imp
-    function void write(execution_stage_seq_item item);
+    //------------------------------------------------------------------------------
+    // Write implementation called by analysis_imp adapters
+    //------------------------------------------------------------------------------
+    virtual function void write_scoreboard_execution_stage(execution_stage_seq_item item);
         `uvm_info(get_name(), $sformatf("EXECUTION_STAGE_MONITOR: %s", item.convert2string()), UVM_MEDIUM)
         items_received++;
-        // Basic optional checks: if expected alu value provided, print mismatch
         if (item.exp_alu_data !== 'x && item.exp_alu_data !== '0) begin
-            // can't check actual DUT output here unless another monitor reports it
             `uvm_info(get_name(), $sformatf("Item provided expected ALU data=0x%08h", item.exp_alu_data), UVM_LOW)
         end
-    endfunction: write
+    endfunction: write_scoreboard_execution_stage
+
+    virtual function void write_scoreboard_reset(reset_seq_item item);
+        `uvm_info(get_name(), $sformatf("RESET_MONITOR: delay=%0d length=%0d value=%0b", item.reset_delay, item.reset_length, item.reset_value), UVM_LOW)
+    endfunction: write_scoreboard_reset
 
     virtual function void check_phase(uvm_phase phase);
         super.check_phase(phase);

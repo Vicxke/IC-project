@@ -10,8 +10,10 @@
 //
 // See more detailed information in base_test
 //------------------------------------------------------------------------------
-class basic_test extends base_test;
+class basic_test extends uvm_test;
     `uvm_component_utils(basic_test)
+
+    int unsigned no_of_data_loop = 40;
 
     //------------------------------------------------------------------------------
     // FUNCTION: new
