@@ -10,6 +10,7 @@
 //
 // See more detailed information in base_test
 //------------------------------------------------------------------------------
+import common::*;
 class basic_test extends uvm_test;
     `uvm_component_utils(basic_test)
 
@@ -49,40 +50,42 @@ class basic_test extends uvm_test;
     virtual task run_phase(uvm_phase phase);
         // Run the test as defined in base test
         reset_seq reset;
+        execution_stage_seq execute_stage;
+        control_type ctrl;
         super.run_phase(phase);
+
+        // Raise objection if no UVM test is running
+        phase.raise_objection(this);
+
         // Start the data generation loop
         //do a simple reset first
         reset = reset_seq::type_id::create("reset");
+        reset.delay = 0;
+        reset.length = 2;
         reset.start(m_tb_env.m_reset_agent.m_sequencer);
-        #10;
+        //#10;
         //test some basic add operand
         execute_stage = execution_stage_seq::type_id::create("execute_stage");
         
         execute_stage.data1 = 32'd15;
         execute_stage.data2 = 32'd27;
+        ctrl.alu_op = ALU_ADD;
+        ctrl.encoding = R_TYPE;
+        ctrl.alu_src = 2'b00; // both operands from registers
+        ctrl.mem_read = 0;
+        ctrl.mem_write = 0;
+        ctrl.reg_write = 1;
+        ctrl.mem_to_reg = 0;
+        ctrl.is_branch = 0;
+        ctrl.funct3 = 3'b000;
+        execute_stage.control_in = ctrl;
+        execute_stage.compflg_in = 0;
+        execute_stage.program_counter = 32'h0000_0040;
+        execute_stage.start(m_tb_env.m_execution_stage_agent.m_sequencer);
 
-        initial begin
-            // wait until reset is released
-            wait (tb_reset_n == 1);
-            @(posedge tb_clock);
+        // Drop objection if no UVM test is running
+        phase.drop_objection(this);
 
-            // simple addition test: drive inputs on the execution_stage interface
-            i_execute_if.data1       = 32'd15;
-            i_execute_if.data2       = 32'd27;
-            // If ALU_ADD is defined in package `common`, replace '0 with that (e.g. `ALU_ADD`)
-            i_execute_if.control_in  = '0; // assume add encoding = 0
-            i_execute_if.immediate_data = 32'd0;
-            i_execute_if.compflg_in = 1'b0;
-            i_execute_if.program_counter = 32'd0;
-
-            // let DUT compute for a few clocks
-            @(posedge tb_clock);
-            repeat (5) @(posedge tb_clock);
-
-            $display("SIMPLE ADD: %0d + %0d => alu_data=0x%08h (%0d)",
-                    i_execute_if.data1, i_execute_if.data2, i_execute_if.alu_data, i_execute_if.alu_data);
-        end
-        
     endtask : run_phase
 
 endclass : basic_test
