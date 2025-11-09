@@ -27,6 +27,7 @@ module tb_top;
     logic tb_reset_n;
 
     // Instantiation of CLOCK uVC interface signal
+
     clock_if  i_clock_if();
     assign tb_clock = i_clock_if.clock;
 

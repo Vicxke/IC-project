@@ -56,7 +56,7 @@ class execution_stage_driver extends uvm_driver#(execution_stage_seq_item);
 
             // Drive request onto interface around a clock edge
             // Wait for a safe point to change inputs
-            @(negedge m_config.m_vif.clk);
+            @(posedge m_config.m_vif.clk);
             // Drive inputs
             m_config.m_vif.data1 = req.data1;
             m_config.m_vif.data2 = req.data2;
