@@ -47,6 +47,7 @@ class execution_stage_monitor extends uvm_monitor;
         @(posedge m_config.m_vif.rst_n);
         @(negedge m_config.m_vif.clk);
 
+        // this will just update the view and nothing else very simple
         forever begin
             // Sample on clock edge
             @(posedge m_config.m_vif.clk);
@@ -59,7 +60,7 @@ class execution_stage_monitor extends uvm_monitor;
             cur_cmp     = m_config.m_vif.compflg_in;
             cur_pc      = m_config.m_vif.program_counter;
 
-            // On first sample, publish unconditionally
+            // On first sample, publish unconditionally so whenever the values change we just update them
             if (first_sample ||
                 (cur_data1   !== prev_data1) ||
                 (cur_data2   !== prev_data2) ||
