@@ -2,6 +2,7 @@
 // execute_stage interface
 //------------------------------------------------------------------------------
 interface execution_stage_if (input logic clk, input logic rst_n);
+
     // Import DUT common typedefs (control_type, encodings, etc.)
     import common::*;
 

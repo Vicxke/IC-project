@@ -8,12 +8,13 @@
 //  execution_stage_config object.
 //
 //------------------------------------------------------------------------------
+import common::*;
+
 class execution_stage_driver extends uvm_driver#(execution_stage_seq_item);
     `uvm_component_param_utils(execution_stage_driver)
 
     // execution_stage uVC configuration object.
     execution_stage_config  m_config;
-    import common::*;
     //------------------------------------------------------------------------------
     // The constructor for the component.
     //------------------------------------------------------------------------------

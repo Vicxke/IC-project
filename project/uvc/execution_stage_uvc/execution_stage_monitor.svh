@@ -1,3 +1,5 @@
+import common::*;
+
 class execution_stage_monitor extends uvm_monitor;
     `uvm_component_param_utils(execution_stage_monitor)
 
@@ -28,6 +30,12 @@ class execution_stage_monitor extends uvm_monitor;
         logic prev_compflg_in;
         bit first_sample = 1;
 
+        // Declare per-sample temporaries and seq_item up-front so declarations precede any statements.
+        logic [31:0] cur_data1, cur_data2, cur_imm, cur_pc;
+        control_type cur_ctrl;
+        logic cur_cmp;
+        execution_stage_seq_item seq_item;
+
         `uvm_info(get_name(), $sformatf("Starting execution_stage monitoring"), UVM_HIGH)
 
         // Wait until interface is available
@@ -43,13 +51,13 @@ class execution_stage_monitor extends uvm_monitor;
             // Sample on clock edge
             @(posedge m_config.m_vif.clk);
 
-            // Read current values
-            logic [31:0] cur_data1   = m_config.m_vif.data1;
-            logic [31:0] cur_data2   = m_config.m_vif.data2;
-            logic [31:0] cur_imm     = m_config.m_vif.immediate_data;
-                control_type cur_ctrl    = m_config.m_vif.control_in;
-            logic cur_cmp            = m_config.m_vif.compflg_in;
-            logic [31:0] cur_pc      = m_config.m_vif.program_counter;
+            // Read current values (assign to temporaries declared above)
+            cur_data1   = m_config.m_vif.data1;
+            cur_data2   = m_config.m_vif.data2;
+            cur_imm     = m_config.m_vif.immediate_data;
+            cur_ctrl    = m_config.m_vif.control_in;
+            cur_cmp     = m_config.m_vif.compflg_in;
+            cur_pc      = m_config.m_vif.program_counter;
 
             // On first sample, publish unconditionally
             if (first_sample ||
@@ -60,7 +68,6 @@ class execution_stage_monitor extends uvm_monitor;
                 (cur_cmp     !== prev_compflg_in) ||
                 (cur_pc      !== prev_program_counter)) begin
 
-                execution_stage_seq_item seq_item;
                 seq_item = execution_stage_seq_item::type_id::create("monitor_item");
 
                 // Fill sequence item fields (assumes these fields exist on execution_stage_seq_item)

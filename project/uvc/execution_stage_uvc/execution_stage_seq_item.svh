@@ -18,15 +18,15 @@
 // execution_stage_seq_item.svh
 // Sequence item for the execution_stage uVC
 
+import common::*;
+
 class execution_stage_seq_item extends uvm_sequence_item;
-    `uvm_object_utils(execution_stage_seq_item)
 
     // DUT inputs
     rand logic [31:0] data1;
     rand logic [31:0] data2;
     rand logic [31:0] immediate_data;
     // control_type is a DUT typedef; include a field for it so monitor can pass it
-    import common::*;
     control_type control_in;
     rand bit compflg_in;
     rand logic [31:0] program_counter;
