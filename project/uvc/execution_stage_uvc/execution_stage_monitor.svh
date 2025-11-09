@@ -47,7 +47,7 @@ class execution_stage_monitor extends uvm_monitor;
             logic [31:0] cur_data1   = m_config.m_vif.data1;
             logic [31:0] cur_data2   = m_config.m_vif.data2;
             logic [31:0] cur_imm     = m_config.m_vif.immediate_data;
-            control_type cur_ctrl    = m_config.m_vif.control_in;
+                control_type cur_ctrl    = m_config.m_vif.control_in;
             logic cur_cmp            = m_config.m_vif.compflg_in;
             logic [31:0] cur_pc      = m_config.m_vif.program_counter;
 

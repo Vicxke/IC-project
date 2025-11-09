@@ -8,21 +8,21 @@
 //  execution_stage_config object.
 //
 //------------------------------------------------------------------------------
-class execute_stage_driver extends uvm_driver #(execute_stage_seq_item);
-    `uvm_component_param_utils(execute_stage_driver)
+class execution_stage_driver extends uvm_driver#(execution_stage_seq_item);
+    `uvm_component_param_utils(execution_stage_driver)
 
-    // execute_stage uVC configuration object.
-    execute_stage_config  m_config;
-
+    // execution_stage uVC configuration object.
+    execution_stage_config  m_config;
+    import common::*;
     //------------------------------------------------------------------------------
     // The constructor for the component.
     //------------------------------------------------------------------------------
-    function new(string name, uvm_component parent = null);
+    function new(string name = "execution_stage_driver", uvm_component parent = null);
         super.new(name, parent);
-        if (!uvm_config_db #(execute_stage_config)::get(this,"","execute_stage_config", m_config)) begin
-            `uvm_fatal(get_name(),"Cannot find the VC configuration!")
+        if (!uvm_config_db#(execution_stage_config)::get(this, "", "execution_stage_config", m_config)) begin
+            `uvm_fatal(get_name(), "Cannot find the execution_stage_config in config DB")
         end
-    endfunction
+    endfunction: new
 
     //------------------------------------------------------------------------------
     // FUNCTION: build
@@ -41,15 +41,38 @@ class execute_stage_driver extends uvm_driver #(execute_stage_seq_item);
     // -  Send a response back.
     //------------------------------------------------------------------------------
     virtual task run_phase(uvm_phase phase);
-        execute_stage_seq_item seq_item;
+        execution_stage_seq_item req;
+
+        `uvm_info(get_name(), "execution_stage_driver started", UVM_LOW)
 
         forever begin
-            // Wait for sequence item
-            seq_item_port.get(seq_item);
+            // Get next request from sequencer
+            seq_item_port.get(req);
 
-            
+            if (m_config.m_vif == null) begin
+                `uvm_fatal(get_name(), "Virtual interface not set in execution_stage_config (m_vif)")
+            end
 
-            seq_item_port.put(seq_item); // send response back.
+            // Drive request onto interface around a clock edge
+            // Wait for a safe point to change inputs
+            @(negedge m_config.m_vif.clk);
+            // Drive inputs
+            m_config.m_vif.data1 = req.data1;
+            m_config.m_vif.data2 = req.data2;
+            m_config.m_vif.immediate_data = req.immediate_data;
+            m_config.m_vif.control_in = req.control_in;
+            m_config.m_vif.compflg_in = req.compflg_in;
+            m_config.m_vif.program_counter = req.program_counter;
+
+            // Let DUT sample on next rising edge
+            @(posedge m_config.m_vif.clk);
+
+            // Optionally wait a cycle to let outputs propagate
+            @(posedge m_config.m_vif.clk);
+
+            // Return the item (no response payload currently)
+            seq_item_port.put(req);
         end
-    endtask : run_phase
-endclass : execute_stage_driver
+    endtask: run_phase
+
+endclass: execution_stage_driver

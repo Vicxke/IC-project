@@ -25,25 +25,30 @@ class execution_stage_seq_item extends uvm_sequence_item;
     rand logic [31:0] data1;
     rand logic [31:0] data2;
     rand logic [31:0] immediate_data;
-    // store compact control encoding (user can expand mapping in driver)
-    rand int control_encoding;
+    // control_type is a DUT typedef; include a field for it so monitor can pass it
+    import common::*;
+    control_type control_in;
     rand bit compflg_in;
     rand logic [31:0] program_counter;
 
     // Optional expected outputs (for scoreboard checks)
     logic [31:0] exp_alu_data;
     bit exp_overflow_flag;
+    // monitor helper flag
+    bit monitor_data_valid;
 
     // Fields for printing/packing
     `uvm_object_utils_begin(execution_stage_seq_item)
     `uvm_field_int(data1, UVM_ALL_ON)
     `uvm_field_int(data2, UVM_ALL_ON)
     `uvm_field_int(immediate_data, UVM_ALL_ON)
-    `uvm_field_int(control_encoding, UVM_ALL_ON)
+    // control_in is a typedef (enum/struct) from common, skip automatic uvm_field macros
+    // (we still register the main integer/packed fields)
     `uvm_field_int(compflg_in, UVM_ALL_ON)
     `uvm_field_int(program_counter, UVM_ALL_ON)
     `uvm_field_int(exp_alu_data, UVM_ALL_ON)
     `uvm_field_int(exp_overflow_flag, UVM_ALL_ON)
+    // monitor_data_valid intentionally not registered
     `uvm_object_utils_end
 
     // Constructor

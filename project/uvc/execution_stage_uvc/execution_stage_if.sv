@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 // execute_stage interface
 //------------------------------------------------------------------------------
-interface execute_stage_if (input logic clk, input logic rst_n);
+interface execution_stage_if (input logic clk, input logic rst_n);
     // Import DUT common typedefs (control_type, encodings, etc.)
     import common::*;
 
@@ -13,4 +13,4 @@ interface execute_stage_if (input logic clk, input logic rst_n);
     logic compflg_in;
     logic [31:0] program_counter;
 
-endinterface : execute_stage_if
+endinterface : execution_stage_if
