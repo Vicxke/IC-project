@@ -41,7 +41,7 @@ class scoreboard extends uvm_component;
     int unsigned items_received = 0;
 
     // Indicates if the reset signal is active.
-    int unsigned reset_valid;
+    //int unsigned reset_valid;
     // The value of the reset signal.
     int unsigned reset_value;
     // The ALU operation being performed.
@@ -51,7 +51,7 @@ class scoreboard extends uvm_component;
     // Functional coverage definitions
     //------------------------------------------------------------------------------
     covergroup execution_stage_covergrp;
-        reset : coverpoint reset_value iff (reset_valid) {
+        reset : coverpoint reset_value {
             bins reset =  { 0 };
             bins run=  { 1 };
         }
@@ -105,7 +105,8 @@ class scoreboard extends uvm_component;
             `uvm_info(get_name(), $sformatf("Item provided expected ALU data=0x%08h", item.exp_alu_data), UVM_LOW)
         end
 
-        alu_op= item.control_in.alu_op; 
+        alu_op= item.control_in.alu_op;
+        `uvm_info(get_name(), $sformatf("ALU_OPRESET_function: alu_op=%00s reset_value=%0b", alu_op.name(), reset_value), UVM_LOW)
         execution_stage_covergrp.sample();
 
     endfunction: write_scoreboard_execution_stage
@@ -121,10 +122,10 @@ class scoreboard extends uvm_component;
         // dut_data_valid= 0;
         // dut_data= 0;
         // Sample reset coverage
-        reset_valid= 1;
         reset_value= item.reset_value;
+        `uvm_info(get_name(), $sformatf("RESET_function: alu_op=%00s reset_value=%0b", alu_op.name(), reset_value), UVM_LOW)
         execution_stage_covergrp.sample();
-        reset_valid= 0;
+
     endfunction :  write_scoreboard_reset
 
     //------------------------------------------------------------------------------
