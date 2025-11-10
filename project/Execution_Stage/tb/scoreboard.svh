@@ -20,6 +20,9 @@
 // The functional coverage is provided by the `serial_to_parallel_covergrp`
 // coverage group.
 //
+
+import common::*;
+
 //------------------------------------------------------------------------------
 // Instance analysis defines (creates unique analysis_imp types)
 `uvm_analysis_imp_decl(_scoreboard_reset)
@@ -36,6 +39,30 @@ class scoreboard extends uvm_component;
 
     // basic counters
     int unsigned items_received = 0;
+
+    // Indicates if the reset signal is active.
+    int unsigned reset_valid;
+    // The value of the reset signal.
+    int unsigned reset_value;
+    // The ALU operation being performed.
+    alu_op_type alu_op;
+
+    //------------------------------------------------------------------------------
+    // Functional coverage definitions
+    //------------------------------------------------------------------------------
+    covergroup execution_stage_covergrp;
+        reset : coverpoint reset_value iff (reset_valid) {
+            bins reset =  { 0 };
+            bins run=  { 1 };
+        }
+        operations : coverpoint alu_op {
+            bins ADD =  { ALU_ADD };
+            bins SUB =  { ALU_SUB };
+            bins MUL =  { ALU_MUL };
+            bins DIV =  { ALU_DIV };
+        }
+        cross_op_reset : cross operations, reset;
+    endgroup
 
     function new(string name = "scoreboard", uvm_component parent = null);
         super.new(name,parent);
