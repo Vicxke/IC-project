@@ -44,6 +44,9 @@ class execution_stage_monitor extends uvm_monitor;
         logic [31:0] expected_result;
         bit expected_overflow = 0;
 
+        logic [4:0] shamt;
+        shamt = cur_data2[4:0];
+
         `uvm_info(get_name(), $sformatf("Starting execution_stage monitoring"), UVM_HIGH)
 
         // Wait until interface is available
@@ -89,41 +92,67 @@ class execution_stage_monitor extends uvm_monitor;
             // Write to analysis port
             m_analysis_port.write(seq_item);
 
-            case (cur_ctrl.alu_op)
-                ALU_ADD: begin
-                    expected_result = cur_data1 + cur_data2;
-                    expected_overflow =
-                        (~cur_data1[31] & ~cur_data2[31] & expected_result[31]) |
-                        ( cur_data1[31] &  cur_data2[31] & ~expected_result[31]);
-                end
+            // --- Compute expected result/flags for all ALU ops ---
+            
 
-                ALU_SUB: begin
-                    expected_result = cur_data1 - cur_data2;
-                    expected_overflow =
-                        (~cur_data1[31] &  cur_data2[31] & expected_result[31]) |
-                        ( cur_data1[31] & ~cur_data2[31] & ~expected_result[31]);
-                end
+            expected_overflow = 1'b0;  // default for non-add/sub ops
+            unique case (cur_ctrl.alu_op)
+            ALU_ADD: begin
+                expected_result   = cur_data1 + cur_data2;
+                expected_overflow =
+                    (~cur_data1[31] & ~cur_data2[31] &  expected_result[31]) |
+                    ( cur_data1[31] &  cur_data2[31] & ~expected_result[31]);
+            end
 
-                default: begin
-                    expected_result = 32'hDEAD_BEEF; // Mark unsupported operations
-                end
+            ALU_SUB: begin
+                expected_result   = cur_data1 - cur_data2;
+                // Two's complement overflow for A - B: sign(A) != sign(B) AND sign(result) != sign(A)
+                expected_overflow =
+                    (~cur_data1[31] &  cur_data2[31] &  expected_result[31]) |
+                    ( cur_data1[31] & ~cur_data2[31] & ~expected_result[31]);
+            end
+
+            ALU_XOR:  expected_result = cur_data1 ^  cur_data2;
+            ALU_OR:   expected_result = cur_data1 |  cur_data2;
+            ALU_AND:  expected_result = cur_data1 &  cur_data2;
+
+            ALU_SLL:  expected_result = cur_data1 <<  shamt;                    // logical left
+            ALU_SRL:  expected_result = cur_data1 >>  shamt;                    // logical right
+            ALU_SRA:  expected_result = $signed(cur_data1) >>> shamt;           // arithmetic right
+
+            ALU_SLT:  expected_result = ($signed(cur_data1) <  $signed(cur_data2)) ? 32'd1 : 32'd0;
+            ALU_SLTU: expected_result = (cur_data1            <  cur_data2)      ? 32'd1 : 32'd0;
+
+            default: begin
+                // DUT default falls back to ADD
+                expected_result   = cur_data1 + cur_data2;
+                expected_overflow =
+                    (~cur_data1[31] & ~cur_data2[31] &  expected_result[31]) |
+                    ( cur_data1[31] &  cur_data2[31] & ~expected_result[31]);
+            end
             endcase
 
-            // --- Compare DUT result with expected result ---
-            if (cur_ctrl.alu_op inside {ALU_ADD, ALU_SUB}) begin
-                if (cur_result !== expected_result) begin
-                    `uvm_error("ALU_CHECK",
-                        $sformatf("ALU mismatch on %s: data1=0x%08h, data2=0x%08h, DUT=0x%08h, EXP=0x%08h, PC=0x%08h",
-                                (cur_ctrl.alu_op == ALU_ADD) ? "ADD" : "SUB",
-                                cur_data1, cur_data2, cur_result, expected_result, cur_pc))
-                end
+            // --- Compare DUT result with expected result (all ops) ---
+            if (cur_result !== expected_result) begin
+            `uvm_error("ALU_CHECK",
+                $sformatf("ALU mismatch on %s: data1=0x%08h, data2=0x%08h, DUT=0x%08h, EXP=0x%08h, PC=0x%08h",
+                        (cur_ctrl.alu_op.name()),  // if enum has .name(); otherwise map manually
+                        cur_data1, cur_data2, cur_result, expected_result, cur_pc))
+            end
 
-                if (cur_ovf !== expected_overflow) begin
-                    `uvm_warning("ALU_OVF_MISMATCH",
-                        $sformatf("Overflow flag mismatch on %s: data1=0x%08h, data2=0x%08h, DUT_OVF=%0b, EXP_OVF=%0b",
-                                (cur_ctrl.alu_op == ALU_ADD) ? "ADD" : "SUB",
-                                cur_data1, cur_data2, cur_ovf, expected_overflow))
-                end
+            // --- Compare overflow only for ADD/SUB (others are 0) ---
+            if (cur_ctrl.alu_op inside {ALU_ADD, ALU_SUB}) begin
+            if (cur_ovf !== expected_overflow) begin
+                `uvm_warning("ALU_OVF_MISMATCH",
+                $sformatf("Overflow flag mismatch on %s: data1=0x%08h, data2=0x%08h, DUT_OVF=%0b, EXP_OVF=%0b",
+                            (cur_ctrl.alu_op == ALU_ADD) ? "ADD" : "SUB",
+                            cur_data1, cur_data2, cur_ovf, expected_overflow))
+            end
+            end else begin
+            if (cur_ovf !== 1'b0) begin
+                `uvm_warning("ALU_OVF_MISMATCH",
+                $sformatf("Overflow flag should be 0 for non-ADD/SUB op %0d: DUT_OVF=%0b", cur_ctrl.alu_op, cur_ovf))
+            end
             end
 
             // --- Optionally publish to analysis port for scoreboard ---
