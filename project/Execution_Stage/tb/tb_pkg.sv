@@ -44,5 +44,6 @@ package tb_pkg;
     `include "scoreboard.svh"
     `include "top_config.svh"
     `include "tb_env.svh"
+    `include "base_test.svh"
     `include "basic_test.svh"
 endpackage: tb_pkg
