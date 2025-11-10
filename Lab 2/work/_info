@@ -1,0 +1,88 @@
+m255
+K4
+z2
+!s11f vlog 2022.1 2022.01, Jan 29 2022
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+d//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1
+vsimple_alu_tb
+Z0 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z1 DXx4 work 6 tb_pkg 0 22 JEkg0>mo9gZ0@:I[225ZJ3
+DXx4 work 16 test_top_sv_unit 0 22 cnD]8LW=i^o3[O7g`fDlL3
+Z2 !s110 1759247519
+VDg1SIo80bB@j0V0VzS_@n1
+r1
+!s85 0
+!i10b 1
+!s100 UgfXN7`Imdf_n[R1<[bM72
+IJ0SCL_`nFjollkz]XWCVY1
+!s105 test_top_sv_unit
+S1
+Z3 d//stu.net.lth.se/ti8188be-s/Documents/github/Lab 2
+Z4 w1759247098
+Z5 8//stu.net.lth.se/ti8188be-s/Documents/github/Lab 2/files/test_top.sv
+Z6 F//stu.net.lth.se/ti8188be-s/Documents/github/Lab 2/files/test_top.sv
+!i122 1
+L0 13 182
+Z7 OL;L;2022.1;75
+31
+Z8 !s108 1759247519.000000
+!s107 //stu.net.lth.se/ti8188be-s/Documents/github/Lab 2/files/test_top.sv|
+Z9 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|//stu.net.lth.se/ti8188be-s/Documents/github/Lab 2/files/test_top.sv|
+!i113 0
+Z10 o-work work -sv -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z11 tCvgOpt 0
+Xtb_pkg
+R0
+R2
+!i10b 1
+!s100 HO1T]a<`i7944FH3eoLFe1
+IJEkg0>mo9gZ0@:I[225ZJ3
+S1
+R3
+R4
+8//stu.net.lth.se/ti8188be-s/Documents/github/Lab 2/files/tb_pkg.sv
+F//stu.net.lth.se/ti8188be-s/Documents/github/Lab 2/files/tb_pkg.sv
+!i122 0
+L0 2 0
+VJEkg0>mo9gZ0@:I[225ZJ3
+R7
+r1
+!s85 0
+31
+R8
+!s107 //stu.net.lth.se/ti8188be-s/Documents/github/Lab 2/files/tb_pkg.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|//stu.net.lth.se/ti8188be-s/Documents/github/Lab 2/files/tb_pkg.sv|
+!i113 0
+R10
+R11
+Xtest_top_sv_unit
+R0
+R1
+R2
+VcnD]8LW=i^o3[O7g`fDlL3
+r1
+!s85 0
+!i10b 1
+!s100 mE9]fRZfSgaLFE62f;]z@3
+IcnD]8LW=i^o3[O7g`fDlL3
+!i103 1
+S1
+R3
+R4
+R5
+R6
+!i122 1
+L0 1 0
+R7
+31
+R8
+Z12 !s107 //stu.net.lth.se/ti8188be-s/Documents/github/Lab 2/files/test_top.sv|
+R9
+!i113 0
+R10
+R11

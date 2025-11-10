@@ -1,0 +1,22 @@
+{//stu.net.lth.se/ti8188be-s/Documents/github/Lab 2/files/test_top.sv} {1 {vlog -work work -vopt -sv -stats=none {//stu.net.lth.se/ti8188be-s/Documents/github/Lab 2/files/test_top.sv}
+QuestaSim-64 vlog 2022.1 Compiler 2022.01 Jan 29 2022
+-- Compiling package test_top_sv_unit
+-- Importing package tb_pkg
+-- Compiling module simple_alu_tb
+
+Top level modules:
+	simple_alu_tb
+
+} {} {}} {//stu.net.lth.se/ti8188be-s/Documents/github/Lab 2/files/tb_pkg.sv} {1 {vlog -work work -vopt -sv -stats=none {//stu.net.lth.se/ti8188be-s/Documents/github/Lab 2/files/tb_pkg.sv}
+QuestaSim-64 vlog 2022.1 Compiler 2022.01 Jan 29 2022
+-- Compiling package tb_pkg
+
+Top level modules:
+	--none--
+
+} {} {}} {//stu.net.lth.se/ti8188be-s/Documents/github/Lab 2/files/simple_alu.sv} {0 {vlog -work work -vopt -sv -stats=none {//stu.net.lth.se/ti8188be-s/Documents/github/Lab 2/files/simple_alu.sv}
+QuestaSim-64 vlog 2022.1 Compiler 2022.01 Jan 29 2022
+** Error: //stu.net.lth.se/ti8188be-s/Documents/github/Lab 2/files/simple_alu.sv(1): (vlog-13006) Could not find the package (tb_pkg).  Design read will continue, but expect a cascade of errors after this failure.  Furthermore if you experience a vopt-7 error immediately before this error then please check the package names or the library search paths on the command line.
+** Error: (vlog-13069) //stu.net.lth.se/ti8188be-s/Documents/github/Lab 2/files/simple_alu.sv(10): near "mode_select": syntax error, unexpected IDENTIFIER, expecting ')'.
+
+} {3.0 5.0} {}}
