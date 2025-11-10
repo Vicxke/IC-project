@@ -47,6 +47,11 @@ class scoreboard extends uvm_component;
     // The ALU operation being performed.
     alu_op_type alu_op;
 
+    int unsigned data1;
+    int unsigned data2;
+
+    encoding_type encoding;
+
     //------------------------------------------------------------------------------
     // Functional coverage definitions
     //------------------------------------------------------------------------------
@@ -67,7 +72,36 @@ class scoreboard extends uvm_component;
             bins SLT =  { ALU_SLT };
             bins SLTU=  { ALU_SLTU };
         }
-        cross_op_reset : cross operations, reset;
+        operand_1 : coverpoint data1 {
+            bins very_low   = { [32'h00000000 : 32'h0000FFFF] };   
+            bins low        = { [32'h00010000 : 32'h00FFFFFF] };    
+            bins mid_low    = { [32'h01000000 : 32'h0FFFFFFF] };    
+            bins mid        = { [32'h10000000 : 32'h3FFFFFFF] };   
+            bins mid_high   = { [32'h40000000 : 32'h7FFFFFFF] };   
+            bins high       = { [32'h80000000 : 32'hBFFFFFFF] };   
+            bins very_high  = { [32'hC0000000 : 32'hEFFFFFFF] };    
+            bins max_val    = { [32'hF0000000 : 32'hFFFFFFFF] };     
+        }
+        operand_2 : coverpoint data2 {
+            bins very_low   = { [32'h00000000 : 32'h0000FFFF] };   
+            bins low        = { [32'h00010000 : 32'h00FFFFFF] };    
+            bins mid_low    = { [32'h01000000 : 32'h0FFFFFFF] };    
+            bins mid        = { [32'h10000000 : 32'h3FFFFFFF] };   
+            bins mid_high   = { [32'h40000000 : 32'h7FFFFFFF] };   
+            bins high       = { [32'h80000000 : 32'hBFFFFFFF] };   
+            bins very_high  = { [32'hC0000000 : 32'hEFFFFFFF] };    
+            bins max_val    = { [32'hF0000000 : 32'hFFFFFFFF] };     
+        }
+        op_type : coverpoint encoding {
+            bins R_TYPE = { R_TYPE };
+            bins I_TYPE = { I_TYPE };
+            bins S_TYPE = { S_TYPE };
+            bins B_TYPE = { B_TYPE };
+            bins U_TYPE = { U_TYPE };
+            bins J_TYPE = { J_TYPE };
+        }
+        cross_op_reset : cross operations, reset; //test cross coverage
+        cross_op_data : cross operations, operand_1, operand_2;
     endgroup
 
     //------------------------------------------------------------------------------
@@ -106,7 +140,10 @@ class scoreboard extends uvm_component;
         end
 
         alu_op= item.control_in.alu_op;
-        `uvm_info(get_name(), $sformatf("ALU_OPRESET_function: alu_op=%00s reset_value=%0b", alu_op.name(), reset_value), UVM_LOW)
+        data1 = item.data1;
+        data2 = item.data2;
+        encoding = item.control_in.encoding;
+        //`uvm_info(get_name(), $sformatf("ALU_OPRESET_function: alu_op=%00s reset_value=%0b", alu_op.name(), reset_value), UVM_LOW)
         execution_stage_covergrp.sample();
 
     endfunction: write_scoreboard_execution_stage
@@ -123,7 +160,7 @@ class scoreboard extends uvm_component;
         // dut_data= 0;
         // Sample reset coverage
         reset_value= item.reset_value;
-        `uvm_info(get_name(), $sformatf("RESET_function: alu_op=%00s reset_value=%0b", alu_op.name(), reset_value), UVM_LOW)
+        //`uvm_info(get_name(), $sformatf("RESET_function: alu_op=%00s reset_value=%0b", alu_op.name(), reset_value), UVM_LOW)
         execution_stage_covergrp.sample();
 
     endfunction :  write_scoreboard_reset
