@@ -60,29 +60,43 @@ class scoreboard extends uvm_component;
             bins SUB =  { ALU_SUB };
             bins XOR =  { ALU_XOR };
             bins OR  =  { ALU_OR };
+            bins AND =  { ALU_AND };
+            bins SLL =  { ALU_SLL };
+            bins SRL =  { ALU_SRL };
+            bins SRA =  { ALU_SRA };
+            bins SLT =  { ALU_SLT };
+            bins SLTU=  { ALU_SLTU };
         }
         cross_op_reset : cross operations, reset;
     endgroup
 
+    //------------------------------------------------------------------------------
+    // The constructor for the component.
+    //------------------------------------------------------------------------------
     function new(string name = "scoreboard", uvm_component parent = null);
         super.new(name,parent);
         // Create coverage group
         execution_stage_covergrp = new();
     endfunction: new
 
+    //------------------------------------------------------------------------------
+    // The build for the component.
+    //------------------------------------------------------------------------------
     function void build_phase(uvm_phase phase);
         super.build_phase(phase);
         m_execution_stage_ap = new("m_execution_stage_ap", this);
         m_reset_ap = new("m_reset_ap", this);
     endfunction: build_phase
 
-    // connect_phase left empty for now
+    //------------------------------------------------------------------------------
+    // The connection phase for the component.
+    //------------------------------------------------------------------------------
     virtual function void connect_phase(uvm_phase phase);
         super.connect_phase(phase);
     endfunction: connect_phase
 
     //------------------------------------------------------------------------------
-    // Write implementation called by analysis_imp adapters
+    // Write implementation for write_scoreboard_execution_stage analysis port.
     //------------------------------------------------------------------------------
     virtual function void write_scoreboard_execution_stage(execution_stage_seq_item item);
         `uvm_info(get_name(), $sformatf("EXECUTION_STAGE_MONITOR: %s", item.convert2string()), UVM_MEDIUM)
@@ -90,15 +104,43 @@ class scoreboard extends uvm_component;
         if (item.exp_alu_data !== 'x && item.exp_alu_data !== '0) begin
             `uvm_info(get_name(), $sformatf("Item provided expected ALU data=0x%08h", item.exp_alu_data), UVM_LOW)
         end
+
+        alu_op= item.control_in.alu_op; 
+        execution_stage_covergrp.sample();
+
     endfunction: write_scoreboard_execution_stage
 
+    //------------------------------------------------------------------------------
+    // Write implementation for write_scoreboard_reset analysis port.
+    //------------------------------------------------------------------------------
     virtual function void write_scoreboard_reset(reset_seq_item item);
-        `uvm_info(get_name(), $sformatf("RESET_MONITOR: delay=%0d length=%0d value=%0b", item.reset_delay, item.reset_length, item.reset_value), UVM_LOW)
-    endfunction: write_scoreboard_reset
+        `uvm_info(get_name(),$sformatf("RESET_MONITOR:\n%s",item.sprint()),UVM_HIGH)
+        // // Clear start bit and data
+        // input_data_valid= 0;
+        // input_data= 0;
+        // dut_data_valid= 0;
+        // dut_data= 0;
+        // Sample reset coverage
+        reset_valid= 1;
+        reset_value= item.reset_value;
+        execution_stage_covergrp.sample();
+        reset_valid= 0;
+    endfunction :  write_scoreboard_reset
 
+    //------------------------------------------------------------------------------
+    // UVM check phase
+    //------------------------------------------------------------------------------
     virtual function void check_phase(uvm_phase phase);
         super.check_phase(phase);
-        `uvm_info(get_name(), $sformatf("Total execution_stage items observed: %0d", items_received), UVM_LOW)
-    endfunction: check_phase
+        $display("*****************************************************");
+        if (execution_stage_covergrp.get_coverage() == 100.0) begin
+            $display("FUNCTIONAL COVERAGE (100.0%%) PASSED....");
+        end
+        else begin
+            $display("FUNCTIONAL COVERAGE FAILED!!!!!!!!!!!!!!!!!");
+            $display("Coverage = %0f", execution_stage_covergrp.get_coverage());
+        end
+        $display("*****************************************************");
+    endfunction : check_phase
 
 endclass: scoreboard
