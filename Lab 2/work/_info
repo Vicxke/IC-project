@@ -1,6 +1,54 @@
 m255
 K4
 z2
+<<<<<<< HEAD
+=======
+Z0 !s99 nomlopt
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+!s11e vcom 2022.1 2022.01, Jan 29 2022
+>>>>>>> fcb6e9c36ca378a9c1e194402ca71982e22cf3c6
 !s11f vlog 2022.1 2022.01, Jan 29 2022
 13
 !s112 1.1
@@ -8,6 +56,7 @@ z2
 !i10e 25
 !i10f 100
 cModel Technology
+<<<<<<< HEAD
 d//stu.net.lth.se/ti8188be-s/Documents/github/Lab 1
 vsimple_alu_tb
 Z0 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
@@ -86,3 +135,171 @@ R9
 !i113 0
 R10
 R11
+=======
+Z1 dC:/Program Files/questasim64_2022.1/win64
+T_opt
+!s110 1759324146
+VN3=TWS4LVU@bReYOjgc_Q1
+Z2 04 13 4 work simple_alu_tb fast 0
+=41-6c2b59f005c4-68dd27f1-227-2b14
+R0
+Z3 !s124 OEM100
+o-quiet -auto_acc_if_foreign -work work +acc
+Z4 tCvgOpt 0
+n@_opt
+Z5 OL;O;2022.1;75
+R1
+T_opt1
+!s110 1759309804
+VkDWmGMlLeW1_=6OA3^4`;2
+R2
+=1-6c2b59f005c4-68dcefec-87-3a44
+R0
+R3
+Z6 o-quiet -auto_acc_if_foreign -work work
+R4
+n@_opt1
+R5
+R1
+T_opt2
+!s110 1759733464
+Vo[azOcoQggZ3`2d<H_J`@1
+R2
+=10-6c2b59f03066-68e366d7-ab-36d0
+R0
+R3
+R6
+R4
+n@_opt2
+R5
+vsimple_alu
+Z7 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z8 DXx4 work 6 tb_pkg 0 22 Uo]@o612TP7nZbnlkWa1G0
+DXx4 work 18 simple_alu_sv_unit 0 22 6R>Sc_9bCEe9W_I3XHU5X0
+Z9 !s110 1759308947
+Z10 VDg1SIo80bB@j0V0VzS_@n1
+r1
+!s85 0
+!i10b 1
+!s100 M3dzK=Qh5=P6mMjU_CK_H3
+IV1k7P<cNkmCXOSYhVd1a_1
+!s105 simple_alu_sv_unit
+S1
+Z11 d//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2
+Z12 w1759308510
+Z13 8//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/simple_alu.sv
+Z14 F//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/simple_alu.sv
+!i122 9
+L0 4 70
+Z15 OL;L;2022.1;75
+31
+Z16 !s108 1759308947.000000
+Z17 !s107 //stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/simple_alu.sv|
+Z18 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/simple_alu.sv|
+!i113 0
+Z19 o-work work -sv -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R4
+Xsimple_alu_sv_unit
+R7
+R8
+R9
+V6R>Sc_9bCEe9W_I3XHU5X0
+r1
+!s85 0
+!i10b 1
+!s100 IkZ?<C8oliQ:LV4n[<Z3R3
+I6R>Sc_9bCEe9W_I3XHU5X0
+!i103 1
+S1
+R11
+R12
+R13
+R14
+!i122 9
+Z20 L0 1 0
+R15
+31
+R16
+R17
+R18
+!i113 0
+R19
+R4
+vsimple_alu_tb
+R7
+R8
+DXx4 work 16 test_top_sv_unit 0 22 5mT4GHfC3`FYNj:X[n0aV2
+Z21 !s110 1759733457
+R10
+r1
+!s85 0
+!i10b 1
+!s100 mclefz[AZOIBMgPCozBOd2
+ImMg3DBJKL:mnSDLI_OZgN3
+!s105 test_top_sv_unit
+S1
+Z22 dH:/Documents/GitHub/IC-project/Lab 2
+Z23 w1759733436
+Z24 8//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/test_top.sv
+Z25 F//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/test_top.sv
+!i122 52
+L0 24 309
+R15
+31
+Z26 !s108 1759733456.000000
+Z27 !s107 //stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/test_top.sv|
+Z28 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/test_top.sv|
+!i113 0
+R19
+R4
+Xtb_pkg
+R7
+!s110 1759303824
+VUo]@o612TP7nZbnlkWa1G0
+r1
+!s85 0
+!i10b 1
+!s100 HO1T]a<`i7944FH3eoLFe1
+IUo]@o612TP7nZbnlkWa1G0
+S1
+R11
+w1759303630
+8//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/tb_pkg.sv
+F//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/tb_pkg.sv
+!i122 0
+L0 2 0
+R15
+31
+!s108 1759303824.000000
+!s107 //stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/tb_pkg.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/Lab 2/files/tb_pkg.sv|
+!i113 0
+R19
+R4
+Xtest_top_sv_unit
+R7
+R8
+R21
+V5mT4GHfC3`FYNj:X[n0aV2
+r1
+!s85 0
+!i10b 1
+!s100 QzQD`G=N[_idUbOz=53W_1
+I5mT4GHfC3`FYNj:X[n0aV2
+!i103 1
+S1
+R22
+R23
+R24
+R25
+!i122 52
+R20
+R15
+31
+R26
+R27
+R28
+!i113 0
+R19
+R4
+>>>>>>> fcb6e9c36ca378a9c1e194402ca71982e22cf3c6

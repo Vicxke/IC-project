@@ -112,8 +112,8 @@ module lab_01;
         repeat(16) begin
             result = randomize(data) with {
                 data dist {
-                    [0:10] := 112/11,
-                    [200:255] := 1
+                    [0:10] := 112/11, // :/ 2 easier way of writing
+                    [200:255] := 1 //  :/ 1
                 };
             };
             $display(data);

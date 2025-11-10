@@ -43,7 +43,7 @@ module lab_04 #(parameter PERIOD = 10) (
     // If a is low we don't care
     // If a is high and next cycle b is low, we don't care about c
     property a_b_c_checker;
-        @(posedge clk) (a ##1 b) |=> c;
+        @(posedge clk) (a ##1 b) |=> c; //same syntax as assert 10
     endproperty
 
     assert_5 : assert property (a_b_c_checker);
