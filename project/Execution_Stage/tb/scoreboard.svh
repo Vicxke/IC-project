@@ -58,14 +58,16 @@ class scoreboard extends uvm_component;
         operations : coverpoint alu_op {
             bins ADD =  { ALU_ADD };
             bins SUB =  { ALU_SUB };
-            bins MUL =  { ALU_MUL };
-            bins DIV =  { ALU_DIV };
+            bins XOR =  { ALU_XOR };
+            bins OR  =  { ALU_OR };
         }
         cross_op_reset : cross operations, reset;
     endgroup
 
     function new(string name = "scoreboard", uvm_component parent = null);
         super.new(name,parent);
+        // Create coverage group
+        execution_stage_covergrp = new();
     endfunction: new
 
     function void build_phase(uvm_phase phase);
