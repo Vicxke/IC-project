@@ -64,7 +64,7 @@ class base_test extends uvm_test;
         reset.length = 2;
         reset.start(m_tb_env.m_reset_agent.m_sequencer);
         //#10;
-        //test some basic add operand
+        //-------------------- single test case -----------------------
         execute_stage = execution_stage_seq::type_id::create("execute_stage");
         
         execute_stage.data1 = 32'd15;
@@ -82,6 +82,8 @@ class base_test extends uvm_test;
         execute_stage.compflg_in = 0;
         execute_stage.program_counter = 32'h0000_0040;
         execute_stage.start(m_tb_env.m_execution_stage_agent.m_sequencer);
+
+        // -----------------------------ALU Operations -------------------------------------------------
 
         repeat (100) begin
             execute_stage = execution_stage_seq::type_id::create("execute_stage_rand");
