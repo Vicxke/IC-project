@@ -57,8 +57,17 @@ class execution_stage_monitor extends uvm_monitor;
         // Wait for reset deassertion before sampling
         @(posedge m_config.m_vif.rst_n);
         @(negedge m_config.m_vif.clk);
-        @(negedge m_config.m_vif.clk);
         // this will just update the view and nothing else very simple
+        
+        // If any relevant signals are unknown, wait until they become stable
+        do begin
+            @(posedge m_config.m_vif.clk);
+        end while ( $isunknown(m_config.m_vif.control_in) ||
+                $isunknown(m_config.m_vif.data1) ||
+                $isunknown(m_config.m_vif.data2) ||
+                $isunknown(m_config.m_vif.program_counter) );
+        
+        
         forever begin
             // Sample on clock edge
             @(posedge m_config.m_vif.clk);
@@ -73,13 +82,7 @@ class execution_stage_monitor extends uvm_monitor;
             cur_pc      = m_config.m_vif.program_counter;
             shamt = cur_data2[4:0];
 
-            if ( $isunknown(cur_ctrl) || $isunknown(cur_data1) || $isunknown(cur_data2) || $isunknown(cur_pc) ) begin // noch nicht bereit → diesen Zyklus überspringen continue; end
-                `uvm_warning(get_name(), "Unknown value detected on interface signals, skipping this cycle")
-                continue;
-            end
             
-            // On first sample, publish unconditionally so whenever the values change we just update them
-
 
             seq_item = execution_stage_seq_item::type_id::create("monitor_item");
 
@@ -115,18 +118,76 @@ class execution_stage_monitor extends uvm_monitor;
                 expected_overflow =
                     (~cur_data1[31] &  cur_data2[31] &  expected_result[31]) |
                     ( cur_data1[31] & ~cur_data2[31] & ~expected_result[31]);
+
+                `uvm_info(get_name(),
+                    $sformatf("ALU_SUB info: data1=0x%08h - data2=0x%08h => expected_result=0x%08h, expected_overflow=%0b, PC=0x%08h",
+                              cur_data1, cur_data2, expected_result, expected_overflow, cur_pc),
+                    UVM_LOW)
             end
 
-            ALU_XOR:  expected_result = cur_data1 ^  cur_data2;
-            ALU_OR:   expected_result = cur_data1 |  cur_data2;
-            ALU_AND:  expected_result = cur_data1 &  cur_data2;
+            ALU_XOR: begin
+                expected_result = cur_data1 ^  cur_data2;
+                `uvm_info(get_name(),
+                    $sformatf("ALU_XOR info: data1=0x%08h ^ data2=0x%08h => expected_result=0x%08h, expected_overflow=%0b, PC=0x%08h",
+                              cur_data1, cur_data2, expected_result, expected_overflow, cur_pc),
+                    UVM_LOW)
+            end
 
-            ALU_SLL:  expected_result = cur_data1 <<  shamt;                    // logical left
-            ALU_SRL:  expected_result = cur_data1 >>  shamt;                    // logical right
-            ALU_SRA:  expected_result = $signed(cur_data1) >>> shamt;           // arithmetic right
+            ALU_OR: begin
+                expected_result = cur_data1 |  cur_data2;
+                `uvm_info(get_name(),
+                    $sformatf("ALU_OR info: data1=0x%08h | data2=0x%08h => expected_result=0x%08h, expected_overflow=%0b, PC=0x%08h",
+                              cur_data1, cur_data2, expected_result, expected_overflow, cur_pc),
+                    UVM_LOW)
+            end
 
-            ALU_SLT:  expected_result = ($signed(cur_data1) <  $signed(cur_data2)) ? 32'd1 : 32'd0;
-            ALU_SLTU: expected_result = (cur_data1            <  cur_data2)      ? 32'd1 : 32'd0;
+            ALU_AND: begin
+                expected_result = cur_data1 &  cur_data2;
+                `uvm_info(get_name(),
+                    $sformatf("ALU_AND info: data1=0x%08h & data2=0x%08h => expected_result=0x%08h, expected_overflow=%0b, PC=0x%08h",
+                              cur_data1, cur_data2, expected_result, expected_overflow, cur_pc),
+                    UVM_LOW)
+            end
+
+            ALU_SLL: begin
+                expected_result = cur_data1 <<  shamt;                    // logical left
+                `uvm_info(get_name(),
+                    $sformatf("ALU_SLL info: data1=0x%08h << shamt=%0d => expected_result=0x%08h, PC=0x%08h",
+                              cur_data1, shamt, expected_result, cur_pc),
+                    UVM_LOW)
+            end
+
+            ALU_SRL: begin
+                expected_result = cur_data1 >>  shamt;                    // logical right
+                `uvm_info(get_name(),
+                    $sformatf("ALU_SRL info: data1=0x%08h >> shamt=%0d => expected_result=0x%08h, PC=0x%08h",
+                              cur_data1, shamt, expected_result, cur_pc),
+                    UVM_LOW)
+            end
+
+            ALU_SRA: begin
+                expected_result = $signed(cur_data1) >>> shamt;           // arithmetic right
+                `uvm_info(get_name(),
+                    $sformatf("ALU_SRA info: data1=0x%08h >>> shamt=%0d => expected_result=0x%08h, PC=0x%08h",
+                              cur_data1, shamt, expected_result, cur_pc),
+                    UVM_LOW)
+            end
+
+            ALU_SLT: begin
+                expected_result = ($signed(cur_data1) <  $signed(cur_data2)) ? 32'd1 : 32'd0;
+                `uvm_info(get_name(),
+                    $sformatf("ALU_SLT info: signed compare %0d < %0d => expected_result=%0d, PC=0x%08h",
+                              $signed(cur_data1), $signed(cur_data2), expected_result, cur_pc),
+                    UVM_LOW)
+            end
+
+            ALU_SLTU: begin
+                expected_result = (cur_data1            <  cur_data2)      ? 32'd1 : 32'd0;
+                `uvm_info(get_name(),
+                    $sformatf("ALU_SLTU info: unsigned compare 0x%08h < 0x%08h => expected_result=%0d, PC=0x%08h",
+                              cur_data1, cur_data2, expected_result, cur_pc),
+                    UVM_LOW)
+            end
 
             default: begin
                 // DUT default falls back to ADD

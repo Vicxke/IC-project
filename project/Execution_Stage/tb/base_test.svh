@@ -48,8 +48,7 @@ class base_test extends uvm_test;
     // Start UVM test in running phase.
     //------------------------------------------------------------------------------
     virtual task run_phase(uvm_phase phase);
-        // Raise objection if no UVM test is running
-        phase.raise_objection(this);
+
         
         // Run the test as defined in base test
         reset_seq reset;
@@ -57,7 +56,8 @@ class base_test extends uvm_test;
         control_type ctrl;
         super.run_phase(phase);
 
-        
+         // Raise objection if no UVM test is running
+        phase.raise_objection(this);       
 
         // Start the data generation loop
         //do a simple reset first
@@ -65,7 +65,6 @@ class base_test extends uvm_test;
         reset.delay = 0;
         reset.length = 2;
         reset.start(m_tb_env.m_reset_agent.m_sequencer);
-        @(negedge m_config.m_vif.clk); // wait some time after reset
         //-------------------- single test case -----------------------
         execute_stage = execution_stage_seq::type_id::create("execute_stage");
         
@@ -87,13 +86,13 @@ class base_test extends uvm_test;
 
         // -----------------------------ALU Operations -------------------------------------------------
 
-        repeat (2) begin
+        repeat (100) begin
             execute_stage = execution_stage_seq::type_id::create("execute_stage_rand");
 
             if (!(execute_stage.randomize() with {
                 // ALU und Encoding randomisieren (alle anderen Felder fix)
                 control_in.alu_op inside {
-                    ALU_ADD//, ALU_SUB, ALU_XOR, ALU_OR, ALU_AND
+                    ALU_ADD, ALU_SUB, ALU_XOR, ALU_OR, ALU_AND
                 };
                 control_in.encoding == R_TYPE;
 
