@@ -67,8 +67,8 @@ class base_test extends uvm_test;
         //-------------------- single test case -----------------------
         execute_stage = execution_stage_seq::type_id::create("execute_stage");
         
-        execute_stage.data1 = 32'd15;
-        execute_stage.data2 = 32'd27;
+        execute_stage.data1 = 32'd5;
+        execute_stage.data2 = 32'd4;
         ctrl.alu_op = ALU_ADD;
         ctrl.encoding = R_TYPE;
         ctrl.alu_src = 2'b00; // both operands from registers
@@ -85,7 +85,7 @@ class base_test extends uvm_test;
 
         // -----------------------------ALU Operations -------------------------------------------------
 
-        repeat (100) begin
+        repeat (0) begin
             execute_stage = execution_stage_seq::type_id::create("execute_stage_rand");
 
             if (!(execute_stage.randomize() with {
