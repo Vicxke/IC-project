@@ -45,7 +45,7 @@ class execution_stage_monitor extends uvm_monitor;
         bit expected_overflow = 0;
 
         logic [4:0] shamt;
-        shamt = cur_data2[4:0];
+        
 
         `uvm_info(get_name(), $sformatf("Starting execution_stage monitoring"), UVM_HIGH)
 
@@ -57,11 +57,12 @@ class execution_stage_monitor extends uvm_monitor;
         // Wait for reset deassertion before sampling
         @(posedge m_config.m_vif.rst_n);
         @(negedge m_config.m_vif.clk);
-
+        @(negedge m_config.m_vif.clk);
         // this will just update the view and nothing else very simple
         forever begin
             // Sample on clock edge
             @(posedge m_config.m_vif.clk);
+
 
             // Read current values (assign to temporaries declared above)
             cur_data1   = m_config.m_vif.data1;
@@ -70,11 +71,13 @@ class execution_stage_monitor extends uvm_monitor;
             cur_ctrl    = m_config.m_vif.control_in;
             cur_cmp     = m_config.m_vif.compflg_in;
             cur_pc      = m_config.m_vif.program_counter;
+            shamt = cur_data2[4:0];
 
-            // --- Also read DUT outputs for checking ---
-            cur_result  = m_config.m_vif.alu_data;
-            cur_ovf     = m_config.m_vif.overflow_flag;
-
+            if ( $isunknown(cur_ctrl) || $isunknown(cur_data1) || $isunknown(cur_data2) || $isunknown(cur_pc) ) begin // noch nicht bereit → diesen Zyklus überspringen continue; end
+                `uvm_warning(get_name(), "Unknown value detected on interface signals, skipping this cycle")
+                continue;
+            end
+            
             // On first sample, publish unconditionally so whenever the values change we just update them
 
 
@@ -89,9 +92,6 @@ class execution_stage_monitor extends uvm_monitor;
             seq_item.program_counter  = cur_pc;
             seq_item.monitor_data_valid = 1;
 
-            // Write to analysis port
-            m_analysis_port.write(seq_item);
-
             // --- Compute expected result/flags for all ALU ops ---
             
 
@@ -102,6 +102,11 @@ class execution_stage_monitor extends uvm_monitor;
                 expected_overflow =
                     (~cur_data1[31] & ~cur_data2[31] &  expected_result[31]) |
                     ( cur_data1[31] &  cur_data2[31] & ~expected_result[31]);
+
+                `uvm_info(get_name(),
+                    $sformatf("ALU_ADD info: data1=0x%08h + data2=0x%08h => expected_result=0x%08h, expected_overflow=%0b, PC=0x%08h",
+                              cur_data1, cur_data2, expected_result, expected_overflow, cur_pc),
+                    UVM_LOW)
             end
 
             ALU_SUB: begin
@@ -131,6 +136,12 @@ class execution_stage_monitor extends uvm_monitor;
                     ( cur_data1[31] &  cur_data2[31] & ~expected_result[31]);
             end
             endcase
+
+            @(posedge m_config.m_vif.clk); // wait a cycle to let DUT outputs stabilize
+
+            // --- Also read DUT outputs for checking ---
+            cur_result  = m_config.m_vif.alu_data;
+            cur_ovf     = m_config.m_vif.overflow_flag;
 
             // --- Compare DUT result with expected result (all ops) ---
             if (cur_result !== expected_result) begin
