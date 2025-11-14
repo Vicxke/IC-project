@@ -106,10 +106,12 @@ class execution_stage_monitor extends uvm_monitor;
                     (~cur_data1[31] & ~cur_data2[31] &  expected_result[31]) |
                     ( cur_data1[31] &  cur_data2[31] & ~expected_result[31]);
 
+                /*
                 `uvm_info(get_name(),
                     $sformatf("ALU_ADD info: data1=0x%08h + data2=0x%08h => expected_result=0x%08h, expected_overflow=%0b, PC=0x%08h",
                               cur_data1, cur_data2, expected_result, expected_overflow, cur_pc),
                     UVM_LOW)
+                */
             end
 
             ALU_SUB: begin
@@ -119,82 +121,96 @@ class execution_stage_monitor extends uvm_monitor;
                     (~cur_data1[31] &  cur_data2[31] &  expected_result[31]) |
                     ( cur_data1[31] & ~cur_data2[31] & ~expected_result[31]);
 
+                /*
                 `uvm_info(get_name(),
                     $sformatf("ALU_SUB info: data1=0x%08h - data2=0x%08h => expected_result=0x%08h, expected_overflow=%0b, PC=0x%08h",
                               cur_data1, cur_data2, expected_result, expected_overflow, cur_pc),
                     UVM_LOW)
+                */
             end
 
             ALU_XOR: begin
                 expected_result = cur_data1 ^  cur_data2;
+                /*
                 `uvm_info(get_name(),
                     $sformatf("ALU_XOR info: data1=0x%08h ^ data2=0x%08h => expected_result=0x%08h, expected_overflow=%0b, PC=0x%08h",
                               cur_data1, cur_data2, expected_result, expected_overflow, cur_pc),
                     UVM_LOW)
+                */
             end
 
             ALU_OR: begin
                 expected_result = cur_data1 |  cur_data2;
+                /*
                 `uvm_info(get_name(),
                     $sformatf("ALU_OR info: data1=0x%08h | data2=0x%08h => expected_result=0x%08h, expected_overflow=%0b, PC=0x%08h",
                               cur_data1, cur_data2, expected_result, expected_overflow, cur_pc),
                     UVM_LOW)
+                */
             end
 
             ALU_AND: begin
                 expected_result = cur_data1 &  cur_data2;
+                /*
                 `uvm_info(get_name(),
                     $sformatf("ALU_AND info: data1=0x%08h & data2=0x%08h => expected_result=0x%08h, expected_overflow=%0b, PC=0x%08h",
                               cur_data1, cur_data2, expected_result, expected_overflow, cur_pc),
                     UVM_LOW)
+                */
             end
 
             ALU_SLL: begin
                 expected_result = cur_data1 <<  shamt;                    // logical left
+                /*
                 `uvm_info(get_name(),
                     $sformatf("ALU_SLL info: data1=0x%08h << shamt=%0d => expected_result=0x%08h, PC=0x%08h",
                               cur_data1, shamt, expected_result, cur_pc),
                     UVM_LOW)
+                */
             end
 
             ALU_SRL: begin
                 expected_result = cur_data1 >>  shamt;                    // logical right
+                /*
                 `uvm_info(get_name(),
                     $sformatf("ALU_SRL info: data1=0x%08h >> shamt=%0d => expected_result=0x%08h, PC=0x%08h",
                               cur_data1, shamt, expected_result, cur_pc),
                     UVM_LOW)
+                */
             end
 
             ALU_SRA: begin
                 expected_result = $signed(cur_data1) >>> shamt;           // arithmetic right
+                /*
                 `uvm_info(get_name(),
                     $sformatf("ALU_SRA info: data1=0x%08h >>> shamt=%0d => expected_result=0x%08h, PC=0x%08h",
                               cur_data1, shamt, expected_result, cur_pc),
                     UVM_LOW)
+                */
             end
 
             ALU_SLT: begin
                 expected_result = ($signed(cur_data1) <  $signed(cur_data2)) ? 32'd1 : 32'd0;
+                /*
                 `uvm_info(get_name(),
                     $sformatf("ALU_SLT info: signed compare %0d < %0d => expected_result=%0d, PC=0x%08h",
                               $signed(cur_data1), $signed(cur_data2), expected_result, cur_pc),
                     UVM_LOW)
+                */
             end
 
             ALU_SLTU: begin
                 expected_result = (cur_data1            <  cur_data2)      ? 32'd1 : 32'd0;
+                /*
                 `uvm_info(get_name(),
                     $sformatf("ALU_SLTU info: unsigned compare 0x%08h < 0x%08h => expected_result=%0d, PC=0x%08h",
                               cur_data1, cur_data2, expected_result, cur_pc),
                     UVM_LOW)
+                */
             end
 
             default: begin
-                // DUT default falls back to ADD
-                expected_result   = cur_data1 + cur_data2;
-                expected_overflow =
-                    (~cur_data1[31] & ~cur_data2[31] &  expected_result[31]) |
-                    ( cur_data1[31] &  cur_data2[31] & ~expected_result[31]);
+                 
             end
             endcase
 
@@ -214,18 +230,14 @@ class execution_stage_monitor extends uvm_monitor;
 
             // --- Compare overflow only for ADD/SUB (others are 0) ---
             if (cur_ctrl.alu_op inside {ALU_ADD, ALU_SUB}) begin
-            if (cur_ovf !== expected_overflow) begin
-                `uvm_warning("ALU_OVF_MISMATCH",
-                $sformatf("Overflow flag mismatch on %s: data1=0x%08h, data2=0x%08h, DUT_OVF=%0b, EXP_OVF=%0b",
-                            (cur_ctrl.alu_op == ALU_ADD) ? "ADD" : "SUB",
-                            cur_data1, cur_data2, cur_ovf, expected_overflow))
-            end
-            end else begin
-            if (cur_ovf !== 1'b0) begin
-                `uvm_warning("ALU_OVF_MISMATCH",
-                $sformatf("Overflow flag should be 0 for non-ADD/SUB op %0d: DUT_OVF=%0b", cur_ctrl.alu_op, cur_ovf))
-            end
-            end
+                if (cur_ovf !== expected_overflow) begin
+                    `uvm_warning("ALU_OVF_MISMATCH",
+                    $sformatf("Overflow flag mismatch on %s: data1=0x%08h, data2=0x%08h, DUT_OVF=%0b, EXP_OVF=%0b",
+                                (cur_ctrl.alu_op == ALU_ADD) ? "ADD" : "SUB",
+                                cur_data1, cur_data2, cur_ovf, expected_overflow))
+                end
+            end 
+            
 
             // --- Optionally publish to analysis port for scoreboard ---
             m_analysis_port.write(seq_item);

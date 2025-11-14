@@ -73,25 +73,31 @@ class scoreboard extends uvm_component;
             bins SLTU=  { ALU_SLTU };
         }
         operand_1 : coverpoint data1 {
-            bins very_low   = { [32'h0000_0000 : 32'h1FFF_FFFF] };
-            bins low        = { [32'h2000_0000 : 32'h3FFF_FFFF] };
-            bins mid_low    = { [32'h4000_0000 : 32'h5FFF_FFFF] };
-            bins mid        = { [32'h6000_0000 : 32'h7FFF_FFFF] };
-            bins mid_high   = { [32'h8000_0000 : 32'h9FFF_FFFF] };
-            bins high       = { [32'hA000_0000 : 32'hBFFF_FFFF] };
-            bins very_high  = { [32'hC000_0000 : 32'hDFFF_FFFF] };
-            bins max_val    = { [32'hE000_0000 : 32'hFFFF_FFFF] };
+            bins range_very_low   = { [32'h0000_0000 : 32'h1FFF_FFFF] };
+            bins range_low        = { [32'h2000_0000 : 32'h3FFF_FFFF] };
+            bins range_mid_low    = { [32'h4000_0000 : 32'h5FFF_FFFF] };
+            bins range_mid        = { [32'h6000_0000 : 32'h7FFF_FFFF] };
+            bins range_mid_high   = { [32'h8000_0000 : 32'h9FFF_FFFF] };
+            bins range_high       = { [32'hA000_0000 : 32'hBFFF_FFFF] };
+            bins range_very_high  = { [32'hC000_0000 : 32'hDFFF_FFFF] };
+            bins range_max_val    = { [32'hE000_0000 : 32'hFFFF_FFFF] };
+            // Single-value bins to explicitly cover all-zeros and all-ones
+            bins all_zeros  = { 32'h0000_0000 };
+            bins all_ones   = { 32'hFFFF_FFFF };
         }
 
         operand_2 : coverpoint data2 {
-            bins very_low   = { [32'h0000_0000 : 32'h1FFF_FFFF] };
-            bins low        = { [32'h2000_0000 : 32'h3FFF_FFFF] };
-            bins mid_low    = { [32'h4000_0000 : 32'h5FFF_FFFF] };
-            bins mid        = { [32'h6000_0000 : 32'h7FFF_FFFF] };
-            bins mid_high   = { [32'h8000_0000 : 32'h9FFF_FFFF] };
-            bins high       = { [32'hA000_0000 : 32'hBFFF_FFFF] };
-            bins very_high  = { [32'hC000_0000 : 32'hDFFF_FFFF] };
-            bins max_val    = { [32'hE000_0000 : 32'hFFFF_FFFF] };
+            bins range_very_low   = { [32'h0000_0000 : 32'h1FFF_FFFF] };
+            bins range_low        = { [32'h2000_0000 : 32'h3FFF_FFFF] };
+            bins range_mid_low    = { [32'h4000_0000 : 32'h5FFF_FFFF] };
+            bins range_mid        = { [32'h6000_0000 : 32'h7FFF_FFFF] };
+            bins range_mid_high   = { [32'h8000_0000 : 32'h9FFF_FFFF] };
+            bins range_high       = { [32'hA000_0000 : 32'hBFFF_FFFF] };
+            bins range_very_high  = { [32'hC000_0000 : 32'hDFFF_FFFF] };
+            bins range_max_val    = { [32'hE000_0000 : 32'hFFFF_FFFF] };
+            // Single-value bins to explicitly cover all-zeros and all-ones
+            bins all_zeros  = { 32'h0000_0000 };
+            bins all_ones   = { 32'hFFFF_FFFF };
         }
 
         op_type : coverpoint encoding {
