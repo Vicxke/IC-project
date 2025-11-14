@@ -23,8 +23,8 @@ import common::*;
 class execution_stage_seq_item extends uvm_sequence_item;
 
     // DUT inputs
-    rand logic [31:0] data1;
-    rand logic [31:0] data2;
+    randc logic [31:0] data1;
+    randc logic [31:0] data2;
     rand logic [31:0] immediate_data;
     // control_type is a DUT typedef; include a field for it so monitor can pass it
     rand control_type control_in;
