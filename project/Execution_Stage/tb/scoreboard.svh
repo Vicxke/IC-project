@@ -52,6 +52,8 @@ class scoreboard extends uvm_component;
 
     encoding_type encoding;
 
+    control_type control_in;
+
     //------------------------------------------------------------------------------
     // Functional coverage definitions
     //------------------------------------------------------------------------------
@@ -108,8 +110,14 @@ class scoreboard extends uvm_component;
             bins U_TYPE = { U_TYPE };
             bins J_TYPE = { J_TYPE };
         }
+        alu_src : coverpoint control_in.alu_src {
+            bins src_reg   = { 2'b00 };
+            bins src_imm   = { 2'b01 };
+            bins src_pc    = { 2'b10 };
+            bins src_lui   = { 2'b11 };
+        }
         cross_op_reset : cross operations, reset; //test cross coverage
-        cross_op_data : cross operations, operand_1, operand_2;
+        cross_op_data : cross operations, operand_1, operand_2; //ExStage_00
     endgroup
 
     //------------------------------------------------------------------------------
@@ -151,6 +159,7 @@ class scoreboard extends uvm_component;
         data1 = item.data1;
         data2 = item.data2;
         encoding = item.control_in.encoding;
+        control_in = item.control_in;
         //`uvm_info(get_name(), $sformatf("ALU_OPRESET_function: alu_op=%00s reset_value=%0b", alu_op.name(), reset_value), UVM_LOW)
         execution_stage_covergrp.sample();
 

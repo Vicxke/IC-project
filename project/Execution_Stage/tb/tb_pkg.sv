@@ -45,5 +45,6 @@ package tb_pkg;
     `include "top_config.svh"
     `include "tb_env.svh"
     `include "ExStage_00.svh"
+    `include "ExStage_01.svh"
     `include "basic_test.svh"
 endpackage: tb_pkg

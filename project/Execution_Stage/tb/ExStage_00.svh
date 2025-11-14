@@ -55,7 +55,7 @@ class ExStage_00 extends uvm_test;
         control_type ctrl;
         super.run_phase(phase);
 
-        `uvm_info("ExStage_00 Info", "Starting base_test run_phase", UVM_LOW);
+        `uvm_info("ExStage_00 Info", "Starting ExStage_00 run_phase", UVM_LOW);
 
          // Raise objection if no UVM test is running
         phase.raise_objection(this);       

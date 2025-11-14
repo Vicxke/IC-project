@@ -70,7 +70,8 @@ module tb_top;
 
     // Start UVM test_base environment
     initial begin
-        run_test("ExStage_00");
+        //run_test("ExStage_00");
+        run_test("ExStage_01");
     end
 
 endmodule
