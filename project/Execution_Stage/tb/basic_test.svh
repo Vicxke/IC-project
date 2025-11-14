@@ -11,7 +11,7 @@
 // See more detailed information in base_test
 //------------------------------------------------------------------------------
 import common::*;
-class basic_test extends base_test;
+class basic_test extends ExStage_00;
     `uvm_component_utils(basic_test)
 
     //------------------------------------------------------------------------------
@@ -36,6 +36,10 @@ class basic_test extends base_test;
     // Start UVM test in running phase.
     //------------------------------------------------------------------------------
     virtual task run_phase(uvm_phase phase);
+
+        `uvm_info("Basic_Test Info", "Starting Basic Test", UVM_LOW);
+
+         // Raise objection if no UVM test is running
 
         super.run_phase(phase);
 
