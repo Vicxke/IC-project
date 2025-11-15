@@ -47,6 +47,9 @@ class ExStage_01 extends uvm_test;
     // FUNCTION: run_phase
     // Start UVM test in running phase.
     //------------------------------------------------------------------------------
+    
+    int n = 1; // 100 for 100% coverage
+
     virtual task run_phase(uvm_phase phase);
 
         // Run the test as defined in base test
@@ -69,7 +72,8 @@ class ExStage_01 extends uvm_test;
         
         // -----------------------------ALU Operations -------------------------------------------------
 
-        repeat (10000) begin
+        
+        repeat (100*n) begin
             execute_stage = execution_stage_seq::type_id::create("execute_stage_rand");
 
             if (!(execute_stage.randomize() with {
@@ -98,7 +102,7 @@ class ExStage_01 extends uvm_test;
             execute_stage.start(m_tb_env.m_execution_stage_agent.m_sequencer);
         end
 
-        repeat (2000) begin
+        repeat (20*n) begin
             execute_stage = execution_stage_seq::type_id::create("execute_stage_rand");
 
             if (!(execute_stage.randomize() with {
@@ -125,7 +129,7 @@ class ExStage_01 extends uvm_test;
             execute_stage.start(m_tb_env.m_execution_stage_agent.m_sequencer);
         end
 
-        repeat (2000) begin
+        repeat (20*n) begin
             execute_stage = execution_stage_seq::type_id::create("execute_stage_rand");
 
             if (!(execute_stage.randomize() with {
@@ -152,7 +156,7 @@ class ExStage_01 extends uvm_test;
             execute_stage.start(m_tb_env.m_execution_stage_agent.m_sequencer);
         end
 
-        repeat (300) begin
+        repeat (3*n) begin
             execute_stage = execution_stage_seq::type_id::create("execute_stage_rand");
 
             if (!(execute_stage.randomize() with {

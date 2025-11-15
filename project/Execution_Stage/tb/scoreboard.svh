@@ -149,7 +149,6 @@ class scoreboard extends uvm_component;
     // Write implementation for write_scoreboard_execution_stage analysis port.
     //------------------------------------------------------------------------------
     virtual function void write_scoreboard_execution_stage(execution_stage_seq_item item);
-        `uvm_info(get_name(), $sformatf("EXECUTION_STAGE_MONITOR: %s", item.convert2string()), UVM_MEDIUM)
         items_received++;
         if (item.exp_alu_data !== 'x && item.exp_alu_data !== '0) begin
             `uvm_info(get_name(), $sformatf("Item provided expected ALU data=0x%08h", item.exp_alu_data), UVM_LOW)
