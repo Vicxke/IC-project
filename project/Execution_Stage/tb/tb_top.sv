@@ -69,8 +69,8 @@ module tb_top;
     end
 
     // Start UVM test_base environment
-    initial begin
-        //run_test("ExStage_00");
+    initial begin // only one run valid
+        run_test("ExStage_00"); 
         run_test("ExStage_01");
     end
 
