@@ -49,6 +49,7 @@ class scoreboard extends uvm_component;
 
     int unsigned data1;
     int unsigned data2;
+    int unsigned immediate_data;
 
     encoding_type encoding;
 
@@ -101,6 +102,19 @@ class scoreboard extends uvm_component;
             bins all_zeros  = { 32'h0000_0000 };
             bins all_ones   = { 32'hFFFF_FFFF };
         }
+        intermediate : coverpoint immediate_data {
+            bins range_very_low   = { [32'h0000_0000 : 32'h1FFF_FFFF] };
+            bins range_low        = { [32'h2000_0000 : 32'h3FFF_FFFF] };
+            bins range_mid_low    = { [32'h4000_0000 : 32'h5FFF_FFFF] };
+            bins range_mid        = { [32'h6000_0000 : 32'h7FFF_FFFF] };
+            bins range_mid_high   = { [32'h8000_0000 : 32'h9FFF_FFFF] };
+            bins range_high       = { [32'hA000_0000 : 32'hBFFF_FFFF] };
+            bins range_very_high  = { [32'hC000_0000 : 32'hDFFF_FFFF] };
+            bins range_max_val    = { [32'hE000_0000 : 32'hFFFF_FFFF] };
+            // Single-value bins to explicitly cover all-zeros and all-ones
+            bins all_zeros  = { 32'h0000_0000 };
+            bins all_ones   = { 32'hFFFF_FFFF };
+        }
 
         op_type : coverpoint encoding {
             bins R_TYPE = { R_TYPE };
@@ -116,8 +130,10 @@ class scoreboard extends uvm_component;
             bins src_pc    = { 2'b10 };
             bins src_lui   = { 2'b11 };
         }
-        cross_op_reset : cross operations, reset; //test cross coverage
-        cross_op_data : cross operations, operand_1, operand_2; //ExStage_00
+        cross_ExStage_00 : cross operations, operand_1, operand_2; //ExStage_00
+        cross_ExStage_01 : cross operations, operand_1, intermediate; //ExStage_01
+        cross_ExStage_02 : cross operand_1, intermediate; //ExStage_02
+
     endgroup
 
     //------------------------------------------------------------------------------
@@ -157,6 +173,7 @@ class scoreboard extends uvm_component;
         alu_op= item.control_in.alu_op;
         data1 = item.data1;
         data2 = item.data2;
+        immediate_data = item.immediate_data;
         encoding = item.control_in.encoding;
         control_in = item.control_in;
         //`uvm_info(get_name(), $sformatf("ALU_OPRESET_function: alu_op=%00s reset_value=%0b", alu_op.name(), reset_value), UVM_LOW)

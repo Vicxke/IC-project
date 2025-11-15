@@ -48,7 +48,7 @@ class ExStage_01 extends uvm_test;
     // Start UVM test in running phase.
     //------------------------------------------------------------------------------
     
-    int n = 1; // 100 for 100% coverage
+    int n = 100; // 100 for 100% coverage
 
     virtual task run_phase(uvm_phase phase);
 
@@ -81,7 +81,7 @@ class ExStage_01 extends uvm_test;
                 // control_in.alu_op inside {
                 //     ALU_ADD, ALU_SUB, ALU_XOR, ALU_OR, ALU_AND, ALU_SLL, ALU_SRL,ALU_SRA, ALU_SLT, ALU_SLTU
                 // };
-                control_in.encoding == R_TYPE;
+                control_in.encoding == I_TYPE;
 
                 control_in.alu_src    == 2'b01; //This is tested here
                 control_in.mem_read   == 0;
@@ -107,7 +107,7 @@ class ExStage_01 extends uvm_test;
 
             if (!(execute_stage.randomize() with {
                 // ALU und Encoding randomisieren (alle anderen Felder fix)
-                control_in.encoding == R_TYPE;
+                control_in.encoding == I_TYPE;
                 execute_stage.data1 inside {32'h0000_0000,32'hFFFF_FFFF};
 
                 control_in.alu_src    == 2'b01;
@@ -134,8 +134,9 @@ class ExStage_01 extends uvm_test;
 
             if (!(execute_stage.randomize() with {
                 // ALU und Encoding randomisieren (alle anderen Felder fix)
-                control_in.encoding == R_TYPE;
-                execute_stage.data2 inside {32'h0000_0000,32'hFFFF_FFFF};
+                control_in.encoding == I_TYPE;
+                // execute_stage.data2 inside {32'h0000_0000,32'hFFFF_FFFF}; //not used in this test case
+                execute_stage.immediate_data inside {32'h0000_0000,32'hFFFF_FFFF};
 
                 control_in.alu_src    == 2'b01;
                 control_in.mem_read   == 0;
@@ -161,10 +162,10 @@ class ExStage_01 extends uvm_test;
 
             if (!(execute_stage.randomize() with {
                 // ALU und Encoding randomisieren (alle anderen Felder fix)
-                control_in.encoding == R_TYPE;
+                control_in.encoding == I_TYPE;
                 execute_stage.data1 inside {32'h0000_0000,32'hFFFF_FFFF};
-                execute_stage.data2 inside {32'h0000_0000,32'hFFFF_FFFF};
-
+                // execute_stage.data2 inside {32'h0000_0000,32'hFFFF_FFFF}; //not used in this test case
+                execute_stage.immediate_data inside {32'h0000_0000,32'hFFFF_FFFF};
 
                 control_in.alu_src    == 2'b01;
                 control_in.mem_read   == 0;

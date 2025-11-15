@@ -25,7 +25,7 @@ class execution_stage_seq_item extends uvm_sequence_item;
     // DUT inputs
     randc logic [31:0] data1;
     randc logic [31:0] data2;
-    rand logic [31:0] immediate_data;
+    randc logic [31:0] immediate_data;
     // control_type is a DUT typedef; include a field for it so monitor can pass it
     rand control_type control_in;
     rand bit compflg_in;
