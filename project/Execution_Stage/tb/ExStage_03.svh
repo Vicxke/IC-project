@@ -11,8 +11,8 @@
 // See more detailed information in base_test
 //------------------------------------------------------------------------------
 import common::*;
-class ExStage_02 extends uvm_test;
-    `uvm_component_utils(ExStage_02)
+class ExStage_03 extends uvm_test;
+    `uvm_component_utils(ExStage_03)
 
     // Testbench top configuration object with all setup for the TB
     top_config  m_top_config;
@@ -58,8 +58,6 @@ class ExStage_02 extends uvm_test;
         control_type ctrl;
         super.run_phase(phase);
 
-        `uvm_info("ExStage_02 Info", "Starting ExStage_02 run_phase", UVM_LOW);
-
          // Raise objection if no UVM test is running
         phase.raise_objection(this);       
 
@@ -71,17 +69,22 @@ class ExStage_02 extends uvm_test;
         reset.start(m_tb_env.m_reset_agent.m_sequencer);
         
         // -----------------------------ALU Operations -------------------------------------------------
-
         
+        // preserve current data1 value instead of forcing it
+        execute_stage = execution_stage_seq::type_id::create("execute_stage_init");
+        
+
         repeat (100*n) begin
             execute_stage = execution_stage_seq::type_id::create("execute_stage_rand");
 
-            if (!(execute_stage.randomize() with {
+
+            if (!(execute_stage.randomize() with {                
+
                 // ALU und Encoding randomisieren (alle anderen Felder fix)
                 control_in.alu_op == ALU_ADD; 
-                control_in.encoding == S_TYPE;
+                control_in.encoding inside {J_TYPE, I_TYPE};
 
-                control_in.alu_src    == 2'b01; //This is tested here
+                control_in.alu_src    == 2'b10; //This is tested here
                 control_in.mem_read   == 0;
                 control_in.mem_write  == 0;
                 control_in.reg_write  == 1;
@@ -89,10 +92,9 @@ class ExStage_02 extends uvm_test;
                 control_in.is_branch  == 0;
                 control_in.funct3     == 3'b000;
 
-                // data1/data2 frei (volle 32-Bit-Spanne)
-                compflg_in == 0;
+                //compflg_in == 0; // both cases included in test
 
-                // PC in wachsendem Bereich, optional
+                // PC in growing range, optional
                 program_counter == 32'h0000_0040;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
@@ -104,12 +106,13 @@ class ExStage_02 extends uvm_test;
             execute_stage = execution_stage_seq::type_id::create("execute_stage_rand");
 
             if (!(execute_stage.randomize() with {
+
                 // ALU und Encoding randomisieren (alle anderen Felder fix)
-                control_in.alu_op == ALU_ADD; 
-                control_in.encoding == S_TYPE;
+                control_in.alu_op == ALU_ADD;
+                control_in.encoding inside {J_TYPE, I_TYPE};
                 execute_stage.data1 inside {32'h0000_0000,32'hFFFF_FFFF};
 
-                control_in.alu_src    == 2'b01;
+                control_in.alu_src    == 2'b10;
                 control_in.mem_read   == 0;
                 control_in.mem_write  == 0;
                 control_in.reg_write  == 1;
@@ -117,8 +120,6 @@ class ExStage_02 extends uvm_test;
                 control_in.is_branch  == 0;
                 control_in.funct3     == 3'b000;
 
-                // data1/data2 frei (volle 32-Bit-Spanne)
-                compflg_in == 0;
 
                 // PC in wachsendem Bereich, optional
                 program_counter == 32'h0000_0040;
@@ -132,22 +133,20 @@ class ExStage_02 extends uvm_test;
             execute_stage = execution_stage_seq::type_id::create("execute_stage_rand");
 
             if (!(execute_stage.randomize() with {
+                
                 // ALU und Encoding randomisieren (alle anderen Felder fix)
                 control_in.alu_op == ALU_ADD; 
-                control_in.encoding == S_TYPE;
-                // execute_stage.data2 inside {32'h0000_0000,32'hFFFF_FFFF}; //not used in this test case
-                execute_stage.immediate_data inside {32'h0000_0000,32'hFFFF_FFFF};
+                control_in.encoding inside {J_TYPE, I_TYPE};
+                execute_stage.data2 inside {32'h0000_0000,32'hFFFF_FFFF}; 
+                // execute_stage.immediate_data inside {32'h0000_0000,32'hFFFF_FFFF}; //not used in this test case
 
-                control_in.alu_src    == 2'b01;
+                control_in.alu_src    == 2'b10;
                 control_in.mem_read   == 0;
                 control_in.mem_write  == 0;
                 control_in.reg_write  == 1;
                 control_in.mem_to_reg == 0;
                 control_in.is_branch  == 0;
                 control_in.funct3     == 3'b000;
-
-                // data1/data2 frei (volle 32-Bit-Spanne)
-                compflg_in == 0;
 
                 // PC in wachsendem Bereich, optional
                 program_counter == 32'h0000_0040;
@@ -161,24 +160,21 @@ class ExStage_02 extends uvm_test;
             execute_stage = execution_stage_seq::type_id::create("execute_stage_rand");
 
             if (!(execute_stage.randomize() with {
+                
                 // ALU und Encoding randomisieren (alle anderen Felder fix)
                 control_in.alu_op == ALU_ADD; 
-                control_in.encoding == S_TYPE;
+                control_in.encoding inside {J_TYPE, I_TYPE};
                 execute_stage.data1 inside {32'h0000_0000,32'hFFFF_FFFF};
-                //execute_stage.data2 inside {32'h0000_0000,32'hFFFF_FFFF}; //not used in this test case
-                execute_stage.immediate_data inside {32'h0000_0000,32'hFFFF_FFFF};
+                execute_stage.data2 inside {32'h0000_0000,32'hFFFF_FFFF}; 
+                // execute_stage.immediate_data inside {32'h0000_0000,32'hFFFF_FFFF}; //not used in this test case
 
-
-                control_in.alu_src    == 2'b01;
+                control_in.alu_src    == 2'b10;
                 control_in.mem_read   == 0;
                 control_in.mem_write  == 0;
                 control_in.reg_write  == 1;
                 control_in.mem_to_reg == 0;
                 control_in.is_branch  == 0;
                 control_in.funct3     == 3'b000;
-
-                // data1/data2 frei (volle 32-Bit-Spanne)
-                compflg_in == 0;
 
                 // PC in wachsendem Bereich, optional
                 program_counter == 32'h0000_0040;
@@ -194,4 +190,4 @@ class ExStage_02 extends uvm_test;
 
     endtask : run_phase
 
-endclass : ExStage_02
+endclass : ExStage_03

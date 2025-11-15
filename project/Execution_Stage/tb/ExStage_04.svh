@@ -11,8 +11,8 @@
 // See more detailed information in base_test
 //------------------------------------------------------------------------------
 import common::*;
-class ExStage_02 extends uvm_test;
-    `uvm_component_utils(ExStage_02)
+class ExStage_04 extends uvm_test;
+    `uvm_component_utils(ExStage_04)
 
     // Testbench top configuration object with all setup for the TB
     top_config  m_top_config;
@@ -58,7 +58,7 @@ class ExStage_02 extends uvm_test;
         control_type ctrl;
         super.run_phase(phase);
 
-        `uvm_info("ExStage_02 Info", "Starting ExStage_02 run_phase", UVM_LOW);
+        `uvm_info("ExStage_04 Info", "Starting ExStage_04 run_phase", UVM_LOW);
 
          // Raise objection if no UVM test is running
         phase.raise_objection(this);       
@@ -194,4 +194,4 @@ class ExStage_02 extends uvm_test;
 
     endtask : run_phase
 
-endclass : ExStage_02
+endclass : ExStage_04

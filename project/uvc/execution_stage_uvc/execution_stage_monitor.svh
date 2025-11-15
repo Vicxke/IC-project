@@ -107,6 +107,9 @@ class execution_stage_monitor extends uvm_monitor;
             expected_overflow = 1'b0;  // default for non-add/sub ops
             unique case (cur_ctrl.alu_op)
             ALU_ADD: begin
+            if ( (cur_ctrl.encoding inside {J_TYPE, I_TYPE}) && (cur_ctrl.alu_src == 2'b10) ) begin // special case for ExStage_03
+                op1 = (cur_cmp) ? 32'd2 : 32'd4; 
+            end
             expected_result   = op1 + op2;
             expected_overflow =
             (~op1[31] & ~op2[31] &  expected_result[31]) |
@@ -182,6 +185,15 @@ class execution_stage_monitor extends uvm_monitor;
                 end
             end 
             
+            // Check for ExStage_03 specific condition: if encoding is J_TYPE or I_TYPE and alu_src is 2'b10, then compflg_in must be considered
+            if ( (cur_ctrl.encoding inside {J_TYPE, I_TYPE}) && (cur_ctrl.alu_src == 2'b10) ) begin
+                // For this case, if compflg_in is 1, expected_result should be 2, else 4
+                if (cur_cmp & (op1 !== 32'd2) ^| (!cur_cmp & (op1 !== 32'd4)) ) begin
+                    `uvm_error("COMPRESSION_FLAG_MISMATCH",
+                    $sformatf("Compression flag effect mismatch: encoding=%0d, alu_src=%0b, compflg_in=%0b, DUT_result=0x%08h, EXP_result=0x%08h",
+                                cur_ctrl.encoding, cur_ctrl.alu_src, cur_cmp, cur_result, (cur_cmp ? 32'd2 : 32'd4)))
+                end
+            end
 
             // --- Optionally publish to analysis port for scoreboard ---
             m_analysis_port.write(seq_item);

@@ -72,7 +72,10 @@ module tb_top;
     initial begin // only one run valid
         //run_test("ExStage_00"); 
         // run_test("ExStage_01");
-        run_test("ExStage_02");
+        // run_test("ExStage_02");
+        run_test("ExStage_03");
+        // run_test("ExStage_04");
+        // run_test("ExStage_05");
 
     end
 
