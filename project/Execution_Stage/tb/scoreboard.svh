@@ -120,7 +120,7 @@ class scoreboard extends uvm_component;
             bins all_zeros  = { 32'h0000_0000 };
             bins all_ones   = { 32'hFFFF_FFFF };
         }
-        alu_result : coverpoint alu_result {
+        coverpoint_alu_result : coverpoint alu_result {
             bins range_very_low   = { [32'h0000_0000 : 32'h1FFF_FFFF] };
             bins range_low        = { [32'h2000_0000 : 32'h3FFF_FFFF] };
             bins range_mid_low    = { [32'h4000_0000 : 32'h5FFF_FFFF] };
@@ -151,11 +151,11 @@ class scoreboard extends uvm_component;
             bins flag_cleared = { 1'b0 };
             bins flag_set     = { 1'b1 };
         }
-        overflow_flag : coverpoint overflow_flag {
+        coverpoint_overflow_flag : coverpoint overflow_flag {
             bins no_overflow = { 1'b0 };
             bins overflow    = { 1'b1 };
         }
-        zero_flag : coverpoint zero_flag {
+        coverpoint_zero_flag : coverpoint zero_flag {
             bins not_zero = { 1'b0 };
             bins is_zero  = { 1'b1 };
         }
