@@ -38,6 +38,7 @@ class execution_stage_monitor extends uvm_monitor;
         control_type cur_ctrl;
         logic cur_cmp;
         logic cur_ovf;        // current overflow flag
+        logic cur_zeroflg;    // current zero flag
         execution_stage_seq_item seq_item;
 
         // --- Calculate expected result ---
@@ -92,14 +93,6 @@ class execution_stage_monitor extends uvm_monitor;
 
             seq_item = execution_stage_seq_item::type_id::create("monitor_item");
 
-            // Fill sequence item fields (assumes these fields exist on execution_stage_seq_item)
-            seq_item.data1            = cur_data1;
-            seq_item.data2            = op2;
-            seq_item.immediate_data   = cur_imm;
-            seq_item.control_in       = cur_ctrl;
-            seq_item.compflg_in       = cur_cmp;
-            seq_item.program_counter  = cur_pc;
-            seq_item.monitor_data_valid = 1;
 
 
             // --- Compute expected result/flags for all ALU ops ---
@@ -164,6 +157,8 @@ class execution_stage_monitor extends uvm_monitor;
             // --- Also read DUT outputs for checking ---
             cur_result  = m_config.m_vif.alu_data;
             cur_ovf     = m_config.m_vif.overflow_flag;
+            cur_zeroflg = m_config.m_vif.zero_flag;
+
 
             `uvm_info(get_name(), $sformatf("Result from DUT: res=%0h ovf=%0h",cur_result, cur_ovf), UVM_MEDIUM)
 
@@ -195,6 +190,18 @@ class execution_stage_monitor extends uvm_monitor;
                 end
             end
 
+            // Fill sequence item fields (assumes these fields exist on execution_stage_seq_item)
+            seq_item.data1            = cur_data1;
+            seq_item.data2            = op2;
+            seq_item.immediate_data   = cur_imm;
+            seq_item.control_in       = cur_ctrl;
+            seq_item.compflg_in       = cur_cmp;
+            seq_item.program_counter  = cur_pc;
+            seq_item.exp_alu_data     = cur_result;
+            seq_item.exp_overflow_flag= cur_ovf;
+            seq_item.exp_zero_flag    = cur_zeroflg;
+            seq_item.monitor_data_valid = 1;
+            
             // --- Optionally publish to analysis port for scoreboard ---
             m_analysis_port.write(seq_item);
 

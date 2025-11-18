@@ -20,6 +20,7 @@ interface execution_stage_if (input logic clk, input logic rst_n);
     logic [31:0] alu_data;
     logic [31:0] memory_data;
     logic overflow_flag;
+    logic zero_flag;
     logic compflg_out;
 
 endinterface : execution_stage_if

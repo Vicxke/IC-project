@@ -50,12 +50,15 @@ class scoreboard extends uvm_component;
     int unsigned data1;
     int unsigned data2;
     int unsigned immediate_data;
+    int unsigned alu_result;
 
     encoding_type encoding;
 
     control_type control_in;
 
     logic compflg_in;
+    logic overflow_flag;
+    logic zero_flag;
 
     //------------------------------------------------------------------------------
     // Functional coverage definitions
@@ -117,7 +120,19 @@ class scoreboard extends uvm_component;
             bins all_zeros  = { 32'h0000_0000 };
             bins all_ones   = { 32'hFFFF_FFFF };
         }
-
+        alu_result : coverpoint alu_result {
+            bins range_very_low   = { [32'h0000_0000 : 32'h1FFF_FFFF] };
+            bins range_low        = { [32'h2000_0000 : 32'h3FFF_FFFF] };
+            bins range_mid_low    = { [32'h4000_0000 : 32'h5FFF_FFFF] };
+            bins range_mid        = { [32'h6000_0000 : 32'h7FFF_FFFF] };
+            bins range_mid_high   = { [32'h8000_0000 : 32'h9FFF_FFFF] };
+            bins range_high       = { [32'hA000_0000 : 32'hBFFF_FFFF] };
+            bins range_very_high  = { [32'hC000_0000 : 32'hDFFF_FFFF] };
+            bins range_max_val    = { [32'hE000_0000 : 32'hFFFF_FFFF] };
+            // Single-value bins to explicitly cover all-zeros and all-ones
+            bins all_zeros  = { 32'h0000_0000 };
+            bins all_ones   = { 32'hFFFF_FFFF };
+        }
         op_type : coverpoint encoding {
             bins R_TYPE = { R_TYPE };
             bins I_TYPE = { I_TYPE };
@@ -135,6 +150,14 @@ class scoreboard extends uvm_component;
         compression_flag : coverpoint compflg_in {
             bins flag_cleared = { 1'b0 };
             bins flag_set     = { 1'b1 };
+        }
+        overflow_flag : coverpoint overflow_flag {
+            bins no_overflow = { 1'b0 };
+            bins overflow    = { 1'b1 };
+        }
+        zero_flag : coverpoint zero_flag {
+            bins not_zero = { 1'b0 };
+            bins is_zero  = { 1'b1 };
         }
         cross_ExStage_00 : cross operations, operand_1, operand_2;          //ExStage_00
         cross_ExStage_01 : cross operations, operand_1, intermediate;       //ExStage_01
@@ -184,6 +207,9 @@ class scoreboard extends uvm_component;
         encoding = item.control_in.encoding;
         control_in = item.control_in;
         compflg_in = item.compflg_in;
+        overflow_flag = item.exp_overflow_flag;
+        zero_flag = item.exp_zero_flag;
+        alu_result = item.exp_alu_data;
         //`uvm_info(get_name(), $sformatf("ALU_OPRESET_function: alu_op=%00s reset_value=%0b", alu_op.name(), reset_value), UVM_LOW)
         execution_stage_covergrp.sample();
 

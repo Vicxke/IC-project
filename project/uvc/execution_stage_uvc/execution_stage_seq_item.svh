@@ -34,6 +34,7 @@ class execution_stage_seq_item extends uvm_sequence_item;
     // Optional expected outputs (for scoreboard checks)
     logic [31:0] exp_alu_data;
     bit exp_overflow_flag;
+    bit exp_zero_flag;
     // monitor helper flag
     bit monitor_data_valid;
 
