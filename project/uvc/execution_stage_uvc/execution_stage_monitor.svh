@@ -179,6 +179,15 @@ class execution_stage_monitor extends uvm_monitor;
                                 cur_data1, cur_data2,cur_imm, cur_ovf, expected_overflow))
                 end
             end 
+
+            // --- Compare zero flag ---
+            if (cur_zeroflg !== (cur_result == 32'd0)) begin
+                `uvm_error("ALU_ZEROFLAG_MISMATCH",
+                $sformatf("Zero flag mismatch: data1=0x%08h, data2=0x%08h, imm=0x%08h, DUT_result=0x%08h, DUT_ZF=%0b, EXP_ZF=%0b",
+                            cur_data1, cur_data2, cur_imm, cur_result, cur_zeroflg, (cur_result == 32'd0)))
+            end
+
+            // --- compare control signals --- 
             
             // Check for ExStage_03 specific condition: if encoding is J_TYPE or I_TYPE and alu_src is 2'b10, then compflg_in must be considered
             if ( (cur_ctrl.encoding inside {J_TYPE, I_TYPE}) && (cur_ctrl.alu_src == 2'b10) ) begin
@@ -189,6 +198,7 @@ class execution_stage_monitor extends uvm_monitor;
                                 cur_ctrl.encoding, cur_ctrl.alu_src, cur_cmp, cur_result, (cur_cmp ? 32'd2 : 32'd4)))
                 end
             end
+
 
             // Fill sequence item fields (assumes these fields exist on execution_stage_seq_item)
             seq_item.data1            = cur_data1;
