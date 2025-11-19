@@ -70,36 +70,10 @@ class ExStage_05 extends uvm_test;
         reset.length = 2;
         reset.start(m_tb_env.m_reset_agent.m_sequencer);
         
-        // -----------------------------ALU Operations -------------------------------------------------
+        // -----------------------------reset signal -------------------------------------------------
 
         
-        repeat (100*n) begin
-            execute_stage = execution_stage_seq::type_id::create("execute_stage_rand");
-            
-            //this will set the 
-            if (!(execute_stage.randomize() with {
-                // This will test ALU_ADD with U-type encoding for AUIPC
-                control_in.alu_op == ALU_ADD; 
-                control_in.encoding == U_TYPE;
 
-                control_in.alu_src    == 2'b01; //This sets the right operand to immediate data
-                control_in.mem_read   == 0;
-                control_in.mem_write  == 0;
-                control_in.reg_write  == 1;
-                control_in.mem_to_reg == 0;
-                control_in.is_branch  == 0;
-                control_in.funct3     == 3'b000;
-
-                // data1/data2 frei (volle 32-Bit-Spanne)
-                compflg_in == 0;
-
-                // PC is the base address for AUIPC
-                program_counter == 32'h0000_0040;
-            }))
-                `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
-
-            execute_stage.start(m_tb_env.m_execution_stage_agent.m_sequencer);
-        end
 
         // Drop objection if no UVM test is running
         phase.drop_objection(this);

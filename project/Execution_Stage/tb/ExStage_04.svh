@@ -76,12 +76,13 @@ class ExStage_04 extends uvm_test;
         repeat (100*n) begin
             execute_stage = execution_stage_seq::type_id::create("execute_stage_rand");
 
+            //this will set the 
             if (!(execute_stage.randomize() with {
-                // ALU und Encoding randomisieren (alle anderen Felder fix)
+                // This will test ALU_ADD with U-type encoding for AUIPC
                 control_in.alu_op == ALU_ADD; 
-                control_in.encoding == S_TYPE;
+                control_in.encoding == U_TYPE;
 
-                control_in.alu_src    == 2'b01; //This is tested here
+                control_in.alu_src    == 2'b01; //This sets the right operand to immediate data
                 control_in.mem_read   == 0;
                 control_in.mem_write  == 0;
                 control_in.reg_write  == 1;
@@ -92,7 +93,7 @@ class ExStage_04 extends uvm_test;
                 // data1/data2 frei (volle 32-Bit-Spanne)
                 compflg_in == 0;
 
-                // PC in wachsendem Bereich, optional
+                // PC is the base address for AUIPC
                 program_counter == 32'h0000_0040;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
