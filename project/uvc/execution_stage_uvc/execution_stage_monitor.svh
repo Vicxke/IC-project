@@ -103,6 +103,14 @@ class execution_stage_monitor extends uvm_monitor;
             if ( (cur_ctrl.encoding inside {J_TYPE, I_TYPE}) && (cur_ctrl.alu_src == 2'b10) ) begin // special case for ExStage_03
                 op1 = (cur_cmp) ? 32'd2 : 32'd4; 
             end
+            //if the encoding is U_TYPE and alu_src is 2'b10 then it's AUIPC and (op1 = imm << 12)
+            else
+            if (cur_ctrl.encoding == U_TYPE && cur_ctrl.alu_src == 2'b10) begin
+                // not shure about what the behaviour should be
+                // op1 = cur_imm << 12; //AUIPC
+                //I would think this because the decode stage should set this immidiate correct from the instruction in decode stage
+                op1 = cur_imm; //AUIPC
+            end
             expected_result   = op1 + op2;
             expected_overflow =
             (~op1[31] & ~op2[31] &  expected_result[31]) |
@@ -180,11 +188,11 @@ class execution_stage_monitor extends uvm_monitor;
                 end
             end 
 
-            // --- Compare zero flag ---
+            // --- Compare zero flag --- not connected in design
             if (cur_zeroflg !== (cur_result == 32'd0)) begin
                 `uvm_error("ALU_ZEROFLAG_MISMATCH",
-                $sformatf("Zero flag mismatch: data1=0x%08h, data2=0x%08h, imm=0x%08h, DUT_result=0x%08h, DUT_ZF=%0b, EXP_ZF=%0b",
-                            cur_data1, cur_data2, cur_imm, cur_result, cur_zeroflg, (cur_result == 32'd0)))
+                    $sformatf("Zero flag mismatch: data1=0x%08h, data2=0x%08h, imm=0x%08h, DUT_result=0x%08h, DUT_ZF=%0b, EXP_ZF=%0b",
+                  cur_data1, cur_data2, cur_imm, cur_result, cur_zeroflg, (cur_result == 32'd0)));
             end
 
             // --- compare control signals --- 

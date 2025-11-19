@@ -49,6 +49,7 @@ class execution_stage_seq_item extends uvm_sequence_item;
     `uvm_field_int(program_counter, UVM_ALL_ON)
     `uvm_field_int(exp_alu_data, UVM_ALL_ON)
     `uvm_field_int(exp_overflow_flag, UVM_ALL_ON)
+    `uvm_field_int(exp_zero_flag, UVM_ALL_ON)
     // monitor_data_valid intentionally not registered
     `uvm_object_utils_end
 

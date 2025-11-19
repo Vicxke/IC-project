@@ -139,6 +139,8 @@ R0
 R0
 R0
 R0
+R0
+R0
 !s11f vlog 2022.1 2022.01, Jan 29 2022
 13
 !s112 1.1
@@ -148,9 +150,65 @@ R0
 cModel Technology
 Z1 dH:/Documents/GitHub/IC-project/project
 <<<<<<< HEAD
-!i122 91
 Z2 =======
-Z3 FC:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_deprecated_defines.svh
+R1
+<<<<<<< HEAD
+!s110 1763128857
+R2
+!s110 1763119890
+R1
+<<<<<<< HEAD
+!i122 91
+Z3 L0 6 43
+Z4 OL;L;2022.1;75
+31
+!s108 1763128857.000000
+Z5 !s107 Execution_Stage/tb/basic_test.svh|Execution_Stage/tb/base_test.svh|Execution_Stage/tb/tb_env.svh|Execution_Stage/tb/top_config.svh|Execution_Stage/tb/scoreboard.svh|uvc/execution_stage_uvc/execution_stage_agent.svh|uvc/execution_stage_uvc/execution_stage_monitor.svh|uvc/execution_stage_uvc/execution_stage_driver.svh|uvc/execution_stage_uvc/execution_stage_config.svh|uvc/execution_stage_uvc/execution_stage_seq.svh|uvc/execution_stage_uvc/execution_stage_seq_item.svh|uvc/reset_uvc/reset_agent.svh|uvc/reset_uvc/reset_monitor.svh|uvc/reset_uvc/reset_driver.svh|uvc/reset_uvc/reset_config.svh|uvc/reset_uvc/reset_seq.svh|uvc/reset_uvc/reset_seq_item.svh|uvc/clock_uvc/clock_agent.svh|uvc/clock_uvc/clock_driver.svh|uvc/clock_uvc/clock_config.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_deprecated_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_reg_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_callback_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_sequence_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/tlm1/uvm_tlm_imps.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_tlm_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_printer_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_object_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_phase_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_message_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_version_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/uvm_macros.svh|Execution_Stage/tb/tb_top.sv|Execution_Stage/tb/tb_pkg.sv|Execution_Stage/dut/alu.sv|Execution_Stage/dut/execute_stage.sv|uvc/execution_stage_uvc/execution_stage_if.sv|uvc/reset_uvc/reset_if.sv|uvc/clock_uvc/clock_if.sv|Execution_Stage/dut/common.sv|
+Z6 !s90 -reportprogress|300|-sv|-timescale|1ns/1ns|+incdir+uvc/clock_uvc+uvc/reset_uvc+uvc/execution_stage_uvc+Execution_Stage/tb|Execution_Stage/dut/common.sv|uvc/clock_uvc/clock_if.sv|uvc/reset_uvc/reset_if.sv|uvc/execution_stage_uvc/execution_stage_if.sv|Execution_Stage/dut/execute_stage.sv|Execution_Stage/dut/alu.sv|Execution_Stage/tb/tb_pkg.sv|Execution_Stage/tb/tb_top.sv|
+R2
+!i122 108
+R3
+R4
+31
+Z7 !s108 1763119890.000000
+R5
+R6
+R1
+<<<<<<< HEAD
+!i122 91
+R2
+!i122 108
+R1
+<<<<<<< HEAD
+!i122 91
+R2
+!i122 108
+R1
+<<<<<<< HEAD
+!i122 91
+R2
+!i122 108
+R1
+<<<<<<< HEAD
+Z8 w1762696484
+Z9 8Execution_Stage/dut/execute_stage.sv
+Z10 FExecution_Stage/dut/execute_stage.sv
+!i122 91
+R2
+w1762708580
+R9
+R10
+!i122 108
+R1
+<<<<<<< HEAD
+!i122 91
+R2
+R10
+!i122 108
+R1
+<<<<<<< HEAD
+!i122 91
+R2
 !i122 108
 R1
 <<<<<<< HEAD
@@ -171,252 +229,196 @@ R1
 <<<<<<< HEAD
 !i122 91
 R2
+Z11 FC:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_deprecated_defines.svh
 !i122 108
-R1
-<<<<<<< HEAD
-!i122 91
-R2
-Z4 FExecution_Stage/dut/execute_stage.sv
-!i122 108
-R1
-<<<<<<< HEAD
-Z5 w1762696484
-Z6 8Execution_Stage/dut/execute_stage.sv
-R4
-!i122 91
-R2
-w1762708580
-R6
-R4
-!i122 108
-R1
-<<<<<<< HEAD
-!i122 91
-R2
-!i122 108
-R1
-<<<<<<< HEAD
-!i122 91
-R2
-!i122 108
-R1
-<<<<<<< HEAD
-!i122 91
-R2
-!i122 108
-R1
-<<<<<<< HEAD
-!i122 91
-Z7 L0 6 43
-Z8 OL;L;2022.1;75
-31
-!s108 1763128857.000000
-Z9 !s107 Execution_Stage/tb/basic_test.svh|Execution_Stage/tb/base_test.svh|Execution_Stage/tb/tb_env.svh|Execution_Stage/tb/top_config.svh|Execution_Stage/tb/scoreboard.svh|uvc/execution_stage_uvc/execution_stage_agent.svh|uvc/execution_stage_uvc/execution_stage_monitor.svh|uvc/execution_stage_uvc/execution_stage_driver.svh|uvc/execution_stage_uvc/execution_stage_config.svh|uvc/execution_stage_uvc/execution_stage_seq.svh|uvc/execution_stage_uvc/execution_stage_seq_item.svh|uvc/reset_uvc/reset_agent.svh|uvc/reset_uvc/reset_monitor.svh|uvc/reset_uvc/reset_driver.svh|uvc/reset_uvc/reset_config.svh|uvc/reset_uvc/reset_seq.svh|uvc/reset_uvc/reset_seq_item.svh|uvc/clock_uvc/clock_agent.svh|uvc/clock_uvc/clock_driver.svh|uvc/clock_uvc/clock_config.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_deprecated_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_reg_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_callback_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_sequence_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/tlm1/uvm_tlm_imps.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_tlm_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_printer_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_object_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_phase_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_message_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_version_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/uvm_macros.svh|Execution_Stage/tb/tb_top.sv|Execution_Stage/tb/tb_pkg.sv|Execution_Stage/dut/alu.sv|Execution_Stage/dut/execute_stage.sv|uvc/execution_stage_uvc/execution_stage_if.sv|uvc/reset_uvc/reset_if.sv|uvc/clock_uvc/clock_if.sv|Execution_Stage/dut/common.sv|
-Z10 !s90 -reportprogress|300|-sv|-timescale|1ns/1ns|+incdir+uvc/clock_uvc+uvc/reset_uvc+uvc/execution_stage_uvc+Execution_Stage/tb|Execution_Stage/dut/common.sv|uvc/clock_uvc/clock_if.sv|uvc/reset_uvc/reset_if.sv|uvc/execution_stage_uvc/execution_stage_if.sv|Execution_Stage/dut/execute_stage.sv|Execution_Stage/dut/alu.sv|Execution_Stage/tb/tb_pkg.sv|Execution_Stage/tb/tb_top.sv|
-R2
-!i122 108
-R7
-R8
-31
-Z11 !s108 1763119890.000000
-R9
-R10
-R1
-<<<<<<< HEAD
-!s110 1763128857
-R2
-!s110 1763119890
-R1
-<<<<<<< HEAD
-R2
 R1
 >>>>>>> 442ec91d28d5b802ebc3a00fabab7ab933824572
-L0 16 6532
+R1
+>>>>>>> 442ec91d28d5b802ebc3a00fabab7ab933824572
 Z12 VDg1SIo80bB@j0V0VzS_@n1
-R8
 r1
 !s85 0
-31
-R11
-R9
-R9
+!i10b 1
+Z13 !s100 >h`a7ZQT]jO=GkB:[^0m`2
+Z14 I?Z@VaEi@P>j1UPMm6FcXY1
+Z15 !s105 alu_sv_unit
+S1
+Z16 d//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/project
+R8
+Z17 8Execution_Stage/dut/alu.sv
+Z18 FExecution_Stage/dut/alu.sv
+>>>>>>> 442ec91d28d5b802ebc3a00fabab7ab933824572
 !i113 0
-Z13 o-sv -timescale 1ns/1ns -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
-Z14 !s92 -sv -timescale 1ns/1ns +incdir+uvc/clock_uvc+uvc/reset_uvc+uvc/execution_stage_uvc+Execution_Stage/tb -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
-Z15 tCvgOpt 0
+Z19 o-sv -timescale 1ns/1ns -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z20 !s92 -sv -timescale 1ns/1ns +incdir+uvc/clock_uvc+uvc/reset_uvc+uvc/execution_stage_uvc+Execution_Stage/tb -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z21 tCvgOpt 0
 R1
 >>>>>>> 442ec91d28d5b802ebc3a00fabab7ab933824572
-Z16 L0 21 0
-Vn10NPc7N51cYoQ?8Jz<Vl0
-R8
+Z22 L0 3 0
+R4
+31
+R7
+R5
+R5
+!i113 0
+R19
+R20
+R21
+R1
+>>>>>>> 442ec91d28d5b802ebc3a00fabab7ab933824572
+Z23 L0 7 0
+R12
+R4
 r1
 !s85 0
 31
-R11
-R9
-R9
+R7
+R5
+R5
 !i113 0
-R13
-R14
-R15
+R19
+R20
+R21
+R1
+>>>>>>> 442ec91d28d5b802ebc3a00fabab7ab933824572
+Z24 L0 6 0
+Z25 V;kCkdC=>ACWgM9Eg]EWFD3
+R4
+r1
+!s85 0
+31
+R7
+R5
+R5
+!i113 0
+R19
+R20
+R21
+R1
+>>>>>>> 442ec91d28d5b802ebc3a00fabab7ab933824572
+Z26 L0 12 66
+R4
+31
+R7
+R5
+R5
+!i113 0
+R19
+R20
+R21
+R1
+>>>>>>> 442ec91d28d5b802ebc3a00fabab7ab933824572
+Z27 L0 9 0
+R4
+31
+R7
+R5
+R5
+!i113 0
+R19
+R20
+R21
+R1
+>>>>>>> 442ec91d28d5b802ebc3a00fabab7ab933824572
+Z28 L0 4 0
+R12
+R4
+r1
+!s85 0
+31
+R7
+R5
+R5
+!i113 0
+R19
+R20
+R21
+R1
+>>>>>>> 442ec91d28d5b802ebc3a00fabab7ab933824572
+R23
+R12
+R4
+r1
+!s85 0
+31
+R7
+R5
+R5
+!i113 0
+R19
+R20
+R21
 R1
 >>>>>>> 442ec91d28d5b802ebc3a00fabab7ab933824572
 !i10b 1
 !s100 WZdRiiYLBH8VUYe5A]L@@3
 In10NPc7N51cYoQ?8Jz<Vl0
 S1
-Z17 d//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/project
+R16
 w1763119885
-Z18 8Execution_Stage/tb/tb_pkg.sv
-Z19 FExecution_Stage/tb/tb_pkg.sv
-Z20 FC:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/uvm_macros.svh
-Z21 FC:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_version_defines.svh
-Z22 FC:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_message_defines.svh
-Z23 FC:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_phase_defines.svh
-Z24 FC:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_object_defines.svh
-Z25 FC:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_printer_defines.svh
-Z26 FC:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_tlm_defines.svh
-Z27 FC:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/tlm1/uvm_tlm_imps.svh
-Z28 FC:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_sequence_defines.svh
-Z29 FC:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_callback_defines.svh
-Z30 FC:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_reg_defines.svh
-R3
-Z31 Fuvc/clock_uvc/clock_config.svh
-Z32 Fuvc/clock_uvc/clock_driver.svh
-Z33 Fuvc/clock_uvc/clock_agent.svh
-Z34 Fuvc/reset_uvc/reset_seq_item.svh
-Z35 Fuvc/reset_uvc/reset_seq.svh
-Z36 Fuvc/reset_uvc/reset_config.svh
-Z37 Fuvc/reset_uvc/reset_driver.svh
-Z38 Fuvc/reset_uvc/reset_monitor.svh
-Z39 Fuvc/reset_uvc/reset_agent.svh
-Z40 Fuvc/execution_stage_uvc/execution_stage_seq_item.svh
-Z41 Fuvc/execution_stage_uvc/execution_stage_seq.svh
-Z42 Fuvc/execution_stage_uvc/execution_stage_config.svh
-Z43 Fuvc/execution_stage_uvc/execution_stage_driver.svh
-Z44 Fuvc/execution_stage_uvc/execution_stage_monitor.svh
-Z45 Fuvc/execution_stage_uvc/execution_stage_agent.svh
-Z46 FExecution_Stage/tb/scoreboard.svh
-Z47 FExecution_Stage/tb/top_config.svh
-Z48 FExecution_Stage/tb/tb_env.svh
+Z29 8Execution_Stage/tb/tb_pkg.sv
+Z30 FExecution_Stage/tb/tb_pkg.sv
+Z31 FC:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/uvm_macros.svh
+Z32 FC:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_version_defines.svh
+Z33 FC:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_message_defines.svh
+Z34 FC:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_phase_defines.svh
+Z35 FC:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_object_defines.svh
+Z36 FC:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_printer_defines.svh
+Z37 FC:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_tlm_defines.svh
+Z38 FC:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/tlm1/uvm_tlm_imps.svh
+Z39 FC:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_sequence_defines.svh
+Z40 FC:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_callback_defines.svh
+Z41 FC:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_reg_defines.svh
+R11
+Z42 Fuvc/clock_uvc/clock_config.svh
+Z43 Fuvc/clock_uvc/clock_driver.svh
+Z44 Fuvc/clock_uvc/clock_agent.svh
+Z45 Fuvc/reset_uvc/reset_seq_item.svh
+Z46 Fuvc/reset_uvc/reset_seq.svh
+Z47 Fuvc/reset_uvc/reset_config.svh
+Z48 Fuvc/reset_uvc/reset_driver.svh
+Z49 Fuvc/reset_uvc/reset_monitor.svh
+Z50 Fuvc/reset_uvc/reset_agent.svh
+Z51 Fuvc/execution_stage_uvc/execution_stage_seq_item.svh
+Z52 Fuvc/execution_stage_uvc/execution_stage_seq.svh
+Z53 Fuvc/execution_stage_uvc/execution_stage_config.svh
+Z54 Fuvc/execution_stage_uvc/execution_stage_driver.svh
+Z55 Fuvc/execution_stage_uvc/execution_stage_monitor.svh
+Z56 Fuvc/execution_stage_uvc/execution_stage_agent.svh
+Z57 FExecution_Stage/tb/scoreboard.svh
+Z58 FExecution_Stage/tb/top_config.svh
+Z59 FExecution_Stage/tb/tb_env.svh
 FExecution_Stage/tb/base_test.svh
-Z49 FExecution_Stage/tb/basic_test.svh
+Z60 FExecution_Stage/tb/basic_test.svh
 >>>>>>> 442ec91d28d5b802ebc3a00fabab7ab933824572
-Z50 L0 7 0
-R12
-R8
+Z61 L0 21 0
+Vn10NPc7N51cYoQ?8Jz<Vl0
+R4
 r1
 !s85 0
 31
-R11
-R9
-R9
-!i113 0
-R13
-R14
-R15
-R1
->>>>>>> 442ec91d28d5b802ebc3a00fabab7ab933824572
-Z51 L0 4 0
-R12
-R8
-r1
-!s85 0
-31
-R11
-R9
-R9
-!i113 0
-R13
-R14
-R15
-R1
->>>>>>> 442ec91d28d5b802ebc3a00fabab7ab933824572
-Z52 L0 9 0
-R8
-31
-R11
-R9
-R9
-!i113 0
-R13
-R14
-R15
-R1
->>>>>>> 442ec91d28d5b802ebc3a00fabab7ab933824572
-Z53 L0 12 66
-R8
-31
-R11
-R9
-R9
-!i113 0
-R13
-R14
-R15
-R1
->>>>>>> 442ec91d28d5b802ebc3a00fabab7ab933824572
-Z54 L0 6 0
-Z55 V;kCkdC=>ACWgM9Eg]EWFD3
-R8
-r1
-!s85 0
-31
-R11
-R9
-R9
-!i113 0
-R13
-R14
-R15
-R1
->>>>>>> 442ec91d28d5b802ebc3a00fabab7ab933824572
-R50
-R12
-R8
-r1
-!s85 0
-31
-R11
-R9
-R9
-!i113 0
-R13
-R14
-R15
-R1
->>>>>>> 442ec91d28d5b802ebc3a00fabab7ab933824572
-Z56 L0 3 0
-R8
-31
-R11
-R9
-R9
-!i113 0
-R13
-R14
-R15
-R1
->>>>>>> 442ec91d28d5b802ebc3a00fabab7ab933824572
-!i113 0
-R13
-R14
-R15
-R1
->>>>>>> 442ec91d28d5b802ebc3a00fabab7ab933824572
-R12
-r1
-!s85 0
-!i10b 1
-Z57 !s100 >h`a7ZQT]jO=GkB:[^0m`2
-Z58 I?Z@VaEi@P>j1UPMm6FcXY1
-Z59 !s105 alu_sv_unit
-S1
-R17
+R7
 R5
-Z60 8Execution_Stage/dut/alu.sv
-Z61 FExecution_Stage/dut/alu.sv
+R5
+!i113 0
+R19
+R20
+R21
+R1
 >>>>>>> 442ec91d28d5b802ebc3a00fabab7ab933824572
+L0 16 6532
+R12
+R4
+r1
+!s85 0
+31
+R7
+R5
+R5
+!i113 0
+R19
+R20
+R21
 R1
 T_opt
 !s11d tb_pkg H:/Documents/GitHub/IC-project/project/work 3 clock_if 1 H:/Documents/GitHub/IC-project/project/work reset_if 1 H:/Documents/GitHub/IC-project/project/work execution_stage_if 1 H:/Documents/GitHub/IC-project/project/work 
@@ -427,7 +429,7 @@ Z62 04 6 4 work tb_top fast 0
 R0
 Z63 !s124 OEM100
 Z64 o-quiet -auto_acc_if_foreign -work work
-R15
+R21
 n@_opt
 Z65 OL;O;2022.1;75
 R1
@@ -440,11 +442,12 @@ R62
 R0
 R63
 R64
-R15
+R21
 n@_opt1
 R65
+R1
 T_opt2
-!s11d tb_pkg //stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/project/work 3 clock_if 1 //stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/project/work reset_if 1 //stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/project/work execution_stage_if 1 //stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/project/work 
+Z66 !s11d tb_pkg //stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/project/work 3 clock_if 1 //stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/project/work reset_if 1 //stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/project/work execution_stage_if 1 //stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/project/work 
 !s110 1763119894
 VC641?6J7jH;752G]b[Pb51
 R62
@@ -452,42 +455,54 @@ R62
 R0
 R63
 R64
-R15
+R21
 n@_opt2
 R65
 R1
+T_opt3
+R66
+!s110 1763555041
+V<=A62mZaIe>S<ROJEGY@72
+R62
+=1-6c2b59f4086b-691db6df-148-39cc
+R0
+R63
+R64
+R21
+n@_opt3
+R65
 valu
-Z66 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
-Z67 DXx4 work 6 common 0 22 ;kCkdC=>ACWgM9Eg]EWFD3
+Z67 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z68 DXx4 work 6 common 0 22 ;kCkdC=>ACWgM9Eg]EWFD3
 DXx4 work 11 alu_sv_unit 0 22 f:3hYS_O3GT>=inomQe2;1
-Z68 !s110 1763479557
+Z69 !s110 1763555037
 R12
 r1
 !s85 0
 !i10b 1
-R57
-R58
-R59
-S1
-Z69 d//stu.net.lth.se/ti8188be-s/Documents/github/project
-Z70 w1762775030
-R60
-R61
-!i122 210
-R7
-R8
-31
-Z71 !s108 1763479556.000000
-Z72 !s107 Execution_Stage/tb/basic_test.svh|Execution_Stage/tb/ExStage_04.svh|Execution_Stage/tb/ExStage_03.svh|Execution_Stage/tb/ExStage_02.svh|Execution_Stage/tb/ExStage_01.svh|Execution_Stage/tb/ExStage_00.svh|Execution_Stage/tb/tb_env.svh|Execution_Stage/tb/top_config.svh|Execution_Stage/tb/scoreboard.svh|uvc/execution_stage_uvc/execution_stage_agent.svh|uvc/execution_stage_uvc/execution_stage_monitor.svh|uvc/execution_stage_uvc/execution_stage_driver.svh|uvc/execution_stage_uvc/execution_stage_config.svh|uvc/execution_stage_uvc/execution_stage_seq.svh|uvc/execution_stage_uvc/execution_stage_seq_item.svh|uvc/reset_uvc/reset_agent.svh|uvc/reset_uvc/reset_monitor.svh|uvc/reset_uvc/reset_driver.svh|uvc/reset_uvc/reset_config.svh|uvc/reset_uvc/reset_seq.svh|uvc/reset_uvc/reset_seq_item.svh|uvc/clock_uvc/clock_agent.svh|uvc/clock_uvc/clock_driver.svh|uvc/clock_uvc/clock_config.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_deprecated_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_reg_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_callback_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_sequence_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/tlm1/uvm_tlm_imps.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_tlm_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_printer_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_object_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_phase_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_message_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_version_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/uvm_macros.svh|Execution_Stage/tb/tb_top.sv|Execution_Stage/tb/tb_pkg.sv|Execution_Stage/dut/alu.sv|Execution_Stage/dut/execute_stage.sv|uvc/execution_stage_uvc/execution_stage_if.sv|uvc/reset_uvc/reset_if.sv|uvc/clock_uvc/clock_if.sv|Execution_Stage/dut/common.sv|
-R10
-!i113 0
 R13
 R14
 R15
+S1
+R16
+R8
+R17
+R18
+!i122 212
+R3
+R4
+31
+Z70 !s108 1763555036.000000
+Z71 !s107 Execution_Stage/tb/basic_test.svh|Execution_Stage/tb/ExStage_04.svh|Execution_Stage/tb/ExStage_03.svh|Execution_Stage/tb/ExStage_02.svh|Execution_Stage/tb/ExStage_01.svh|Execution_Stage/tb/ExStage_00.svh|Execution_Stage/tb/tb_env.svh|Execution_Stage/tb/top_config.svh|Execution_Stage/tb/scoreboard.svh|uvc/execution_stage_uvc/execution_stage_agent.svh|uvc/execution_stage_uvc/execution_stage_monitor.svh|uvc/execution_stage_uvc/execution_stage_driver.svh|uvc/execution_stage_uvc/execution_stage_config.svh|uvc/execution_stage_uvc/execution_stage_seq.svh|uvc/execution_stage_uvc/execution_stage_seq_item.svh|uvc/reset_uvc/reset_agent.svh|uvc/reset_uvc/reset_monitor.svh|uvc/reset_uvc/reset_driver.svh|uvc/reset_uvc/reset_config.svh|uvc/reset_uvc/reset_seq.svh|uvc/reset_uvc/reset_seq_item.svh|uvc/clock_uvc/clock_agent.svh|uvc/clock_uvc/clock_driver.svh|uvc/clock_uvc/clock_config.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_deprecated_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_reg_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_callback_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_sequence_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/tlm1/uvm_tlm_imps.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_tlm_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_printer_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_object_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_phase_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_message_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_version_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/uvm_macros.svh|Execution_Stage/tb/tb_top.sv|Execution_Stage/tb/tb_pkg.sv|Execution_Stage/dut/alu.sv|Execution_Stage/dut/execute_stage.sv|uvc/execution_stage_uvc/execution_stage_if.sv|uvc/reset_uvc/reset_if.sv|uvc/clock_uvc/clock_if.sv|Execution_Stage/dut/common.sv|
+R6
+!i113 0
+R19
+R20
+R21
 Xalu_sv_unit
-R66
 R67
 R68
+R69
 Vf:3hYS_O3GT>=inomQe2;1
 r1
 !s85 0
@@ -496,76 +511,76 @@ r1
 If:3hYS_O3GT>=inomQe2;1
 !i103 1
 S1
-R69
-R70
-R60
-R61
-!i122 210
-R56
+R16
 R8
+R17
+R18
+!i122 212
+R22
+R4
 31
+R70
 R71
-R72
-R10
+R6
 !i113 0
-R13
-R14
-R15
+R19
+R20
+R21
 Yclock_if
-R66
-Z73 !s110 1763479556
+R67
+R69
 !i10b 1
 !s100 6m1@6IG<LH;_n>D3O5^DD2
 I]]5d0_J;E`^MdeGPUM:a`1
 S1
-R69
-Z74 w1762775031
+R16
+Z72 w1762696486
 8uvc/clock_uvc/clock_if.sv
 Fuvc/clock_uvc/clock_if.sv
-!i122 210
-R50
+!i122 212
+R23
 R12
-R8
+R4
 r1
 !s85 0
 31
+R70
 R71
-R72
-R10
+R6
 !i113 0
-R13
-R14
-R15
+R19
+R20
+R21
 Xcommon
-R66
-R73
+R67
+R69
 !i10b 1
 !s100 YY48TA6?K<lR_FN>MlSKk1
 I;kCkdC=>ACWgM9Eg]EWFD3
 S1
-R69
-w1762787662
+R16
+w1762697093
 8Execution_Stage/dut/common.sv
 FExecution_Stage/dut/common.sv
-!i122 210
-R54
-R55
-R8
+!i122 212
+R24
+R25
+R4
 r1
 !s85 0
 31
+R70
 R71
-R72
-R10
+R6
 !i113 0
-R13
-R14
-R15
+R19
+R20
+R21
 vexecute_stage
-R66
 R67
+R68
 DXx4 work 21 execute_stage_sv_unit 0 22 8KZfV9RHV71REDmRlmT8N0
-R73
+R69
 R12
 r1
 !s85 0
@@ -574,25 +589,25 @@ r1
 IoUnaFKio=WmfYIOIOLKV`1
 !s105 execute_stage_sv_unit
 S1
-R69
-R70
-R6
-R4
-!i122 210
-R53
-R8
-31
-R71
-R72
+R16
+Z73 w1763554914
+R9
 R10
+!i122 212
+R26
+R4
+31
+R70
+R71
+R6
 !i113 0
-R13
-R14
-R15
+R19
+R20
+R21
 Xexecute_stage_sv_unit
-R66
 R67
-R73
+R68
+R69
 V8KZfV9RHV71REDmRlmT8N0
 r1
 !s85 0
@@ -601,100 +616,88 @@ r1
 I8KZfV9RHV71REDmRlmT8N0
 !i103 1
 S1
-R69
-R70
-R6
-R4
-!i122 210
-R52
-R8
-31
-R71
-R72
-R10
-!i113 0
-R13
-R14
-R15
-Yexecution_stage_if
-R66
-R67
+R16
 R73
+R9
+R10
+!i122 212
+R27
+R4
+31
+R70
+R71
+R6
+!i113 0
+R19
+R20
+R21
+Yexecution_stage_if
+R67
+R68
+R69
 !i10b 1
 !s100 6e>77]^NajDTnH83_6I2X3
 IQkO8Kg5DbA1jV0gMZcDCc2
 S1
-R69
-w1763479312
+R16
+Z74 w1763553149
 8uvc/execution_stage_uvc/execution_stage_if.sv
 Fuvc/execution_stage_uvc/execution_stage_if.sv
-!i122 210
-R51
+!i122 212
+R28
 R12
-R8
+R4
 r1
 !s85 0
 31
+R70
 R71
-R72
-R10
+R6
 !i113 0
-R13
-R14
-R15
+R19
+R20
+R21
 Yreset_if
-R66
-R73
+R67
+R69
 !i10b 1
 !s100 E_Z6WbWNCUAkmFhncVEX33
 IQ8@3H6k[]b[51Jo[2TGR?3
 S1
-R69
-R74
+R16
+R72
 8uvc/reset_uvc/reset_if.sv
 Fuvc/reset_uvc/reset_if.sv
-!i122 210
-R50
+!i122 212
+R23
 R12
-R8
+R4
 r1
 !s85 0
 31
+R70
 R71
-R72
-R10
+R6
 !i113 0
-R13
-R14
-R15
+R19
+R20
+R21
 Xtb_pkg
 !s115 execution_stage_if
 !s115 reset_if
 !s115 clock_if
 Z75 DXx6 mtiUvm 7 uvm_pkg 0 22 8V[`8]Q0W57le7Z>zYaAj1
-R66
 R67
 R68
-!i10b 1
-!s100 hF6gNSk9cJAL7]oJQM1mV3
-IPW^48KScn6JhkYBa>g<4T0
-S1
 R69
-w1763479246
-R18
-R19
-R20
-R21
-R22
-R23
-R24
-R25
-R26
-R27
-R28
+!i10b 1
+!s100 Hi^]G?0P0D8mQZaA=N0HK2
+Ia>`XZ]AZz<TSV8mzX@fEj3
+S1
+R16
+w1763555025
 R29
 R30
-R3
 R31
 R32
 R33
@@ -706,6 +709,7 @@ R38
 R39
 R40
 R41
+R11
 R42
 R43
 R44
@@ -713,63 +717,74 @@ R45
 R46
 R47
 R48
+R49
+R50
+R51
+R52
+R53
+R54
+R55
+R56
+R57
+R58
+R59
 FExecution_Stage/tb/ExStage_00.svh
 FExecution_Stage/tb/ExStage_01.svh
 FExecution_Stage/tb/ExStage_02.svh
 FExecution_Stage/tb/ExStage_03.svh
 FExecution_Stage/tb/ExStage_04.svh
-R49
-!i122 210
-R16
-VPW^48KScn6JhkYBa>g<4T0
-R8
+R60
+!i122 212
+R61
+Va>`XZ]AZz<TSV8mzX@fEj3
+R4
 r1
 !s85 0
 31
+R70
 R71
-R72
-R10
+R6
 !i113 0
-R13
-R14
-R15
+R19
+R20
+R21
 vtb_top
 R75
-R66
 R67
-DXx4 work 6 tb_pkg 0 22 PW^48KScn6JhkYBa>g<4T0
 R68
+DXx4 work 6 tb_pkg 0 22 a>`XZ]AZz<TSV8mzX@fEj3
+R69
 !i10b 1
 !s100 ]WjE:<2e1dUEf5J[Ke5Pc1
 IAUXlJkhm:OhNeXCll8UBE0
 S1
-R69
-w1763479548
+R16
+R74
 8Execution_Stage/tb/tb_top.sv
 FExecution_Stage/tb/tb_top.sv
-R20
-R21
-R22
-R23
-R24
-R25
-R26
-R27
-R28
-R29
-R30
-R3
-!i122 210
+R31
+R32
+R33
+R34
+R35
+R36
+R37
+R38
+R39
+R40
+R41
+R11
+!i122 212
 L0 16 6538
 R12
-R8
+R4
 r1
 !s85 0
 31
+R70
 R71
-R72
-R10
+R6
 !i113 0
-R13
-R14
-R15
+R19
+R20
+R21
