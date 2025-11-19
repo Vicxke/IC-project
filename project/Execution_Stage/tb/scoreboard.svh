@@ -144,7 +144,7 @@ class scoreboard extends uvm_component;
         alu_src : coverpoint control_in.alu_src {
             bins src_reg   = { 2'b00 };
             bins src_imm   = { 2'b01 };
-            bins src_pc    = { 2'b10 };
+            bins src_pc    = { 2'b10 }; //this will never get hit if you use imm and pc what then?
             bins src_lui   = { 2'b11 };
         }
         compression_flag : coverpoint compflg_in {
@@ -163,7 +163,7 @@ class scoreboard extends uvm_component;
         cross_ExStage_01 : cross operations, operand_1, intermediate;       //ExStage_01
         cross_ExStage_02 : cross operand_1, intermediate;                   //ExStage_02
         cross_ExStage_03 : cross operand_1, operand_2, compression_flag;    //ExStage_03
-        //ExStage_05 is the same as ExStage_01 but with U-type encoding
+        //ExStage_04 is the same as ExStage_02 but with U-type encoding
 
     endgroup
 
