@@ -34,7 +34,7 @@ class execution_stage_monitor extends uvm_monitor;
         bit first_sample = 1;
 
         // Declare per-sample temporaries and seq_item up-front so declarations precede any statements.
-        logic [31:0] cur_data1, cur_data2, cur_imm, cur_pc, cur_result;
+        logic [31:0] cur_data1, cur_data2, cur_imm, cur_pc, cur_result, cur_memory_data;
         control_type cur_ctrl;
         logic cur_cmp;
         logic cur_ovf;        // current overflow flag
@@ -47,6 +47,8 @@ class execution_stage_monitor extends uvm_monitor;
         bit expected_zeroflg = 0;
 
         logic [4:0] shamt;
+
+        encoding_type cur_opType;
         
 
         `uvm_info(get_name(), $sformatf("Starting execution_stage monitoring"), UVM_HIGH)
@@ -85,6 +87,7 @@ class execution_stage_monitor extends uvm_monitor;
             cur_ctrl    = m_config.m_vif.control_in;
             cur_cmp     = m_config.m_vif.compflg_in;
             cur_pc      = m_config.m_vif.program_counter;
+            cur_opType  = cur_ctrl.encoding;
 
             // alu_src: when 2'b01 the intermediate value is the RIGHT operand (op2)
             op1 = cur_data1;
@@ -176,6 +179,7 @@ class execution_stage_monitor extends uvm_monitor;
             cur_result  = m_config.m_vif.alu_data;
             cur_ovf     = m_config.m_vif.overflow_flag;
             cur_zeroflg = m_config.m_vif.zero_flag;
+            cur_memory_data = m_config.m_vif.memory_data;
 
 
             `uvm_info(get_name(), $sformatf("Result from DUT: res=%0h ovf=%0h",cur_result, cur_ovf), UVM_MEDIUM)
@@ -224,6 +228,15 @@ class execution_stage_monitor extends uvm_monitor;
                     `uvm_error("COMPRESSION_FLAG_MISMATCH",
                     $sformatf("Compression flag effect mismatch: encoding=%0d, alu_src=%0b, compflg_in=%0b, DUT_result=0x%08h, EXP_result=0x%08h",
                                 cur_ctrl.encoding, cur_ctrl.alu_src, cur_cmp, cur_result, (cur_cmp ? 32'd2 : 32'd4)))
+                end
+            end
+
+            // ---- Check memory_data for S-Type operations ----
+            if (cur_opType == S_TYPE) begin
+                if (cur_memory_data !== cur_data2) begin
+                    `uvm_error("MEMORY_DATA_MISMATCH",
+                    $sformatf("Memory data mismatch for S-TYPE: DUT_memory_data=0x%08h, EXP_memory_data=0x%08h",
+                                cur_memory_data, cur_data2))
                 end
             end
 

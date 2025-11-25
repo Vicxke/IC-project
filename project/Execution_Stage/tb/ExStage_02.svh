@@ -69,7 +69,7 @@ class ExStage_02 extends uvm_test;
         reset.delay = 0;
         reset.length = 2;
         reset.start(m_tb_env.m_reset_agent.m_sequencer);
-        
+
         // -----------------------------ALU Operations -------------------------------------------------
 
         
@@ -157,7 +157,7 @@ class ExStage_02 extends uvm_test;
             execute_stage.start(m_tb_env.m_execution_stage_agent.m_sequencer);
         end
 
-        repeat (3*n) begin
+        repeat (5*n) begin
             execute_stage = execution_stage_seq::type_id::create("execute_stage_rand");
 
             if (!(execute_stage.randomize() with {

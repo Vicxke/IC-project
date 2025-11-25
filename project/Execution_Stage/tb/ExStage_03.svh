@@ -68,7 +68,24 @@ class ExStage_03 extends uvm_test;
         reset.length = 2;
         reset.start(m_tb_env.m_reset_agent.m_sequencer);
         
-        // -----------------------------ALU Operations -------------------------------------------------
+        //-------------------- single test case for Overflow test -----------------------
+        execute_stage = execution_stage_seq::type_id::create("execute_stage");
+        
+        // data1 is 2 or 4
+        execute_stage.data2 = 32'h7FFF_FFFF; // max positive number for overflow test
+        ctrl.alu_op = ALU_ADD;
+        ctrl.encoding = J_TYPE;
+        ctrl.alu_src = 2'b10; // both operands from registers
+        ctrl.mem_read = 0;
+        ctrl.mem_write = 0;
+        ctrl.reg_write = 1;
+        ctrl.mem_to_reg = 0;
+        ctrl.is_branch = 0;
+        ctrl.funct3 = 3'b000;
+        execute_stage.control_in = ctrl;
+        execute_stage.compflg_in = 0;
+        execute_stage.program_counter = 32'h0000_0040;
+        execute_stage.start(m_tb_env.m_execution_stage_agent.m_sequencer);
         
         // preserve current data1 value instead of forcing it
         execute_stage = execution_stage_seq::type_id::create("execute_stage_init");
