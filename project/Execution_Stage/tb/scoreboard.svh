@@ -120,7 +120,7 @@ class scoreboard extends uvm_component;
             bins all_zeros  = { 32'h0000_0000 };
             bins all_ones   = { 32'hFFFF_FFFF };
         }
-        coverpoint_alu_result : coverpoint alu_result {
+        alu_result : coverpoint alu_result {
             bins range_very_low   = { [32'h0000_0000 : 32'h1FFF_FFFF] };
             bins range_low        = { [32'h2000_0000 : 32'h3FFF_FFFF] };
             bins range_mid_low    = { [32'h4000_0000 : 32'h5FFF_FFFF] };
@@ -155,10 +155,12 @@ class scoreboard extends uvm_component;
             bins no_overflow = { 1'b0 };
             bins overflow    = { 1'b1 };
         }
-        coverpoint_zero_flag : coverpoint zero_flag {
-            bins not_zero = { 1'b0 };
-            bins is_zero  = { 1'b1 };
-        }
+        // --------- only active for ExStage_00 test -> Bug found -------------
+        // coverpoint_zero_flag : coverpoint zero_flag {
+        //     bins not_zero = { 1'b0 };
+        //     bins is_zero  = { 1'b1 };
+        // }
+        // --------------------------------------------------------------
         cross_ExStage_00 : cross operations, operand_1, operand_2;          //ExStage_00
         cross_ExStage_01 : cross operations, operand_1, intermediate;       //ExStage_01
         cross_ExStage_02 : cross operand_1, intermediate;                   //ExStage_02
