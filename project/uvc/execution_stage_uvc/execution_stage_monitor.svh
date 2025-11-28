@@ -107,21 +107,13 @@ class execution_stage_monitor extends uvm_monitor;
             if ( (cur_ctrl.encoding inside {J_TYPE, I_TYPE}) && (cur_ctrl.alu_src == 2'b10) ) begin // special case for ExStage_03
                 op1 = (cur_cmp) ? 32'd2 : 32'd4; 
             end
-            //if the encoding is U_TYPE and alu_src is 2'b10 then it's AUIPC and (op1 = imm << 12)
-            else
-            if (cur_ctrl.encoding == U_TYPE) begin
-                if (cur_ctrl.alu_src == 2'b10) begin
-                    // not shure about what the behaviour should be
-                    op1 = cur_imm << 12; //AUIPC
-                    //I would think this because the decode stage should set this immidiate correct from the instruction in decode stage
-                    //op1 = cur_imm; //AUIPC
-                end
-                if (cur_ctrl.alu_src == 2'b11) begin
-                    // LUI
-                    op1 = cur_imm;
-                    op2 = 32'd0;
-                end
+            
+            if (cur_ctrl.encoding == U_TYPE && cur_ctrl.alu_src == 2'b10) begin
+            // AUIPC
+            op1 = cur_imm; // Value was already shifted by decode stage
+            
             end
+            
             expected_result   = op1 + op2;
             expected_overflow =
             (~op1[31] & ~op2[31] &  expected_result[31]) |
@@ -147,6 +139,14 @@ class execution_stage_monitor extends uvm_monitor;
             end
 
             ALU_SLL: begin
+            if (cur_ctrl.encoding == U_TYPE && cur_ctrl.alu_src == 2'b11) begin
+                // LUI
+                op1 = cur_imm; // Value was already shifted by decode stage
+                op2 = 32'd0;
+                shamt = op2[4:0];
+               
+            end 
+            
             expected_result = op1 <<  shamt;                    // logical left
             end
 

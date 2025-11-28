@@ -49,7 +49,7 @@ package tb_pkg;
     `include "ExStage_02.svh"
     `include "ExStage_03.svh"
     `include "ExStage_04.svh"
-    // `include "ExStage_05.svh"
+    `include "ExStage_05.svh"
     // `include "ExStage_06.svh"
     // `include "ExStage_07.svh"
     `include "basic_test.svh"

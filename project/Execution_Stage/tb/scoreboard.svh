@@ -165,8 +165,8 @@ class scoreboard extends uvm_component;
         cross_ExStage_01 : cross operations, operand_1, intermediate;       //ExStage_01
         cross_ExStage_02 : cross operand_1, intermediate;                   //ExStage_02
         cross_ExStage_03 : cross operand_1, operand_2, compression_flag;    //ExStage_03
-        //ExStage_04 is the same as ExStage_02 but with U-type encoding
-
+        cross_ExStage_04 : cross operand_2, intermediate;                   //ExStage_04
+        //cross_ExStage_05 : cross intermediate;                            //ExStage_05: operands are not relevant for AUIPC -> no cross needed
     endgroup
 
     //------------------------------------------------------------------------------
