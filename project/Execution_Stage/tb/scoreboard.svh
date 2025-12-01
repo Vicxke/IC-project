@@ -151,12 +151,20 @@ class scoreboard extends uvm_component;
             bins flag_cleared = { 1'b0 };
             bins flag_set     = { 1'b1 };
         }
-        coverpoint_overflow_flag : coverpoint overflow_flag {
+        overflow_flag : coverpoint overflow_flag {
             bins no_overflow = { 1'b0 };
             bins overflow    = { 1'b1 };
         }
+        
+        // ----------- alle anscheinend einzeln ----------
+        // control_signals : coverpoint control_in {
+        //     bins control_default = { default:default };
+        // }
+        // ---------------------------------------------
+
+
         // --------- only active for ExStage_00 test -> Bug found -------------
-        // coverpoint_zero_flag : coverpoint zero_flag {
+        // zero_flag : coverpoint zero_flag {
         //     bins not_zero = { 1'b0 };
         //     bins is_zero  = { 1'b1 };
         // }
