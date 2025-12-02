@@ -11,7 +11,7 @@
 // See more detailed information in base_test
 //------------------------------------------------------------------------------
 import common::*;
-class basic_test extends ExStage_00;
+class basic_test extends ExDeStage_00;
     `uvm_component_utils(basic_test)
 
     //------------------------------------------------------------------------------

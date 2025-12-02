@@ -1,11 +1,18 @@
 //------------------------------------------------------------------------------
-// pass through of:
-// - control signals
-// - comparison flag
+// class basic_test
+//
+// This class is an extension of the base_test class.
+// It provides a basic structure for writing testbenches in the UVM framework.
+//
+// The class provides an implementation of the build_phase and run_phase methods.
+// It creates and builds the TB environment as defined in base_test.
+// It runs the test as defined in base_test.
+//
+// See more detailed information in base_test
 //------------------------------------------------------------------------------
 import common::*;
-class ExStage_06 extends uvm_test;
-    `uvm_component_utils(ExStage_06)
+class ExDeStage_00 extends uvm_test;
+    `uvm_component_utils(ExDeStage_00)
 
     // Testbench top configuration object with all setup for the TB
     top_config  m_top_config;
@@ -40,38 +47,68 @@ class ExStage_06 extends uvm_test;
     // FUNCTION: run_phase
     // Start UVM test in running phase.
     //------------------------------------------------------------------------------
-    
-    int n = 1; // 1 for 100% coverage
-
     virtual task run_phase(uvm_phase phase);
 
-        //reset_seq reset;
+        // Run the test as defined in base test
+        reset_seq reset;
         execution_stage_seq execute_stage;
         control_type ctrl;
         super.run_phase(phase);
 
-        `uvm_info("ExStage_06 Info", "Starting ExStage_06 run_phase", UVM_LOW);
+        `uvm_info("ExDeStage_00 Info", "Starting ExDeStage_00 run_phase", UVM_LOW);
 
          // Raise objection if no UVM test is running
         phase.raise_objection(this);       
 
-        // // Start the data generation loop
+        // Start the data generation loop
         //do a simple reset first
         reset = reset_seq::type_id::create("reset");
         reset.delay = 0;
         reset.length = 2;
         reset.start(m_tb_env.m_reset_agent.m_sequencer);
+        //-------------------- single test case -----------------------
+        execute_stage = execution_stage_seq::type_id::create("execute_stage");
         
-        // -----------------------------Control signals and compression flag -----------------
+        execute_stage.data1 = 32'd5;
+        execute_stage.data2 = 32'd4;
+        ctrl.alu_op = ALU_ADD;
+        ctrl.encoding = R_TYPE;
+        ctrl.alu_src = 2'b00; // both operands from registers
+        ctrl.mem_read = 0;
+        ctrl.mem_write = 0;
+        ctrl.reg_write = 1;
+        ctrl.mem_to_reg = 0;
+        ctrl.is_branch = 0;
+        ctrl.funct3 = 3'b000;
+        execute_stage.control_in = ctrl;
+        execute_stage.compflg_in = 0;
+        execute_stage.program_counter = 32'h0000_0040;
+        execute_stage.start(m_tb_env.m_execution_stage_agent.m_sequencer);
 
-        
-        repeat (100*n) begin
+        // -----------------------------ALU Operations -------------------------------------------------
+
+        repeat (10000) begin
             execute_stage = execution_stage_seq::type_id::create("execute_stage_rand");
 
-            //this will set the 
             if (!(execute_stage.randomize() with {
+                // ALU und Encoding randomisieren (alle anderen Felder fix)
+                // control_in.alu_op inside {
+                //     ALU_ADD, ALU_SUB, ALU_XOR, ALU_OR, ALU_AND, ALU_SLL, ALU_SRL,ALU_SRA, ALU_SLT, ALU_SLTU
+                // };
+                control_in.encoding == R_TYPE;
 
-                // PC is the base address for AUIPC
+                control_in.alu_src    == 2'b00;
+                control_in.mem_read   == 0;
+                control_in.mem_write  == 0;
+                control_in.reg_write  == 1;
+                control_in.mem_to_reg == 0;
+                control_in.is_branch  == 0;
+                control_in.funct3     == 3'b000;
+
+                // data1/data2 frei (volle 32-Bit-Spanne)
+                compflg_in == 0;
+
+                // PC in wachsendem Bereich, optional
                 program_counter == 32'h0000_0040;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
@@ -79,11 +116,10 @@ class ExStage_06 extends uvm_test;
             execute_stage.start(m_tb_env.m_execution_stage_agent.m_sequencer);
         end
 
-        `uvm_info("ExStage_06 Info", "Completed ExStage_06 run_phase", UVM_LOW);
 
         // Drop objection if no UVM test is running
         phase.drop_objection(this);
 
     endtask : run_phase
 
-endclass : ExStage_06
+endclass : ExDeStage_00
