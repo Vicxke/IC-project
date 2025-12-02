@@ -21,6 +21,9 @@ class tb_env extends uvm_env;
     reset_agent  m_reset_agent;
     // execution_stage instance with execution_stage uVC.
     execution_stage_agent m_execution_stage_agent;
+    // decode_stage instance with decode_stage uVC.
+    decode_stage_agent m_decode_stage_agent;
+
     // scoreboard scoreboard.
     scoreboard   m_scoreboard;
 
@@ -44,10 +47,15 @@ class tb_env extends uvm_env;
         // Build all TB VC's
         uvm_config_db #(clock_config)::set(this,"m_clock_agent*","config", m_top_config.m_clock_config);
         m_clock_agent = clock_agent::type_id::create("m_clock_agent",this);
+
         uvm_config_db #(reset_config)::set(this,"m_reset_agent*","config", m_top_config.m_reset_config);
         m_reset_agent = reset_agent::type_id::create("m_reset_agent",this);
-    uvm_config_db #(execution_stage_config)::set(this,"m_execution_stage_agent*","config", m_top_config.m_execution_stage_config);
-    m_execution_stage_agent = execution_stage_agent::type_id::create("m_execution_stage_agent",this);
+
+        uvm_config_db #(execution_stage_config)::set(this,"m_execution_stage_agent*","config", m_top_config.m_execution_stage_config);
+        m_execution_stage_agent = execution_stage_agent::type_id::create("m_execution_stage_agent",this);
+
+        uvm_config_db #(decode_stage_config)::set(this,"m_decode_stage_agent*","config", m_top_config.m_decode_stage_config);
+        m_decode_stage_agent = decode_stage_agent::type_id::create("m_decode_stage_agent",this);
         // Build scoreboard components
         m_scoreboard = scoreboard::type_id::create("m_scoreboard",this);
     endfunction : build_phase
@@ -58,9 +66,11 @@ class tb_env extends uvm_env;
     function void connect_phase(uvm_phase phase);
         super.connect_phase(phase);
         // Making all connection all analysis ports to scoreboard
-    m_reset_agent.m_monitor.m_analysis_port.connect(m_scoreboard.m_reset_ap);
-    // connect execution_stage monitor to scoreboard
-    m_execution_stage_agent.m_monitor.m_analysis_port.connect(m_scoreboard.m_execution_stage_ap);
+        m_reset_agent.m_monitor.m_analysis_port.connect(m_scoreboard.m_reset_ap);
+        // connect execution_stage monitor to scoreboard
+        m_execution_stage_agent.m_monitor.m_analysis_port.connect(m_scoreboard.m_execution_stage_ap);
+        // connect decode_stage monitor to scoreboard
+        m_decode_stage_agent.m_monitor.m_analysis_port.connect(m_scoreboard.m_decode_stage_ap);
     endfunction : connect_phase
 
 endclass : tb_env

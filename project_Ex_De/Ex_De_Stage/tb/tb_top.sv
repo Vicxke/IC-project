@@ -55,6 +55,8 @@ module tb_top;
         .compflg_out(i_execute_if.compflg_out)
     );
 
+    decode_stage_if i_decode_if(.clk(tb_clock), .rst_n(tb_reset_n));
+
     // Initialize TB configuration
     initial begin
         top_config  m_top_config;
