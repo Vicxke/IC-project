@@ -27,6 +27,7 @@ import common::*;
 // Instance analysis defines (creates unique analysis_imp types)
 `uvm_analysis_imp_decl(_scoreboard_reset)
 `uvm_analysis_imp_decl(_scoreboard_execution_stage)
+`uvm_analysis_imp_decl(_scoreboard_decode_stage)
 
 // Simplified scoreboard for execution_stage UVC
 class scoreboard extends uvm_component;
@@ -36,6 +37,8 @@ class scoreboard extends uvm_component;
     uvm_analysis_imp_scoreboard_execution_stage#(execution_stage_seq_item, scoreboard) m_execution_stage_ap;
     // reset analysis connection
     uvm_analysis_imp_scoreboard_reset#(reset_seq_item, scoreboard) m_reset_ap;
+
+    uvm_analysis_imp_scoreboard_decode_stage#(decode_stage_seq_item, scoreboard) m_decode_stage_ap;
 
     // basic counters
     int unsigned items_received = 0;
@@ -208,6 +211,10 @@ class scoreboard extends uvm_component;
         // ExStage_06: -> no cross needed
     endgroup
 
+    covergroup decode_stage_covergrp;
+        // Define coverage points for decode stage if needed
+    endgroup
+
     //------------------------------------------------------------------------------
     // The constructor for the component.
     //------------------------------------------------------------------------------
@@ -215,6 +222,7 @@ class scoreboard extends uvm_component;
         super.new(name,parent);
         // Create coverage group
         execution_stage_covergrp = new();
+        decode_stage_covergrp = new();
     endfunction: new
 
     //------------------------------------------------------------------------------
@@ -224,6 +232,7 @@ class scoreboard extends uvm_component;
         super.build_phase(phase);
         m_execution_stage_ap = new("m_execution_stage_ap", this);
         m_reset_ap = new("m_reset_ap", this);
+        m_decode_stage_ap = new("m_decode_stage_ap", this);
     endfunction: build_phase
 
     //------------------------------------------------------------------------------
@@ -276,6 +285,12 @@ class scoreboard extends uvm_component;
         execution_stage_covergrp.sample();
 
     endfunction :  write_scoreboard_reset
+
+    virtual function void write_scoreboard_decode_stage(decode_stage_seq_item item);
+        `uvm_info(get_name(),$sformatf("DECODE_STAGE_MONITOR:\n%s",item.sprint()),UVM_HIGH)
+        // Implement decode stage monitoring if needed
+        //decode_stage_covergrp.sample();
+    endfunction :  write_scoreboard_decode_stage
 
     //------------------------------------------------------------------------------
     // UVM check phase
