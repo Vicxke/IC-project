@@ -26,7 +26,9 @@ module register_file(
             registers[write_id] <= write_data;     
         end
     end
-
+/*
+// ILA not part of RISC-V implementation, only for debug purposes
+	
 ila_rf inst_ila_rf (
 	.clk(clk), // input wire clk
 	.probe0(registers[0]), // input wire [31:0]  probe0  
@@ -62,6 +64,7 @@ ila_rf inst_ila_rf (
 	.probe30(registers[30]), // input wire [31:0]  probe30 
 	.probe31(registers[31]) // input wire [31:0]  probe31
 );
+*/
 
     assign read1_data = read1_id == 0 ? 0 : registers[read1_id];
     assign read2_data = read2_id == 0 ? 0 : registers[read2_id];

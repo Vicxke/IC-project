@@ -57,22 +57,22 @@ class decode_stage_monitor extends uvm_monitor;
         `uvm_info(get_name(), $sformatf("Starting decode_stage monitoring"), UVM_HIGH)
 
         // Wait until interface is available
-        if (m_config.decode_vif == null) begin
-            `uvm_fatal(get_name(), "decode_vif not set in decode_stage_config")
+        if (m_config.m_vif == null) begin
+            `uvm_fatal(get_name(), "m_vif not set in decode_stage_config")
         end
 
         // Wait for reset deassertion before sampling
-        @(posedge m_config.decode_vif.rst_n);
-        @(negedge m_config.decode_vif.clk);
+        @(posedge m_config.m_vif.rst_n);
+        @(negedge m_config.m_vif.clk);
         // this will just update the view and nothing else very simple
         
         // // If any relevant signals are unknown, wait until they become stable
         // do begin
-        //     @(posedge m_config.decode_vif.clk);
-        // end while ( $isunknown(m_config.decode_vif.control_in) ||
-        //         $isunknown(m_config.decode_vif.data1) ||
-        //         $isunknown(m_config.decode_vif.data2) ||
-        //         $isunknown(m_config.decode_vif.program_counter) );
+        //     @(posedge m_config.m_vif.clk);
+        // end while ( $isunknown(m_config.m_vif.control_in) ||
+        //         $isunknown(m_config.m_vif.data1) ||
+        //         $isunknown(m_config.m_vif.data2) ||
+        //         $isunknown(m_config.m_vif.program_counter) );
         
         
         forever begin
@@ -80,18 +80,18 @@ class decode_stage_monitor extends uvm_monitor;
             // logic [31:0] op1, op2;
 
             // // Sample on clock edge
-            // @(posedge m_config.decode_vif.clk);
+            // @(posedge m_config.m_vif.clk);
 
 
             // Read current values (assign to temporaries declared above)
-            cur_instruction = m_config.decode_vif.instruction;
-            cur_pc       = m_config.decode_vif.pc;
-            cur_compflg    = m_config.decode_vif.compflg;
-            cur_write_en    = m_config.decode_vif.write_en;
-            cur_write_id    = m_config.decode_vif.write_id;
-            cur_write_data    = m_config.decode_vif.write_data;
-            cur_mux_data1    = m_config.decode_vif.mux_data1;
-            cur_mux_data2    = m_config.decode_vif.mux_data2;
+            cur_instruction = m_config.m_vif.instruction;
+            cur_pc       = m_config.m_vif.pc;
+            cur_compflg    = m_config.m_vif.compflg;
+            cur_write_en    = m_config.m_vif.write_en;
+            cur_write_id    = m_config.m_vif.write_id;
+            cur_write_data    = m_config.m_vif.write_data;
+            cur_mux_data1    = m_config.m_vif.mux_data1;
+            cur_mux_data2    = m_config.m_vif.mux_data2;
 
             // // alu_src: when 2'b01 the intermediate value is the RIGHT operand (op2)
             // op1 = cur_data1;
@@ -102,29 +102,29 @@ class decode_stage_monitor extends uvm_monitor;
 
             
 
-            @(posedge m_config.decode_vif.clk); // wait a cycle to let DUT outputs stabilize
+            @(posedge m_config.m_vif.clk); // wait a cycle to let DUT outputs stabilize
 
             // --- Also read DUT outputs for checking ---
-            // cur_result  = m_config.decode_vif.alu_data;
-            // cur_ovf     = m_config.decode_vif.overflow_flag;
-            // cur_zeroflg = m_config.decode_vif.zero_flag;
-            // cur_memory_data = m_config.decode_vif.memory_data;
-            // cur_control_out = m_config.decode_vif.control_out;
-            // cur_compflg_out = m_config.decode_vif.compflg_out;
+            // cur_result  = m_config.m_vif.alu_data;
+            // cur_ovf     = m_config.m_vif.overflow_flag;
+            // cur_zeroflg = m_config.m_vif.zero_flag;
+            // cur_memory_data = m_config.m_vif.memory_data;
+            // cur_control_out = m_config.m_vif.control_out;
+            // cur_compflg_out = m_config.m_vif.compflg_out;
 
-            cur_reg_rd_id        = m_config.decode_vif.reg_rd_id;
-            cur_read_data1      = m_config.decode_vif.read_data1;
-            cur_read_data2      = m_config.decode_vif.read_data2;
-            cur_rs1_id          = m_config.decode_vif.rs1_id;
-            cur_rs2_id          = m_config.decode_vif.rs2_id;
-            cur_immediate_data  = m_config.decode_vif.immediate_data;
-            cur_control_signals = m_config.decode_vif.control_signals;
-            cur_select_target_pc = m_config.decode_vif.select_target_pc;
-            cur_resolve         = m_config.decode_vif.resolve;
-            cur_calculated_target_pc = m_config.decode_vif.calculated_target_pc;
-            cur_squash_after_J  = m_config.decode_vif.squash_after_J;
-            cur_squash_after_JALR = m_config.decode_vif.squash_after_JALR;
-            cur_compflg_out     = m_config.decode_vif.compflg_out;
+            cur_reg_rd_id        = m_config.m_vif.reg_rd_id;
+            cur_read_data1      = m_config.m_vif.read_data1;
+            cur_read_data2      = m_config.m_vif.read_data2;
+            cur_rs1_id          = m_config.m_vif.rs1_id;
+            cur_rs2_id          = m_config.m_vif.rs2_id;
+            cur_immediate_data  = m_config.m_vif.immediate_data;
+            cur_control_signals = m_config.m_vif.control_signals;
+            cur_select_target_pc = m_config.m_vif.select_target_pc;
+            cur_resolve         = m_config.m_vif.resolve;
+            cur_calculated_target_pc = m_config.m_vif.calculated_target_pc;
+            cur_squash_after_J  = m_config.m_vif.squash_after_J;
+            cur_squash_after_JALR = m_config.m_vif.squash_after_JALR;
+            cur_compflg_out     = m_config.m_vif.compflg_out;
 
 
 

@@ -19,7 +19,7 @@ class decode_stage_config extends uvm_object;
     // The monitor is active. 
     bit has_monitor = 1;
     // decode_stage uVC virtual DECODE_STAGE_IF interface.
-    virtual decode_stage_if decode_vif;
+    virtual decode_stage_if m_vif;
 
     `uvm_object_utils_begin(decode_stage_config)
     `uvm_field_int(is_active,UVM_ALL_ON|UVM_DEC)

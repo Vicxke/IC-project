@@ -25,6 +25,9 @@ class decode_stage_seq extends uvm_sequence#(decode_stage_seq_item);
     rand int unsigned mux_data1;
     rand int unsigned mux_data2;
 
+    // decode_stage_seq_item decode_req;
+    // decode_stage_seq_item rsp;
+
     function new(string name = "decode_stage_seq");
         super.new(name);
     endfunction: new
@@ -32,25 +35,25 @@ class decode_stage_seq extends uvm_sequence#(decode_stage_seq_item);
     task body();
 
         // Create a new item
-        decode_req = decode_stage_seq_item::type_id::create("req");
+        req = decode_stage_seq_item::type_id::create("req");
 
         // Copy explicit values (deterministic behaviour for basic tests)
-        decode_req.instruction = instruction;
-        decode_req.pc       = pc;
-        decode_req.compflg    = compflg;
-        decode_req.write_en    = write_en;
-        decode_req.write_id    = write_id;
-        decode_req.write_data    = write_data;
-        decode_req.mux_data1    = mux_data1;
-        decode_req.mux_data2    = mux_data2;
+        req.instruction = instruction;
+        req.pc       = pc;
+        req.compflg    = compflg;
+        req.write_en    = write_en;
+        req.write_id    = write_id;
+        req.write_data    = write_data;
+        req.mux_data1    = mux_data1;
+        req.mux_data2    = mux_data2;
 
         // Start/finish item pattern
-        start_item(decode_req);
+        start_item(req);
 
-        finish_item(decode_req);
+        finish_item(req);
 
         // Optionally wait for a response (some drivers may provide responses)
-        get_response(rsp, decode_req.get_transaction_id());
+        get_response(rsp, req.get_transaction_id());
     endtask: body
 
 endclass: decode_stage_seq

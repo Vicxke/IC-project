@@ -42,24 +42,24 @@ class decode_stage_driver extends uvm_driver#(decode_stage_seq_item);
     // -  Send a response back.
     //------------------------------------------------------------------------------
     virtual task run_phase(uvm_phase phase);
-        decode_stage_seq_item decode_req;
+        decode_stage_seq_item req;
 
         `uvm_info(get_name(), "decode_stage_driver started", UVM_LOW)
 
         forever begin
             // Get next request from sequencer
-            seq_item_port.get(decode_req);
+            seq_item_port.get(req);
 
-            if (m_config.decode_vif == null) begin
+            if (m_config.m_vif == null) begin
                 `uvm_fatal(get_name(), "Virtual interface not set in decode_stage_config (m_vif)")
             end
 
-            @(posedge m_config.decode_vif.clk);
+            @(posedge m_config.m_vif.clk);
 
 
             // Drive inputs
-            m_config.decode_vif.instruction = decode_req.instruction;
-            m_config.decode_vif.pc       = decode_req.;
+            m_config.m_vif.instruction = req.instruction;
+            m_config.m_vif.pc       = req.pc;
 
 
             // Debug: print the interface values after driving so we can confirm
@@ -68,13 +68,13 @@ class decode_stage_driver extends uvm_driver#(decode_stage_seq_item);
                         m_config.m_vif.data1, m_config.m_vif.data2, m_config.m_vif.immediate_data, m_config.m_vif.program_counter, m_config.m_vif.compflg_in, (m_config.m_vif.control_in.alu_op.name())), UVM_MEDIUM)
 
             // Let DUT sample on next rising edge
-            @(posedge m_config.decode_vif.clk);
+            @(posedge m_config.m_vif.clk);
 
             // Optionally wait a cycle to let outputs propagate
-            @(posedge m_config.decode_vif.clk);
+            @(posedge m_config.m_vif.clk);
 
             // Return the item (no response payload currently)
-            seq_item_port.put(decode_req);
+            seq_item_port.put(req);
         end
     endtask: run_phase
 

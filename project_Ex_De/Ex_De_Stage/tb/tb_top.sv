@@ -40,23 +40,6 @@ module tb_top;
     execution_stage_if i_execute_if(.clk(tb_clock), .rst_n(tb_reset_n));
 
 
-    // Instantiation of the execute_stage RTL DUT
-    execute_stage dut_execute_stage (
-        .clk(tb_clock),
-        .reset_n(tb_reset_n),
-        .data1(i_execute_if.data1),
-        .data2(i_execute_if.data2),
-        .immediate_data(i_execute_if.immediate_data),
-        .control_in(i_execute_if.control_in),
-        .compflg_in(i_execute_if.compflg_in),
-        .program_counter(i_execute_if.program_counter),
-        .control_out(i_execute_if.control_out),
-        .alu_data(i_execute_if.alu_data),
-        .memory_data(i_execute_if.memory_data),
-        .overflow_flag(i_execute_if.overflow_flag),
-        .compflg_out(i_execute_if.compflg_out)
-    );
-
     // Instantiation of decode_stage RTL DUT
     decode_stage dut_decode_stage (
         .clk(tb_clock),
@@ -84,6 +67,23 @@ module tb_top;
         .squash_after_J(i_decode_if.squash_after_J),
         .squash_after_JALR(i_decode_if.squash_after_JALR),
         .compflg_out(i_decode_if.compflg_out)
+    );
+
+    // Instantiation of the execute_stage RTL DUT
+    execute_stage dut_execute_stage (
+        .clk(tb_clock),
+        .reset_n(tb_reset_n),
+        .data1(i_decode_if.read_data1),
+        .data2(i_decode_if.read_data2),
+        .immediate_data(i_decode_if.immediate_data),
+        .control_in(i_decode_if.control_signals),
+        .compflg_in(i_decode_if.compflg_out),
+        .program_counter(i_decode_if.pc), // könnte problem sein
+        .control_out(i_execute_if.control_out),
+        .alu_data(i_execute_if.alu_data),
+        .memory_data(i_execute_if.memory_data),
+        .overflow_flag(i_execute_if.overflow_flag),
+        .compflg_out(i_execute_if.compflg_out)
     );
 
 
