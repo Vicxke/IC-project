@@ -17,6 +17,8 @@ class top_config extends uvm_object;
     reset_config m_reset_config;
     // execution_stage configuration instance for execution_stage agent uVC.
     execution_stage_config m_execution_stage_config;
+    // decode_stage configuration instance for decode_stage agent uVC.
+    decode_stage_config m_decode_stage_config;
 
     //------------------------------------------------------------------------------
     // The constructor for the component.
@@ -37,6 +39,11 @@ class top_config extends uvm_object;
         m_execution_stage_config = new("m_execution_stage_config");
         m_execution_stage_config.is_active = 1;
         m_execution_stage_config.has_monitor = 1;
+
+        // Create and configure decode_stage uVC configuration with driver and monitor
+        m_decode_stage_config = new("m_decode_stage_config");
+        m_decode_stage_config.is_active = 1;
+        m_decode_stage_config.has_monitor = 1;
         
     endfunction : new
 
