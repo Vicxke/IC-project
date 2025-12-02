@@ -1,22 +1,22 @@
 import common::*;
 
-class execution_stage_monitor extends uvm_monitor;
-    `uvm_component_param_utils(execution_stage_monitor)
+class decode_stage_monitor extends uvm_monitor;
+    `uvm_component_param_utils(decode_stage_monitor)
 
-    // Execution stage uVC configuration object.
-    execution_stage_config m_config;
+    // decode_stage uVC configuration object.
+    decode_stage_config m_config;
     // Monitor analysis port.
-    uvm_analysis_port #(execution_stage_seq_item)  m_analysis_port;
+    uvm_analysis_port #(decode_stage_seq_item)  m_analysis_port;
 
     //------------------------------------------------------------------------------
     // Constructor - read config from config DB and create analysis port.
     //------------------------------------------------------------------------------
-    function new(string name = "execution_stage_monitor", uvm_component parent = null);
+    function new(string name = "decode_stage_monitor", uvm_component parent = null);
         super.new(name, parent);
-        if (!uvm_config_db#(execution_stage_config)::get(this, "", "execution_stage_config", m_config)) begin
-            `uvm_fatal(get_name(), "Cannot find execution_stage_config in config DB")
+        if (!uvm_config_db#(decode_stage_config)::get(this, "", "decode_stage_config", m_config)) begin
+            `uvm_fatal(get_name(), "Cannot find decode_stage_config in config DB")
         end
-        m_analysis_port = new("m_execution_stage_analysis_port", this);
+        m_analysis_port = new("m_decode_stage_analysis_port", this);
     endfunction : new
     //------------------------------------------------------------------------------
     // Build phase (kept minimal)
@@ -44,7 +44,7 @@ class execution_stage_monitor extends uvm_monitor;
 
         logic cur_ovf;        // current overflow flag
         logic cur_zeroflg;    // current zero flag
-        execution_stage_seq_item seq_item;
+        decode_stage_seq_item seq_item;
 
         // --- Calculate expected result ---
         logic [31:0] expected_result;
@@ -56,11 +56,11 @@ class execution_stage_monitor extends uvm_monitor;
         encoding_type cur_opType;
         
 
-        `uvm_info(get_name(), $sformatf("Starting execution_stage monitoring"), UVM_HIGH)
+        `uvm_info(get_name(), $sformatf("Starting decode_stage monitoring"), UVM_HIGH)
 
         // Wait until interface is available
         if (m_config.m_vif == null) begin
-            `uvm_fatal(get_name(), "m_vif not set in execution_stage_config")
+            `uvm_fatal(get_name(), "m_vif not set in decode_stage_config")
         end
 
         // Wait for reset deassertion before sampling
@@ -99,7 +99,7 @@ class execution_stage_monitor extends uvm_monitor;
             op2 = (cur_control_in.alu_src == 2'b01) ? cur_imm : cur_data2;
             shamt = op2[4:0];
 
-            seq_item = execution_stage_seq_item::type_id::create("monitor_item");
+            seq_item = decode_stage_seq_item::type_id::create("monitor_item");
 
 
 
@@ -260,7 +260,7 @@ class execution_stage_monitor extends uvm_monitor;
                             cur_compflg_out, cur_cmp))
             end
 
-            // Fill sequence item fields (assumes these fields exist on execution_stage_seq_item)
+            // Fill sequence item fields (assumes these fields exist on decode_stage_seq_item)
             seq_item.data1            = cur_data1;
             seq_item.data2            = op2;
             seq_item.immediate_data   = cur_imm;
@@ -279,4 +279,4 @@ class execution_stage_monitor extends uvm_monitor;
         end
     endtask : run_phase
 
-endclass : execution_stage_monitor
+endclass : decode_stage_monitor

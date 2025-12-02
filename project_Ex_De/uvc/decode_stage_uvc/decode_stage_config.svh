@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------
-// execution_stage_config class
+// decode_stage_config class
 //
 // The configuration of clock.
 // This class contains the configuration of serial data, and the virtual interface.
@@ -9,19 +9,19 @@
 //  has_monitor   - indicate whether the monitor is activated.
 //
 // The virtual interface includes:
-//  m_vif - the execution_stage uVC virtual EXECUTION_STAGE_IF interface.
+//  m_vif - the decode_stage uVC virtual DECODE_STAGE_IF interface.
 //
 //------------------------------------------------------------------------------
-class execution_stage_config extends uvm_object;
+class decode_stage_config extends uvm_object;
 
     // The Sequencer and driver are activated
     bit is_active = 1;
     // The monitor is active. 
     bit has_monitor = 1;
-    // execution_stage uVC virtual EXECUTION_STAGE_IF interface.
-    virtual execution_stage_if m_vif;
+    // decode_stage uVC virtual DECODE_STAGE_IF interface.
+    virtual decode_stage_if m_vif;
 
-    `uvm_object_utils_begin(execution_stage_config)
+    `uvm_object_utils_begin(decode_stage_config)
     `uvm_field_int(is_active,UVM_ALL_ON|UVM_DEC)
     `uvm_field_int(has_monitor,UVM_ALL_ON|UVM_DEC)
     `uvm_object_utils_end
@@ -29,8 +29,8 @@ class execution_stage_config extends uvm_object;
     //------------------------------------------------------------------------------
     // The constructor for the component.
     //------------------------------------------------------------------------------
-    function new (string name = "execution_stage_config");
+    function new (string name = "decode_stage_config");
         super.new(name);
     endfunction : new
 
-endclass : execution_stage_config
+endclass : decode_stage_config

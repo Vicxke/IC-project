@@ -8,11 +8,11 @@
 // The start bit length must be less than 10 clocks.
 //
 //------------------------------------------------------------------------------
-// execution_stage_seq.svh
-// Simple sequence to generate execution_stage_seq_item transactions
+// decode_stage_seq.svh
+// Simple sequence to generate decode_stage_seq_item transactions
 import common::*;
-class execution_stage_seq extends uvm_sequence#(execution_stage_seq_item);
-    `uvm_object_utils(execution_stage_seq)
+class decode_stage_seq extends uvm_sequence#(decode_stage_seq_item);
+    `uvm_object_utils(decode_stage_seq)
 
     rand int unsigned data1;
     rand int unsigned data2;
@@ -21,14 +21,14 @@ class execution_stage_seq extends uvm_sequence#(execution_stage_seq_item);
     rand bit compflg_in;
     rand int unsigned program_counter;
 
-    function new(string name = "execution_stage_seq");
+    function new(string name = "decode_stage_seq");
         super.new(name);
     endfunction: new
 
     task body();
 
         // Create a new item
-        req = execution_stage_seq_item::type_id::create("req");
+        req = decode_stage_seq_item::type_id::create("req");
 
         // Copy explicit values (deterministic behaviour for basic tests)
         req.data1         = data1;
@@ -54,4 +54,4 @@ class execution_stage_seq extends uvm_sequence#(execution_stage_seq_item);
         get_response(rsp, req.get_transaction_id());
     endtask: body
 
-endclass: execution_stage_seq
+endclass: decode_stage_seq
