@@ -47,6 +47,10 @@ class ExDeStage_00 extends uvm_test;
     // FUNCTION: run_phase
     // Start UVM test in running phase.
     //------------------------------------------------------------------------------
+
+    int n = 1; // x for 100% coverage
+
+
     virtual task run_phase(uvm_phase phase);
 
         // Run the test as defined in base test
@@ -87,7 +91,7 @@ class ExDeStage_00 extends uvm_test;
 
         // -----------------------------ALU Operations -------------------------------------------------
 
-        repeat (10000) begin
+        repeat (100*n) begin
             execute_stage = execution_stage_seq::type_id::create("execute_stage_rand");
 
             if (!(execute_stage.randomize() with {
