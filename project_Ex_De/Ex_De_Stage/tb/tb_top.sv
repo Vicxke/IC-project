@@ -35,8 +35,10 @@ module tb_top;
     reset_if  i_reset_if(.clk(tb_clock));
     assign tb_reset_n = i_reset_if.reset_n;
 
-    // Instantiate execution_stage interface and connect to the DUT
+    // Interfaces
+    decode_stage_if    i_decode_if(.clk(tb_clock), .rst_n(tb_reset_n));
     execution_stage_if i_execute_if(.clk(tb_clock), .rst_n(tb_reset_n));
+
 
     // Instantiation of the execute_stage RTL DUT
     execute_stage dut_execute_stage (
@@ -55,7 +57,35 @@ module tb_top;
         .compflg_out(i_execute_if.compflg_out)
     );
 
-    decode_stage_if i_decode_if(.clk(tb_clock), .rst_n(tb_reset_n));
+    // Instantiation of decode_stage RTL DUT
+    decode_stage dut_decode_stage (
+        .clk(tb_clock),
+        .reset_n(tb_reset_n),
+        //inputs
+        .instruction(i_decode_if.instruction),
+        .pc(i_decode_if.pc),
+        .compflg(i_decode_if.compflg),
+        .write_en(i_decode_if.write_en),
+        .write_id(i_decode_if.write_id),
+        .write_data(i_decode_if.write_data),
+        .mux_data1(i_decode_if.mux_data1),
+        .mux_data2(i_decode_if.mux_data2),
+        //outputs
+        .reg_rd_id(i_decode_if.reg_rd_id),
+        .read_data1(i_decode_if.read_data1),
+        .read_data2(i_decode_if.read_data2),
+        .rs1_id(i_decode_if.rs1_id),
+        .rs2_id(i_decode_if.rs2_id),
+        .immediate_data(i_decode_if.immediate_data),
+        .control_signals(i_decode_if.control_signals),
+        .select_target_pc(i_decode_if.select_target_pc),
+        .resolve(i_decode_if.resolve),
+        .calculated_target_pc(i_decode_if.calculated_target_pc),
+        .squash_after_J(i_decode_if.squash_after_J),
+        .squash_after_JALR(i_decode_if.squash_after_JALR),
+        .compflg_out(i_decode_if.compflg_out)
+    );
+
 
     // Initialize TB configuration
     initial begin
@@ -68,18 +98,13 @@ module tb_top;
         m_top_config.m_reset_config.m_vif = i_reset_if;
         // Save execution_stage interface instance into top config
         m_top_config.m_execution_stage_config.m_vif = i_execute_if;
+        // Save decode_stage interface instance into top config
+        m_top_config.m_decode_stage_config.m_vif = i_decode_if;
     end
 
     // Start UVM test_base environment
     initial begin // only one run valid
-        // run_test("ExStage_00"); 
-        // run_test("ExStage_01");
-        // run_test("ExStage_02");
-        // run_test("ExStage_03");
-        // run_test("ExStage_04");
-        // run_test("ExStage_05");
-        run_test("ExStage_06");
-
+        run_test("ExDeStage_00");
     end
 
 endmodule
