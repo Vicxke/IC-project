@@ -41,11 +41,11 @@ class ExStage_06 extends uvm_test;
     // Start UVM test in running phase.
     //------------------------------------------------------------------------------
     
-    int n = 10; // 10 for 100% coverage
+    int n = 1; // 1 for 100% coverage
 
     virtual task run_phase(uvm_phase phase);
 
-        // reset_seq reset;
+        //reset_seq reset;
         execution_stage_seq execute_stage;
         control_type ctrl;
         super.run_phase(phase);
@@ -56,11 +56,11 @@ class ExStage_06 extends uvm_test;
         phase.raise_objection(this);       
 
         // // Start the data generation loop
-        // //do a simple reset first
-        // reset = reset_seq::type_id::create("reset");
-        // reset.delay = 0;
-        // reset.length = 2;
-        // reset.start(m_tb_env.m_reset_agent.m_sequencer);
+        //do a simple reset first
+        reset = reset_seq::type_id::create("reset");
+        reset.delay = 0;
+        reset.length = 2;
+        reset.start(m_tb_env.m_reset_agent.m_sequencer);
         
         // -----------------------------Control signals and compression flag -----------------
 

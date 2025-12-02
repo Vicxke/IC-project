@@ -44,18 +44,17 @@ class scoreboard extends uvm_component;
     //int unsigned reset_valid;
     // The value of the reset signal.
     int unsigned reset_value;
-    // The ALU operation being performed.
-    alu_op_type alu_op;
+    
 
     int unsigned data1;
     int unsigned data2;
     int unsigned immediate_data;
     int unsigned alu_result;
 
-    encoding_type encoding;
 
     control_type control_in;
 
+    // ------------- flags --------------
     logic compflg_in;
     logic overflow_flag;
     logic zero_flag;
@@ -67,18 +66,6 @@ class scoreboard extends uvm_component;
         reset : coverpoint reset_value {
             bins reset =  { 0 };
             bins run=  { 1 };
-        }
-        operations : coverpoint alu_op {
-            bins ADD =  { ALU_ADD };
-            bins SUB =  { ALU_SUB };
-            bins XOR =  { ALU_XOR };
-            bins OR  =  { ALU_OR };
-            bins AND =  { ALU_AND };
-            bins SLL =  { ALU_SLL };
-            bins SRL =  { ALU_SRL };
-            bins SRA =  { ALU_SRA };
-            bins SLT =  { ALU_SLT };
-            bins SLTU=  { ALU_SLTU };
         }
         operand_1 : coverpoint data1 {
             bins range_very_low   = { [32'h0000_0000 : 32'h1FFF_FFFF] };
@@ -133,7 +120,20 @@ class scoreboard extends uvm_component;
             bins all_zeros  = { 32'h0000_0000 };
             bins all_ones   = { 32'hFFFF_FFFF };
         }
-        op_type : coverpoint encoding {
+        // ----------- control signals --------------
+        control_operations : coverpoint control_in.alu_op {
+            bins ADD =  { ALU_ADD };
+            bins SUB =  { ALU_SUB };
+            bins XOR =  { ALU_XOR };
+            bins OR  =  { ALU_OR };
+            bins AND =  { ALU_AND };
+            bins SLL =  { ALU_SLL };
+            bins SRL =  { ALU_SRL };
+            bins SRA =  { ALU_SRA };
+            bins SLT =  { ALU_SLT };
+            bins SLTU=  { ALU_SLTU };
+        }
+        control_op_type : coverpoint control_in.encoding {
             bins R_TYPE = { R_TYPE };
             bins I_TYPE = { I_TYPE };
             bins S_TYPE = { S_TYPE };
@@ -141,12 +141,45 @@ class scoreboard extends uvm_component;
             bins U_TYPE = { U_TYPE };
             bins J_TYPE = { J_TYPE };
         }
-        alu_src : coverpoint control_in.alu_src {
+        control_alu_src : coverpoint control_in.alu_src {
             bins src_reg   = { 2'b00 };
             bins src_imm   = { 2'b01 };
             bins src_pc    = { 2'b10 }; //this will never get hit if you use imm and pc what then?
             bins src_lui   = { 2'b11 };
         }
+        control_mem_read : coverpoint control_in.mem_read {
+            bins no_read = { 1'b0 };
+            bins read    = { 1'b1 };
+        }
+        control_mem_write : coverpoint control_in.mem_write {
+            bins no_write = { 1'b0 };
+            bins write    = { 1'b1 };
+        }
+        control_reg_write : coverpoint control_in.reg_write {
+            bins no_write = { 1'b0 };
+            bins write    = { 1'b1 };
+        }
+        control_mem_to_reg : coverpoint control_in.mem_to_reg {
+            bins no_mem_to_reg = { 1'b0 };
+            bins mem_to_reg    = { 1'b1 };
+        }
+        control_is_branch : coverpoint control_in.is_branch {
+            bins not_branch = { 1'b0 };
+            bins is_branch  = { 1'b1 };
+        }
+        control_funct3 : coverpoint control_in.funct3 {
+            bins funct3_0 = { 3'b000 };
+            bins funct3_1 = { 3'b001 };
+            bins funct3_2 = { 3'b010 };
+            bins funct3_3 = { 3'b011 };
+            bins funct3_4 = { 3'b100 };
+            bins funct3_5 = { 3'b101 };
+            bins funct3_6 = { 3'b110 };
+            bins funct3_7 = { 3'b111 };
+        }
+        // ---- end control signals --------------
+
+        // ---- flags ----
         compression_flag : coverpoint compflg_in {
             bins flag_cleared = { 1'b0 };
             bins flag_set     = { 1'b1 };
@@ -155,13 +188,6 @@ class scoreboard extends uvm_component;
             bins no_overflow = { 1'b0 };
             bins overflow    = { 1'b1 };
         }
-        
-        // ----------- alle anscheinend einzeln ----------
-        // control_signals : coverpoint control_in {
-        //     bins control_default = { default:default };
-        // }
-        // ---------------------------------------------
-
 
         // --------- only active for ExStage_00 test -> Bug found -------------
         // zero_flag : coverpoint zero_flag {
@@ -169,12 +195,17 @@ class scoreboard extends uvm_component;
         //     bins is_zero  = { 1'b1 };
         // }
         // --------------------------------------------------------------
-        cross_ExStage_00 : cross operations, operand_1, operand_2;          //ExStage_00
-        cross_ExStage_01 : cross operations, operand_1, intermediate;       //ExStage_01
+        //
+        // ---- end flags ----
+
+        // -------------- Cross coverage definitions ----------------
+        cross_ExStage_00 : cross control_operations, operand_1, operand_2;          //ExStage_00
+        cross_ExStage_01 : cross control_operations, operand_1, intermediate;       //ExStage_01
         cross_ExStage_02 : cross operand_1, intermediate;                   //ExStage_02
         cross_ExStage_03 : cross operand_1, operand_2, compression_flag;    //ExStage_03
         cross_ExStage_04 : cross operand_2, intermediate;                   //ExStage_04
-        //cross_ExStage_05 : cross intermediate;                            //ExStage_05: operands are not relevant for AUIPC -> no cross needed
+        // ExStage_05: operands are not relevant for AUIPC -> no cross needed
+        // ExStage_06: -> no cross needed
     endgroup
 
     //------------------------------------------------------------------------------
@@ -211,16 +242,19 @@ class scoreboard extends uvm_component;
             `uvm_info(get_name(), $sformatf("Item provided expected ALU data=0x%08h", item.exp_alu_data), UVM_LOW)
         end
 
-        alu_op= item.control_in.alu_op;
+        
         data1 = item.data1;
         data2 = item.data2;
         immediate_data = item.immediate_data;
-        encoding = item.control_in.encoding;
+        alu_result = item.exp_alu_data;
+ 
         control_in = item.control_in;
-        compflg_in = item.compflg_in;
+        
+        // ---- flags ----
         overflow_flag = item.exp_overflow_flag;
         zero_flag = item.exp_zero_flag;
-        alu_result = item.exp_alu_data;
+        compflg_in = item.compflg_in;
+        
         //`uvm_info(get_name(), $sformatf("ALU_OPRESET_function: alu_op=%00s reset_value=%0b", alu_op.name(), reset_value), UVM_LOW)
         execution_stage_covergrp.sample();
 
