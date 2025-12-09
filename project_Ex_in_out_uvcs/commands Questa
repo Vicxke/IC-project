@@ -1,0 +1,8 @@
+cd //stu.net.lth.se/ti8188be-s/Documents/github/IC-project/project_Ex
+source run_uvm.sh
+run -all
+
+vsim work.tb_top +UVM_TESTNAME=base_test -do "run -all"
+
+vsim work.tb_top -do "run -all"
+
