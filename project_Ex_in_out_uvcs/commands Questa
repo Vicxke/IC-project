@@ -1,4 +1,4 @@
-cd //stu.net.lth.se/ti8188be-s/Documents/github/IC-project/project_Ex
+cd //stu.net.lth.se/ti8188be-s/Documents/github/IC-project/project_Ex_in_out_uvcs
 source run_uvm.sh
 run -all
 
