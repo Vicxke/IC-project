@@ -49,6 +49,7 @@ module decode_stage(
     compressed_encoding_type comp;   
 
     register_file rf_inst(
+        //inputs
         .clk(clk),
         .reset_n(reset_n),
         .write_en(write_en),
@@ -56,15 +57,18 @@ module decode_stage(
         .read2_id(rs2_control),
         .write_id(write_id),
         .write_data(write_data),
+        //outputs
         .read1_data(rf_read_data1),
         .read2_data(rf_read_data2)        
     );
     
     logic illegal_opcode;
     control inst_control(
+        //inputs
         .clk(clk), 
         .reset_n(reset_n), 
         .instruction(instruction),
+        //outputs
         .control(controls),
         .comp(comp),
         .illegal_opcode(illegal_opcode),
@@ -76,19 +80,19 @@ module decode_stage(
     
     
     pc_resolver inst_pc_resolver(
-    //inputs
-    .control(controls),
-    .pc(pc),
-    .instruction(instruction),
-    .rs1_data(mux_data1),
-    .rs2_data(mux_data2),
-    .compflg(compflg),
-    .comp(comp),
-    .immediate_data(immediate_data),
-    //outputs
-    .change_pc_decision(change_pc_decision), //1 for changing PC
-    .resolve(resolve), 
-    .target_pc(target_pc)
+        //inputs
+        .control(controls),
+        .pc(pc),
+        .instruction(instruction),
+        .rs1_data(mux_data1),
+        .rs2_data(mux_data2),
+        .compflg(compflg),
+        .comp(comp),
+        .immediate_data(immediate_data),
+        //outputs
+        .change_pc_decision(change_pc_decision), //1 for changing PC
+        .resolve(resolve), 
+        .target_pc(target_pc)
     );
 
    
