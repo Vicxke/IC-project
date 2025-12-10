@@ -9,12 +9,11 @@ interface execution_stage_output_if (input logic clk, input logic rst_n);
 
     // outputs from dut (made available to monitors/scoreboard)
     //not shure if it should be here
-    control_type control_out;
     logic [31:0] alu_data;
     logic [31:0] memory_data;
     logic overflow_flag;
     logic zero_flag;
+    control_type control_out;
     logic compflg_out;
-    logic [31:0] program_counter;
 
 endinterface : execution_stage_output_if

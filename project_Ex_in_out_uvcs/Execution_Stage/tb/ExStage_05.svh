@@ -54,7 +54,7 @@ class ExStage_05 extends uvm_test;
         control_type ctrl;
         super.run_phase(phase);
 
-        `uvm_info("ExStage_04 Info", "Starting ExStage_04 run_phase", UVM_LOW);
+        `uvm_info("ExStage_05 Info", "Starting ExStage_05 run_phase", UVM_LOW);
 
          // Raise objection if no UVM test is running
         phase.raise_objection(this);       
@@ -90,7 +90,7 @@ class ExStage_05 extends uvm_test;
                 compflg_in == 0;
 
                 // PC is the base address for AUIPC
-                program_counter == 32'h0000_0040;
+                program_counter_in == 32'h0000_0040;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
@@ -118,7 +118,7 @@ class ExStage_05 extends uvm_test;
                 compflg_in == 0;
 
                 // PC in wachsendem Bereich, optional
-                program_counter == 32'h0000_0040;
+                program_counter_in == 32'h0000_0040;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
@@ -146,7 +146,7 @@ class ExStage_05 extends uvm_test;
                 compflg_in == 0;
 
                 // PC in wachsendem Bereich, optional
-                program_counter == 32'h0000_0040;
+                program_counter_in == 32'h0000_0040;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
@@ -174,7 +174,7 @@ class ExStage_05 extends uvm_test;
                 control_in.funct3     == 3'b000;
 
                 // PC in wachsendem Bereich, optional
-                program_counter == 32'h0000_0040;
+                program_counter_in == 32'h0000_0040;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 

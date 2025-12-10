@@ -64,9 +64,10 @@ class tb_env extends uvm_env;
     function void connect_phase(uvm_phase phase);
         super.connect_phase(phase);
         // Making all connection all analysis ports to scoreboard
-    m_reset_agent.m_monitor.m_analysis_port.connect(m_scoreboard.m_reset_ap);
-    // connect execution_stage monitor to scoreboard
-    m_execution_stage_agent.m_monitor.m_analysis_port.connect(m_scoreboard.m_execution_stage_ap);
+        m_reset_agent.m_monitor.m_analysis_port.connect(m_scoreboard.m_reset_ap);
+        // connect execution_stage monitor to scoreboard
+        m_execution_stage_input_agent.m_monitor.m_analysis_port.connect(m_scoreboard.m_execution_stage_input_ap);
+        m_execution_stage_output_agent.m_monitor.m_analysis_port.connect(m_scoreboard.m_execution_stage_output_ap);
     endfunction : connect_phase
 
 endclass : tb_env

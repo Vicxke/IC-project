@@ -36,7 +36,6 @@ class scoreboard extends uvm_component;
     logic zero_flag;
     control_type control_out;
     logic compflg_out;
-    logic [31:0] program_counter_out;
 
     // --- Calculate expected result ---
     logic [31:0] expected_result;
@@ -116,33 +115,33 @@ class scoreboard extends uvm_component;
             bins U_TYPE = { U_TYPE };
             bins J_TYPE = { J_TYPE };
         }
-        control_alu_src : coverpoint control_in.alu_src {
+        control_in_alu_src : coverpoint control_in.alu_src {
             bins src_reg   = { 2'b00 };
             bins src_imm   = { 2'b01 };
             bins src_pc    = { 2'b10 }; //this will never get hit if you use imm and pc what then?
             bins src_lui   = { 2'b11 };
         }
-        control_mem_read : coverpoint control_in.mem_read {
+        control_in_mem_read : coverpoint control_in.mem_read {
             bins no_read = { 1'b0 };
             bins read    = { 1'b1 };
         }
-        control_mem_write : coverpoint control_in.mem_write {
+        control_in_mem_write : coverpoint control_in.mem_write {
             bins no_write = { 1'b0 };
             bins write    = { 1'b1 };
         }
-        control_reg_write : coverpoint control_in.reg_write {
+        control_in_reg_write : coverpoint control_in.reg_write {
             bins no_write = { 1'b0 };
             bins write    = { 1'b1 };
         }
-        control_mem_to_reg : coverpoint control_in.mem_to_reg {
+        control_in_mem_to_reg : coverpoint control_in.mem_to_reg {
             bins no_mem_to_reg = { 1'b0 };
             bins mem_to_reg    = { 1'b1 };
         }
-        control_is_branch : coverpoint control_in.is_branch {
+        control_in_is_branch : coverpoint control_in.is_branch {
             bins not_branch = { 1'b0 };
             bins is_branch  = { 1'b1 };
         }
-        control_funct3 : coverpoint control_in.funct3 {
+        control_in_funct3 : coverpoint control_in.funct3 {
             bins funct3_0 = { 3'b000 };
             bins funct3_1 = { 3'b001 };
             bins funct3_2 = { 3'b010 };
@@ -222,7 +221,7 @@ class scoreboard extends uvm_component;
             bins flag_set     = { 1'b1 };
         }
         // ----------- control signals --------------
-        control_operations : coverpoint control_out.alu_op {
+        control_out_operations : coverpoint control_out.alu_op {
             bins ADD =  { ALU_ADD };
             bins SUB =  { ALU_SUB };
             bins XOR =  { ALU_XOR };
@@ -234,7 +233,7 @@ class scoreboard extends uvm_component;
             bins SLT =  { ALU_SLT };
             bins SLTU=  { ALU_SLTU };
         }
-        control_op_type : coverpoint control_out.encoding {
+        control_out_op_type : coverpoint control_out.encoding {
             bins R_TYPE = { R_TYPE };
             bins I_TYPE = { I_TYPE };
             bins S_TYPE = { S_TYPE };
@@ -242,33 +241,33 @@ class scoreboard extends uvm_component;
             bins U_TYPE = { U_TYPE };
             bins J_TYPE = { J_TYPE };
         }
-        control_alu_src : coverpoint control_out.alu_src {
+        control_out_alu_src : coverpoint control_out.alu_src {
             bins src_reg   = { 2'b00 };
             bins src_imm   = { 2'b01 };
             bins src_pc    = { 2'b10 }; //this will never get hit if you use imm and pc what then?
             bins src_lui   = { 2'b11 };
         }
-        control_mem_read : coverpoint control_out.mem_read {
+        control_out_mem_read : coverpoint control_out.mem_read {
             bins no_read = { 1'b0 };
             bins read    = { 1'b1 };
         }
-        control_mem_write : coverpoint control_out.mem_write {
+        control_out_mem_write : coverpoint control_out.mem_write {
             bins no_write = { 1'b0 };
             bins write    = { 1'b1 };
         }
-        control_reg_write : coverpoint control_out.reg_write {
+        control_out_reg_write : coverpoint control_out.reg_write {
             bins no_write = { 1'b0 };
             bins write    = { 1'b1 };
         }
-        control_mem_to_reg : coverpoint control_out.mem_to_reg {
+        control_out_mem_to_reg : coverpoint control_out.mem_to_reg {
             bins no_mem_to_reg = { 1'b0 };
             bins mem_to_reg    = { 1'b1 };
         }
-        control_is_branch : coverpoint control_out.is_branch {
+        control_out_is_branch : coverpoint control_out.is_branch {
             bins not_branch = { 1'b0 };
             bins is_branch  = { 1'b1 };
         }
-        control_funct3 : coverpoint control_out.funct3 {
+        control_out_funct3 : coverpoint control_out.funct3 {
             bins funct3_0 = { 3'b000 };
             bins funct3_1 = { 3'b001 };
             bins funct3_2 = { 3'b010 };
@@ -279,16 +278,6 @@ class scoreboard extends uvm_component;
             bins funct3_7 = { 3'b111 };
         }
         // ---- end control signals --------------
-        program_counter_out : coverpoint program_counter_out {
-            bins range_very_low   = { [32'h0000_0000 : 32'h1FFF_FFFF] };
-            bins range_low        = { [32'h2000_0000 : 32'h3FFF_FFFF] };
-            bins range_mid_low    = { [32'h4000_0000 : 32'h5FFF_FFFF] };
-            bins range_mid        = { [32'h6000_0000 : 32'h7FFF_FFFF] };
-            bins range_mid_high   = { [32'h8000_0000 : 32'h9FFF_FFFF] };
-            bins range_high       = { [32'hA000_0000 : 32'hBFFF_FFFF] };
-            bins range_very_high  = { [32'hC000_0000 : 32'hDFFF_FFFF] };
-            bins range_max_val    = { [32'hE000_0000 : 32'hFFFF_FFFF] };
-        }
     endgroup
 
     //------------------------------------------------------------------------------
@@ -345,15 +334,14 @@ class scoreboard extends uvm_component;
         //     `uvm_info(get_name(), $sformatf("Item provided expected ALU data=0x%08h", item.exp_alu_data), UVM_LOW)
         // end
 
-        alu_result = item.exp_alu_data;
+        alu_result = item.alu_data;
         memory_data_out = item.memory_data;
         control_out = item.control_out;
         
         // ---- flags ----
-        overflow_flag = item.exp_overflow_flag;
-        zero_flag = item.exp_zero_flag;
+        overflow_flag = item.overflow_flag;
+        zero_flag = item.zero_flag;
         compflg_out = item.compflg_out;
-        program_counter_out = item.program_counter;
         
         //`uvm_info(get_name(), $sformatf("ALU_OPRESET_function: alu_op=%00s reset_value=%0b", alu_op.name(), reset_value), UVM_LOW)
         execution_stage_output_covergrp.sample();

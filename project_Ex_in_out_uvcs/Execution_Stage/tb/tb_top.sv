@@ -36,23 +36,24 @@ module tb_top;
     assign tb_reset_n = i_reset_if.reset_n;
 
     // Instantiate execution_stage interface and connect to the DUT
-    execution_stage_if i_execute_if(.clk(tb_clock), .rst_n(tb_reset_n));
+    execution_stage_input_if i_execute_input_if(.clk(tb_clock), .rst_n(tb_reset_n));
+    execution_stage_output_if i_execute_output_if(.clk(tb_clock), .rst_n(tb_reset_n));
 
     // Instantiation of the execute_stage RTL DUT
     execute_stage dut_execute_stage (
         .clk(tb_clock),
         .reset_n(tb_reset_n),
-        .data1(i_execute_if.data1),
-        .data2(i_execute_if.data2),
-        .immediate_data(i_execute_if.immediate_data),
-        .control_in(i_execute_if.control_in),
-        .compflg_in(i_execute_if.compflg_in),
-        .program_counter(i_execute_if.program_counter),
-        .control_out(i_execute_if.control_out),
-        .alu_data(i_execute_if.alu_data),
-        .memory_data(i_execute_if.memory_data),
-        .overflow_flag(i_execute_if.overflow_flag),
-        .compflg_out(i_execute_if.compflg_out)
+        .data1(i_execute_input_if.data1),
+        .data2(i_execute_input_if.data2),
+        .immediate_data(i_execute_input_if.immediate_data),
+        .control_in(i_execute_input_if.control_in),
+        .compflg_in(i_execute_input_if.compflg_in),
+        .program_counter(i_execute_input_if.program_counter_in),
+        .control_out(i_execute_output_if.control_out),
+        .alu_data(i_execute_output_if.alu_data),
+        .memory_data(i_execute_output_if.memory_data),
+        .overflow_flag(i_execute_output_if.overflow_flag),
+        .compflg_out(i_execute_output_if.compflg_out)
     );
 
     // Initialize TB configuration
@@ -65,7 +66,8 @@ module tb_top;
         m_top_config.m_clock_config.m_vif = i_clock_if;
         m_top_config.m_reset_config.m_vif = i_reset_if;
         // Save execution_stage interface instance into top config
-        m_top_config.m_execution_stage_config.m_vif = i_execute_if;
+        m_top_config.m_execution_stage_input_config.m_vif = i_execute_input_if;
+        m_top_config.m_execution_stage_output_config.m_vif = i_execute_output_if;
     end
 
     // Start UVM test_base environment
@@ -73,9 +75,9 @@ module tb_top;
         // run_test("ExStage_00"); 
         // run_test("ExStage_01");
         // run_test("ExStage_02");
-        // run_test("ExStage_03");
+        run_test("ExStage_03");
         // run_test("ExStage_04");
-        run_test("ExStage_05");
+        // run_test("ExStage_05");
         // run_test("ExStage_06");
 
     end

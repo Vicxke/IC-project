@@ -54,7 +54,7 @@ class ExStage_03 extends uvm_test;
 
         // Run the test as defined in base test
         reset_seq reset;
-        execution_stage_seq execute_stage;
+        execution_stage_input_seq execute_stage;
         control_type ctrl;
         super.run_phase(phase);
 
@@ -69,7 +69,7 @@ class ExStage_03 extends uvm_test;
         reset.start(m_tb_env.m_reset_agent.m_sequencer);
         
         //-------------------- single test case for Overflow test -----------------------
-        execute_stage = execution_stage_seq::type_id::create("execute_stage");
+        execute_stage = execution_stage_input_seq::type_id::create("execute_stage");
         
         // data1 is 2 or 4
         execute_stage.data2 = 32'h7FFF_FFFF; // max positive number for overflow test
@@ -84,15 +84,15 @@ class ExStage_03 extends uvm_test;
         ctrl.funct3 = 3'b000;
         execute_stage.control_in = ctrl;
         execute_stage.compflg_in = 0;
-        execute_stage.program_counter = 32'h0000_0040;
-        execute_stage.start(m_tb_env.m_execution_stage_agent.m_sequencer);
+        execute_stage.program_counter_in = 32'h0000_0040;
+        execute_stage.start(m_tb_env.m_execution_stage_input_agent.m_sequencer);
         
         // preserve current data1 value instead of forcing it
-        execute_stage = execution_stage_seq::type_id::create("execute_stage_init");
+        execute_stage = execution_stage_input_seq::type_id::create("execute_stage_init");
         
 
         repeat (100*n) begin
-            execute_stage = execution_stage_seq::type_id::create("execute_stage_rand");
+            execute_stage = execution_stage_input_seq::type_id::create("execute_stage_rand");
 
 
             if (!(execute_stage.randomize() with {                
@@ -112,15 +112,15 @@ class ExStage_03 extends uvm_test;
                 //compflg_in == 0; // both cases included in test
 
                 // PC in growing range, optional
-                program_counter == 32'h0000_0040;
+                program_counter_in == 32'h0000_0040;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
-            execute_stage.start(m_tb_env.m_execution_stage_agent.m_sequencer);
+            execute_stage.start(m_tb_env.m_execution_stage_input_agent.m_sequencer);
         end
 
         repeat (20*n) begin
-            execute_stage = execution_stage_seq::type_id::create("execute_stage_rand");
+            execute_stage = execution_stage_input_seq::type_id::create("execute_stage_rand");
 
             if (!(execute_stage.randomize() with {
 
@@ -139,15 +139,15 @@ class ExStage_03 extends uvm_test;
 
 
                 // PC in wachsendem Bereich, optional
-                program_counter == 32'h0000_0040;
+                program_counter_in == 32'h0000_0040;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
-            execute_stage.start(m_tb_env.m_execution_stage_agent.m_sequencer);
+            execute_stage.start(m_tb_env.m_execution_stage_input_agent.m_sequencer);
         end
 
         repeat (20*n) begin
-            execute_stage = execution_stage_seq::type_id::create("execute_stage_rand");
+            execute_stage = execution_stage_input_seq::type_id::create("execute_stage_rand");
 
             if (!(execute_stage.randomize() with {
                 
@@ -166,15 +166,15 @@ class ExStage_03 extends uvm_test;
                 control_in.funct3     == 3'b000;
 
                 // PC in wachsendem Bereich, optional
-                program_counter == 32'h0000_0040;
+                program_counter_in == 32'h0000_0040;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
-            execute_stage.start(m_tb_env.m_execution_stage_agent.m_sequencer);
+            execute_stage.start(m_tb_env.m_execution_stage_input_agent.m_sequencer);
         end
 
         repeat (3*n) begin
-            execute_stage = execution_stage_seq::type_id::create("execute_stage_rand");
+            execute_stage = execution_stage_input_seq::type_id::create("execute_stage_rand");
 
             if (!(execute_stage.randomize() with {
                 
@@ -194,11 +194,11 @@ class ExStage_03 extends uvm_test;
                 control_in.funct3     == 3'b000;
 
                 // PC in wachsendem Bereich, optional
-                program_counter == 32'h0000_0040;
+                program_counter_in == 32'h0000_0040;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
-            execute_stage.start(m_tb_env.m_execution_stage_agent.m_sequencer);
+            execute_stage.start(m_tb_env.m_execution_stage_input_agent.m_sequencer);
         end
 
 

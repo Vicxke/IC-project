@@ -19,7 +19,7 @@ class execution_stage_input_seq extends uvm_sequence#(execution_stage_input_seq_
     rand int unsigned immediate_data;
     rand control_type control_in;
     rand bit compflg_in;
-    rand int unsigned program_counter;
+    rand int unsigned program_counter_in;
 
     function new(string name = "execution_stage_input_seq");
         super.new(name);
@@ -36,7 +36,7 @@ class execution_stage_input_seq extends uvm_sequence#(execution_stage_input_seq_
         req.immediate_data = immediate_data;
         req.control_in    = control_in;
         req.compflg_in    = compflg_in;
-        req.program_counter = program_counter;
+        req.program_counter_in = program_counter_in;
 
         // Start/finish item pattern
         start_item(req);
@@ -46,7 +46,7 @@ class execution_stage_input_seq extends uvm_sequence#(execution_stage_input_seq_
         //    req.immediate_data == local::immediate_data;
         //    req.control_in == local::control_in;
         //    req.compflg_in == local::compflg_in;
-        //    req.program_counter == local::program_counter;
+        //    req.program_counter_in == local::program_counter_in;
         //}))`uvm_warning(get_name(), "Failed to randomize")
         finish_item(req);
 

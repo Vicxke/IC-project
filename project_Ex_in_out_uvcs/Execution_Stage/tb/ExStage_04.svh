@@ -48,7 +48,7 @@ class ExStage_04 extends uvm_test;
 
         // Run the test as defined in base test
         reset_seq reset;
-        execution_stage_seq execute_stage;
+        execution_stage_input_seq execute_stage;
         control_type ctrl;
         super.run_phase(phase);
 
@@ -68,7 +68,7 @@ class ExStage_04 extends uvm_test;
 
         
         repeat (100*n) begin
-            execute_stage = execution_stage_seq::type_id::create("execute_stage_rand");
+            execute_stage = execution_stage_input_seq::type_id::create("execute_stage_rand");
 
             //this will set the 
             if (!(execute_stage.randomize() with {
@@ -88,15 +88,15 @@ class ExStage_04 extends uvm_test;
                 compflg_in == 0;
 
                 // PC is the base address for AUIPC
-                program_counter == 32'h0000_0040;
+                program_counter_in == 32'h0000_0040;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
-            execute_stage.start(m_tb_env.m_execution_stage_agent.m_sequencer);
+            execute_stage.start(m_tb_env.m_execution_stage_input_agent.m_sequencer);
         end
 
         repeat (20*n) begin
-            execute_stage = execution_stage_seq::type_id::create("execute_stage_rand");
+            execute_stage = execution_stage_input_seq::type_id::create("execute_stage_rand");
 
             if (!(execute_stage.randomize() with {
                 // ALU und Encoding randomisieren (alle anderen Felder fix)
@@ -116,15 +116,15 @@ class ExStage_04 extends uvm_test;
                 compflg_in == 0;
 
                 // PC in wachsendem Bereich, optional
-                program_counter == 32'h0000_0040;
+                program_counter_in == 32'h0000_0040;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
-            execute_stage.start(m_tb_env.m_execution_stage_agent.m_sequencer);
+            execute_stage.start(m_tb_env.m_execution_stage_input_agent.m_sequencer);
         end
 
         repeat (20*n) begin
-            execute_stage = execution_stage_seq::type_id::create("execute_stage_rand");
+            execute_stage = execution_stage_input_seq::type_id::create("execute_stage_rand");
 
             if (!(execute_stage.randomize() with {
                 // ALU und Encoding randomisieren (alle anderen Felder fix)
@@ -144,15 +144,15 @@ class ExStage_04 extends uvm_test;
                 compflg_in == 0;
 
                 // PC in wachsendem Bereich, optional
-                program_counter == 32'h0000_0040;
+                program_counter_in == 32'h0000_0040;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
-            execute_stage.start(m_tb_env.m_execution_stage_agent.m_sequencer);
+            execute_stage.start(m_tb_env.m_execution_stage_input_agent.m_sequencer);
         end
 
         repeat (3*n) begin
-            execute_stage = execution_stage_seq::type_id::create("execute_stage_rand");
+            execute_stage = execution_stage_input_seq::type_id::create("execute_stage_rand");
 
             if (!(execute_stage.randomize() with {
                 
@@ -172,11 +172,11 @@ class ExStage_04 extends uvm_test;
                 control_in.funct3     == 3'b000;
 
                 // PC in wachsendem Bereich, optional
-                program_counter == 32'h0000_0040;
+                program_counter_in == 32'h0000_0040;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
-            execute_stage.start(m_tb_env.m_execution_stage_agent.m_sequencer);
+            execute_stage.start(m_tb_env.m_execution_stage_input_agent.m_sequencer);
         end
 
         // Drop objection if no UVM test is running

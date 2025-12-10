@@ -82,7 +82,7 @@ class ExStage_00 extends uvm_test;
         ctrl.funct3 = 3'b000;
         execute_stage.control_in = ctrl;
         execute_stage.compflg_in = 0;
-        execute_stage.program_counter = 32'h0000_0040;
+        execute_stage.program_counter_in = 32'h0000_0040;
         execute_stage.start(m_tb_env.m_execution_stage_input_agent.m_sequencer);
 
         // -----------------------------ALU Operations -------------------------------------------------
@@ -109,7 +109,7 @@ class ExStage_00 extends uvm_test;
                 compflg_in == 0;
 
                 // PC in wachsendem Bereich, optional
-                program_counter == 32'h0000_0040;
+                program_counter_in == 32'h0000_0040;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
@@ -136,7 +136,7 @@ class ExStage_00 extends uvm_test;
                 compflg_in == 0;
 
                 // PC in wachsendem Bereich, optional
-                program_counter == 32'h0000_0040;
+                program_counter_in == 32'h0000_0040;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
@@ -163,7 +163,7 @@ class ExStage_00 extends uvm_test;
                 compflg_in == 0;
 
                 // PC in wachsendem Bereich, optional
-                program_counter == 32'h0000_0040;
+                program_counter_in == 32'h0000_0040;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
@@ -191,7 +191,7 @@ class ExStage_00 extends uvm_test;
                 compflg_in == 0;
 
                 // PC in wachsendem Bereich, optional
-                program_counter == 32'h0000_0040;
+                program_counter_in == 32'h0000_0040;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 

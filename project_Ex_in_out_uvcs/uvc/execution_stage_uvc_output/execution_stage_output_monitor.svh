@@ -67,7 +67,6 @@ class execution_stage_output_monitor extends uvm_monitor;
             cur_zeroflg = m_config.m_vif.zero_flag;
             cur_control_out = m_config.m_vif.control_out;
             cur_compflg_out = m_config.m_vif.compflg_out;
-            cur_pc        = m_config.m_vif.program_counter;
 
             // Fill sequence item fields (assumes these fields exist on execution_stage_output_seq_item)
             seq_item.alu_data     = cur_result;
@@ -75,8 +74,7 @@ class execution_stage_output_monitor extends uvm_monitor;
             seq_item.overflow_flag= cur_ovf;
             seq_item.zero_flag    = cur_zeroflg;
             seq_item.control_out  = cur_control_out;
-            seq_item.compflg_in       = cur_compflg_out;
-            seq_item.program_counter  = cur_pc;
+            seq_item.compflg_out       = cur_compflg_out;
 
 
             `uvm_info(get_name(), $sformatf("UVC_output monitor: res=%0h ovf=%0h",cur_result, cur_ovf), UVM_MEDIUM)

@@ -46,7 +46,7 @@ class ExStage_06 extends uvm_test;
     virtual task run_phase(uvm_phase phase);
 
         reset_seq reset;
-        execution_stage_seq execute_stage;
+        execution_stage_input_seq execute_stage;
         control_type ctrl;
         super.run_phase(phase);
 
@@ -66,17 +66,17 @@ class ExStage_06 extends uvm_test;
 
         
         repeat (100*n) begin
-            execute_stage = execution_stage_seq::type_id::create("execute_stage_rand");
+            execute_stage = execution_stage_input_seq::type_id::create("execute_stage_rand");
 
             //this will set the 
             if (!(execute_stage.randomize() with {
 
                 // PC is the base address for AUIPC
-                program_counter == 32'h0000_0040;
+                program_counter_in == 32'h0000_0040;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
-            execute_stage.start(m_tb_env.m_execution_stage_agent.m_sequencer);
+            execute_stage.start(m_tb_env.m_execution_stage_input_agent.m_sequencer);
         end
 
         `uvm_info("ExStage_06 Info", "Completed ExStage_06 run_phase", UVM_LOW);

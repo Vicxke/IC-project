@@ -27,12 +27,6 @@ class execution_stage_input_monitor extends uvm_monitor;
 
     // Run phase - sample interface signals on clock and publish seq_items when values change.
     task run_phase(uvm_phase phase);
-        // Local previous-state variables for change detection.
-        logic [31:0] prev_data1, prev_data2, prev_immediate_data, prev_program_counter;
-        control_type prev_control_in;
-        logic prev_compflg_in;
-        bit first_sample = 1;
-
         // Declare per-sample temporaries and seq_item up-front so declarations precede any statements.
         logic [31:0] cur_data1, cur_data2, cur_imm, cur_pc, cur_result, cur_memory_data;
         
@@ -61,7 +55,7 @@ class execution_stage_input_monitor extends uvm_monitor;
         end while ( $isunknown(m_config.m_vif.control_in) ||
                 $isunknown(m_config.m_vif.data1) ||
                 $isunknown(m_config.m_vif.data2) ||
-                $isunknown(m_config.m_vif.program_counter) );
+                $isunknown(m_config.m_vif.program_counter_in) );
         
         
         forever begin
@@ -76,7 +70,7 @@ class execution_stage_input_monitor extends uvm_monitor;
             cur_imm     = m_config.m_vif.immediate_data;
             cur_control_in    = m_config.m_vif.control_in;
             cur_cmp     = m_config.m_vif.compflg_in;
-            cur_pc      = m_config.m_vif.program_counter;
+            cur_pc      = m_config.m_vif.program_counter_in;
 
 
 
@@ -88,7 +82,7 @@ class execution_stage_input_monitor extends uvm_monitor;
             seq_item.immediate_data   = cur_imm;
             seq_item.control_in       = cur_control_in;
             seq_item.compflg_in       = cur_cmp;
-            seq_item.program_counter  = cur_pc;
+            seq_item.program_counter_in  = cur_pc;
             
             // --- Optionally publish to analysis port for scoreboard ---
             m_analysis_port.write(seq_item);
