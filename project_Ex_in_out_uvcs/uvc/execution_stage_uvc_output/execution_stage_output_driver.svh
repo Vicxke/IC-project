@@ -5,23 +5,23 @@
 // The driver can generate parity bits if parity_enable is set.
 // 
 //  The configuration of the serial interface is provided via the
-//  execution_stage_config object.
+//  execution_stage_output_config object.
 //
 //------------------------------------------------------------------------------
 import common::*;
 
-class execution_stage_driver extends uvm_driver#(execution_stage_seq_item);
-    `uvm_component_param_utils(execution_stage_driver)
+class execution_stage_output_driver extends uvm_driver#(execution_stage_output_seq_item);
+    `uvm_component_param_utils(execution_stage_output_driver)
 
-    // execution_stage uVC configuration object.
-    execution_stage_config  m_config;
+    // execution_stage_output uVC configuration object.
+    execution_stage_output_config  m_config;
     //------------------------------------------------------------------------------
     // The constructor for the component.
     //------------------------------------------------------------------------------
-    function new(string name = "execution_stage_driver", uvm_component parent = null);
+    function new(string name = "execution_stage_output_driver", uvm_component parent = null);
         super.new(name, parent);
-        if (!uvm_config_db#(execution_stage_config)::get(this, "", "execution_stage_config", m_config)) begin
-            `uvm_fatal(get_name(), "Cannot find the execution_stage_config in config DB")
+        if (!uvm_config_db#(execution_stage_output_config)::get(this, "", "execution_stage_output_config", m_config)) begin
+            `uvm_fatal(get_name(), "Cannot find the execution_stage_output_config in config DB")
         end
     endfunction: new
 
@@ -42,16 +42,16 @@ class execution_stage_driver extends uvm_driver#(execution_stage_seq_item);
     // -  Send a response back.
     //------------------------------------------------------------------------------
     virtual task run_phase(uvm_phase phase);
-        execution_stage_seq_item req;
+        execution_stage_output_seq_item req;
 
-        `uvm_info(get_name(), "execution_stage_driver started", UVM_LOW)
+        `uvm_info(get_name(), "execution_stage_output_driver started", UVM_LOW)
 
         forever begin
             // Get next request from sequencer
             seq_item_port.get(req);
 
             if (m_config.m_vif == null) begin
-                `uvm_fatal(get_name(), "Virtual interface not set in execution_stage_config (m_vif)")
+                `uvm_fatal(get_name(), "Virtual interface not set in execution_stage_output_config (m_vif)")
             end
 
             @(posedge m_config.m_vif.clk);
@@ -81,4 +81,4 @@ class execution_stage_driver extends uvm_driver#(execution_stage_seq_item);
         end
     endtask: run_phase
 
-endclass: execution_stage_driver
+endclass: execution_stage_output_driver

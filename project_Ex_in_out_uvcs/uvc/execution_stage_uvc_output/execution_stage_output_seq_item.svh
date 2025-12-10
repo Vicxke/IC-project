@@ -15,12 +15,12 @@
 //    monitor_data_valid - Whether the serial data is valid
 //
 //------------------------------------------------------------------------------
-// execution_stage_seq_item.svh
-// Sequence item for the execution_stage uVC
+// execution_stage_output_seq_item.svh
+// Sequence item for the execution_stage_output uVC
 
 import common::*;
 
-class execution_stage_seq_item extends uvm_sequence_item;
+class execution_stage_output_seq_item extends uvm_sequence_item;
 
     // DUT inputs
     randc logic [31:0] data1;
@@ -39,7 +39,7 @@ class execution_stage_seq_item extends uvm_sequence_item;
     bit monitor_data_valid;
 
     // Fields for printing/packing
-    `uvm_object_utils_begin(execution_stage_seq_item)
+    `uvm_object_utils_begin(execution_stage_output_seq_item)
     `uvm_field_int(data1, UVM_ALL_ON)
     `uvm_field_int(data2, UVM_ALL_ON)
     `uvm_field_int(immediate_data, UVM_ALL_ON)
@@ -54,8 +54,8 @@ class execution_stage_seq_item extends uvm_sequence_item;
     `uvm_object_utils_end
 
     // Constructor
-    function new(string name = "execution_stage_seq_item");
+    function new(string name = "execution_stage_output_seq_item");
         super.new(name);
     endfunction: new
 
-endclass: execution_stage_seq_item
+endclass: execution_stage_output_seq_item

@@ -1,14 +1,14 @@
-class execution_stage_agent  extends uvm_agent;
-    `uvm_component_param_utils(execution_stage_agent)
+class execution_stage_output_agent  extends uvm_agent;
+    `uvm_component_param_utils(execution_stage_output_agent)
 
     // uVC sequencer.
-    uvm_sequencer #(execution_stage_seq_item) m_sequencer;
+    uvm_sequencer #(execution_stage_output_seq_item) m_sequencer;
     // uVC monitor.
-    execution_stage_monitor m_monitor;
+    execution_stage_output_monitor m_monitor;
     // uVC driver.
-    execution_stage_driver m_driver;
+    execution_stage_output_driver m_driver;
     // uVC configuration object.
-    execution_stage_config m_config;
+    execution_stage_output_config m_config;
 
     //------------------------------------------------------------------------------
     // The constructor for the component.
@@ -23,21 +23,21 @@ class execution_stage_agent  extends uvm_agent;
     function void build_phase(uvm_phase phase);
         super.build_phase(phase);
         // Read the uVC configuration object from UVM config DB.
-        if (!uvm_config_db #(execution_stage_config)::get(this,"*","config",m_config)) begin
+        if (!uvm_config_db #(execution_stage_output_config)::get(this,"*","config",m_config)) begin
             `uvm_fatal(get_name(),"Cannot find <config> agent configuration!")
         end
         // Store uVC configuration into UVM config DB used by the uVC.
-        uvm_config_db #(execution_stage_config)::set(this,"*","execution_stage_config",m_config);
+        uvm_config_db #(execution_stage_output_config)::set(this,"*","execution_stage_output_config",m_config);
         // Store uVC agent into UVM config DB
         if (m_config.is_active == UVM_ACTIVE) begin
             // Create uVC sequencer
-            m_sequencer  = uvm_sequencer #(execution_stage_seq_item)::type_id::create("execution_stage_sequencer",this);
+            m_sequencer  = uvm_sequencer #(execution_stage_output_seq_item)::type_id::create("execution_stage_output_sequencer",this);
             // Create uVC driver
-            m_driver = execution_stage_driver::type_id::create("execution_stage_driver",this);
+            m_driver = execution_stage_output_driver::type_id::create("execution_stage_output_driver",this);
         end
         if (m_config.has_monitor) begin
             // Create uVC monitor
-            m_monitor = execution_stage_monitor::type_id::create("execution_stage_monitor",this);
+            m_monitor = execution_stage_output_monitor::type_id::create("execution_stage_output_monitor",this);
         end
     endfunction : build_phase
 
@@ -60,4 +60,4 @@ class execution_stage_agent  extends uvm_agent;
         `uvm_info(get_name(),$sformatf("EXECUTION_STAGE agent is alive...."), UVM_LOW)
     endfunction : end_of_elaboration_phase
   
-endclass: execution_stage_agent
+endclass: execution_stage_output_agent
