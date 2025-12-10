@@ -33,13 +33,18 @@ package tb_pkg;
     `include "reset_driver.svh"
     `include "reset_monitor.svh"
     `include "reset_agent.svh"
-    // Include files from the execution_stage uVC
-    `include "execution_stage_seq_item.svh"
-    `include "execution_stage_seq.svh"
-    `include "execution_stage_config.svh"
-    `include "execution_stage_driver.svh"
-    `include "execution_stage_monitor.svh"
-    `include "execution_stage_agent.svh"
+    // Include files from the execution_stage_input uVC
+    `include "execution_stage_input_seq_item.svh"
+    `include "execution_stage_input_seq.svh"
+    `include "execution_stage_input_config.svh"
+    `include "execution_stage_input_driver.svh"
+    `include "execution_stage_input_monitor.svh"
+    `include "execution_stage_input_agent.svh"
+    // Include files from the execution_stage_output uVC
+    `include "execution_stage_input_output_seq_item.svh"
+    `include "execution_stage_input_output_config.svh"
+    `include "execution_stage_input_output_monitor.svh"
+    `include "execution_stage_input_output_agent.svh"
     // Include files from the TB
     `include "scoreboard.svh"
     `include "top_config.svh"
