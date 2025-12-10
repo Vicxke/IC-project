@@ -66,7 +66,7 @@ ila_rf inst_ila_rf (
 );
 */
 
-    assign read1_data = read1_id == 0 ? 0 : registers[read1_id];
-    assign read2_data = read2_id == 0 ? 0 : registers[read2_id];
+    assign read1_data = read1_id == 0 ? 0 : registers[read1_id]; // this is to check x0 always zero otherwise just give the value
+    assign read2_data = read2_id == 0 ? 0 : registers[read2_id]; // this is to check x0 always zero otherwise just give the value
 
 endmodule

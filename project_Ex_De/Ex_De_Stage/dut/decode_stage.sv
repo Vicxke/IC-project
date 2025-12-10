@@ -108,8 +108,8 @@ module decode_stage(
     assign squash_after_J = (controls.encoding == J_TYPE)? 1'b1 : 1'b0;
     always_comb begin
     if(compflg==0) begin
-    immediate_data = immediate_extension(instruction, controls.encoding);
-    squash_after_JALR = (instruction.opcode == opcode_JALR)? 1'b1 : 1'b0;
+        immediate_data = immediate_extension(instruction, controls.encoding);
+        squash_after_JALR = (instruction.opcode == opcode_JALR)? 1'b1 : 1'b0;
     end
     else
     begin
