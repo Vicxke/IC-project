@@ -12,7 +12,6 @@ class execution_stage_input_seq_item extends uvm_sequence_item;
     rand logic [31:0] program_counter;
 
 
-
     // Fields for printing/packing
     `uvm_object_utils_begin(execution_stage_input_seq_item)
     `uvm_field_int(data1, UVM_ALL_ON)

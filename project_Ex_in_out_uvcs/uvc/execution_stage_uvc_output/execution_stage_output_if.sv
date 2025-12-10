@@ -15,5 +15,6 @@ interface execution_stage_output_if (input logic clk, input logic rst_n);
     logic overflow_flag;
     logic zero_flag;
     logic compflg_out;
+    logic [31:0] program_counter;
 
 endinterface : execution_stage_output_if

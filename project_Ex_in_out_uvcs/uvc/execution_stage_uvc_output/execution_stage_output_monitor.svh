@@ -34,27 +34,14 @@ class execution_stage_output_monitor extends uvm_monitor;
         bit first_sample = 1;
 
         // Declare per-sample temporaries and seq_item up-front so declarations precede any statements.
-        logic [31:0] cur_data1, cur_data2, cur_imm, cur_pc, cur_result, cur_memory_data;
-        
-        control_type cur_control_in; // control input
+        logic [31:0] cur_pc, cur_result, cur_memory_data;
         control_type cur_control_out; // control output
-
-        logic cur_cmp;         // compression flag input
         logic cur_compflg_out; // compression flag output
-
         logic cur_ovf;        // current overflow flag
         logic cur_zeroflg;    // current zero flag
+
+
         execution_stage_output_seq_item seq_item;
-
-        // --- Calculate expected result ---
-        logic [31:0] expected_result;
-        bit expected_overflow = 0;
-        bit expected_zeroflg = 0;
-
-        logic [4:0] shamt;
-
-        encoding_type cur_opType;
-        
 
         `uvm_info(get_name(), $sformatf("Starting execution_stage_output monitoring"), UVM_HIGH)
 
@@ -63,7 +50,6 @@ class execution_stage_output_monitor extends uvm_monitor;
             `uvm_fatal(get_name(), "m_vif not set in execution_stage_output_config")
         end
 
-        
         
         forever begin
             // Sample on clock edge
