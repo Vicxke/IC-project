@@ -29,8 +29,8 @@ class execution_stage_output_seq_item extends uvm_sequence_item;
     bit overflow_flag;
     bit zero_flag;
     control_type control_out;
-    logic compflg_in;
-    logic [31:0] program_counter;
+    logic compflg_out;
+    logic [31:0] program_counter_out;
 
 
 
@@ -41,9 +41,9 @@ class execution_stage_output_seq_item extends uvm_sequence_item;
     `uvm_field_int(memory_data, UVM_ALL_ON)
     `uvm_field_int(overflow_flag, UVM_ALL_ON)
     `uvm_field_int(zero_flag, UVM_ALL_ON)
-    `uvm_field_object(control_out, UVM_ALL_ON)
-    `uvm_field_int(compflg_in, UVM_ALL_ON)
-    `uvm_field_int(program_counter, UVM_ALL_ON)
+    //`uvm_field_object(control_out, UVM_ALL_ON) not possible because control_type is a typedef struct
+    `uvm_field_int(compflg_out, UVM_ALL_ON)
+    `uvm_field_int(program_counter_out, UVM_ALL_ON)
     `uvm_object_utils_end
 
     // Constructor

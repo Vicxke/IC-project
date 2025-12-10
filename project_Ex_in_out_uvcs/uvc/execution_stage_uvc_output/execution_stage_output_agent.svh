@@ -5,8 +5,6 @@ class execution_stage_output_agent  extends uvm_agent;
     uvm_sequencer #(execution_stage_output_seq_item) m_sequencer;
     // uVC monitor.
     execution_stage_output_monitor m_monitor;
-    // uVC driver.
-    execution_stage_output_driver m_driver;
     // uVC configuration object.
     execution_stage_output_config m_config;
 
@@ -32,8 +30,7 @@ class execution_stage_output_agent  extends uvm_agent;
         if (m_config.is_active == UVM_ACTIVE) begin
             // Create uVC sequencer
             m_sequencer  = uvm_sequencer #(execution_stage_output_seq_item)::type_id::create("execution_stage_output_sequencer",this);
-            // Create uVC driver
-            m_driver = execution_stage_output_driver::type_id::create("execution_stage_output_driver",this);
+
         end
         if (m_config.has_monitor) begin
             // Create uVC monitor
@@ -41,16 +38,7 @@ class execution_stage_output_agent  extends uvm_agent;
         end
     endfunction : build_phase
 
-    //------------------------------------------------------------------------------
-    // The connection phase for the uVC.
-    //------------------------------------------------------------------------------
-    function void connect_phase(uvm_phase phase);
-        super.connect_phase(phase);
-        // If driver active connect then sequencer to the driver.
-        if (m_config.is_active == UVM_ACTIVE) begin
-            m_driver.seq_item_port.connect(m_sequencer.seq_item_export);
-        end
-    endfunction : connect_phase
+
 
     //------------------------------------------------------------------------------
     // The end of elaboration phase for the uVC

@@ -75,7 +75,7 @@ class execution_stage_output_monitor extends uvm_monitor;
             seq_item.overflow_flag= cur_ovf;
             seq_item.zero_flag    = cur_zeroflg;
             seq_item.control_out  = cur_control_out;
-            seq_item.compflg_in       = cur_cmp;
+            seq_item.compflg_in       = cur_compflg_out;
             seq_item.program_counter  = cur_pc;
 
 

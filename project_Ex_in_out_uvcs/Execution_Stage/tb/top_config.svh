@@ -16,7 +16,8 @@ class top_config extends uvm_object;
     // reset configuration instance for reset agent uVC.
     reset_config m_reset_config;
     // execution_stage configuration instance for execution_stage agent uVC.
-    execution_stage_config m_execution_stage_config;
+    execution_stage_input_config m_execution_stage_input_config;
+    execution_stage_output_config m_execution_stage_output_config;
 
     //------------------------------------------------------------------------------
     // The constructor for the component.
@@ -34,9 +35,14 @@ class top_config extends uvm_object;
         m_reset_config.has_monitor = 1;
 
         // Create and configure execution_stage uVC configuration with driver and monitor
-        m_execution_stage_config = new("m_execution_stage_config");
-        m_execution_stage_config.is_active = 1;
-        m_execution_stage_config.has_monitor = 1;
+        m_execution_stage_input_config = new("m_execution_stage_input_config");
+        m_execution_stage_input_config.is_active = 1;
+        m_execution_stage_input_config.has_monitor = 1;
+
+        m_execution_stage_output_config = new("m_execution_stage_output_config");
+        m_execution_stage_output_config.is_active = 1;
+        m_execution_stage_output_config.has_monitor = 1;
+
         
     endfunction : new
 

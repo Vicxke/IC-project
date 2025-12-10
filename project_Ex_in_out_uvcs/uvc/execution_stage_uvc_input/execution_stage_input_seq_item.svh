@@ -9,7 +9,7 @@ class execution_stage_input_seq_item extends uvm_sequence_item;
     // control_type is a DUT typedef; include a field for it so monitor can pass it
     randc control_type control_in;
     rand bit compflg_in;
-    rand logic [31:0] program_counter;
+    rand logic [31:0] program_counter_in;
 
 
     // Fields for printing/packing
@@ -20,7 +20,7 @@ class execution_stage_input_seq_item extends uvm_sequence_item;
     // control_in is a typedef (enum/struct) from common, skip automatic uvm_field macros
     `uvm_field_int(control_in, UVM_ALL_ON)
     `uvm_field_int(compflg_in, UVM_ALL_ON)
-    `uvm_field_int(program_counter, UVM_ALL_ON)
+    `uvm_field_int(program_counter_in, UVM_ALL_ON)
     `uvm_object_utils_end
 
     // Constructor

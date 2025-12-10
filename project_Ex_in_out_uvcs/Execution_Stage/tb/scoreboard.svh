@@ -1,26 +1,3 @@
-//------------------------------------------------------------------------------
-// Scoreboard for the TBUVM TB.
-//
-// This class is an implementation of the scoreboard that monitors the TBUVM
-// testbench and checks the behavior of the DUT with regard to the
-// serial-to-parallel conversion. It provides the following features:
-//
-// - Monitors the input serial data and the output parallel data of the DUT.
-// - Checks if the output data of the DUT is correct with regard to the
-//   input serial data.
-// - Checks if the DUT is in the correct state during the transmission of data.
-// - Provides functional coverage for the transmission of data and the
-//   activation of the DUT's output.
-// - Provides error reporting for any errors that are detected during the simulation.
-//
-// This class is derived from the `uvm_component` class and implements the
-// `uvm_analysis_imp_scoreboard_reset`, `uvm_analysis_imp_scoreboard_serial_data`
-// and `uvm_analysis_imp_scoreboard_parallel_data` analysis ports.
-//
-// The functional coverage is provided by the `serial_to_parallel_covergrp`
-// coverage group.
-//
-
 import common::*;
 
 //------------------------------------------------------------------------------
@@ -34,8 +11,8 @@ class scoreboard extends uvm_component;
     `uvm_component_utils(scoreboard)
 
     // execution_stage analysis connection (uses a dedicated analysis_imp type)
-    uvm_analysis_imp_scoreboard_execution_stage_input#(execution_stage_seq_item, scoreboard) m_execution_stage_input_ap;
-    uvm_analysis_imp_scoreboard_execution_stage_output#(execution_stage_seq_item, scoreboard) m_execution_stage_output_ap;
+    uvm_analysis_imp_scoreboard_execution_stage_input#(execution_stage_input_seq_item, scoreboard) m_execution_stage_input_ap;
+    uvm_analysis_imp_scoreboard_execution_stage_output#(execution_stage_output_seq_item, scoreboard) m_execution_stage_output_ap;
     // reset analysis connection
     uvm_analysis_imp_scoreboard_reset#(reset_seq_item, scoreboard) m_reset_ap;
 
@@ -48,13 +25,13 @@ class scoreboard extends uvm_component;
     int unsigned data1;
     int unsigned data2;
     int unsigned immediate_data;
-    control_type control_in,
+    control_type control_in;
     logic compflg_in;
     logic [31:0] program_counter_in;
 
     // ExStage outputs
     int unsigned alu_result;
-    int unsigned memory_data;
+    int unsigned memory_data_out;
     logic overflow_flag;
     logic zero_flag;
     control_type control_out;
@@ -67,6 +44,7 @@ class scoreboard extends uvm_component;
     bit expected_zeroflg = 0;
 
     logic [4:0] shamt;
+    logic [31:0] op1, op2;
 
 
     //------------------------------------------------------------------------------
@@ -215,7 +193,7 @@ class scoreboard extends uvm_component;
             bins all_zeros  = { 32'h0000_0000 };
             bins all_ones   = { 32'hFFFF_FFFF };
         }
-        memory_data : coverpoint memory_data {
+        memory_data_out : coverpoint memory_data_out {
             bins range_very_low   = { [32'h0000_0000 : 32'h1FFF_FFFF] };
             bins range_low        = { [32'h2000_0000 : 32'h3FFF_FFFF] };
             bins range_mid_low    = { [32'h4000_0000 : 32'h5FFF_FFFF] };
@@ -311,7 +289,6 @@ class scoreboard extends uvm_component;
             bins range_very_high  = { [32'hC000_0000 : 32'hDFFF_FFFF] };
             bins range_max_val    = { [32'hE000_0000 : 32'hFFFF_FFFF] };
         }
-
     endgroup
 
     //------------------------------------------------------------------------------
@@ -369,13 +346,13 @@ class scoreboard extends uvm_component;
         // end
 
         alu_result = item.exp_alu_data;
-        memory_data = item.memory_data;
+        memory_data_out = item.memory_data;
         control_out = item.control_out;
         
         // ---- flags ----
         overflow_flag = item.exp_overflow_flag;
         zero_flag = item.exp_zero_flag;
-        compflg_in = item.compflg_in;
+        compflg_out = item.compflg_out;
         program_counter_out = item.program_counter;
         
         //`uvm_info(get_name(), $sformatf("ALU_OPRESET_function: alu_op=%00s reset_value=%0b", alu_op.name(), reset_value), UVM_LOW)
@@ -399,15 +376,20 @@ class scoreboard extends uvm_component;
     virtual function void check_data();
         expected_overflow = 1'b0;  // default for non-add/sub ops
 
-        unique case (cur_control_in.alu_op)
+        // alu_src: when 2'b01 the intermediate value is the RIGHT operand (op2)
+        op1 = data1;
+        op2 = (control_in.alu_src == 2'b01) ? immediate_data : data2;
+        shamt = op2[4:0];
+
+        unique case (control_in.alu_op)
         ALU_ADD: begin
-        if ( (cur_control_in.encoding inside {J_TYPE, I_TYPE}) && (cur_control_in.alu_src == 2'b10) ) begin // special case for ExStage_03
-            op1 = (cur_cmp) ? 32'd2 : 32'd4; 
+        if ( (control_in.encoding inside {J_TYPE, I_TYPE}) && (control_in.alu_src == 2'b10) ) begin // special case for ExStage_03
+            op1 = (compflg_in) ? 32'd2 : 32'd4; 
         end
         
-        if (cur_control_in.encoding == U_TYPE && cur_control_in.alu_src == 2'b10) begin
+        if (control_in.encoding == U_TYPE && control_in.alu_src == 2'b10) begin
         // AUIPC
-        op1 = cur_imm; // Value was already shifted by decode stage
+        op1 = immediate_data; // Value was already shifted by decode stage
         
         end
         
@@ -436,9 +418,9 @@ class scoreboard extends uvm_component;
         end
 
         ALU_SLL: begin
-        if (cur_control_in.encoding == U_TYPE && cur_control_in.alu_src == 2'b11) begin
+        if (control_in.encoding == U_TYPE && control_in.alu_src == 2'b11) begin
             // LUI
-            op1 = cur_imm; // Value was already shifted by decode stage
+            op1 = immediate_data; // Value was already shifted by decode stage
             op2 = 32'd0;
             shamt = op2[4:0];
             
@@ -468,24 +450,24 @@ class scoreboard extends uvm_component;
         end
         endcase
 
-        `uvm_info(get_name(), $sformatf("Result from DUT: res=%0h ovf=%0h",cur_result, cur_ovf), UVM_MEDIUM)
+        `uvm_info(get_name(), $sformatf("Result from DUT: res=%0h ovf=%0h",alu_result, overflow_flag), UVM_MEDIUM)
 
 
         // --- Compare DUT result with expected result (all ops) ---
-        if (cur_result !== expected_result) begin
+        if (alu_result !== expected_result) begin
         `uvm_error("ALU_RESULT_MISMATCH",
             $sformatf("ALU mismatch on %s: data1=0x%08h, data2=0x%08h, imm=0x%08h, DUT=0x%08h, EXP=0x%08h, PC=0x%08h",
-                        (cur_control_in.alu_op.name()), cur_data1, cur_data2, cur_imm, cur_result, expected_result, cur_pc));
+                        (control_in.alu_op.name()), data1, data2, immediate_data, alu_result, expected_result, program_counter_in));
         end
 
         // --- Compare overflow only for ADD/SUB (others are 0) ---
-        //if (cur_control_in.alu_op inside {ALU_ADD, ALU_SUB}) begin // only for ExStage_00 test -> Bug found for overflow flag ALU_SUB
-        if (cur_control_in.alu_op inside {ALU_ADD}) begin
-            if (cur_ovf !== expected_overflow) begin
+        //if (control_in.alu_op inside {ALU_ADD, ALU_SUB}) begin // only for ExStage_00 test -> Bug found for overflow flag ALU_SUB
+        if (control_in.alu_op inside {ALU_ADD}) begin
+            if (overflow_flag !== expected_overflow) begin
                 `uvm_error("ALU_OVF_MISMATCH",
                 $sformatf("Overflow flag mismatch on %s: data1=0x%08h, data2=0x%08h,, imm=0x%08h DUT_OVF=%0b, EXP_OVF=%0b",
-                            (cur_control_in.alu_op == ALU_ADD) ? "ADD" : "SUB",
-                            cur_data1, cur_data2,cur_imm, cur_ovf, expected_overflow))
+                            (control_in.alu_op == ALU_ADD) ? "ADD" : "SUB",
+                            data1, data2,immediate_data, overflow_flag, expected_overflow))
             end
         end 
 
@@ -498,46 +480,46 @@ class scoreboard extends uvm_component;
         // end
 
         // // --- Compare zero flag --- not connected in design
-        // if (cur_zeroflg !== expected_zeroflg) begin
+        // if (zero_flag !== expected_zeroflg) begin
         //     `uvm_error("ALU_ZEROFLAG_MISMATCH",
         //         $sformatf("Zero flag mismatch: data1=0x%08h, data2=0x%08h, imm=0x%08h, DUT_result=0x%08h, DUT_ZF=%0b, EXP_ZF=%0b",
-        //       cur_data1, cur_data2, cur_imm, cur_result, cur_zeroflg, expected_zeroflg));
+        //       data1, data2, immediate_data, alu_result, zero_flag, expected_zeroflg));
         // end
         // --------------------------------------------------------------
 
         // --- compare control signals --- 
         
         // Check for ExStage_03 specific condition: if encoding is J_TYPE or I_TYPE and alu_src is 2'b10, then compflg_in must be considered
-        if ( (cur_control_in.encoding inside {J_TYPE, I_TYPE}) && (cur_control_in.alu_src == 2'b10) ) begin
+        if ( (control_in.encoding inside {J_TYPE, I_TYPE}) && (control_in.alu_src == 2'b10) ) begin
             // For this case, if compflg_in is 1, expected_result should be 2, else 4
-            if (cur_cmp & (op1 !== 32'd2) ^| (!cur_cmp & (op1 !== 32'd4)) ) begin
+            if (compflg_in & (op1 !== 32'd2) ^| (!compflg_in & (op1 !== 32'd4)) ) begin
                 `uvm_error("COMPRESSION_FLAG_MISMATCH",
                 $sformatf("Compression flag effect mismatch: encoding=%0d, alu_src=%0b, compflg_in=%0b, DUT_result=0x%08h, EXP_result=0x%08h",
-                            cur_control_in.encoding, cur_control_in.alu_src, cur_cmp, cur_result, (cur_cmp ? 32'd2 : 32'd4)))
+                            control_in.encoding, control_in.alu_src, compflg_in, alu_result, (compflg_in ? 32'd2 : 32'd4)))
             end
         end
 
-        // ---- Check memory_data for S-Type operations ----
-        if (cur_control_in.encoding == S_TYPE) begin
-            if (cur_memory_data !== cur_data2) begin
+        // ---- Check memory_data_out for S-Type operations ----
+        if (control_in.encoding == S_TYPE) begin
+            if (memory_data_out !== data2) begin
                 `uvm_error("MEMORY_DATA_MISMATCH",
                 $sformatf("Memory data mismatch for S-TYPE: DUT_memory_data=0x%08h, EXP_memory_data=0x%08h",
-                            cur_memory_data, cur_data2))
+                            memory_data_out, data2))
             end
         end
 
         // ----- Check correct pass through of control signals -----
-        if (cur_control_out !== cur_control_in) begin
+        if (control_out !== control_in) begin
             `uvm_error("CONTROL_SIGNAL_MISMATCH",
             $sformatf("Control signal mismatch: DUT_control_out=%0h, EXP_control_in=%0h",
-                        cur_control_out, cur_control_in))
+                        control_out, control_in))
         end
 
         // ---- Check correct pass through of compflg ----
-        if (cur_compflg_out !== cur_cmp) begin
+        if (compflg_out !== compflg_in) begin
             `uvm_error("COMPRESSION_FLAG_PASSTHROUGH_MISMATCH",
             $sformatf("Compression flag passthrough mismatch: DUT_compflg_out=%0b, EXP_compflg_in=%0b",
-                        cur_compflg_out, cur_cmp))
+                        compflg_out, compflg_in))
         end
     endfunction :  check_data
 
