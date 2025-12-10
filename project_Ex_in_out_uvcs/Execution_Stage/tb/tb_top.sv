@@ -75,8 +75,8 @@ module tb_top;
         // run_test("ExStage_02");
         // run_test("ExStage_03");
         // run_test("ExStage_04");
-        // run_test("ExStage_05");
-        run_test("ExStage_06");
+        run_test("ExStage_05");
+        // run_test("ExStage_06");
 
     end
 

@@ -26,19 +26,18 @@ import common::*;
 //------------------------------------------------------------------------------
 // Instance analysis defines (creates unique analysis_imp types)
 `uvm_analysis_imp_decl(_scoreboard_reset)
-`uvm_analysis_imp_decl(_scoreboard_execution_stage)
+`uvm_analysis_imp_decl(_scoreboard_execution_stage_input)
+`uvm_analysis_imp_decl(_scoreboard_execution_stage_output)
 
 // Simplified scoreboard for execution_stage UVC
 class scoreboard extends uvm_component;
     `uvm_component_utils(scoreboard)
 
     // execution_stage analysis connection (uses a dedicated analysis_imp type)
-    uvm_analysis_imp_scoreboard_execution_stage#(execution_stage_seq_item, scoreboard) m_execution_stage_ap;
+    uvm_analysis_imp_scoreboard_execution_stage_input#(execution_stage_seq_item, scoreboard) m_execution_stage_input_ap;
+    uvm_analysis_imp_scoreboard_execution_stage_output#(execution_stage_seq_item, scoreboard) m_execution_stage_output_ap;
     // reset analysis connection
     uvm_analysis_imp_scoreboard_reset#(reset_seq_item, scoreboard) m_reset_ap;
-
-    // basic counters
-    int unsigned items_received = 0;
 
     // Indicates if the reset signal is active.
     //int unsigned reset_valid;
@@ -222,7 +221,8 @@ class scoreboard extends uvm_component;
     //------------------------------------------------------------------------------
     function void build_phase(uvm_phase phase);
         super.build_phase(phase);
-        m_execution_stage_ap = new("m_execution_stage_ap", this);
+        m_execution_stage_input_ap = new("m_execution_stage_input_ap", this);
+        m_execution_stage_output_ap = new("m_execution_stage_output_ap", this);
         m_reset_ap = new("m_reset_ap", this);
     endfunction: build_phase
 
@@ -234,14 +234,12 @@ class scoreboard extends uvm_component;
     endfunction: connect_phase
 
     //------------------------------------------------------------------------------
-    // Write implementation for write_scoreboard_execution_stage analysis port.
+    // Write implementation for write_scoreboard_execution_stage_input analysis port.
     //------------------------------------------------------------------------------
-    virtual function void write_scoreboard_execution_stage(execution_stage_seq_item item);
-        items_received++;
+    virtual function void write_scoreboard_execution_stage_input(execution_stage_input_seq_item item);
         if (item.exp_alu_data !== 'x && item.exp_alu_data !== '0) begin
             `uvm_info(get_name(), $sformatf("Item provided expected ALU data=0x%08h", item.exp_alu_data), UVM_LOW)
         end
-
         
         data1 = item.data1;
         data2 = item.data2;
@@ -258,7 +256,7 @@ class scoreboard extends uvm_component;
         //`uvm_info(get_name(), $sformatf("ALU_OPRESET_function: alu_op=%00s reset_value=%0b", alu_op.name(), reset_value), UVM_LOW)
         execution_stage_covergrp.sample();
 
-    endfunction: write_scoreboard_execution_stage
+    endfunction: write_scoreboard_execution_stage_input
 
     //------------------------------------------------------------------------------
     // Write implementation for write_scoreboard_reset analysis port.
