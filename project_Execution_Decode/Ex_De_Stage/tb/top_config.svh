@@ -19,6 +19,7 @@ class top_config extends uvm_object;
     execution_stage_input_config m_execution_stage_input_config;
     execution_stage_output_config m_execution_stage_output_config;
     decode_stage_input_config m_decode_stage_input_config;
+    decode_stage_output_config m_decode_stage_output_config;
 
     //------------------------------------------------------------------------------
     // The constructor for the component.
@@ -49,6 +50,10 @@ class top_config extends uvm_object;
         m_decode_stage_input_config.is_active = 1;
         m_decode_stage_input_config.has_monitor = 1;
 
+        // Create and configure decode_stage output uVC configuration with driver and monitor
+        m_decode_stage_output_config = new("m_decode_stage_output_config");
+        m_decode_stage_output_config.is_active = 1;
+        m_decode_stage_output_config.has_monitor = 1;
 
         
     endfunction : new

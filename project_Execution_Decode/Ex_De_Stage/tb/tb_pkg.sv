@@ -45,13 +45,18 @@ package tb_pkg;
     `include "execution_stage_output_config.svh"
     `include "execution_stage_output_monitor.svh"
     `include "execution_stage_output_agent.svh"
-        // Include files from the decode_stage uVC
+    // Include files from the decode_stage_input uVC
     `include "decode_stage_input_seq_item.svh"
     `include "decode_stage_input_seq.svh"
     `include "decode_stage_input_config.svh"
     `include "decode_stage_input_driver.svh"
     `include "decode_stage_input_monitor.svh"
     `include "decode_stage_input_agent.svh"
+    // Include files from the decode_stage_output uVC
+    `include "decode_stage_output_seq_item.svh"
+    `include "decode_stage_output_config.svh"
+    `include "decode_stage_output_monitor.svh"
+    `include "decode_stage_output_agent.svh"
     // Include files from the TB
     `include "scoreboard.svh"
     `include "top_config.svh"

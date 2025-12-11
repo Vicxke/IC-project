@@ -42,6 +42,8 @@ module tb_top;
     // decode stage interface instantiation would go here if needed
     decode_stage_input_if i_decode_input_if(.clk(tb_clock), .rst_n(tb_reset_n));
 
+    decode_stage_output_if i_decode_output_if(.clk(tb_clock), .rst_n(tb_reset_n));
+
     // Instantiation of the execute_stage RTL DUT
     execute_stage dut_execute_stage (
         //inputs
@@ -75,19 +77,19 @@ module tb_top;
         .mux_data1(i_decode_input_if.mux_data1),
         .mux_data2(i_decode_input_if.mux_data2),
         //outputs
-        .reg_rd_id(),
+        .reg_rd_id(i_decode_output_if.reg_rd_id),
         .read_data1(i_execute_input_if.data1), //connect directly to the execution stage
         .read_data2(i_execute_input_if.data2),
         .immediate_data(i_execute_input_if.immediate_data),
         .control_signals(i_execute_input_if.control_in),
-        .select_target_pc(i_execute_input_if.program_counter_in),    //J-type is also taken into account
-        .resolve(),                      //only high for B-type
-        .calculated_target_pc(),
-        .squash_after_J(), //sqaush from ID following a sequeatially fetched Jump
-        .squash_after_JALR(),
+        .select_target_pc(i_decode_output_if.select_target_pc),    //J-type is also taken into account
+        .resolve(i_decode_output_if.resolve),                      //only high for B-type
+        .calculated_target_pc(i_execute_input_if.program_counter_in),
+        .squash_after_J(i_decode_output_if.squash_after_J), //sqaush from ID following a sequeatially fetched Jump
+        .squash_after_JALR(i_decode_output_if.squash_after_JALR),
         .compflg_out(i_execute_input_if.compflg_in),
-        .rs1_id(),
-        .rs2_id()
+        .rs1_id(i_decode_output_if.rs1_id),
+        .rs2_id(i_decode_output_if.rs2_id)
     );
 
     // --------------------- connection missing for decode stage DUT if applicable ---------------------
@@ -106,6 +108,7 @@ module tb_top;
         m_top_config.m_execution_stage_output_config.m_vif = i_execute_output_if;
         // Save decode_stage interface instance into top config
         m_top_config.m_decode_stage_input_config.m_vif = i_decode_input_if;
+        m_top_config.m_decode_stage_output_config.m_vif = i_decode_output_if;
     end
 
     // Start UVM test_base environment

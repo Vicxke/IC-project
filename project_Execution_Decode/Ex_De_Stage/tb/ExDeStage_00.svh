@@ -73,7 +73,7 @@ class ExDeStage_00 extends uvm_test;
 
 
         //-------------------- single test case -----------------------
-        decode_stage = decode_stage_seq::type_id::create("decode_stage");
+        decode_stage = decode_stage_input_seq::type_id::create("decode_stage");
         
         decode_stage.instruction = '{ // adds = x2 +x1 and stores it in x3, but contents of x1 and x2 are empty here
             funct7:  7'b0000000,

@@ -6,6 +6,7 @@ import common::*;
 `uvm_analysis_imp_decl(_scoreboard_execution_stage_input)
 `uvm_analysis_imp_decl(_scoreboard_execution_stage_output)
 `uvm_analysis_imp_decl(_scoreboard_decode_stage_input)
+`uvm_analysis_imp_decl(_scoreboard_decode_stage_output)
 
 
 // Simplified scoreboard for execution_stage UVC
@@ -20,6 +21,9 @@ class scoreboard extends uvm_component;
 
     // decode_stage analysis connection (uses a dedicated analysis_imp type)
     uvm_analysis_imp_scoreboard_decode_stage_input#(decode_stage_input_seq_item, scoreboard) m_decode_stage_input_ap;
+
+    //decode stage outputs
+    uvm_analysis_imp_scoreboard_decode_stage_output#(decode_stage_output_seq_item, scoreboard) m_decode_stage_output_ap;
 
     // Indicates if the reset signal is active.
     //int unsigned reset_valid;
@@ -337,6 +341,7 @@ class scoreboard extends uvm_component;
         m_execution_stage_output_ap = new("m_execution_stage_output_ap", this);
         m_reset_ap = new("m_reset_ap", this);
         m_decode_stage_input_ap = new("m_decode_stage_input_ap", this);
+        m_decode_stage_output_ap = new("m_decode_stage_output_ap", this);
     endfunction: build_phase
 
     //------------------------------------------------------------------------------
@@ -448,10 +453,16 @@ class scoreboard extends uvm_component;
     endfunction :  write_scoreboard_reset
 
     virtual function void write_scoreboard_decode_stage_input(decode_stage_input_seq_item item);
-        `uvm_info(get_name(),$sformatf("DECODE_STAGE_MONITOR:\n%s",item.sprint()),UVM_HIGH)
+        `uvm_info(get_name(),$sformatf("DECODE_STAGE_INPUT_MONITOR:\n%s",item.sprint()),UVM_HIGH)
         decode_stage_input_covergrp.sample(); // part of decode stage input covergroup
 
     endfunction:write_scoreboard_decode_stage_input
+
+    virtual function void write_scoreboard_decode_stage_output(decode_stage_output_seq_item item);
+        `uvm_info(get_name(),$sformatf("DECODE_STAGE_OUTPUT_MONITOR:\n%s",item.sprint()),UVM_HIGH)
+        decode_stage_output_covergrp.sample(); // part of decode stage output covergroup
+
+    endfunction:write_scoreboard_decode_stage_output
 
     virtual function void calculate_expected_results();
         expected_overflow = 1'b0;  // default for non-add/sub ops
