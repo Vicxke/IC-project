@@ -1,15 +1,4 @@
-//------------------------------------------------------------------------------
-// class basic_test
-//
-// This class is an extension of the base_test class.
-// It provides a basic structure for writing testbenches in the UVM framework.
-//
-// The class provides an implementation of the build_phase and run_phase methods.
-// It creates and builds the TB environment as defined in base_test.
-// It runs the test as defined in base_test.
-//
-// See more detailed information in base_test
-//------------------------------------------------------------------------------
+
 import common::*;
 class ExStage_03 extends uvm_test;
     `uvm_component_utils(ExStage_03)
@@ -48,7 +37,7 @@ class ExStage_03 extends uvm_test;
     // Start UVM test in running phase.
     //------------------------------------------------------------------------------
     
-    int n = 1; // 10 for 100% coverage
+    int n = 10; // 10 for 100% coverage
 
     virtual task run_phase(uvm_phase phase);
 
@@ -86,9 +75,44 @@ class ExStage_03 extends uvm_test;
         execute_stage.compflg_in = 0;
         execute_stage.program_counter_in = 32'h0000_0040;
         execute_stage.start(m_tb_env.m_execution_stage_input_agent.m_sequencer);
+
+        //-------------------- single test case for result all_zeros -----------------------
+        execute_stage = execution_stage_input_seq::type_id::create("execute_stage");
         
-        // preserve current data1 value instead of forcing it
-        execute_stage = execution_stage_input_seq::type_id::create("execute_stage_init");
+        // data1 is 2 or 4
+        execute_stage.data2 = 32'hFFFF_FFFC; 
+        ctrl.alu_op = ALU_ADD;
+        ctrl.encoding = J_TYPE;
+        ctrl.alu_src = 2'b10; // both operands from registers
+        ctrl.mem_read = 0;
+        ctrl.mem_write = 0;
+        ctrl.reg_write = 1;
+        ctrl.mem_to_reg = 0;
+        ctrl.is_branch = 0;
+        ctrl.funct3 = 3'b000;
+        execute_stage.control_in = ctrl;
+        execute_stage.compflg_in = 0;
+        execute_stage.program_counter_in = 32'h0000_0040;
+        execute_stage.start(m_tb_env.m_execution_stage_input_agent.m_sequencer);
+
+        //-------------------- single test case for result all_ones -----------------------
+        execute_stage = execution_stage_input_seq::type_id::create("execute_stage");
+        
+        // data1 is 2 or 4
+        execute_stage.data2 = 32'hFFFF_FFFB; 
+        ctrl.alu_op = ALU_ADD;
+        ctrl.encoding = J_TYPE;
+        ctrl.alu_src = 2'b10; // both operands from registers
+        ctrl.mem_read = 0;
+        ctrl.mem_write = 0;
+        ctrl.reg_write = 1;
+        ctrl.mem_to_reg = 0;
+        ctrl.is_branch = 0;
+        ctrl.funct3 = 3'b000;
+        execute_stage.control_in = ctrl;
+        execute_stage.compflg_in = 0;
+        execute_stage.program_counter_in = 32'h0000_0040;
+        execute_stage.start(m_tb_env.m_execution_stage_input_agent.m_sequencer);
         
 
         repeat (100*n) begin

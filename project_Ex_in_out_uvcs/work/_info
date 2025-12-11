@@ -221,6 +221,12 @@ R0
 R0
 R0
 R0
+R0
+R0
+R0
+R0
+R0
+R0
 !s11f vlog 2022.1 2022.01, Jan 29 2022
 13
 !s112 1.1
@@ -567,10 +573,10 @@ R57
 R1
 T_opt5
 R59
-!s110 1765452714
-VRWo;cdQgzo`PKKJ_dWZGS0
+!s110 1765454487
+VB6di2KmeS;8?UYA=z=VYM1
 R54
-=1-6c2b59f4086b-693aaba8-301-317c
+=1-6c2b59f4086b-693ab295-29b-24a4
 R0
 R55
 R56
@@ -581,7 +587,7 @@ valu
 Z60 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
 Z61 DXx4 work 6 common 0 22 aEg`_SU;@dcVJZ_=hL@US2
 DXx4 work 11 alu_sv_unit 0 22 `8SbgMi@OnGZWXFa_FdNo3
-Z62 !s110 1765452706
+Z62 !s110 1765454479
 R12
 r1
 !s85 0
@@ -594,11 +600,11 @@ Z63 d//stu.net.lth.se/ti8188be-s/Documents/github/IC-project/project_Ex_in_out_u
 Z64 w1764088413
 R52
 R53
-!i122 345
+!i122 351
 R7
 R8
 31
-Z65 !s108 1765452706.000000
+Z65 !s108 1765454479.000000
 Z66 !s107 Execution_Stage/tb/basic_test.svh|Execution_Stage/tb/ExStage_06.svh|Execution_Stage/tb/ExStage_05.svh|Execution_Stage/tb/ExStage_04.svh|Execution_Stage/tb/ExStage_03.svh|Execution_Stage/tb/ExStage_02.svh|Execution_Stage/tb/ExStage_01.svh|Execution_Stage/tb/ExStage_00.svh|Execution_Stage/tb/tb_env.svh|Execution_Stage/tb/top_config.svh|Execution_Stage/tb/scoreboard.svh|uvc/execution_stage_uvc_output/execution_stage_output_agent.svh|uvc/execution_stage_uvc_output/execution_stage_output_monitor.svh|uvc/execution_stage_uvc_output/execution_stage_output_config.svh|uvc/execution_stage_uvc_output/execution_stage_output_seq_item.svh|uvc/execution_stage_uvc_input/execution_stage_input_agent.svh|uvc/execution_stage_uvc_input/execution_stage_input_monitor.svh|uvc/execution_stage_uvc_input/execution_stage_input_driver.svh|uvc/execution_stage_uvc_input/execution_stage_input_config.svh|uvc/execution_stage_uvc_input/execution_stage_input_seq.svh|uvc/execution_stage_uvc_input/execution_stage_input_seq_item.svh|uvc/reset_uvc/reset_agent.svh|uvc/reset_uvc/reset_monitor.svh|uvc/reset_uvc/reset_driver.svh|uvc/reset_uvc/reset_config.svh|uvc/reset_uvc/reset_seq.svh|uvc/reset_uvc/reset_seq_item.svh|uvc/clock_uvc/clock_agent.svh|uvc/clock_uvc/clock_driver.svh|uvc/clock_uvc/clock_config.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_deprecated_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_reg_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_callback_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_sequence_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/tlm1/uvm_tlm_imps.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_tlm_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_printer_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_object_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_phase_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_message_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_version_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/uvm_macros.svh|Execution_Stage/tb/tb_top.sv|Execution_Stage/tb/tb_pkg.sv|uvc/execution_stage_uvc_output/execution_stage_output_if.sv|uvc/execution_stage_uvc_input/execution_stage_input_if.sv|uvc/reset_uvc/reset_if.sv|uvc/clock_uvc/clock_if.sv|Execution_Stage/dut/execute_stage.sv|Execution_Stage/dut/common.sv|Execution_Stage/dut/alu.sv|
 Z67 !s90 -reportprogress|300|-sv|-timescale|1ns/1ns|+incdir+uvc/clock_uvc|+incdir+uvc/reset_uvc|+incdir+uvc/execution_stage_uvc_input|+incdir+uvc/execution_stage_uvc_output|Execution_Stage/dut/alu.sv|Execution_Stage/dut/common.sv|Execution_Stage/dut/execute_stage.sv|uvc/clock_uvc/clock_if.sv|uvc/reset_uvc/reset_if.sv|uvc/execution_stage_uvc_input/execution_stage_input_if.sv|uvc/execution_stage_uvc_output/execution_stage_output_if.sv|+incdir+Execution_Stage/tb|Execution_Stage/tb/tb_pkg.sv|Execution_Stage/tb/tb_top.sv|
 !i113 0
@@ -621,7 +627,7 @@ R63
 R64
 R52
 R53
-!i122 345
+!i122 351
 R49
 R8
 31
@@ -643,7 +649,7 @@ R63
 Z69 w1764088414
 8uvc/clock_uvc/clock_if.sv
 Fuvc/clock_uvc/clock_if.sv
-!i122 345
+!i122 351
 R44
 R12
 R8
@@ -668,7 +674,7 @@ R63
 R64
 8Execution_Stage/dut/common.sv
 FExecution_Stage/dut/common.sv
-!i122 345
+!i122 351
 R48
 VaEg`_SU;@dcVJZ_=hL@US2
 R8
@@ -699,7 +705,7 @@ R63
 R64
 R6
 R4
-!i122 345
+!i122 351
 R47
 R8
 31
@@ -726,7 +732,7 @@ R63
 R64
 R6
 R4
-!i122 345
+!i122 351
 R46
 R8
 31
@@ -775,7 +781,7 @@ R63
 w1765385036
 8uvc/execution_stage_uvc_input/execution_stage_input_if.sv
 Fuvc/execution_stage_uvc_input/execution_stage_input_if.sv
-!i122 345
+!i122 351
 R45
 R12
 R8
@@ -801,7 +807,7 @@ R63
 w1765385640
 8uvc/execution_stage_uvc_output/execution_stage_output_if.sv
 Fuvc/execution_stage_uvc_output/execution_stage_output_if.sv
-!i122 345
+!i122 351
 R45
 R12
 R8
@@ -826,7 +832,7 @@ R63
 R69
 8uvc/reset_uvc/reset_if.sv
 Fuvc/reset_uvc/reset_if.sv
-!i122 345
+!i122 351
 R44
 R12
 R8
@@ -848,13 +854,13 @@ Xtb_pkg
 Z70 DXx6 mtiUvm 7 uvm_pkg 0 22 8V[`8]Q0W57le7Z>zYaAj1
 R60
 R61
-Z71 !s110 1765452707
+R62
 !i10b 1
-!s100 2^hg<h;zjU7l@b1ejY8Lh1
-I?oi?kTXbH;iShU6X7z>OR0
+!s100 XOQ=aem>a9?To3Z99zX1f1
+IkJ>fZ=LVfW3=F7?_8P<Z]1
 S1
 R63
-w1765452697
+w1765454296
 R18
 R19
 R20
@@ -899,9 +905,9 @@ FExecution_Stage/tb/ExStage_04.svh
 FExecution_Stage/tb/ExStage_05.svh
 FExecution_Stage/tb/ExStage_06.svh
 R43
-!i122 345
+!i122 351
 R16
-V?oi?kTXbH;iShU6X7z>OR0
+VkJ>fZ=LVfW3=F7?_8P<Z]1
 R8
 r1
 !s85 0
@@ -917,14 +923,14 @@ vtb_top
 R70
 R60
 R61
-DXx4 work 6 tb_pkg 0 22 ?oi?kTXbH;iShU6X7z>OR0
-R71
+DXx4 work 6 tb_pkg 0 22 kJ>fZ=LVfW3=F7?_8P<Z]1
+!s110 1765454480
 !i10b 1
-!s100 :zmnDXP?I4CjSERiBHN9n0
-IXOFRPd<z8_idX`P@OhE^Z2
+!s100 jD^L2U>`E]TJ4^DQa;a6Z2
+IR?HQHLlUSmRfFl1P`@U890
 S1
 R63
-w1765387250
+w1765454475
 8Execution_Stage/tb/tb_top.sv
 FExecution_Stage/tb/tb_top.sv
 R20
@@ -939,7 +945,7 @@ R28
 R29
 R30
 R3
-!i122 345
+!i122 351
 L0 16 6541
 R12
 R8
