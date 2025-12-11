@@ -27,62 +27,32 @@ class execution_stage_output_monitor extends uvm_monitor;
 
     // Run phase - sample interface signals on clock and publish seq_items when values change.
     task run_phase(uvm_phase phase);
-        // Local previous-state variables for change detection.
-        logic [31:0] prev_data1, prev_data2, prev_immediate_data, prev_program_counter;
-        control_type prev_control_in;
-        logic prev_compflg_in;
-        bit first_sample = 1;
-
-        // Declare per-sample temporaries and seq_item up-front so declarations precede any statements.
-        logic [31:0] cur_pc, cur_result, cur_memory_data;
-        control_type cur_control_out; // control output
-        logic cur_compflg_out; // compression flag output
-        logic cur_ovf;        // current overflow flag
-        logic cur_zeroflg;    // current zero flag
-
-
         execution_stage_output_seq_item seq_item;
 
-        `uvm_info(get_name(), $sformatf("Starting execution_stage_output monitoring"), UVM_HIGH)
 
-        // Wait until interface is available
         if (m_config.m_vif == null) begin
             `uvm_fatal(get_name(), "m_vif not set in execution_stage_output_config")
         end
 
-        
-        forever begin
-            // Sample on clock edge
-            @(posedge m_config.m_vif.clk);
+        // Optional: auf Reset warten
+        @(negedge m_config.m_vif.rst_n);
+        @(posedge m_config.m_vif.clk);
 
+
+        forever begin
+            @(posedge m_config.m_vif.clk);
             seq_item = execution_stage_output_seq_item::type_id::create("monitor_item");
 
+            // Outputs direkt auf dieser Flanke lesen
+            seq_item.alu_data      = m_config.m_vif.alu_data;
+            seq_item.memory_data   = m_config.m_vif.memory_data;
+            seq_item.overflow_flag = m_config.m_vif.overflow_flag;
+            // zero_flag gibt's im IF nicht – also weglassen oder auf 0 setzen
+            // seq_item.zero_flag     = m_config.m_vif.zero_flag;
+            seq_item.control_out   = m_config.m_vif.control_out;
+            seq_item.compflg_out   = m_config.m_vif.compflg_out;
 
-            @(posedge m_config.m_vif.clk); // wait a cycle to let DUT outputs stabilize
-
-            // --- Also read DUT outputs for checking ---
-            cur_result  = m_config.m_vif.alu_data;
-            cur_memory_data = m_config.m_vif.memory_data;
-            cur_ovf     = m_config.m_vif.overflow_flag;
-            cur_zeroflg = m_config.m_vif.zero_flag;
-            cur_control_out = m_config.m_vif.control_out;
-            cur_compflg_out = m_config.m_vif.compflg_out;
-
-            // Fill sequence item fields (assumes these fields exist on execution_stage_output_seq_item)
-            seq_item.alu_data     = cur_result;
-            seq_item.memory_data  = cur_memory_data;
-            seq_item.overflow_flag= cur_ovf;
-            seq_item.zero_flag    = cur_zeroflg;
-            seq_item.control_out  = cur_control_out;
-            seq_item.compflg_out       = cur_compflg_out;
-
-
-            `uvm_info(get_name(), $sformatf("UVC_output monitor: res=%0h ovf=%0h",cur_result, cur_ovf), UVM_MEDIUM)
-            
-            // --- Optionally publish to analysis port for scoreboard ---
             m_analysis_port.write(seq_item);
-
-            
         end
     endtask : run_phase
 

@@ -37,8 +37,6 @@ class execution_stage_input_monitor extends uvm_monitor;
         execution_stage_input_seq_item seq_item;
 
 
-        `uvm_info(get_name(), $sformatf("Starting execution_stage monitoring"), UVM_HIGH)
-
         // Wait until interface is available
         if (m_config.m_vif == null) begin
             `uvm_fatal(get_name(), "m_vif not set in execution_stage_input_config")
@@ -53,9 +51,9 @@ class execution_stage_input_monitor extends uvm_monitor;
         do begin
             @(posedge m_config.m_vif.clk);
         end while ( $isunknown(m_config.m_vif.control_in) ||
-                $isunknown(m_config.m_vif.data1) ||
-                $isunknown(m_config.m_vif.data2) ||
-                $isunknown(m_config.m_vif.program_counter_in) );
+                    $isunknown(m_config.m_vif.data1) ||
+                    $isunknown(m_config.m_vif.data2) ||
+                    $isunknown(m_config.m_vif.program_counter_in) );
         
         
         forever begin
@@ -83,7 +81,7 @@ class execution_stage_input_monitor extends uvm_monitor;
             seq_item.control_in       = cur_control_in;
             seq_item.compflg_in       = cur_cmp;
             seq_item.program_counter_in  = cur_pc;
-            
+
             // --- Optionally publish to analysis port for scoreboard ---
             m_analysis_port.write(seq_item);
 

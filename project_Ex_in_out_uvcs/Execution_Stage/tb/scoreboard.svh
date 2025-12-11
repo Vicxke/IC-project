@@ -31,6 +31,7 @@ class scoreboard extends uvm_component;
 
     // ExStage outputs
     int unsigned alu_result;
+    int unsigned prev_alu_result;
     int unsigned memory_data_out;
     logic overflow_flag;
     logic zero_flag;
@@ -44,6 +45,14 @@ class scoreboard extends uvm_component;
 
     logic [4:0] shamt;
     logic [31:0] op1, op2;
+
+    // Handshake-Flags between Input/Output and Compare
+    bit input_valid;
+    bit output_valid;
+
+    bit first_input = 0;
+    bit first_round = 1;
+
 
 
     //------------------------------------------------------------------------------
@@ -288,6 +297,10 @@ class scoreboard extends uvm_component;
         // Create coverage group
         execution_stage_input_covergrp = new();
         execution_stage_output_covergrp = new();
+
+        // Flags initial
+        input_valid  = 0;
+        output_valid = 0;
     endfunction: new
 
     //------------------------------------------------------------------------------
@@ -311,9 +324,15 @@ class scoreboard extends uvm_component;
     // Write implementation for write_scoreboard_execution_stage_input analysis port.
     //------------------------------------------------------------------------------
     virtual function void write_scoreboard_execution_stage_input(execution_stage_input_seq_item item);
-        // if (item.exp_alu_data !== 'x && item.exp_alu_data !== '0) begin
-        //     `uvm_info(get_name(), $sformatf("Item provided expected ALU data=0x%08h", item.exp_alu_data), UVM_LOW)
-        // end
+
+        first_input = 1;
+        
+        // Reject a new input if previous compare not finished
+        if (input_valid) begin
+            `uvm_error(get_name(),
+                "New input received while previous input/output pair has not been compared yet")
+            return;
+        end
         
         data1 = item.data1;
         data2 = item.data2;
@@ -321,18 +340,24 @@ class scoreboard extends uvm_component;
         control_in = item.control_in;
         compflg_in = item.compflg_in;
         program_counter_in = item.program_counter_in;
-        
+
+        `uvm_info(get_name(),$sformatf("Input DUT: data1=%0h, data2=%0h, immediate_data=%0h, operation=%0h", data1, data2, immediate_data, (control_in.alu_op.name())),UVM_MEDIUM)
         
         //`uvm_info(get_name(), $sformatf("ALU_OPRESET_function: alu_op=%00s reset_value=%0b", alu_op.name(), reset_value), UVM_LOW)
         execution_stage_input_covergrp.sample();
-        check_data();
+        calculate_expected_results();
+        
+        // Set flags
+        input_valid  = 1;
 
     endfunction: write_scoreboard_execution_stage_input
 
     virtual function void write_scoreboard_execution_stage_output(execution_stage_output_seq_item item);
-        // if (item.exp_alu_data !== 'x && item.exp_alu_data !== '0) begin
-        //     `uvm_info(get_name(), $sformatf("Item provided expected ALU data=0x%08h", item.exp_alu_data), UVM_LOW)
-        // end
+
+        if (first_input == 0) begin
+            `uvm_info(get_name(), "First input not received yet", UVM_LOW)
+            return;
+        end
 
         alu_result = item.alu_data;
         memory_data_out = item.memory_data;
@@ -342,12 +367,30 @@ class scoreboard extends uvm_component;
         overflow_flag = item.overflow_flag;
         zero_flag = item.zero_flag;
         compflg_out = item.compflg_out;
+
+        `uvm_info(get_name(), $sformatf("Result from DUT: res=%0h ovf=%0h",alu_result, overflow_flag), UVM_MEDIUM)
+
         
         //`uvm_info(get_name(), $sformatf("ALU_OPRESET_function: alu_op=%00s reset_value=%0b", alu_op.name(), reset_value), UVM_LOW)
         execution_stage_output_covergrp.sample();
-        check_data();
+
+
+        if (first_round == 0) begin
+            if (alu_result == prev_alu_result) begin
+                `uvm_info(get_name(), "Result unchanged since last time", UVM_LOW)
+                return;
+            end
+        end
+        prev_alu_result = alu_result;
+        first_round = 0;
+
+        compare_exp_DUT_results();
+        
+        // Set flags
+        input_valid = 0;
 
     endfunction: write_scoreboard_execution_stage_output
+
 
     //------------------------------------------------------------------------------
     // Write implementation for write_scoreboard_reset analysis port.
@@ -361,7 +404,7 @@ class scoreboard extends uvm_component;
 
     endfunction :  write_scoreboard_reset
 
-    virtual function void check_data();
+    virtual function void calculate_expected_results();
         expected_overflow = 1'b0;  // default for non-add/sub ops
 
         // alu_src: when 2'b01 the intermediate value is the RIGHT operand (op2)
@@ -437,10 +480,12 @@ class scoreboard extends uvm_component;
 
         end
         endcase
+        `uvm_info(get_name(), $sformatf("Expected result calculated: exp_res=0x%08h, exp_ovf=%0b", expected_result, expected_overflow), UVM_MEDIUM)
 
-        `uvm_info(get_name(), $sformatf("Result from DUT: res=%0h ovf=%0h",alu_result, overflow_flag), UVM_MEDIUM)
+    endfunction :  calculate_expected_results
 
 
+    virtual function void compare_exp_DUT_results();
         // --- Compare DUT result with expected result (all ops) ---
         if (alu_result !== expected_result) begin
         `uvm_error("ALU_RESULT_MISMATCH",
@@ -509,7 +554,8 @@ class scoreboard extends uvm_component;
             $sformatf("Compression flag passthrough mismatch: DUT_compflg_out=%0b, EXP_compflg_in=%0b",
                         compflg_out, compflg_in))
         end
-    endfunction :  check_data
+        `uvm_info(get_name(), "Compare results done", UVM_MEDIUM)
+    endfunction :  compare_exp_DUT_results
 
     //------------------------------------------------------------------------------
     // UVM check phase

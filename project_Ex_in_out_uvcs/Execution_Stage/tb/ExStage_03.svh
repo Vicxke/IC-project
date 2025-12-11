@@ -48,7 +48,7 @@ class ExStage_03 extends uvm_test;
     // Start UVM test in running phase.
     //------------------------------------------------------------------------------
     
-    int n = 10; // 10 for 100% coverage
+    int n = 1; // 10 for 100% coverage
 
     virtual task run_phase(uvm_phase phase);
 

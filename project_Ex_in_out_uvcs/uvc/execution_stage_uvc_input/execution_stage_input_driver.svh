@@ -65,11 +65,6 @@ class execution_stage_input_driver extends uvm_driver#(execution_stage_input_seq
             m_config.m_vif.compflg_in = req.compflg_in;
             m_config.m_vif.program_counter_in = req.program_counter_in;
 
-            // Debug: print the interface values after driving so we can confirm
-            // the driver actually wrote the expected values onto the virtual IF.
-            `uvm_info(get_name(), $sformatf("Driver to DUT: data1=%0h data2=%0h imm=%0h pc=%0h comp=%0b alu_op=%0h",
-                        m_config.m_vif.data1, m_config.m_vif.data2, m_config.m_vif.immediate_data, m_config.m_vif.program_counter_in, m_config.m_vif.compflg_in, (m_config.m_vif.control_in.alu_op.name())), UVM_MEDIUM)
-
             // Let DUT sample on next rising edge
             @(posedge m_config.m_vif.clk);
 
