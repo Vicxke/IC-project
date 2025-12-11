@@ -41,7 +41,6 @@ class execution_stage_output_monitor extends uvm_monitor;
 
         forever begin
             @(posedge m_config.m_vif.clk);
-            @(posedge m_config.m_vif.clk);
             seq_item = execution_stage_output_seq_item::type_id::create("monitor_item");
 
             // Outputs direkt auf dieser Flanke lesen
@@ -52,6 +51,7 @@ class execution_stage_output_monitor extends uvm_monitor;
             // seq_item.zero_flag     = m_config.m_vif.zero_flag;
             seq_item.control_out   = m_config.m_vif.control_out;
             seq_item.compflg_out   = m_config.m_vif.compflg_out;
+            @(posedge m_config.m_vif.clk);
 
             m_analysis_port.write(seq_item);
         end

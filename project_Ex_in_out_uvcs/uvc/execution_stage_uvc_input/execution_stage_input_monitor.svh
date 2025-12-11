@@ -60,7 +60,6 @@ class execution_stage_input_monitor extends uvm_monitor;
 
             // Sample on clock edge
             @(posedge m_config.m_vif.clk);
-            @(posedge m_config.m_vif.clk);
 
 
             // Read current values (assign to temporaries declared above)
@@ -82,6 +81,8 @@ class execution_stage_input_monitor extends uvm_monitor;
             seq_item.control_in       = cur_control_in;
             seq_item.compflg_in       = cur_cmp;
             seq_item.program_counter_in  = cur_pc;
+            @(posedge m_config.m_vif.clk);
+
 
             // --- Optionally publish to analysis port for scoreboard ---
             m_analysis_port.write(seq_item);

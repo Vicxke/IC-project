@@ -65,6 +65,9 @@ class execution_stage_input_driver extends uvm_driver#(execution_stage_input_seq
             m_config.m_vif.compflg_in = req.compflg_in;
             m_config.m_vif.program_counter_in = req.program_counter_in;
 
+            `uvm_info(get_name(), $sformatf("Driver inputs: data1=0x%0h, data2=0x%0h, immediate_data=0x%0h",
+                        req.data1, req.data2, req.immediate_data), UVM_MEDIUM)
+
             // Let DUT sample on next rising edge
             @(posedge m_config.m_vif.clk);
 
