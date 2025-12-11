@@ -57,7 +57,7 @@ class decode_stage_input_agent  extends uvm_agent;
     //------------------------------------------------------------------------------
     function void end_of_elaboration_phase(uvm_phase phase);
         super.end_of_elaboration_phase(phase);
-        `uvm_info(get_name(),$sformatf("DECODE_STAGE agent is alive...."), UVM_LOW)
+        `uvm_info(get_name(),$sformatf("DECODE_STAGE_INPUT agent is alive...."), UVM_LOW)
     endfunction : end_of_elaboration_phase
   
 endclass: decode_stage_input_agent

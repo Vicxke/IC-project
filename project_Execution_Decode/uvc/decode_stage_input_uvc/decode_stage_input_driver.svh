@@ -60,6 +60,12 @@ class decode_stage_input_driver extends uvm_driver#(decode_stage_input_seq_item)
             // Drive inputs
             m_config.m_vif.instruction = req.instruction;
             m_config.m_vif.pc       = req.pc;
+            m_config.m_vif.compflg  = req.compflg;
+            m_config.m_vif.write_en = req.write_en;
+            m_config.m_vif.write_id = req.write_id;
+            m_config.m_vif.write_data = req.write_data;
+            m_config.m_vif.mux_data1  = req.mux_data1;
+            m_config.m_vif.mux_data2  = req.mux_data2;
 
 
             // Let DUT sample on next rising edge

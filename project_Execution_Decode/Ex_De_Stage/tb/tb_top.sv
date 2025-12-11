@@ -44,6 +44,7 @@ module tb_top;
 
     // Instantiation of the execute_stage RTL DUT
     execute_stage dut_execute_stage (
+        //inputs
         .clk(tb_clock),
         .reset_n(tb_reset_n),
         .data1(i_execute_input_if.data1),
@@ -52,11 +53,41 @@ module tb_top;
         .control_in(i_execute_input_if.control_in),
         .compflg_in(i_execute_input_if.compflg_in),
         .program_counter(i_execute_input_if.program_counter_in),
+        //outpus
         .control_out(i_execute_output_if.control_out),
         .alu_data(i_execute_output_if.alu_data),
         .memory_data(i_execute_output_if.memory_data),
         .overflow_flag(i_execute_output_if.overflow_flag),
         .compflg_out(i_execute_output_if.compflg_out)
+    );
+
+    // Instantiate decode_stage interface and connect to the DUT
+    decode_stage dut_decode_stage (
+        //inputs
+        .clk(tb_clock),
+        .rst_n(tb_reset_n),
+        .instruction(i_decode_input_if.instruction),
+        .pc(i_decode_input_if.pc),
+        .compflg(i_decode_input_if.compflg),
+        .write_en(i_decode_input_if.write_en),
+        .write_id(i_decode_input_if.write_id),
+        .write_data(i_decode_input_if.write_data),
+        .mux_data1(i_decode_input_if.mux_data1),
+        .mux_data2(i_decode_input_if.mux_data2),
+        //outputs
+        .reg_rd_id(),
+        .read_data1(i_execute_input_if.data1), //connect directly to the execution stage
+        .read_data2(i_execute_input_if.data2),
+        .immediate_data(i_execute_input_if.immediate_data),
+        .control_signals(i_execute_input_if.control_in),
+        .select_target_pc(i_execute_input_if.program_counter_in),    //J-type is also taken into account
+        .resolve(),                      //only high for B-type
+        .calculated_target_pc(),
+        .squash_after_J(), //sqaush from ID following a sequeatially fetched Jump
+        .squash_after_JALR(),
+        .compflg_out(i_execute_input_if.compflg_in),
+        .rs1_id(),
+        .rs2_id()
     );
 
     // --------------------- connection missing for decode stage DUT if applicable ---------------------
@@ -73,13 +104,13 @@ module tb_top;
         // Save execution_stage interface instance into top config
         m_top_config.m_execution_stage_input_config.m_vif = i_execute_input_if;
         m_top_config.m_execution_stage_output_config.m_vif = i_execute_output_if;
+        // Save decode_stage interface instance into top config
+        m_top_config.m_decode_stage_input_config.m_vif = i_decode_input_if;
     end
 
     // Start UVM test_base environment
     initial begin // only one run valid
         run_test("ExDeStage_00"); 
-
-
     end
 
 endmodule
