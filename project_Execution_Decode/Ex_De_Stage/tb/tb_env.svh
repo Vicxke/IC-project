@@ -22,6 +22,9 @@ class tb_env extends uvm_env;
     // execution_stage instance with execution_stage uVC.
     execution_stage_input_agent m_execution_stage_input_agent;
     execution_stage_output_agent m_execution_stage_output_agent;
+
+    // decode_stage instance with decode_stage uVC.
+    decode_stage_input_agent m_decode_stage_input_agent;
     // scoreboard scoreboard.
     scoreboard   m_scoreboard;
 
@@ -54,6 +57,9 @@ class tb_env extends uvm_env;
         uvm_config_db #(execution_stage_output_config)::set(this,"m_execution_stage_output_agent*","config", m_top_config.m_execution_stage_output_config);
         m_execution_stage_output_agent = execution_stage_output_agent::type_id::create("m_execution_stage_output_agent",this);
 
+        uvm_config_db #(decode_stage_input_config)::set(this,"m_decode_stage_input_agent*","config", m_top_config.m_decode_stage_input_config);
+        m_decode_stage_input_agent = decode_stage_input_agent::type_id::create("m_decode_stage_input_agent",this);
+
         // Build scoreboard components
         m_scoreboard = scoreboard::type_id::create("m_scoreboard",this);
     endfunction : build_phase
@@ -68,6 +74,8 @@ class tb_env extends uvm_env;
         // connect execution_stage monitor to scoreboard
         m_execution_stage_input_agent.m_monitor.m_analysis_port.connect(m_scoreboard.m_execution_stage_input_ap);
         m_execution_stage_output_agent.m_monitor.m_analysis_port.connect(m_scoreboard.m_execution_stage_output_ap);
+        // connect decode_stage monitor to scoreboard
+        m_decode_stage_input_agent.m_monitor.m_analysis_port.connect(m_scoreboard.m_decode_stage_input_ap);
     endfunction : connect_phase
 
 endclass : tb_env

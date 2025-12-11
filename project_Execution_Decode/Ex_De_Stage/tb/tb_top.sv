@@ -39,6 +39,9 @@ module tb_top;
     execution_stage_input_if i_execute_input_if(.clk(tb_clock), .rst_n(tb_reset_n));
     execution_stage_output_if i_execute_output_if(.clk(tb_clock), .rst_n(tb_reset_n));
 
+    // decode stage interface instantiation would go here if needed
+    decode_stage_input_if i_decode_input_if(.clk(tb_clock), .rst_n(tb_reset_n));
+
     // Instantiation of the execute_stage RTL DUT
     execute_stage dut_execute_stage (
         .clk(tb_clock),
@@ -55,6 +58,8 @@ module tb_top;
         .overflow_flag(i_execute_output_if.overflow_flag),
         .compflg_out(i_execute_output_if.compflg_out)
     );
+
+    // --------------------- connection missing for decode stage DUT if applicable ---------------------
 
     // Initialize TB configuration
     initial begin

@@ -5,6 +5,8 @@ import common::*;
 `uvm_analysis_imp_decl(_scoreboard_reset)
 `uvm_analysis_imp_decl(_scoreboard_execution_stage_input)
 `uvm_analysis_imp_decl(_scoreboard_execution_stage_output)
+`uvm_analysis_imp_decl(_scoreboard_decode_stage_input)
+
 
 // Simplified scoreboard for execution_stage UVC
 class scoreboard extends uvm_component;
@@ -15,6 +17,9 @@ class scoreboard extends uvm_component;
     uvm_analysis_imp_scoreboard_execution_stage_output#(execution_stage_output_seq_item, scoreboard) m_execution_stage_output_ap;
     // reset analysis connection
     uvm_analysis_imp_scoreboard_reset#(reset_seq_item, scoreboard) m_reset_ap;
+
+    // decode_stage analysis connection (uses a dedicated analysis_imp type)
+    uvm_analysis_imp_scoreboard_decode_stage_input#(decode_stage_input_seq_item, scoreboard) m_decode_stage_input_ap;
 
     // Indicates if the reset signal is active.
     //int unsigned reset_valid;
@@ -304,6 +309,10 @@ class scoreboard extends uvm_component;
         // ---- end control signals --------------
     endgroup
 
+    covergroup decode_stage_input_covergrp;
+
+    endgroup
+
     //------------------------------------------------------------------------------
     // The constructor for the component.
     //------------------------------------------------------------------------------
@@ -312,6 +321,7 @@ class scoreboard extends uvm_component;
         // Create coverage group
         execution_stage_input_covergrp = new();
         execution_stage_output_covergrp = new();
+        decode_stage_input_covergrp = new();
 
         // Flags initial
         input_valid  = 0;
@@ -326,6 +336,7 @@ class scoreboard extends uvm_component;
         m_execution_stage_input_ap = new("m_execution_stage_input_ap", this);
         m_execution_stage_output_ap = new("m_execution_stage_output_ap", this);
         m_reset_ap = new("m_reset_ap", this);
+        m_decode_stage_input_ap = new("m_decode_stage_input_ap", this);
     endfunction: build_phase
 
     //------------------------------------------------------------------------------
@@ -435,6 +446,12 @@ class scoreboard extends uvm_component;
         execution_stage_input_covergrp.sample(); // part of input covergroup
 
     endfunction :  write_scoreboard_reset
+
+    virtual function void write_scoreboard_decode_stage_input(decode_stage_input_seq_item item);
+        `uvm_info(get_name(),$sformatf("DECODE_STAGE_MONITOR:\n%s",item.sprint()),UVM_HIGH)
+        decode_stage_input_covergrp.sample(); // part of decode stage input covergroup
+
+    endfunction:write_scoreboard_decode_stage_input
 
     virtual function void calculate_expected_results();
         expected_overflow = 1'b0;  // default for non-add/sub ops
@@ -609,6 +626,13 @@ class scoreboard extends uvm_component;
         else begin
             $display("FUNCTIONAL COVERAGE Output FAILED!!!!!!!!!!!!!!!!!");
             $display("Coverage = %0f", execution_stage_output_covergrp.get_coverage());
+        end
+        if (decode_stage_input_covergrp.get_coverage() == 100.0) begin
+            $display("FUNCTIONAL COVERAGE Output (100.0%%) PASSED....");
+        end
+        else begin
+            $display("FUNCTIONAL COVERAGE Output FAILED!!!!!!!!!!!!!!!!!");
+            $display("Coverage = %0f", decode_stage_input_covergrp.get_coverage());
         end
     endfunction : check_phase
 
