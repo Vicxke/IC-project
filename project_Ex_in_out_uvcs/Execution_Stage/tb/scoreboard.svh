@@ -53,6 +53,21 @@ class scoreboard extends uvm_component;
     bit first_input = 0;
     bit first_round = 1;
 
+    typedef struct {
+        int unsigned  data1_FIFO;
+        int unsigned  data2_FIFO;
+        int unsigned  immediate_data_FIFO;
+        control_type  control_in_FIFO;
+        logic         compflg_in_FIFO;
+        logic [31:0]  program_counter_in_FIFO;
+
+        logic [31:0]  expected_result_FIFO;
+        bit           expected_overflow_FIFO;
+    } ex_expected_t;
+
+    ex_expected_t m_expected_q[$];  // FIFO-Queue
+
+
 
 
     //------------------------------------------------------------------------------
@@ -324,71 +339,88 @@ class scoreboard extends uvm_component;
     // Write implementation for write_scoreboard_execution_stage_input analysis port.
     //------------------------------------------------------------------------------
     virtual function void write_scoreboard_execution_stage_input(execution_stage_input_seq_item item);
+        ex_expected_t tx;
 
         first_input = 1;
         
-        // Reject a new input if previous compare not finished
-        if (input_valid) begin
-            `uvm_error(get_name(),
-                "New input received while previous input/output pair has not been compared yet")
-            return;
-        end
-        
-        data1 = item.data1;
-        data2 = item.data2;
-        immediate_data = item.immediate_data; 
-        control_in = item.control_in;
-        compflg_in = item.compflg_in;
-        program_counter_in = item.program_counter_in;
 
-        `uvm_info(get_name(),$sformatf("Input DUT: data1=%0h, data2=%0h, immediate_data=%0h, operation=%0h", data1, data2, immediate_data, (control_in.alu_op.name())),UVM_MEDIUM)
-        
-        //`uvm_info(get_name(), $sformatf("ALU_OPRESET_function: alu_op=%00s reset_value=%0b", alu_op.name(), reset_value), UVM_LOW)
+        // 1) Eingänge in tx ablegen
+        tx.data1_FIFO              = item.data1;
+        tx.data2_FIFO              = item.data2;
+        tx.immediate_data_FIFO     = item.immediate_data;
+        tx.control_in_FIFO         = item.control_in;
+        tx.compflg_in_FIFO         = item.compflg_in;
+        tx.program_counter_in_FIFO = item.program_counter_in; // nicht program_counter_in
+        // 2) Globale Variablen für Coverage & Berechnung setzen
+        data1              = tx.data1_FIFO;
+        data2            = tx.data2_FIFO;
+        immediate_data     = tx.immediate_data_FIFO; 
+        control_in         = tx.control_in_FIFO;
+        compflg_in         = tx.compflg_in_FIFO;
+        program_counter_in = tx.program_counter_in_FIFO;
+
+        `uvm_info(get_name(),
+        $sformatf("Input DUT: data1=%0h, data2=%0h, immediate_data=%0h, operation=%s",
+                    data1, data2, immediate_data, control_in.alu_op.name()),
+        UVM_MEDIUM)
+
         execution_stage_input_covergrp.sample();
-        calculate_expected_results();
-        
-        // Set flags
-        input_valid  = 1;
 
-    endfunction: write_scoreboard_execution_stage_input
+        // 3) Expected für diese Transaktion berechnen
+        calculate_expected_results();         // schreibt expected_result & expected_overflow (global)
+
+        // 4) In tx übernehmen
+        tx.expected_result_FIFO   = expected_result;
+        tx.expected_overflow_FIFO = expected_overflow;
+
+        // 5) In Queue legen
+        m_expected_q.push_back(tx);
+    endfunction:write_scoreboard_execution_stage_input
 
     virtual function void write_scoreboard_execution_stage_output(execution_stage_output_seq_item item);
+        ex_expected_t tx;
 
+        //wait for inputs
         if (first_input == 0) begin
             `uvm_info(get_name(), "First input not received yet", UVM_LOW)
             return;
         end
 
-        alu_result = item.alu_data;
+
+        if (m_expected_q.size() == 0) begin
+            `uvm_error(get_name(), "Got DUT output but no pending expected transaction");
+            return;
+        end
+
+        // Älteste Erwartung zu diesem Output holen
+        tx = m_expected_q.pop_front();
+
+        // Globale Variablen für Vergleichs- und Fehlermeldungs-Logik setzen
+        data1              = tx.data1_FIFO;
+        data2              = tx.data2_FIFO;
+        immediate_data     = tx.immediate_data_FIFO;
+        control_in         = tx.control_in_FIFO;
+        compflg_in         = tx.compflg_in_FIFO;
+        program_counter_in = tx.program_counter_in_FIFO;
+        expected_result    = tx.expected_result_FIFO;
+        expected_overflow  = tx.expected_overflow_FIFO;
+
+        // DUT-Ausgänge übernehmen
+        alu_result      = item.alu_data;
         memory_data_out = item.memory_data;
-        control_out = item.control_out;
-        
-        // ---- flags ----
-        overflow_flag = item.overflow_flag;
-        zero_flag = item.zero_flag;
-        compflg_out = item.compflg_out;
+        control_out     = item.control_out;
+        overflow_flag   = item.overflow_flag;
+        zero_flag       = item.zero_flag;
+        compflg_out     = item.compflg_out;
 
-        `uvm_info(get_name(), $sformatf("Result from DUT: res=%0h ovf=%0h",alu_result, overflow_flag), UVM_MEDIUM)
+        `uvm_info(get_name(),
+        $sformatf("Result from DUT: res=%0h ovf=%0h", alu_result, overflow_flag),
+        UVM_MEDIUM)
 
-        
-        //`uvm_info(get_name(), $sformatf("ALU_OPRESET_function: alu_op=%00s reset_value=%0b", alu_op.name(), reset_value), UVM_LOW)
         execution_stage_output_covergrp.sample();
 
-
-        if (first_round == 0) begin
-            if (alu_result == prev_alu_result) begin
-                `uvm_info(get_name(), "Result unchanged since last time", UVM_LOW)
-                return;
-            end
-        end
-        prev_alu_result = alu_result;
-        first_round = 0;
-
+        // jetzt passt Input/Expected zu diesem Output → JETZT vergleichen
         compare_exp_DUT_results();
-        
-        // Set flags
-        input_valid = 0;
-
     endfunction: write_scoreboard_execution_stage_output
 
 

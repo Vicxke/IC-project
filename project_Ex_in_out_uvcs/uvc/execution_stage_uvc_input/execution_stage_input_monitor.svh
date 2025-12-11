@@ -60,6 +60,7 @@ class execution_stage_input_monitor extends uvm_monitor;
 
             // Sample on clock edge
             @(posedge m_config.m_vif.clk);
+            @(posedge m_config.m_vif.clk);
 
 
             // Read current values (assign to temporaries declared above)

@@ -41,6 +41,7 @@ class execution_stage_output_monitor extends uvm_monitor;
 
         forever begin
             @(posedge m_config.m_vif.clk);
+            @(posedge m_config.m_vif.clk);
             seq_item = execution_stage_output_seq_item::type_id::create("monitor_item");
 
             // Outputs direkt auf dieser Flanke lesen
