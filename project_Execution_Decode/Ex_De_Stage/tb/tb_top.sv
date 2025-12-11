@@ -67,7 +67,7 @@ module tb_top;
     decode_stage dut_decode_stage (
         //inputs
         .clk(tb_clock),
-        .rst_n(tb_reset_n),
+        .reset_n(tb_reset_n),
         .instruction(i_decode_input_if.instruction),
         .pc(i_decode_input_if.pc),
         .compflg(i_decode_input_if.compflg),

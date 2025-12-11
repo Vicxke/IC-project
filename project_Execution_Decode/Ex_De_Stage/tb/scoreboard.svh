@@ -315,6 +315,10 @@ class scoreboard extends uvm_component;
 
     covergroup decode_stage_input_covergrp;
 
+    
+    endgroup
+    covergroup decode_stage_output_covergrp;
+
     endgroup
 
     //------------------------------------------------------------------------------
@@ -326,6 +330,7 @@ class scoreboard extends uvm_component;
         execution_stage_input_covergrp = new();
         execution_stage_output_covergrp = new();
         decode_stage_input_covergrp = new();
+        decode_stage_output_covergrp = new();
 
         // Flags initial
         input_valid  = 0;
@@ -644,6 +649,13 @@ class scoreboard extends uvm_component;
         else begin
             $display("FUNCTIONAL COVERAGE Output FAILED!!!!!!!!!!!!!!!!!");
             $display("Coverage = %0f", decode_stage_input_covergrp.get_coverage());
+        end
+        if (decode_stage_output_covergrp.get_coverage() == 100.0) begin
+            $display("FUNCTIONAL COVERAGE Output (100.0%%) PASSED....");
+        end
+        else begin
+            $display("FUNCTIONAL COVERAGE Output FAILED!!!!!!!!!!!!!!!!!");
+            $display("Coverage = %0f", decode_stage_output_covergrp.get_coverage());
         end
     endfunction : check_phase
 

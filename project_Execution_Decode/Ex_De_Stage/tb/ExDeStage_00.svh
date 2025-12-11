@@ -55,7 +55,7 @@ class ExDeStage_00 extends uvm_test;
 
         // Run the test as defined in base test
         reset_seq reset;
-        decode_stage_seq decode_stage;
+        decode_stage_input_seq decode_stage;
         instruction_type instruction;
         super.run_phase(phase);
 
@@ -87,7 +87,7 @@ class ExDeStage_00 extends uvm_test;
         decode_stage.pc = 32'h0000_0040;
         decode_stage.compflg = 0;
 
-        decode_stage.start(m_tb_env.m_decode_stage_agent.m_sequencer);
+        decode_stage.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
 
         
 

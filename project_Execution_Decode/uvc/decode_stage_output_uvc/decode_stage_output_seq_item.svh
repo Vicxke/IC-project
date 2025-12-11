@@ -7,7 +7,7 @@ class decode_stage_output_seq_item extends uvm_sequence_item;
     logic [4:0]  rs1_id;
     logic [4:0]  rs2_id;
     logic        resolve;
-    logic [31:0] select_target_pc;
+    logic        select_target_pc;
     logic        squash_after_J;
     logic        squash_after_JALR;
 
@@ -16,14 +16,13 @@ class decode_stage_output_seq_item extends uvm_sequence_item;
 
     // Fields for printing/packing
     `uvm_object_utils_begin(decode_stage_output_seq_item)
-    `uvm_field_int(instruction, UVM_ALL_ON)
-    `uvm_field_int(pc, UVM_ALL_ON)
-    `uvm_field_int(compflg, UVM_ALL_ON)
-    `uvm_field_int(write_en, UVM_ALL_ON)
-    `uvm_field_int(write_id, UVM_ALL_ON)
-    `uvm_field_int(write_data, UVM_ALL_ON)
-    `uvm_field_int(mux_data1, UVM_ALL_ON)
-    `uvm_field_int(mux_data2, UVM_ALL_ON)
+    `uvm_field_int(reg_rd_id, UVM_ALL_ON)
+    `uvm_field_int(rs1_id, UVM_ALL_ON)
+    `uvm_field_int(rs2_id, UVM_ALL_ON)
+    `uvm_field_int(resolve, UVM_ALL_ON)
+    `uvm_field_int(select_target_pc, UVM_ALL_ON)
+    `uvm_field_int(squash_after_J, UVM_ALL_ON)
+    `uvm_field_int(squash_after_JALR, UVM_ALL_ON)
 
     
     // monitor_data_valid intentionally not registered

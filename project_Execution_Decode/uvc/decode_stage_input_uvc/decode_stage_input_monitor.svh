@@ -87,7 +87,7 @@ class decode_stage_input_monitor extends uvm_monitor;
             seq_item = decode_stage_input_seq_item::type_id::create("monitor_item");
 
             
-            seq_item.instruction 0 = cur_instruction;
+            seq_item.instruction = cur_instruction;
             seq_item.pc          = cur_pc;
             seq_item.compflg     = cur_compflg;
             seq_item.write_en    = cur_write_en;

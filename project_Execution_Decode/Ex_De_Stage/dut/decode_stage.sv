@@ -22,7 +22,7 @@ module decode_stage(
     input logic [31:0] write_data,
     input logic [31:0] mux_data1,
     input logic [31:0] mux_data2,
-    output logic [5:0] reg_rd_id,
+    output logic [5:0] reg_rd_id, //must be 4? bug??
     output logic [31:0] read_data1,
     output logic [31:0] read_data2,
     output logic [4:0] rs1_id,

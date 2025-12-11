@@ -34,7 +34,7 @@ class decode_stage_output_monitor extends uvm_monitor;
         logic [4:0] cur_rs1_id;
         logic [4:0] cur_rs2_id;
         bit cur_resolve;
-        logic [31:0] cur_select_target_pc;
+        bit cur_select_target_pc;
         bit cur_squash_after_J;
         bit cur_squash_after_JALR;
 

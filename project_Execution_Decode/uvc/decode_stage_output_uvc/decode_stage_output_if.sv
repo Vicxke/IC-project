@@ -11,7 +11,7 @@ interface decode_stage_output_if (input logic clk, input logic rst_n);
     logic [4:0]  rs1_id;
     logic [4:0]  rs2_id;
     logic        resolve;
-    logic [31:0] select_target_pc;
+    logic        select_target_pc;
     logic        squash_after_J;
     logic        squash_after_JALR;
 
