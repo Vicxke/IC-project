@@ -76,7 +76,25 @@ class scoreboard extends uvm_component;
 
     ex_expected_t m_expected_q[$];  // FIFO-Queue
 
+    // all signals for the decode stage input and outputs that are not already in use
+    //inputs
+    int unsigned instruction;  
+    int unsigned pc;
+    bit         compflg;
+    bit         write_en;   
+    int unsigned write_id;
+    int unsigned write_data;
+    int unsigned mux_data1; 
+    int unsigned mux_data2; 
 
+    //outputs 
+    logic [5:0]  reg_rd_id;
+    logic [4:0]  rs1_id;
+    logic [4:0]  rs2_id;
+    logic        resolve;
+    logic        select_target_pc;
+    logic        squash_after_J;
+    logic        squash_after_JALR;
 
 
     //------------------------------------------------------------------------------
@@ -314,11 +332,85 @@ class scoreboard extends uvm_component;
     endgroup
 
     covergroup decode_stage_input_covergrp;
+        bins instruction_type : coverpoint instruction {
+            bins R_TYPE = { 32'b?????????????????????????0110011 };
+            bins I_TYPE = { 32'b?????????????????????????0010011 };
+            bins S_TYPE = { 32'b?????????????????????????0100011 };
+            bins B_TYPE = { 32'b?????????????????????????1100011 };
+            bins U_TYPE = { 32'b?????????????????????????0110111, 32'b?????????????????????????0010111 };
+            bins J_TYPE = { 32'b?????????????????????????1101111 };
+        }
+        bins pc_range : coverpoint pc {
+            bins range_very_low   = { [32'h0000_0000 : 32'h1FFF_FFFF] };
+            bins range_low        = { [32'h2000_0000 : 32'h3FFF_FFFF] };
+            bins range_mid_low    = { [32'h4000_0000 : 32'h5FFF_FFFF] };
+            bins range_mid        = { [32'h6000_0000 : 32'h7FFF_FFFF] };
+            bins range_mid_high   = { [32'h8000_0000 : 32'h9FFF_FFFF] };
+            bins range_high       = { [32'hA000_0000 : 32'hBFFF_FFFF] };
+            bins range_very_high  = { [32'hC000_0000 : 32'hDFFF_FFFF] };
+            bins range_max_val    = { [32'hE000_0000 : 32'hFFFF_FFFF] };
+        }
+        bins comp_flag : coverpoint compflg {
+            bins flag_cleared = { 1'b0 };
+            bins flag_set     = { 1'b1 };
+        }
+        bins write_enable : coverpoint write_en {
+            bins no_write = { 1'b0 };
+            bins write    = { 1'b1 };
+        }
+        bins write_id_bins : coverpoint write_id {
+            bins id_0  = { 5'd0 };
+            bins id_1  = { 5'd1 };
+            bins id_2  = { 5'd2 };
+            bins id_3  = { 5'd3 };
+            bins id_4  = { 5'd4 };
+            bins id_5  = { 5'd5 };
+            bins id_6  = { 5'd6 };
+            bins id_7  = { 5'd7 };
+            bins id_8  = { 5'd8 };
+            bins id_9  = { 5'd9 };
+            bins id_10 = { 5'd10 };
+            bins id_11 = { 5'd11 };
+            bins id_12 = { 5'd12 };
+            bins id_13 = { 5'd13 };
+            bins id_14 = { 5'd14 };
+            bins id_15 = { 5'd15 };
+            // Further bins can be added as needed
+        }
+        bins write_data_bins : coverpoint write_data {
+            bins range_very_low   = { [32'h0000_0000 : 32'h1FFF_FFFF] };
+            bins range_low        = { [32'h2000_0000 : 32'h3FFF_FFFF] };
+            bins range_mid_low    = { [32'h4000_0000 : 32'h5FFF_FFFF] };
+            bins range_mid        = { [32'h6000_0000 : 32'h7FFF_FFFF] };
+            bins range_mid_high   = { [32'h8000_0000 : 32'h9FFF_FFFF] };
+            bins range_high       = { [32'hA000_0000 : 32'hBFFF_FFFF] };
+            bins range_very_high  = { [32'hC000_0000 : 32'hDFFF_FFFF] };
+            bins range_max_val    = { [32'hE000_0000 : 32'hFFFF_FFFF] };
+        }
+        bins mux_data1_bins : coverpoint mux_data1 {
+            bins range_very_low   = { [32'h0000_0000 : 32'h1FFF_FFFF] };
+            bins range_low        = { [32'h2000_0000 : 32'h3FFF_FFFF] };
+            bins range_mid_low    = { [32'h4000_0000 : 32'h5FFF_FFFF] };
+            bins range_mid        = { [32'h6000_0000 : 32'h7FFF_FFFF] };
+            bins range_mid_high   = { [32'h8000_0000 : 32'h9FFF_FFFF] };
+            bins range_high       = { [32'hA000_0000 : 32'hBFFF_FFFF] };
+            bins range_very_high  = { [32'hC000_0000 : 32'hDFFF_FFFF] };
+            bins range_max_val    = { [32'hE000_0000 : 32'hFFFF_FFFF] };
+        }
+        bins mux_data2_bins : coverpoint mux_data2 {
+            bins range_very_low   = { [32'h0000_0000 : 32'h1FFF_FFFF] };
+            bins range_low        = { [32'h2000_0000 : 32'h3FFF_FFFF] };
+            bins range_mid_low    = { [32'h4000_0000 : 32'h5FFF_FFFF] };
+            bins range_mid        = { [32'h6000_0000 : 32'h7FFF_FFFF] };
+            bins range_mid_high   = { [32'h8000_0000 : 32'h9FFF_FFFF] };
+            bins range_high       = { [32'hA000_0000 : 32'hBFFF_FFFF] };
+            bins range_very_high  = { [32'hC000_0000 : 32'hDFFF_FFFF] };
+            bins range_max_val    = { [32'hE000_0000 : 32'hFFFF_FFFF] };
+        }
 
-    
     endgroup
     covergroup decode_stage_output_covergrp;
-
+        //all alu things are already happening.
     endgroup
 
     //------------------------------------------------------------------------------

@@ -55,7 +55,7 @@ class ExDeStage_00 extends uvm_test;
 
         // Run the test as defined in base test
         reset_seq reset;
-        decode_stage_input_seq decode_stage;
+        decode_stage_input_seq decode_stage_input;
         instruction_type instruction;
         super.run_phase(phase);
 
@@ -68,26 +68,43 @@ class ExDeStage_00 extends uvm_test;
         //do a simple reset first
         reset = reset_seq::type_id::create("reset");
         reset.delay = 0;
-        reset.length = 2;
+        reset.length = 1;
         reset.start(m_tb_env.m_reset_agent.m_sequencer);
 
+        //-------------------- put some data into the memory -----------------------
+        decode_stage_input = decode_stage_input_seq::type_id::create("decode_stage_input");
+        decode_stage_input.write_en = 1;
+        decode_stage_input.write_id = 5'd1;
+        decode_stage_input.write_data = 32'h0000_000A; // x1 = 10
+        decode_stage_input.instruction = 0;  // Not used when write_en=1, but set to avoid X
+        decode_stage_input.pc = 0;
+        decode_stage_input.compflg = 0;
+        decode_stage_input.mux_data1 = 0;
+        decode_stage_input.mux_data2 = 0;
+        decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
 
-        //-------------------- single test case -----------------------
-        decode_stage = decode_stage_input_seq::type_id::create("decode_stage");
+
+        //-------------------- save data from register to mem -----------------------
+        decode_stage_input = decode_stage_input_seq::type_id::create("decode_stage_input");
         
-        decode_stage.instruction = '{ // adds = x2 +x1 and stores it in x3, but contents of x1 and x2 are empty here
-            funct7:  7'b0000000,
-            rs2:     5'd2, 
-            rs1:     5'd1,
-            funct3:  3'b000,
+        decode_stage_input.instruction = '{
+            funct7:  7'b0000001, //1 to add to the immidiate
+            rs2:     5'd1, 
+            rs1:     5'd2, 
+            funct3:  3'b010, //sw
             rd:      5'd3,
-            opcode:  7'b0110011
+            opcode:  7'b0100011 
         };
 
-        decode_stage.pc = 32'h0000_0040;
-        decode_stage.compflg = 0;
+        decode_stage_input.pc = 32'h0000_0040;
+        decode_stage_input.compflg = 0;
+        decode_stage_input.write_en = 0;  // Not writing to register during instruction
+        decode_stage_input.write_id = 0;
+        decode_stage_input.write_data = 0;
+        decode_stage_input.mux_data1 = 0;
+        decode_stage_input.mux_data2 = 0;
 
-        decode_stage.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
+        decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
 
         
 
