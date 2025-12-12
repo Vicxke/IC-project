@@ -55,9 +55,7 @@ class scoreboard extends uvm_component;
     logic [4:0] shamt;
     logic [31:0] op1, op2;
 
-    // Handshake-Flags between Input/Output and Compare
-    bit input_valid;
-    bit output_valid;
+
 
     bit first_input = 0;
     bit first_round = 1;
@@ -95,6 +93,10 @@ class scoreboard extends uvm_component;
     logic        select_target_pc;
     logic        squash_after_J;
     logic        squash_after_JALR;
+
+
+    logic [31:0] decode_expected_immediate;
+
 
 
     //------------------------------------------------------------------------------
@@ -512,9 +514,6 @@ class scoreboard extends uvm_component;
         decode_stage_input_covergrp = new();
         decode_stage_output_covergrp = new();
 
-        // Flags initial
-        input_valid  = 0;
-        output_valid = 0;
     endfunction: new
 
     //------------------------------------------------------------------------------
@@ -653,7 +652,86 @@ class scoreboard extends uvm_component;
 
     virtual function void write_scoreboard_decode_stage_output(decode_stage_output_seq_item item);
         `uvm_info(get_name(),$sformatf("DECODE_STAGE_OUTPUT_MONITOR:\n%s",item.sprint()),UVM_HIGH)
+
+        
         decode_stage_output_covergrp.sample(); // part of decode stage output covergroup
+
+        // latch decode-stage outputs present on the seq_item
+        reg_rd_id        = item.reg_rd_id;
+        rs1_id           = item.rs1_id;
+        rs2_id           = item.rs2_id;
+        resolve          = item.resolve;
+        select_target_pc = item.select_target_pc;
+        squash_after_J   = item.squash_after_J;
+        squash_after_JALR= item.squash_after_JALR;
+
+        // --- Decode-stage checks (using ALU inputs captured on execution-stage input) ---
+
+        // IDs
+        if (reg_rd_id !== instruction.rd) begin
+            `uvm_error("DECODE_RD_ID_MISMATCH",
+                $sformatf("reg_rd_id mismatch: DECODE=0x%0h, INSTR.rd=0x%0h", reg_rd_id, instruction.rd))
+        end
+        if (rs1_id !== instruction.rs1) begin
+            `uvm_error("DECODE_RS1_ID_MISMATCH",
+                $sformatf("rs1_id mismatch: DECODE=0x%0h, INSTR.rs1=0x%0h", rs1_id, instruction.rs1))
+        end
+        if (rs2_id !== instruction.rs2) begin
+            `uvm_error("DECODE_RS2_ID_MISMATCH",
+                $sformatf("rs2_id mismatch: DECODE=0x%0h, INSTR.rs2=0x%0h", rs2_id, instruction.rs2))
+        end
+
+        // Immediate expected: immidiate_data = funct7 + rd
+        decode_expected_immediate = {27'b0, instruction.funct7} + {27'b0, instruction.rd};
+        // Check that ALU immediate equals expected decode immediate
+        if (immediate_data !== decode_expected_immediate) begin
+            `uvm_error("ALU_IMM_MISMATCH_FROM_DECODE",
+                $sformatf("ALU immediate != expected decode immediate: ALU_in=0x%08h, EXP=0x%08h", immediate_data, decode_expected_immediate))
+        end
+
+        // Control signals expectation for store word (S-TYPE, funct3=010):
+        //  - alu_src = 01
+        //  - encoding = S-TYPE
+        //  - funct3 = 010
+        //  - mem_read = 0
+        //  - mem_write  = 1
+        //  - reg_write = 0
+        //  - mem_to_reg = 0
+        //  - is_branch = 0
+        if (instruction.opcode == 7'b0100011 && instruction.funct3 == 3'b010) begin
+            if (control_in.alu_src !== 2'b01) begin
+                `uvm_error("DECODE_CTRL_ALU_SRC",
+                    $sformatf("alu_src mismatch: CTRL=0b%0b, EXP=0b01", control_in.alu_src))
+            end
+            if (control_in.encoding !== S_TYPE) begin
+                `uvm_error("DECODE_CTRL_ENCODING",
+                    $sformatf("encoding mismatch: CTRL=%0d, EXP=S-TYPE(%0d)", control_in.encoding, S_TYPE))
+            end
+            if (control_in.funct3 !== 3'b010) begin
+                `uvm_error("DECODE_CTRL_FUNCT3",
+                    $sformatf("funct3 mismatch: CTRL=0b%0b, EXP=0b010", control_in.funct3))
+            end
+            if (control_in.mem_read !== 1'b0) begin
+                `uvm_error("DECODE_CTRL_MEM_READ",
+                    $sformatf("mem_read mismatch: CTRL=%0b, EXP=0", control_in.mem_read))
+            end
+            if (control_in.mem_write !== 1'b1) begin
+                `uvm_error("DECODE_CTRL_MEM_WRITE",
+                    $sformatf("mem_write mismatch: CTRL=%0b, EXP=1", control_in.mem_write))
+            end
+            if (control_in.reg_write !== 1'b0) begin
+                `uvm_error("DECODE_CTRL_REG_WRITE",
+                    $sformatf("reg_write mismatch: CTRL=%0b, EXP=0", control_in.reg_write))
+            end
+            if (control_in.mem_to_reg !== 1'b0) begin
+                `uvm_error("DECODE_CTRL_MEM_TO_REG",
+                    $sformatf("mem_to_reg mismatch: CTRL=%0b, EXP=0", control_in.mem_to_reg))
+            end
+            if (control_in.is_branch !== 1'b0) begin
+                `uvm_error("DECODE_CTRL_IS_BRANCH",
+                    $sformatf("is_branch mismatch: CTRL=%0b, EXP=0", control_in.is_branch))
+            end
+        end
 
     endfunction:write_scoreboard_decode_stage_output
 
