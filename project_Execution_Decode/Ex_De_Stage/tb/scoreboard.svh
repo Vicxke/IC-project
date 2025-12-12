@@ -78,14 +78,14 @@ class scoreboard extends uvm_component;
 
     // all signals for the decode stage input and outputs that are not already in use
     //inputs
-    int unsigned instruction;  
-    int unsigned pc;
-    bit         compflg;
-    bit         write_en;   
-    int unsigned write_id;
-    int unsigned write_data;
-    int unsigned mux_data1; 
-    int unsigned mux_data2; 
+    instruction_type instruction;  
+    logic [31:0]  pc;
+    logic         compflg;
+    logic         write_en;   
+    logic [31:0]  write_id;
+    logic [31:0]  write_data;
+    logic [31:0]  mux_data1; 
+    logic [31:0]  mux_data2; 
 
     //outputs 
     logic [5:0]  reg_rd_id;
@@ -332,15 +332,88 @@ class scoreboard extends uvm_component;
     endgroup
 
     covergroup decode_stage_input_covergrp;
-        bins instruction_type : coverpoint instruction {
-            bins R_TYPE = { 32'b?????????????????????????0110011 };
-            bins I_TYPE = { 32'b?????????????????????????0010011 };
-            bins S_TYPE = { 32'b?????????????????????????0100011 };
-            bins B_TYPE = { 32'b?????????????????????????1100011 };
-            bins U_TYPE = { 32'b?????????????????????????0110111, 32'b?????????????????????????0010111 };
-            bins J_TYPE = { 32'b?????????????????????????1101111 };
+        instruction_opcode : coverpoint instruction.opcode {
+            wildcard bins R_TYPE = { 7'b0110011 };
+            wildcard bins I_TYPE = { 7'b0010011 };
+            wildcard bins S_TYPE = { 7'b0100011 };
+            wildcard bins B_TYPE = { 7'b1100011 };
+            wildcard bins U_TYPE = { 7'b0110111, 7'b0010111 };
+            wildcard bins J_TYPE = { 7'b1101111 };
         }
-        bins pc_range : coverpoint pc {
+        instruction_funct3 : coverpoint instruction.funct3 {
+            bins funct3_0 = { 3'b000 };
+            bins funct3_1 = { 3'b001 };
+            bins funct3_2 = { 3'b010 };
+            bins funct3_3 = { 3'b011 };
+            bins funct3_4 = { 3'b100 };
+            bins funct3_5 = { 3'b101 };
+            bins funct3_6 = { 3'b110 };
+            bins funct3_7 = { 3'b111 };
+        }
+        instruction_funct7 : coverpoint instruction.funct7 {
+            bins funct7_0 = { 7'b0000000 };
+            bins funct7_1 = { 7'b0100000 };
+        }
+        instruction_rd : coverpoint instruction.rd {
+            bins rd_0  = { 5'd0 };
+            bins rd_1  = { 5'd1 };
+            bins rd_2  = { 5'd2 };
+            bins rd_3  = { 5'd3 };
+            bins rd_4  = { 5'd4 };
+            bins rd_5  = { 5'd5 };
+            bins rd_6  = { 5'd6 };
+            bins rd_7  = { 5'd7 };
+            bins rd_8  = { 5'd8 };
+            bins rd_9  = { 5'd9 };
+            bins rd_10 = { 5'd10 };
+            bins rd_11 = { 5'd11 };
+            bins rd_12 = { 5'd12 };
+            bins rd_13 = { 5'd13 };
+            bins rd_14 = { 5'd14 };
+            bins rd_15 = { 5'd15 };
+            // Further bins can be added as needed
+        }
+        instruction_rs1 : coverpoint instruction.rs1 {
+            bins rs1_0  = { 5'd0 };
+            bins rs1_1  = { 5'd1 };
+            bins rs1_2  = { 5'd2 };
+            bins rs1_3  = { 5'd3 };
+            bins rs1_4  = { 5'd4 };
+            bins rs1_5  = { 5'd5 };
+            bins rs1_6  = { 5'd6 };
+            bins rs1_7  = { 5'd7 };
+            bins rs1_8  = { 5'd8 };
+            bins rs1_9  = { 5'd9 };
+            bins rs1_10 = { 5'd10 };
+            bins rs1_11 = { 5'd11 };
+            bins rs1_12 = { 5'd12 };
+            bins rs1_13 = { 5'd13 };
+            bins rs1_14 = { 5'd14 };
+            bins rs1_15 = { 5'd15 };
+            // Further bins can be added as needed
+        }
+
+        instruction_rs2 : coverpoint instruction.rs2 {
+            bins rs2_0  = { 5'd0 };
+            bins rs2_1  = { 5'd1 };
+            bins rs2_2  = { 5'd2 };
+            bins rs2_3  = { 5'd3 };
+            bins rs2_4  = { 5'd4 };
+            bins rs2_5  = { 5'd5 };
+            bins rs2_6  = { 5'd6 };
+            bins rs2_7  = { 5'd7 };
+            bins rs2_8  = { 5'd8 };
+            bins rs2_9  = { 5'd9 };
+            bins rs2_10 = { 5'd10 };
+            bins rs2_11 = { 5'd11 };
+            bins rs2_12 = { 5'd12 };
+            bins rs2_13 = { 5'd13 };
+            bins rs2_14 = { 5'd14 };
+            bins rs2_15 = { 5'd15 };
+            // Further bins can be added as needed
+        }
+
+        pc_range : coverpoint pc {
             bins range_very_low   = { [32'h0000_0000 : 32'h1FFF_FFFF] };
             bins range_low        = { [32'h2000_0000 : 32'h3FFF_FFFF] };
             bins range_mid_low    = { [32'h4000_0000 : 32'h5FFF_FFFF] };
@@ -349,16 +422,19 @@ class scoreboard extends uvm_component;
             bins range_high       = { [32'hA000_0000 : 32'hBFFF_FFFF] };
             bins range_very_high  = { [32'hC000_0000 : 32'hDFFF_FFFF] };
             bins range_max_val    = { [32'hE000_0000 : 32'hFFFF_FFFF] };
+
+            bins all_zeros  = { 32'h0000_0000 };
+            bins all_ones   = { 32'hFFFF_FFFF };
         }
-        bins comp_flag : coverpoint compflg {
+        comp_flag : coverpoint compflg {
             bins flag_cleared = { 1'b0 };
             bins flag_set     = { 1'b1 };
         }
-        bins write_enable : coverpoint write_en {
+        write_enable : coverpoint write_en {
             bins no_write = { 1'b0 };
             bins write    = { 1'b1 };
         }
-        bins write_id_bins : coverpoint write_id {
+        write_id_bins : coverpoint write_id {
             bins id_0  = { 5'd0 };
             bins id_1  = { 5'd1 };
             bins id_2  = { 5'd2 };
@@ -377,7 +453,7 @@ class scoreboard extends uvm_component;
             bins id_15 = { 5'd15 };
             // Further bins can be added as needed
         }
-        bins write_data_bins : coverpoint write_data {
+        write_data_bins : coverpoint write_data {
             bins range_very_low   = { [32'h0000_0000 : 32'h1FFF_FFFF] };
             bins range_low        = { [32'h2000_0000 : 32'h3FFF_FFFF] };
             bins range_mid_low    = { [32'h4000_0000 : 32'h5FFF_FFFF] };
@@ -386,8 +462,11 @@ class scoreboard extends uvm_component;
             bins range_high       = { [32'hA000_0000 : 32'hBFFF_FFFF] };
             bins range_very_high  = { [32'hC000_0000 : 32'hDFFF_FFFF] };
             bins range_max_val    = { [32'hE000_0000 : 32'hFFFF_FFFF] };
+
+            bins all_zeros  = { 32'h0000_0000 };
+            bins all_ones   = { 32'hFFFF_FFFF };
         }
-        bins mux_data1_bins : coverpoint mux_data1 {
+        mux_data1_bins : coverpoint mux_data1 {
             bins range_very_low   = { [32'h0000_0000 : 32'h1FFF_FFFF] };
             bins range_low        = { [32'h2000_0000 : 32'h3FFF_FFFF] };
             bins range_mid_low    = { [32'h4000_0000 : 32'h5FFF_FFFF] };
@@ -396,8 +475,11 @@ class scoreboard extends uvm_component;
             bins range_high       = { [32'hA000_0000 : 32'hBFFF_FFFF] };
             bins range_very_high  = { [32'hC000_0000 : 32'hDFFF_FFFF] };
             bins range_max_val    = { [32'hE000_0000 : 32'hFFFF_FFFF] };
+
+            bins all_zeros  = { 32'h0000_0000 };
+            bins all_ones   = { 32'hFFFF_FFFF };
         }
-        bins mux_data2_bins : coverpoint mux_data2 {
+        mux_data2_bins : coverpoint mux_data2 {
             bins range_very_low   = { [32'h0000_0000 : 32'h1FFF_FFFF] };
             bins range_low        = { [32'h2000_0000 : 32'h3FFF_FFFF] };
             bins range_mid_low    = { [32'h4000_0000 : 32'h5FFF_FFFF] };
@@ -406,9 +488,15 @@ class scoreboard extends uvm_component;
             bins range_high       = { [32'hA000_0000 : 32'hBFFF_FFFF] };
             bins range_very_high  = { [32'hC000_0000 : 32'hDFFF_FFFF] };
             bins range_max_val    = { [32'hE000_0000 : 32'hFFFF_FFFF] };
+
+            bins all_zeros  = { 32'h0000_0000 };
+            bins all_ones   = { 32'hFFFF_FFFF };
         }
+        
+        cross_DecodeStage_00 : cross write_data_bins, write_id_bins; // DecodeStage_00
 
     endgroup
+
     covergroup decode_stage_output_covergrp;
         //all alu things are already happening.
     endgroup
@@ -551,7 +639,15 @@ class scoreboard extends uvm_component;
 
     virtual function void write_scoreboard_decode_stage_input(decode_stage_input_seq_item item);
         `uvm_info(get_name(),$sformatf("DECODE_STAGE_INPUT_MONITOR:\n%s",item.sprint()),UVM_HIGH)
-        decode_stage_input_covergrp.sample(); // part of decode stage input covergroup
+        instruction = item.instruction;
+        pc          = item.pc;
+        compflg     = item.compflg;
+        write_en    = item.write_en;
+        write_id    = item.write_id;
+        write_data  = item.write_data;
+        mux_data1   = item.mux_data1;
+        mux_data2   = item.mux_data2;
+        decode_stage_input_covergrp.sample();
 
     endfunction:write_scoreboard_decode_stage_input
 

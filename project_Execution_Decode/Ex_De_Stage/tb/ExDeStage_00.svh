@@ -48,7 +48,7 @@ class ExDeStage_00 extends uvm_test;
     // Start UVM test in running phase.
     //------------------------------------------------------------------------------
 
-    int n = 1; // x for 100% coverage
+    int n = 5; // x for 100% coverage
 
 
     virtual task run_phase(uvm_phase phase);
@@ -57,6 +57,7 @@ class ExDeStage_00 extends uvm_test;
         reset_seq reset;
         decode_stage_input_seq decode_stage_input;
         instruction_type instruction;
+        logic [4:0] write_id;
         super.run_phase(phase);
 
         `uvm_info("ExDeStage_00 Info", "Starting ExDeStage_00 run_phase", UVM_LOW);
@@ -71,42 +72,79 @@ class ExDeStage_00 extends uvm_test;
         reset.length = 1;
         reset.start(m_tb_env.m_reset_agent.m_sequencer);
 
-        //-------------------- put some data into the memory -----------------------
-        decode_stage_input = decode_stage_input_seq::type_id::create("decode_stage_input");
-        decode_stage_input.write_en = 1;
-        decode_stage_input.write_id = 5'd1;
-        decode_stage_input.write_data = 32'h0000_000A; // x1 = 10
-        decode_stage_input.instruction = 0;  // Not used when write_en=1, but set to avoid X
-        decode_stage_input.pc = 0;
-        decode_stage_input.compflg = 0;
-        decode_stage_input.mux_data1 = 0;
-        decode_stage_input.mux_data2 = 0;
-        decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
+        //-------------------- put some data into the memory as one test -----------------------
+        //decode_stage_input = decode_stage_input_seq::type_id::create("decode_stage_input");
+        //decode_stage_input.write_en = 1;
+        //decode_stage_input.write_id = 5'd1;
+        //decode_stage_input.write_data = 32'h0000_000A; // x1 = 10
+        //decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
 
+         repeat (500*n) begin
+            decode_stage_input = decode_stage_input_seq::type_id::create("decode_stage_input");
+
+             if (!(decode_stage_input.randomize() with {
+                write_en == 1;
+             }))
+                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
+            write_id = decode_stage_input.write_id;
+            decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
+            //after putting the data in the register also read it back
+            // this is done so we can check in the scoreboard if the data is correct in the register.
+            decode_stage_input = decode_stage_input_seq::type_id::create("decode_stage_input");
+
+             if (!(decode_stage_input.randomize() with {
+                write_en == 0;
+                instruction.opcode == 7'b0100011; //sw
+                instruction.funct3 inside {3'b000, 3'b001, 3'b010, 3'b011}; //differend S-types
+                instruction.rs2 == write_id;
+             }))
+                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
+
+            decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
+         end
+
+        // do zith all zeros and ones
+         repeat (100*n) begin
+            decode_stage_input = decode_stage_input_seq::type_id::create("decode_stage_input");
+
+             if (!(decode_stage_input.randomize() with {
+                write_data inside {32'h0000_0000, 32'hFFFF_FFFF};
+                write_en == 1;
+             }))
+                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
+
+            write_id = decode_stage_input.write_id;
+            decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
+            //after putting the data in the register also read it back
+            // this is done so we can check in the scoreboard if the data is correct in the register.
+            decode_stage_input = decode_stage_input_seq::type_id::create("decode_stage_input");
+
+             if (!(decode_stage_input.randomize() with {
+                write_en == 0;
+                instruction.opcode == 7'b0100011; //sw
+                instruction.funct3 inside {3'b000, 3'b001, 3'b010, 3'b011}; //differend S-types
+                instruction.rs2 == write_id;
+             }))
+                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
+
+            decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
+         end
 
         //-------------------- save data from register to mem -----------------------
-        decode_stage_input = decode_stage_input_seq::type_id::create("decode_stage_input");
+        //decode_stage_input = decode_stage_input_seq::type_id::create("decode_stage_input");
         
-        decode_stage_input.instruction = '{
-            funct7:  7'b0000001, //1 to add to the immidiate
-            rs2:     5'd1, 
-            rs1:     5'd2, 
-            funct3:  3'b010, //sw
-            rd:      5'd3,
-            opcode:  7'b0100011 
-        };
+        //decode_stage_input.instruction = '{
+        //    funct7:  7'b0000001, //1 to add to the immidiate
+        //    rs2:     5'd1, 
+        //    rs1:     5'd2, 
+        //    funct3:  3'b010, //sw
+        //    rd:      5'd3,
+        //    opcode:  7'b0100011 
+        //};
 
-        decode_stage_input.pc = 32'h0000_0040;
-        decode_stage_input.compflg = 0;
-        decode_stage_input.write_en = 0;  // Not writing to register during instruction
-        decode_stage_input.write_id = 0;
-        decode_stage_input.write_data = 0;
-        decode_stage_input.mux_data1 = 0;
-        decode_stage_input.mux_data2 = 0;
+        //decode_stage_input.pc = 32'h0000_0040;
+        //decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
 
-        decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
-
-        
 
 
         // // -----------------------------ALU Operations -------------------------------------------------
