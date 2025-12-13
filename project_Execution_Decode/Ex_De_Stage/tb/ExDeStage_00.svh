@@ -97,6 +97,7 @@ class ExDeStage_00 extends uvm_test;
                 instruction.opcode == 7'b0100011; //sw
                 instruction.funct3 inside {3'b000, 3'b001, 3'b010, 3'b011}; //differend S-types
                 instruction.rs2 == write_id;
+                compflg == 0;
              }))
                  `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
@@ -124,6 +125,7 @@ class ExDeStage_00 extends uvm_test;
                 instruction.opcode == 7'b0100011; //sw
                 instruction.funct3 inside {3'b000, 3'b001, 3'b010, 3'b011}; //differend S-types
                 instruction.rs2 == write_id;
+                compflg == 0;
              }))
                  `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 

@@ -58,6 +58,7 @@ class scoreboard extends uvm_component;
 
 
     bit first_input = 0;
+    bit first_input_decode = 0;
     bit first_round = 1;
 
     typedef struct {
@@ -74,6 +75,8 @@ class scoreboard extends uvm_component;
 
     ex_expected_t m_expected_q[$];  // FIFO-Queue
 
+
+
     // all signals for the decode stage input and outputs that are not already in use
     //inputs
     instruction_type instruction;  
@@ -85,7 +88,7 @@ class scoreboard extends uvm_component;
     logic [31:0]  mux_data1; 
     logic [31:0]  mux_data2; 
 
-    //outputs 
+    
     logic [5:0]  reg_rd_id;
     logic [4:0]  rs1_id;
     logic [4:0]  rs2_id;
@@ -95,7 +98,43 @@ class scoreboard extends uvm_component;
     logic        squash_after_JALR;
 
 
-    logic [31:0] decode_expected_immediate;
+    //fifo for decode stage
+    typedef struct {    
+        instruction_type instruction_FIFO;
+        logic [31:0]  pc_FIFO;
+        logic         compflg_FIFO;
+        logic         write_en_FIFO;   
+        logic [31:0]  write_id_FIFO;
+        logic [31:0]  write_data_FIFO;
+        logic [31:0]  mux_data1_FIFO; 
+        logic [31:0]  mux_data2_FIFO; 
+
+        //expected outputs
+        //other outputs
+        logic [5:0]  decode_expected_reg_rd_id_FIFO;
+        logic [4:0]  decode_expected_rs1_id_FIFO;
+        logic [4:0]  decode_expected_rs2_id_FIFO;
+        logic        decode_expected_resolve_FIFO;
+        logic        decode_expected_select_target_pc_FIFO;
+        logic        decode_expected_squash_after_J_FIFO;
+        logic        decode_expected_squash_after_JALR_FIFO;
+
+    } de_expected_t;
+
+    de_expected_t m_de_expected_q[$];  // FIFO-Queue
+
+
+    typedef struct {
+        //outputs (inputs to execution stage)
+        int unsigned  decode_expected_data1_FIFO;
+        int unsigned  decode_expected_data2_FIFO;
+        int unsigned  decode_expected_immediate_data_FIFO;
+        control_type  decode_expected_control_in_FIFO;
+        logic         decode_expected_compflg_in_FIFO;
+        logic [31:0]  pc_FIFO; // correlate with execution input PC
+    } de_to_ex_expected_t;
+
+    de_to_ex_expected_t m_de_to_ex_expected_q[$];  // FIFO-Queue
 
 
 
@@ -575,6 +614,12 @@ class scoreboard extends uvm_component;
 
         // 5) In Queue legen
         m_expected_q.push_back(tx);
+
+        //check decode stage outputs
+
+        compare_exp_alu_input_results();
+
+
     endfunction:write_scoreboard_execution_stage_input
 
     virtual function void write_scoreboard_execution_stage_output(execution_stage_output_seq_item item);
@@ -637,7 +682,25 @@ class scoreboard extends uvm_component;
     endfunction :  write_scoreboard_reset
 
     virtual function void write_scoreboard_decode_stage_input(decode_stage_input_seq_item item);
+        // declare locals before any statements to satisfy tool parsing
+        de_expected_t de_tx;
         `uvm_info(get_name(),$sformatf("DECODE_STAGE_INPUT_MONITOR:\n%s",item.sprint()),UVM_HIGH)
+
+        first_input_decode = 1;
+
+        // add items to queue
+        de_tx.instruction_FIFO = item.instruction;
+        de_tx.pc_FIFO          = item.pc;
+        de_tx.compflg_FIFO     = item.compflg;
+        de_tx.write_en_FIFO    = item.write_en;
+        de_tx.write_id_FIFO    = item.write_id;
+        de_tx.write_data_FIFO  = item.write_data;
+        de_tx.mux_data1_FIFO   = item.mux_data1;
+        de_tx.mux_data2_FIFO   = item.mux_data2;
+
+        calculate_expected_decode_results(de_tx); // fills expected fields in de_tx
+
+        //here for the scoreboard we just sample coverage and store inputs for later checking
         instruction = item.instruction;
         pc          = item.pc;
         compflg     = item.compflg;
@@ -646,6 +709,8 @@ class scoreboard extends uvm_component;
         write_data  = item.write_data;
         mux_data1   = item.mux_data1;
         mux_data2   = item.mux_data2;
+
+
         decode_stage_input_covergrp.sample();
 
     endfunction:write_scoreboard_decode_stage_input
@@ -653,87 +718,162 @@ class scoreboard extends uvm_component;
     virtual function void write_scoreboard_decode_stage_output(decode_stage_output_seq_item item);
         `uvm_info(get_name(),$sformatf("DECODE_STAGE_OUTPUT_MONITOR:\n%s",item.sprint()),UVM_HIGH)
 
+        //wait for inputs
+        if (first_input_decode == 0) begin
+            `uvm_info(get_name(), "First input not received yet", UVM_LOW)
+            return;
+        end
+
+        if (m_de_expected_q.size() == 0) begin
+            `uvm_error(get_name(), "Got DUT output but no pending expected transaction");
+            return;
+        end
+
+        reg_rd_id = item.reg_rd_id;
+        rs1_id   = item.rs1_id;
+        rs2_id  = item.rs2_id;
+        resolve = item.resolve;
+        select_target_pc = item.select_target_pc;
+        squash_after_J = item.squash_after_J;
+        squash_after_JALR = item.squash_after_JALR;
+
+        compare_exp_DUT_decode_results();
         
         decode_stage_output_covergrp.sample(); // part of decode stage output covergroup
 
-        // latch decode-stage outputs present on the seq_item
-        reg_rd_id        = item.reg_rd_id;
-        rs1_id           = item.rs1_id;
-        rs2_id           = item.rs2_id;
-        resolve          = item.resolve;
-        select_target_pc = item.select_target_pc;
-        squash_after_J   = item.squash_after_J;
-        squash_after_JALR= item.squash_after_JALR;
-
-        // --- Decode-stage checks (using ALU inputs captured on execution-stage input) ---
-
-        // IDs
-        if (reg_rd_id !== instruction.rd) begin
-            `uvm_error("DECODE_RD_ID_MISMATCH",
-                $sformatf("reg_rd_id mismatch: DECODE=0x%0h, INSTR.rd=0x%0h", reg_rd_id, instruction.rd))
-        end
-        if (rs1_id !== instruction.rs1) begin
-            `uvm_error("DECODE_RS1_ID_MISMATCH",
-                $sformatf("rs1_id mismatch: DECODE=0x%0h, INSTR.rs1=0x%0h", rs1_id, instruction.rs1))
-        end
-        if (rs2_id !== instruction.rs2) begin
-            `uvm_error("DECODE_RS2_ID_MISMATCH",
-                $sformatf("rs2_id mismatch: DECODE=0x%0h, INSTR.rs2=0x%0h", rs2_id, instruction.rs2))
-        end
-
-        // Immediate expected: immidiate_data = funct7 + rd
-        decode_expected_immediate = {27'b0, instruction.funct7} + {27'b0, instruction.rd};
-        // Check that ALU immediate equals expected decode immediate
-        if (immediate_data !== decode_expected_immediate) begin
-            `uvm_error("ALU_IMM_MISMATCH_FROM_DECODE",
-                $sformatf("ALU immediate != expected decode immediate: ALU_in=0x%08h, EXP=0x%08h", immediate_data, decode_expected_immediate))
-        end
-
-        // Control signals expectation for store word (S-TYPE, funct3=010):
-        //  - alu_src = 01
-        //  - encoding = S-TYPE
-        //  - funct3 = 010
-        //  - mem_read = 0
-        //  - mem_write  = 1
-        //  - reg_write = 0
-        //  - mem_to_reg = 0
-        //  - is_branch = 0
-        if (instruction.opcode == 7'b0100011 && instruction.funct3 == 3'b010) begin
-            if (control_in.alu_src !== 2'b01) begin
-                `uvm_error("DECODE_CTRL_ALU_SRC",
-                    $sformatf("alu_src mismatch: CTRL=0b%0b, EXP=0b01", control_in.alu_src))
-            end
-            if (control_in.encoding !== S_TYPE) begin
-                `uvm_error("DECODE_CTRL_ENCODING",
-                    $sformatf("encoding mismatch: CTRL=%0d, EXP=S-TYPE(%0d)", control_in.encoding, S_TYPE))
-            end
-            if (control_in.funct3 !== 3'b010) begin
-                `uvm_error("DECODE_CTRL_FUNCT3",
-                    $sformatf("funct3 mismatch: CTRL=0b%0b, EXP=0b010", control_in.funct3))
-            end
-            if (control_in.mem_read !== 1'b0) begin
-                `uvm_error("DECODE_CTRL_MEM_READ",
-                    $sformatf("mem_read mismatch: CTRL=%0b, EXP=0", control_in.mem_read))
-            end
-            if (control_in.mem_write !== 1'b1) begin
-                `uvm_error("DECODE_CTRL_MEM_WRITE",
-                    $sformatf("mem_write mismatch: CTRL=%0b, EXP=1", control_in.mem_write))
-            end
-            if (control_in.reg_write !== 1'b0) begin
-                `uvm_error("DECODE_CTRL_REG_WRITE",
-                    $sformatf("reg_write mismatch: CTRL=%0b, EXP=0", control_in.reg_write))
-            end
-            if (control_in.mem_to_reg !== 1'b0) begin
-                `uvm_error("DECODE_CTRL_MEM_TO_REG",
-                    $sformatf("mem_to_reg mismatch: CTRL=%0b, EXP=0", control_in.mem_to_reg))
-            end
-            if (control_in.is_branch !== 1'b0) begin
-                `uvm_error("DECODE_CTRL_IS_BRANCH",
-                    $sformatf("is_branch mismatch: CTRL=%0b, EXP=0", control_in.is_branch))
-            end
-        end
-
     endfunction:write_scoreboard_decode_stage_output
+
+    virtual function void calculate_expected_decode_results(de_expected_t de_tx);
+        //create expected outputs for eexecution stage
+        de_to_ex_expected_t de_to_ex_exp;
+        logic [11:0] s_imm;
+        //
+        //outputs (inputs to execution stage)
+        //int unsigned  decode_expected_data1_FIFO;
+        //int unsigned  decode_expected_data2_FIFO;
+        //int unsigned  decode_expected_immediate_data_FIFO;
+        //control_type  decode_expected_control_in_FIFO;
+        //logic         decode_expected_compflg_in_FIFO;
+        //other outputs
+        //de_tx
+        //logic [5:0]  decode_expected_reg_rd_id_FIFO;
+        //logic [4:0]  decode_expected_rs1_id_FIFO;
+        //logic [4:0]  decode_expected_rs2_id_FIFO;
+        //logic        decode_expected_resolve_FIFO;
+        //logic        decode_expected_select_target_pc_FIFO;
+        //logic        decode_expected_squash_after_J_FIFO;
+        //logic        decode_expected_squash_after_JALR_FIFO;
+        // first everything for control signals
+        //first check the opcode with switch case de_tx.instruction_FIFO
+
+        if(de_tx.instruction_FIFO.opcode == 7'b0100011) begin // S-TYPE
+            // print instruction data
+            `uvm_info(get_name(),
+            $sformatf("Calculating expected decode results for S-TYPE instruction: opcode=0x%02h, funct3=0x%01h, funct7=0x%02h, rd=0x%02h, rs1=0x%02h, rs2=0x%02h",
+                        de_tx.instruction_FIFO.opcode,
+                        de_tx.instruction_FIFO.funct3,
+                        de_tx.instruction_FIFO.funct7,
+                        de_tx.instruction_FIFO.rd,
+                        de_tx.instruction_FIFO.rs1,
+                        de_tx.instruction_FIFO.rs2),
+            UVM_MEDIUM)
+
+            de_tx.decode_expected_rs1_id_FIFO    = de_tx.instruction_FIFO.rs1;
+            de_tx.decode_expected_rs2_id_FIFO    = de_tx.instruction_FIFO.rs2;
+            //since we can never be shure what is in the register file these will not be checked.
+            //de_to_ex_exp.decode_expected_data1_FIFO 
+            // Build S-type immediate: {imm[11:5], imm[4:0]} = {funct7, rd[4:0]} and sign-extend to 32 bits
+            s_imm = {de_tx.instruction_FIFO.funct7[6:0], de_tx.instruction_FIFO.rd[4:0]};
+            de_to_ex_exp.decode_expected_immediate_data_FIFO = {{20{s_imm[11]}}, s_imm};
+            de_to_ex_exp.decode_expected_control_in_FIFO.alu_op      = ALU_ADD; // address calculation
+            de_to_ex_exp.decode_expected_control_in_FIFO.alu_src     = 2'b01; // immediate
+            de_to_ex_exp.decode_expected_control_in_FIFO.encoding    = S_TYPE;
+            de_to_ex_exp.decode_expected_control_in_FIFO.funct3     = de_tx.instruction_FIFO.funct3;
+            de_to_ex_exp.decode_expected_control_in_FIFO.mem_read   = 1'b0;
+            de_to_ex_exp.decode_expected_control_in_FIFO.mem_write  = 1'b1;
+            de_to_ex_exp.decode_expected_control_in_FIFO.reg_write  = 1'b0;
+            de_to_ex_exp.decode_expected_control_in_FIFO.mem_to_reg = 1'b0;
+            de_to_ex_exp.decode_expected_control_in_FIFO.is_branch  = 1'b0;
+            // carry PC for pairing with execution input
+            de_to_ex_exp.pc_FIFO = de_tx.pc_FIFO;
+
+        end
+
+        //now push everything in queueu
+        m_de_expected_q.push_back(de_tx);
+        //and push to expected input for decode stage
+        m_de_to_ex_expected_q.push_back(de_to_ex_exp);
+
+    endfunction :  calculate_expected_decode_results
+
+    virtual function void compare_exp_DUT_decode_results();
+        de_expected_t de_tx;
+
+        //get out of queue (in order)
+        de_tx = m_de_expected_q.pop_front();
+
+        // these might have to be checked
+        //program_counter_in = item.pc;
+        //reg_rd_id = item.reg_rd_id;
+        //rs1_id   = item.rs1_id;
+        //rs2_id  = item.rs2_id;
+        //resolve = item.resolve;
+        //select_target_pc = item.select_target_pc;
+        //squash_after_J = item.squash_after_J;
+        //squash_after_JALR = item.squash_after_JALR;
+
+        // Only compare RS IDs for S-type instructions; skip other opcodes
+        if (de_tx.instruction_FIFO.opcode == 7'b0100011) begin
+            if (rs1_id !== de_tx.decode_expected_rs1_id_FIFO) begin
+                `uvm_error("DECODE_RS1_ID_MISMATCH",
+                    $sformatf("RS1 ID mismatch: DUT_RS1_ID=0x%02h, EXP_RS1_ID=0x%02h",
+                                rs1_id, de_tx.decode_expected_rs1_id_FIFO));
+            end
+
+            if (rs2_id !== de_tx.decode_expected_rs2_id_FIFO) begin
+                `uvm_error("DECODE_RS2_ID_MISMATCH",
+                    $sformatf("RS2 ID mismatch: DUT_RS2_ID=0x%02h, EXP_RS2_ID=0x%02h",
+                                rs2_id, de_tx.decode_expected_rs2_id_FIFO));
+            end
+        end
+        else begin
+            `uvm_info("DECODE_COMPARE_SKIPPED",
+                $sformatf("Skipping decode RS compare for non S-type opcode=0x%02h", de_tx.instruction_FIFO.opcode), UVM_LOW)
+        end
+
+
+        //not implemented yet
+    endfunction : compare_exp_DUT_decode_results
+
+    virtual function void compare_exp_alu_input_results();
+        //outputs (inputs to execution stage)
+        //int unsigned  decode_expected_data1_FIFO;
+        //int unsigned  decode_expected_data2_FIFO;
+        //int unsigned  decode_expected_immediate_data_FIFO;
+        //control_type  decode_expected_control_in_FIFO;
+        //logic         decode_expected_compflg_in_FIFO;
+
+        de_to_ex_expected_t de_to_ex_tx;
+        //get out of queue
+        de_to_ex_tx = m_de_to_ex_expected_q.pop_front();
+
+        if (de_to_ex_tx.decode_expected_control_in_FIFO == S_TYPE) begin
+            //compare with expected
+            //data ot compared since we dont know what is in the register file
+            if (de_to_ex_tx.decode_expected_immediate_data_FIFO !== immediate_data) begin
+                `uvm_error("ALU_INPUT_IMM_MISMATCH",
+                    $sformatf("ALU input immediate mismatch: DUT_IMM=0x%08h, EXP_IMM=0x%08h",
+                                immediate_data, de_to_ex_tx.decode_expected_immediate_data_FIFO));
+            end
+            if (de_to_ex_tx.decode_expected_control_in_FIFO !== control_in) begin
+                `uvm_error("ALU_INPUT_CONTROL_MISMATCH",
+                    $sformatf("ALU input control mismatch: DUT_CTRL=0x%08h, EXP_CTRL=0x%08h",
+                                control_in, de_to_ex_tx.decode_expected_control_in_FIFO));
+            end
+        end
+
+        //not implemented yet
+    endfunction : compare_exp_alu_input_results
 
     virtual function void calculate_expected_results();
         expected_overflow = 1'b0;  // default for non-add/sub ops
