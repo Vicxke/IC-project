@@ -375,7 +375,7 @@ class scoreboard extends uvm_component;
     covergroup decode_stage_input_covergrp;
         instruction_opcode : coverpoint instruction.opcode {
             wildcard bins R_TYPE = { 7'b0110011 };
-            wildcard bins I_TYPE = { 7'b0010011 };
+            wildcard bins I_TYPE = { 7'b0010011, 7'b0000011, 7'b1100111 };
             wildcard bins S_TYPE = { 7'b0100011 };
             wildcard bins B_TYPE = { 7'b1100011 };
             wildcard bins U_TYPE = { 7'b0110111, 7'b0010111 };
@@ -535,11 +535,236 @@ class scoreboard extends uvm_component;
         }
         
         cross_DecodeStage_00 : cross write_data_bins, write_id_bins; // DecodeStage_00
+        // Cross only R-type opcode vs funct3; exclude all other opcodes
+        cross_DecodeStage_01 : cross instruction_opcode, instruction_funct3 {
+            ignore_bins not_rtype =
+                binsof(instruction_opcode.I_TYPE) ||
+                binsof(instruction_opcode.S_TYPE) ||
+                binsof(instruction_opcode.B_TYPE) ||
+                binsof(instruction_opcode.U_TYPE) ||
+                binsof(instruction_opcode.J_TYPE);
+            // Explicit bins for R-type only
+            bins RTYPE_ALL = binsof(instruction_opcode.R_TYPE) && binsof(instruction_funct3);
+        }
+        cross_DecodeStage_02 : cross instruction_opcode, instruction_funct3 {
+            ignore_bins not_rtype =
+                binsof(instruction_opcode.R_TYPE) ||
+                binsof(instruction_opcode.S_TYPE) ||
+                binsof(instruction_opcode.B_TYPE) ||
+                binsof(instruction_opcode.U_TYPE) ||
+                binsof(instruction_opcode.J_TYPE);
+            // Explicit bins for R-type only
+            bins ITYPE_ALL = binsof(instruction_opcode.I_TYPE) && binsof(instruction_funct3);
+        }
+        cross_DecodeStage_03 : cross instruction_opcode, instruction_funct7 {
+            ignore_bins not_rtype =
+                binsof(instruction_opcode.R_TYPE) ||
+                binsof(instruction_opcode.I_TYPE) ||
+                binsof(instruction_opcode.B_TYPE) ||
+                binsof(instruction_opcode.S_TYPE) ||
+                binsof(instruction_opcode.J_TYPE);
+            // Explicit bins for R-type only
+            bins UTYPE_funct7 = binsof(instruction_opcode.U_TYPE) && binsof(instruction_funct7);
+        }
 
     endgroup
 
     covergroup decode_stage_output_covergrp;
         //all alu things are already happening.
+        reg_rd_id : coverpoint reg_rd_id {
+            bins rd_0  = { 5'd0 };
+            bins rd_1  = { 5'd1 };
+            bins rd_2  = { 5'd2 };
+            bins rd_3  = { 5'd3 };
+            bins rd_4  = { 5'd4 };
+            bins rd_5  = { 5'd5 };
+            bins rd_6  = { 5'd6 };
+            bins rd_7  = { 5'd7 };
+            bins rd_8  = { 5'd8 };
+            bins rd_9  = { 5'd9 };
+            bins rd_10 = { 5'd10 };
+            bins rd_11 = { 5'd11 };
+            bins rd_12 = { 5'd12 };
+            bins rd_13 = { 5'd13 };
+            bins rd_14 = { 5'd14 };
+            bins rd_15 = { 5'd15 };
+            // Further bins can be added as needed
+        }
+        rs1_id : coverpoint rs1_id {
+            bins rs1_0  = { 5'd0 };
+            bins rs1_1  = { 5'd1 };
+            bins rs1_2  = { 5'd2 };
+            bins rs1_3  = { 5'd3 };
+            bins rs1_4  = { 5'd4 };
+            bins rs1_5  = { 5'd5 };
+            bins rs1_6  = { 5'd6 };
+            bins rs1_7  = { 5'd7 };
+            bins rs1_8  = { 5'd8 };
+            bins rs1_9  = { 5'd9 };
+            bins rs1_10 = { 5'd10 };
+            bins rs1_11 = { 5'd11 };
+            bins rs1_12 = { 5'd12 };
+            bins rs1_13 = { 5'd13 };
+            bins rs1_14 = { 5'd14 };
+            bins rs1_15 = { 5'd15 };
+            // Further bins can be added as needed
+        }
+        rs2_id : coverpoint rs2_id {
+            bins rs2_0  = { 5'd0 };
+            bins rs2_1  = { 5'd1 };
+            bins rs2_2  = { 5'd2 };
+            bins rs2_3  = { 5'd3 };
+            bins rs2_4  = { 5'd4 };
+            bins rs2_5  = { 5'd5 };
+            bins rs2_6  = { 5'd6 };
+            bins rs2_7  = { 5'd7 };
+            bins rs2_8  = { 5'd8 };
+            bins rs2_9  = { 5'd9 };
+            bins rs2_10 = { 5'd10 };
+            bins rs2_11 = { 5'd11 };
+            bins rs2_12 = { 5'd12 };
+            bins rs2_13 = { 5'd13 };
+            bins rs2_14 = { 5'd14 };
+            bins rs2_15 = { 5'd15 };
+            // Further bins can be added as needed
+        }
+        
+        //inputs of the execution stage
+        //not shure if this is the way
+        operand_1 : coverpoint data1 {
+            bins range_very_low   = { [32'h0000_0000 : 32'h1FFF_FFFF] };
+            bins range_low        = { [32'h2000_0000 : 32'h3FFF_FFFF] };
+            bins range_mid_low    = { [32'h4000_0000 : 32'h5FFF_FFFF] };
+            bins range_mid        = { [32'h6000_0000 : 32'h7FFF_FFFF] };
+            bins range_mid_high   = { [32'h8000_0000 : 32'h9FFF_FFFF] };
+            bins range_high       = { [32'hA000_0000 : 32'hBFFF_FFFF] };
+            bins range_very_high  = { [32'hC000_0000 : 32'hDFFF_FFFF] };
+            bins range_max_val    = { [32'hE000_0000 : 32'hFFFF_FFFF] };
+            // Single-value bins to explicitly cover all-zeros and all-ones
+            bins all_zeros  = { 32'h0000_0000 };
+            bins all_ones   = { 32'hFFFF_FFFF };
+        }
+
+        operand_2 : coverpoint data2 {
+            bins range_very_low   = { [32'h0000_0000 : 32'h1FFF_FFFF] };
+            bins range_low        = { [32'h2000_0000 : 32'h3FFF_FFFF] };
+            bins range_mid_low    = { [32'h4000_0000 : 32'h5FFF_FFFF] };
+            bins range_mid        = { [32'h6000_0000 : 32'h7FFF_FFFF] };
+            bins range_mid_high   = { [32'h8000_0000 : 32'h9FFF_FFFF] };
+            bins range_high       = { [32'hA000_0000 : 32'hBFFF_FFFF] };
+            bins range_very_high  = { [32'hC000_0000 : 32'hDFFF_FFFF] };
+            bins range_max_val    = { [32'hE000_0000 : 32'hFFFF_FFFF] };
+            // Single-value bins to explicitly cover all-zeros and all-ones
+            bins all_zeros  = { 32'h0000_0000 };
+            bins all_ones   = { 32'hFFFF_FFFF };
+        }
+        intermediate : coverpoint immediate_data {
+            bins range_very_low   = { [32'h0000_0000 : 32'h1FFF_FFFF] };
+            bins range_low        = { [32'h2000_0000 : 32'h3FFF_FFFF] };
+            bins range_mid_low    = { [32'h4000_0000 : 32'h5FFF_FFFF] };
+            bins range_mid        = { [32'h6000_0000 : 32'h7FFF_FFFF] };
+            bins range_mid_high   = { [32'h8000_0000 : 32'h9FFF_FFFF] };
+            bins range_high       = { [32'hA000_0000 : 32'hBFFF_FFFF] };
+            bins range_very_high  = { [32'hC000_0000 : 32'hDFFF_FFFF] };
+            bins range_max_val    = { [32'hE000_0000 : 32'hFFFF_FFFF] };
+            // Single-value bins to explicitly cover all-zeros and all-ones
+            bins all_zeros  = { 32'h0000_0000 };
+            bins all_ones   = { 32'hFFFF_FFFF };
+        }
+
+         // ----------- control signals --------------
+        control_operations : coverpoint control_in.alu_op {
+            bins ADD =  { ALU_ADD };
+            bins SUB =  { ALU_SUB };
+            bins XOR =  { ALU_XOR };
+            bins OR  =  { ALU_OR };
+            bins AND =  { ALU_AND };
+            bins SLL =  { ALU_SLL };
+            bins SRL =  { ALU_SRL };
+            bins SRA =  { ALU_SRA };
+            bins SLT =  { ALU_SLT };
+            bins SLTU=  { ALU_SLTU };
+        }
+        control_op_type : coverpoint control_in.encoding {
+            bins R_TYPE = { R_TYPE };
+            bins I_TYPE = { I_TYPE };
+            bins S_TYPE = { S_TYPE };
+            bins B_TYPE = { B_TYPE };
+            bins U_TYPE = { U_TYPE };
+            bins J_TYPE = { J_TYPE };
+        }
+        control_in_alu_src : coverpoint control_in.alu_src {
+            bins src_reg   = { 2'b00 };
+            bins src_imm   = { 2'b01 };
+            bins src_pc    = { 2'b10 }; //this will never get hit if you use imm and pc what then?
+            bins src_lui   = { 2'b11 };
+        }
+        control_in_mem_read : coverpoint control_in.mem_read {
+            bins no_read = { 1'b0 };
+            bins read    = { 1'b1 };
+        }
+        control_in_mem_write : coverpoint control_in.mem_write {
+            bins no_write = { 1'b0 };
+            bins write    = { 1'b1 };
+        }
+        control_in_reg_write : coverpoint control_in.reg_write {
+            bins no_write = { 1'b0 };
+            bins write    = { 1'b1 };
+        }
+        control_in_mem_to_reg : coverpoint control_in.mem_to_reg {
+            bins no_mem_to_reg = { 1'b0 };
+            bins mem_to_reg    = { 1'b1 };
+        }
+        control_in_is_branch : coverpoint control_in.is_branch {
+            bins not_branch = { 1'b0 };
+            bins is_branch  = { 1'b1 };
+        }
+        control_in_funct3 : coverpoint control_in.funct3 {
+            bins funct3_0 = { 3'b000 };
+            bins funct3_1 = { 3'b001 };
+            bins funct3_2 = { 3'b010 };
+            bins funct3_3 = { 3'b011 };
+            bins funct3_4 = { 3'b100 };
+            bins funct3_5 = { 3'b101 };
+            bins funct3_6 = { 3'b110 };
+            bins funct3_7 = { 3'b111 };
+        }
+        // ---- end control signals --------------
+
+        // ---- flags ----
+        compression_flag : coverpoint compflg_in {
+            bins flag_cleared = { 1'b0 };
+            bins flag_set     = { 1'b1 };
+        }
+        program_counter_in : coverpoint program_counter_in {
+            bins range_very_low   = { [32'h0000_0000 : 32'h1FFF_FFFF] };
+            bins range_low        = { [32'h2000_0000 : 32'h3FFF_FFFF] };
+            bins range_mid_low    = { [32'h4000_0000 : 32'h5FFF_FFFF] };
+            bins range_mid        = { [32'h6000_0000 : 32'h7FFF_FFFF] };
+            bins range_mid_high   = { [32'h8000_0000 : 32'h9FFF_FFFF] };
+            bins range_high       = { [32'hA000_0000 : 32'hBFFF_FFFF] };
+            bins range_very_high  = { [32'hC000_0000 : 32'hDFFF_FFFF] };
+            bins range_max_val    = { [32'hE000_0000 : 32'hFFFF_FFFF] };
+        }
+
+        //until here
+        resolve : coverpoint resolve {
+            bins no_resolve = { 1'b0 };
+            bins resolve    = { 1'b1 };
+        }
+        select_target_pc : coverpoint select_target_pc {
+            bins no_select = { 1'b0 };
+            bins select    = { 1'b1 };
+        }
+        squash_after_J : coverpoint squash_after_J {
+            bins no_squash = { 1'b0 };
+            bins squash    = { 1'b1 };
+        }
+        squash_after_JALR : coverpoint squash_after_JALR {
+            bins no_squash = { 1'b0 };
+            bins squash    = { 1'b1 };
+        }
+
     endgroup
 
     //------------------------------------------------------------------------------

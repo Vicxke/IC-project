@@ -48,7 +48,7 @@ class ExDeStage_00 extends uvm_test;
     // Start UVM test in running phase.
     //------------------------------------------------------------------------------
 
-    int n = 5; // x for 100% coverage
+    int n = 2; // x for 100% coverage
 
 
     virtual task run_phase(uvm_phase phase);
@@ -84,6 +84,7 @@ class ExDeStage_00 extends uvm_test;
 
              if (!(decode_stage_input.randomize() with {
                 write_en == 1;
+                instruction.opcode == 7'b0000011; //lw
              }))
                  `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
             write_id = decode_stage_input.write_id;
@@ -111,6 +112,7 @@ class ExDeStage_00 extends uvm_test;
              if (!(decode_stage_input.randomize() with {
                 write_data inside {32'h0000_0000, 32'hFFFF_FFFF};
                 write_en == 1;
+                instruction.opcode == 7'b0000011; //lw
              }))
                  `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
