@@ -80,7 +80,7 @@ class ExDeStage_00 extends uvm_test;
         //decode_stage_input.write_data = 32'h0000_000A; // x1 = 10
         //decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
 
-         repeat (3*n) begin
+         repeat (8*n) begin
             decode_stage_input = decode_stage_input_seq::type_id::create("decode_stage_input");
 
              if (!(decode_stage_input.randomize() with {

@@ -48,12 +48,12 @@ class execution_stage_input_monitor extends uvm_monitor;
         // this will just update the view and nothing else very simple
         
         // If any relevant signals are unknown, wait until they become stable
-        do begin
-            @(posedge m_config.m_vif.clk);
-        end while ( $isunknown(m_config.m_vif.control_in) ||
-                    $isunknown(m_config.m_vif.data1) ||
-                    $isunknown(m_config.m_vif.data2) ||
-                    $isunknown(m_config.m_vif.program_counter_in) );
+        // do begin
+        //     @(posedge m_config.m_vif.clk);
+        // end while ( $isunknown(m_config.m_vif.control_in) ||
+        //             $isunknown(m_config.m_vif.data1) ||
+        //             $isunknown(m_config.m_vif.data2) ||
+        //             $isunknown(m_config.m_vif.program_counter_in) );
         
         
         forever begin
@@ -70,8 +70,6 @@ class execution_stage_input_monitor extends uvm_monitor;
             cur_cmp     = m_config.m_vif.compflg_in;
             cur_pc      = m_config.m_vif.program_counter_in;
             `uvm_info(get_name(), $sformatf("Memory data into execution stage=0x%0h",cur_data2), UVM_LOW);
-
-
 
             seq_item = execution_stage_input_seq_item::type_id::create("monitor_item");
 

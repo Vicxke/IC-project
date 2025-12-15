@@ -15,7 +15,7 @@
 class execution_stage_input_config extends uvm_object;
 
     // The Sequencer and driver are activated
-    bit is_active = 0;
+    bit is_active = 1;
     // The monitor is active. 
     bit has_monitor = 1;
     // execution_stage uVC virtual EXECUTION_STAGE_IF interface.

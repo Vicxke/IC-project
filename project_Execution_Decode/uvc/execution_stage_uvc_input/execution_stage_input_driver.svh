@@ -68,11 +68,6 @@ class execution_stage_input_driver extends uvm_driver#(execution_stage_input_seq
             // `uvm_info(get_name(), $sformatf("Driver inputs: data1=0x%0h, data2=0x%0h, immediate_data=0x%0h",
             //             req.data1, req.data2, req.immediate_data), UVM_MEDIUM)
 
-            // Let DUT sample on next rising edge
-            @(posedge m_config.m_vif.clk);
-
-            // Optionally wait a cycle to let outputs propagate
-            @(posedge m_config.m_vif.clk);
 
             // Return the item (no response payload currently)
             seq_item_port.put(req);

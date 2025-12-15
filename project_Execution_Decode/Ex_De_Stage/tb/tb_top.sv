@@ -18,6 +18,7 @@ module tb_top;
     // Include basic packages
     import uvm_pkg::*;
     `include "uvm_macros.svh"
+    import common::*;
 
     // Include optional packages
     import tb_pkg::*;
@@ -44,6 +45,64 @@ module tb_top;
 
     decode_stage_output_if i_decode_output_if(.clk(tb_clock), .rst_n(tb_reset_n));
 
+
+    // ------------------------------------------------------------
+    // Declare signals that go from decode -> execute
+    // (types must match your RTL ports!)
+    // ------------------------------------------------------------
+    logic [31:0] data1_decode_to_execute;
+    logic [31:0] data2_decode_to_execute;
+    logic [31:0] immediate_data_decode_to_execute;
+    logic [31:0] program_counter_in_decode_to_execute;
+    logic        compflg_in_decode_to_execute;
+    control_type control_in_decode_to_execute; // from common::*
+
+    
+    // Instantiate decode_stage interface and connect to the DUT
+    decode_stage dut_decode_stage (
+        //inputs
+        .clk(tb_clock),
+        .reset_n(tb_reset_n),
+        .instruction(i_decode_input_if.instruction),
+        .pc(i_decode_input_if.pc),
+        .compflg(i_decode_input_if.compflg),
+        .write_en(i_decode_input_if.write_en),
+        .write_id(i_decode_input_if.write_id),
+        .write_data(i_decode_input_if.write_data),
+        .mux_data1(i_decode_input_if.mux_data1),
+        .mux_data2(i_decode_input_if.mux_data2),
+        //outputs decode (no execution stage input)
+        .reg_rd_id(i_decode_output_if.reg_rd_id),
+
+
+        .select_target_pc(i_decode_output_if.select_target_pc),    //J-type is also taken into account
+        .resolve(i_decode_output_if.resolve),                      //only high for B-type
+        .squash_after_J(i_decode_output_if.squash_after_J), //sqaush from ID following a sequeatially fetched Jump
+        .squash_after_JALR(i_decode_output_if.squash_after_JALR),
+        .rs1_id(i_decode_output_if.rs1_id),
+        .rs2_id(i_decode_output_if.rs2_id),
+
+        // outputs decode inputs to execution stage
+        .read_data1(data1_decode_to_execute),
+        .read_data2(data2_decode_to_execute),
+        .immediate_data(immediate_data_decode_to_execute),
+        .control_signals(control_in_decode_to_execute),
+        .calculated_target_pc(program_counter_in_decode_to_execute),
+        .compflg_out(compflg_in_decode_to_execute)
+    );
+
+    
+    // --------------------------------------------------------------------------
+    // Wire DECODE outputs into the EXECUTE inputs (THIS is the critical part)
+    // --------------------------------------------------------------------------
+    assign i_execute_input_if.data1           = data1_decode_to_execute;
+    assign i_execute_input_if.data2           = data2_decode_to_execute;
+    assign i_execute_input_if.immediate_data  = immediate_data_decode_to_execute;
+    assign i_execute_input_if.control_in      = control_in_decode_to_execute;
+    assign i_execute_input_if.compflg_in      = compflg_in_decode_to_execute;
+    assign i_execute_input_if.program_counter_in = program_counter_in_decode_to_execute;
+
+
     // Instantiation of the execute_stage RTL DUT
     execute_stage dut_execute_stage (
         //inputs
@@ -61,35 +120,6 @@ module tb_top;
         .memory_data(i_execute_output_if.memory_data),
         .overflow_flag(i_execute_output_if.overflow_flag),
         .compflg_out(i_execute_output_if.compflg_out)
-    );
-
-    // Instantiate decode_stage interface and connect to the DUT
-    decode_stage dut_decode_stage (
-        //inputs
-        .clk(tb_clock),
-        .reset_n(tb_reset_n),
-        .instruction(i_decode_input_if.instruction),
-        .pc(i_decode_input_if.pc),
-        .compflg(i_decode_input_if.compflg),
-        .write_en(i_decode_input_if.write_en),
-        .write_id(i_decode_input_if.write_id),
-        .write_data(i_decode_input_if.write_data),
-        .mux_data1(i_decode_input_if.mux_data1),
-        .mux_data2(i_decode_input_if.mux_data2),
-        //outputs
-        .reg_rd_id(i_decode_output_if.reg_rd_id),
-        .read_data1(i_execute_input_if.data1), //connect directly to the execution stage
-        .read_data2(i_execute_input_if.data2),
-        .immediate_data(i_execute_input_if.immediate_data),
-        .control_signals(i_execute_input_if.control_in),
-        .select_target_pc(i_decode_output_if.select_target_pc),    //J-type is also taken into account
-        .resolve(i_decode_output_if.resolve),                      //only high for B-type
-        .calculated_target_pc(i_execute_input_if.program_counter_in),
-        .squash_after_J(i_decode_output_if.squash_after_J), //sqaush from ID following a sequeatially fetched Jump
-        .squash_after_JALR(i_decode_output_if.squash_after_JALR),
-        .compflg_out(i_execute_input_if.compflg_in),
-        .rs1_id(i_decode_output_if.rs1_id),
-        .rs2_id(i_decode_output_if.rs2_id)
     );
 
     // --------------------- connection missing for decode stage DUT if applicable ---------------------
