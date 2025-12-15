@@ -16,5 +16,7 @@ interface decode_stage_input_if (input logic clk, input logic rst_n);
     logic [31:0] mux_data1;
     logic [31:0] mux_data2;
 
+    logic instr_valid;
+
 
 endinterface : decode_stage_input_if

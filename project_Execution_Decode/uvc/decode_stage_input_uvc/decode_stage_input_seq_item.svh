@@ -12,6 +12,8 @@ class decode_stage_input_seq_item extends uvm_sequence_item;
     randc logic [31:0] mux_data1;
     randc logic [31:0] mux_data2;
 
+    rand bit instr_valid;
+
     // monitor helper flag
     bit monitor_data_valid;
 

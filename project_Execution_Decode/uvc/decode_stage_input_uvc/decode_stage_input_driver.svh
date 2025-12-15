@@ -66,6 +66,7 @@ class decode_stage_input_driver extends uvm_driver#(decode_stage_input_seq_item)
             m_config.m_vif.write_data = req.write_data;
             m_config.m_vif.mux_data1  = req.mux_data1;
             m_config.m_vif.mux_data2  = req.mux_data2;
+            m_config.m_vif.instr_valid = req.instr_valid;
 
             // `uvm_info(get_name(), $sformatf("Send seq item to decode stage: Write data=0x%0h", req.write_data), UVM_LOW);
             // Return the item (no response payload currently)

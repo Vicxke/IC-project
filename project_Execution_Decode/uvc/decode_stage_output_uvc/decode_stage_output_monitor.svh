@@ -51,15 +51,6 @@ class decode_stage_output_monitor extends uvm_monitor;
         @(negedge m_config.m_vif.clk);
         // this will just update the view and nothing else very simple
         
-        // // If any relevant signals are unknown, wait until they become stable
-        // do begin
-        //     @(posedge m_config.m_vif.clk);
-        // end while ( $isunknown(m_config.m_vif.control_in) ||
-        //         $isunknown(m_config.m_vif.data1) ||
-        //         $isunknown(m_config.m_vif.data2) ||
-        //         $isunknown(m_config.m_vif.program_counter) );
-        
-        
         forever begin
             // // local operand selection (declaration must precede statements in this block)
             // logic [31:0] op1, op2;

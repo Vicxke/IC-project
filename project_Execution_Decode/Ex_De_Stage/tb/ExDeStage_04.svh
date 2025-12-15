@@ -81,6 +81,7 @@ class ExDeStage_04 extends uvm_test;
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
             write_id_store1 = decode_stage_input.write_id;
+            decode_stage_input.instr_valid = 1;
             decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
 
             @(posedge m_tb_env.m_clock_agent.m_config.m_vif.clock);
@@ -93,9 +94,11 @@ class ExDeStage_04 extends uvm_test;
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
             write_id_store2 = decode_stage_input.write_id;
+            decode_stage_input.instr_valid = 1;
             decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
 
             @(posedge m_tb_env.m_clock_agent.m_config.m_vif.clock);
+            decode_stage_input.instr_valid = 0;
             // now do ADD x2, x1, x2  => x2 = x1 + x2 = 21
             decode_stage_input = decode_stage_input_seq::type_id::create("decode_stage_input");
             decode_stage_input.write_en   = 0;
@@ -107,6 +110,7 @@ class ExDeStage_04 extends uvm_test;
             rd:     5'd2,         // x2
             opcode: 7'b0110011 
             };
+            decode_stage_input.instr_valid = 1;
             decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
 
             @(posedge m_tb_env.m_clock_agent.m_config.m_vif.clock);

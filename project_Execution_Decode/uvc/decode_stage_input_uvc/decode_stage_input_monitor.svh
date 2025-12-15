@@ -39,6 +39,9 @@ class decode_stage_input_monitor extends uvm_monitor;
         logic [31:0] cur_mux_data1;
         logic [31:0] cur_mux_data2;
 
+        bit instr_valid;
+
+
 
         `uvm_info(get_name(), $sformatf("Starting decode_stage monitoring"), UVM_HIGH)
 
@@ -67,40 +70,42 @@ class decode_stage_input_monitor extends uvm_monitor;
 
             // // Sample on clock edge
             @(posedge m_config.m_vif.clk);
-
-
-            // Read current values (assign to temporaries declared above)
-            cur_instruction = m_config.m_vif.instruction;
-            cur_pc       = m_config.m_vif.pc;
-            cur_compflg    = m_config.m_vif.compflg;
-            cur_write_en    = m_config.m_vif.write_en;
-            cur_write_id    = m_config.m_vif.write_id;
-            cur_write_data    = m_config.m_vif.write_data;
-            cur_mux_data1    = m_config.m_vif.mux_data1;
-            cur_mux_data2    = m_config.m_vif.mux_data2;
-
-            // // alu_src: when 2'b01 the intermediate value is the RIGHT operand (op2)
-            // op1 = cur_data1;
-            // op2 = (cur_control_in.alu_src == 2'b01) ? cur_imm : cur_data2;
-            // shamt = op2[4:0];
-
-            seq_item = decode_stage_input_seq_item::type_id::create("monitor_item");
-
+            `uvm_info(get_name(), $sformatf("instr_valid=%0b", m_config.m_vif.instr_valid), UVM_LOW);
+            if (m_config.m_vif.instr_valid) begin
             
-            seq_item.instruction = cur_instruction;
-            seq_item.pc          = cur_pc;
-            seq_item.compflg     = cur_compflg;
-            seq_item.write_en    = cur_write_en;
-            seq_item.write_id    = cur_write_id;
-            seq_item.write_data  = cur_write_data;
-            seq_item.mux_data1   = cur_mux_data1;
-            seq_item.mux_data2   = cur_mux_data2;
-            
-            seq_item.monitor_data_valid = 1;
-            // `uvm_info(get_name(), $sformatf("decode input uvc: Write data=0x%0h",seq_item.write_data), UVM_LOW);
-            // --- Optionally publish to analysis port for scoreboard ---
-            m_analysis_port.write(seq_item);
+                // Read current values (assign to temporaries declared above)
+                cur_instruction = m_config.m_vif.instruction;
+                cur_pc       = m_config.m_vif.pc;
+                cur_compflg    = m_config.m_vif.compflg;
+                cur_write_en    = m_config.m_vif.write_en;
+                cur_write_id    = m_config.m_vif.write_id;
+                cur_write_data    = m_config.m_vif.write_data;
+                cur_mux_data1    = m_config.m_vif.mux_data1;
+                cur_mux_data2    = m_config.m_vif.mux_data2;
 
+                // // alu_src: when 2'b01 the intermediate value is the RIGHT operand (op2)
+                // op1 = cur_data1;
+                // op2 = (cur_control_in.alu_src == 2'b01) ? cur_imm : cur_data2;
+                // shamt = op2[4:0];
+
+                seq_item = decode_stage_input_seq_item::type_id::create("monitor_item");
+
+                
+                seq_item.instruction = cur_instruction;
+                seq_item.pc          = cur_pc;
+                seq_item.compflg     = cur_compflg;
+                seq_item.write_en    = cur_write_en;
+                seq_item.write_id    = cur_write_id;
+                seq_item.write_data  = cur_write_data;
+                seq_item.mux_data1   = cur_mux_data1;
+                seq_item.mux_data2   = cur_mux_data2;
+                
+                seq_item.monitor_data_valid = 1;
+                // `uvm_info(get_name(), $sformatf("decode input scoreboard: Write data=0x%0h",seq_item.write_data), UVM_LOW);
+                // --- Optionally publish to analysis port for scoreboard ---
+                m_analysis_port.write(seq_item);
+                m_config.m_vif.instr_valid = 0;
+            end
 
             
         end
