@@ -59,7 +59,6 @@ class scoreboard extends uvm_component;
 
     bit first_input = 0;
     bit first_input_decode = 0;
-    bit first_round = 1;
 
     typedef struct {
         int unsigned  data1_FIFO;
@@ -566,7 +565,6 @@ class scoreboard extends uvm_component;
             // Explicit bins for R-type only
             bins UTYPE_funct7 = binsof(instruction_opcode.U_TYPE) && binsof(instruction_funct7);
         }
-
     endgroup
 
     covergroup decode_stage_output_covergrp;
@@ -764,7 +762,6 @@ class scoreboard extends uvm_component;
             bins no_squash = { 1'b0 };
             bins squash    = { 1'b1 };
         }
-
     endgroup
 
     //------------------------------------------------------------------------------
@@ -824,7 +821,7 @@ class scoreboard extends uvm_component;
         program_counter_in = tx.program_counter_in_FIFO;
 
         `uvm_info(get_name(),
-        $sformatf("Input DUT: data1=%0h, data2=%0h, immediate_data=%0h, operation=%s",
+        $sformatf("Input execution stage: data1=%0h, data2=%0h, immediate_data=%0h, operation=%s",
                     data1, data2, immediate_data, control_in.alu_op.name()),
         UVM_MEDIUM)
 
@@ -843,7 +840,6 @@ class scoreboard extends uvm_component;
         //check decode stage outputs
 
         compare_exp_alu_input_results();
-
 
     endfunction:write_scoreboard_execution_stage_input
 
@@ -883,9 +879,9 @@ class scoreboard extends uvm_component;
         zero_flag       = item.zero_flag;
         compflg_out     = item.compflg_out;
 
-        `uvm_info(get_name(),
-        $sformatf("Result from DUT: res=%0h ovf=%0h", alu_result, overflow_flag),
-        UVM_MEDIUM)
+        // `uvm_info(get_name(),
+        // $sformatf("Result from DUT: res=%0h ovf=%0h", alu_result, overflow_flag),
+        // UVM_MEDIUM)
 
         execution_stage_output_covergrp.sample();
 
@@ -909,7 +905,7 @@ class scoreboard extends uvm_component;
     virtual function void write_scoreboard_decode_stage_input(decode_stage_input_seq_item item);
         // declare locals before any statements to satisfy tool parsing
         de_expected_t de_tx;
-        `uvm_info(get_name(),$sformatf("DECODE_STAGE_INPUT_MONITOR:\n%s",item.sprint()),UVM_HIGH)
+        // `uvm_info(get_name(),$sformatf("DECODE_STAGE_INPUT_MONITOR:\n%s",item.sprint()),UVM_HIGH)
 
         first_input_decode = 1;
 
@@ -937,11 +933,12 @@ class scoreboard extends uvm_component;
 
 
         decode_stage_input_covergrp.sample();
+        `uvm_info(get_name(), $sformatf("Scoreboard received decode stage input: Write data=0x%0h", item.write_data), UVM_LOW);
 
     endfunction:write_scoreboard_decode_stage_input
 
     virtual function void write_scoreboard_decode_stage_output(decode_stage_output_seq_item item);
-        `uvm_info(get_name(),$sformatf("DECODE_STAGE_OUTPUT_MONITOR:\n%s",item.sprint()),UVM_HIGH)
+        // `uvm_info(get_name(),$sformatf("DECODE_STAGE_OUTPUT_MONITOR:\n%s",item.sprint()),UVM_HIGH)
 
         //wait for inputs
         if (first_input_decode == 0) begin
@@ -968,6 +965,9 @@ class scoreboard extends uvm_component;
 
     endfunction:write_scoreboard_decode_stage_output
 
+
+    // ----------- end write functions ------------
+
     virtual function void calculate_expected_decode_results(de_expected_t de_tx);
         //create expected outputs for eexecution stage
         de_to_ex_expected_t de_to_ex_exp;
@@ -993,15 +993,15 @@ class scoreboard extends uvm_component;
 
         if(de_tx.instruction_FIFO.opcode == 7'b0100011) begin // S-TYPE
             // print instruction data
-            `uvm_info(get_name(),
-            $sformatf("Calculating expected decode results for S-TYPE instruction: opcode=0x%02h, funct3=0x%01h, funct7=0x%02h, rd=0x%02h, rs1=0x%02h, rs2=0x%02h",
-                        de_tx.instruction_FIFO.opcode,
-                        de_tx.instruction_FIFO.funct3,
-                        de_tx.instruction_FIFO.funct7,
-                        de_tx.instruction_FIFO.rd,
-                        de_tx.instruction_FIFO.rs1,
-                        de_tx.instruction_FIFO.rs2),
-            UVM_MEDIUM)
+            // `uvm_info(get_name(),
+            // $sformatf("Calculating expected decode results for S-TYPE instruction: opcode=0x%02h, funct3=0x%01h, funct7=0x%02h, rd=0x%02h, rs1=0x%02h, rs2=0x%02h",
+            //             de_tx.instruction_FIFO.opcode,
+            //             de_tx.instruction_FIFO.funct3,
+            //             de_tx.instruction_FIFO.funct7,
+            //             de_tx.instruction_FIFO.rd,
+            //             de_tx.instruction_FIFO.rs1,
+            //             de_tx.instruction_FIFO.rs2),
+            // UVM_MEDIUM)
 
             de_tx.decode_expected_rs1_id_FIFO    = de_tx.instruction_FIFO.rs1;
             de_tx.decode_expected_rs2_id_FIFO    = de_tx.instruction_FIFO.rs2;
@@ -1176,10 +1176,9 @@ class scoreboard extends uvm_component;
 
         end
         endcase
-        `uvm_info(get_name(), $sformatf("Expected result calculated: exp_res=0x%08h, exp_ovf=%0b", expected_result, expected_overflow), UVM_MEDIUM)
+        // `uvm_info(get_name(), $sformatf("Expected result calculated: exp_res=0x%08h, exp_ovf=%0b", expected_result, expected_overflow), UVM_MEDIUM)
 
     endfunction :  calculate_expected_results
-
 
     virtual function void compare_exp_DUT_results();
         // --- Compare DUT result with expected result (all ops) ---

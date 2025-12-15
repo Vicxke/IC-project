@@ -97,7 +97,7 @@ class decode_stage_input_monitor extends uvm_monitor;
             seq_item.mux_data2   = cur_mux_data2;
             
             seq_item.monitor_data_valid = 1;
-            
+            // `uvm_info(get_name(), $sformatf("decode input uvc: Write data=0x%0h",seq_item.write_data), UVM_LOW);
             // --- Optionally publish to analysis port for scoreboard ---
             m_analysis_port.write(seq_item);
 

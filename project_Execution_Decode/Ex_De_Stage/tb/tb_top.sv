@@ -113,10 +113,10 @@ module tb_top;
 
     // Start UVM test_base environment
     initial begin // only one run valid
-        //run_test("ExDeStage_00"); 
+        run_test("ExDeStage_00"); 
         //run_test("ExDeStage_01"); 
         //run_test("ExDeStage_02"); 
-        run_test("ExDeStage_03"); 
+        // run_test("ExDeStage_03"); 
     end
 
 endmodule

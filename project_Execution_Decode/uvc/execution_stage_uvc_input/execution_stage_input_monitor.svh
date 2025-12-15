@@ -63,12 +63,13 @@ class execution_stage_input_monitor extends uvm_monitor;
 
 
             // Read current values (assign to temporaries declared above)
-            cur_data1   = m_config.m_vif.data1;
-            cur_data2   = m_config.m_vif.data2;
+            cur_data1       = m_config.m_vif.data1;
+            cur_data2       = m_config.m_vif.data2;
             cur_imm     = m_config.m_vif.immediate_data;
             cur_control_in    = m_config.m_vif.control_in;
             cur_cmp     = m_config.m_vif.compflg_in;
             cur_pc      = m_config.m_vif.program_counter_in;
+            `uvm_info(get_name(), $sformatf("Memory data into execution stage=0x%0h",cur_data2), UVM_LOW);
 
 
 
@@ -81,8 +82,7 @@ class execution_stage_input_monitor extends uvm_monitor;
             seq_item.control_in       = cur_control_in;
             seq_item.compflg_in       = cur_cmp;
             seq_item.program_counter_in  = cur_pc;
-            @(posedge m_config.m_vif.clk);
-
+            `uvm_info(get_name(), $sformatf("Memory data between to scoreboard=0x%0h",seq_item.data2), UVM_LOW);
 
             // --- Optionally publish to analysis port for scoreboard ---
             m_analysis_port.write(seq_item);

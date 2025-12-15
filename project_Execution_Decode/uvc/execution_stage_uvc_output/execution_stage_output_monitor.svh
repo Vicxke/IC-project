@@ -51,7 +51,11 @@ class execution_stage_output_monitor extends uvm_monitor;
             // seq_item.zero_flag     = m_config.m_vif.zero_flag;
             seq_item.control_out   = m_config.m_vif.control_out;
             seq_item.compflg_out   = m_config.m_vif.compflg_out;
+
+            `uvm_info(get_name(), $sformatf("Memory data after execution stage=0x%0h",seq_item.memory_data), UVM_LOW);
             @(posedge m_config.m_vif.clk);
+
+            `uvm_info(get_name(), $sformatf("Memory data after execution stage to scoreboard=0x%0h",seq_item.memory_data), UVM_LOW);
 
             m_analysis_port.write(seq_item);
         end

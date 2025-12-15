@@ -67,13 +67,7 @@ class decode_stage_input_driver extends uvm_driver#(decode_stage_input_seq_item)
             m_config.m_vif.mux_data1  = req.mux_data1;
             m_config.m_vif.mux_data2  = req.mux_data2;
 
-
-            // Let DUT sample on next rising edge
-            @(posedge m_config.m_vif.clk);
-
-            // Optionally wait a cycle to let outputs propagate
-            @(posedge m_config.m_vif.clk);
-
+            // `uvm_info(get_name(), $sformatf("Send seq item to decode stage: Write data=0x%0h", req.write_data), UVM_LOW);
             // Return the item (no response payload currently)
             seq_item_port.put(req);
         end
