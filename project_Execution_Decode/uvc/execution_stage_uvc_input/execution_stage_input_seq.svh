@@ -20,6 +20,7 @@ class execution_stage_input_seq extends uvm_sequence#(execution_stage_input_seq_
     rand control_type control_in;
     rand bit compflg_in;
     rand int unsigned program_counter_in;
+    rand bit instr_valid_ex_in;
 
     function new(string name = "execution_stage_input_seq");
         super.new(name);
@@ -37,6 +38,7 @@ class execution_stage_input_seq extends uvm_sequence#(execution_stage_input_seq_
         req.control_in    = control_in;
         req.compflg_in    = compflg_in;
         req.program_counter_in = program_counter_in;
+        req.instr_valid_ex_in = instr_valid_ex_in;
 
         // Start/finish item pattern
         start_item(req);

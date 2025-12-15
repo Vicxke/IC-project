@@ -10,6 +10,7 @@ class execution_stage_input_seq_item extends uvm_sequence_item;
     randc control_type control_in;
     rand bit compflg_in;
     rand logic [31:0] program_counter_in;
+    rand bit instr_valid_ex_in;
 
 
     // Fields for printing/packing

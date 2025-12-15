@@ -13,6 +13,7 @@ interface execution_stage_input_if (input logic clk, input logic rst_n);
     control_type control_in;
     logic compflg_in;
     logic [31:0] program_counter_in;
+    bit instr_valid_ex_in;
 
 
 endinterface : execution_stage_input_if

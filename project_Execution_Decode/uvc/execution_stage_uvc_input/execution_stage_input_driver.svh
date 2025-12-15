@@ -64,6 +64,7 @@ class execution_stage_input_driver extends uvm_driver#(execution_stage_input_seq
             m_config.m_vif.control_in = req.control_in;
             m_config.m_vif.compflg_in = req.compflg_in;
             m_config.m_vif.program_counter_in = req.program_counter_in;
+            m_config.m_vif.instr_valid_ex_in = req.instr_valid_ex_in;
 
 
 

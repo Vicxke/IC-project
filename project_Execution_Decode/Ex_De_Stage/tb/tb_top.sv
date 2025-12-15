@@ -56,6 +56,7 @@ module tb_top;
     logic [31:0] program_counter_in_decode_to_execute;
     logic        compflg_in_decode_to_execute;
     control_type control_in_decode_to_execute; // from common::*
+    bit          instr_valid_ex_in_decode_to_execute;
 
     
     // Instantiate decode_stage interface and connect to the DUT
@@ -101,6 +102,7 @@ module tb_top;
     assign i_execute_input_if.control_in      = control_in_decode_to_execute;
     assign i_execute_input_if.compflg_in      = compflg_in_decode_to_execute;
     assign i_execute_input_if.program_counter_in = program_counter_in_decode_to_execute;
+    assign i_execute_input_if.instr_valid_ex_in = i_decode_input_if.instr_valid_ex_in;
 
 
     // Instantiation of the execute_stage RTL DUT
@@ -200,6 +202,15 @@ module tb_top;
                 i_execute_output_if.memory_data,
                 i_execute_output_if.overflow_flag,
                 i_execute_output_if.compflg_out);       
+    end
+
+    always @(
+        i_execute_input_if.instr_valid_ex_in
+    ) begin
+        $display("[%0t] EX-INSTR_VALID:"
+                , $time,
+                " instr_valid_ex_in=%0b",
+                i_execute_input_if.instr_valid_ex_in);       
     end
 
 

@@ -60,30 +60,31 @@ class execution_stage_input_monitor extends uvm_monitor;
 
             // Sample on negedge to ensure all combinatorial logic has settled
             @(negedge m_config.m_vif.clk);
+            `uvm_info(get_name(), $sformatf("instr_valid_ex_in=%0b", m_config.m_vif.instr_valid_ex_in), UVM_LOW);
+            if (m_config.m_vif.instr_valid_ex_in) begin
+                // Read current values (assign to temporaries declared above)
+                cur_data1       = m_config.m_vif.data1;
+                cur_data2       = m_config.m_vif.data2;
+                cur_imm     = m_config.m_vif.immediate_data;
+                cur_control_in    = m_config.m_vif.control_in;
+                cur_cmp     = m_config.m_vif.compflg_in;
+                cur_pc      = m_config.m_vif.program_counter_in;
 
-            // Read current values (assign to temporaries declared above)
-            cur_data1       = m_config.m_vif.data1;
-            cur_data2       = m_config.m_vif.data2;
-            cur_imm     = m_config.m_vif.immediate_data;
-            cur_control_in    = m_config.m_vif.control_in;
-            cur_cmp     = m_config.m_vif.compflg_in;
-            cur_pc      = m_config.m_vif.program_counter_in;
-            `uvm_info(get_name(), $sformatf("Memory data into execution stage=0x%0h",cur_data2), UVM_LOW);
+                seq_item = execution_stage_input_seq_item::type_id::create("monitor_item");
 
-            seq_item = execution_stage_input_seq_item::type_id::create("monitor_item");
+                // Fill sequence item fields (assumes these fields exist on execution_stage_input_seq_item)
+                seq_item.data1            = cur_data1;
+                seq_item.data2            = cur_data2;
+                seq_item.immediate_data   = cur_imm;
+                seq_item.control_in       = cur_control_in;
+                seq_item.compflg_in       = cur_cmp;
+                seq_item.program_counter_in  = cur_pc;
+                `uvm_info(get_name(), $sformatf("EX-input scoreboard=0x%0h",seq_item.data2), UVM_LOW);
 
-            // Fill sequence item fields (assumes these fields exist on execution_stage_input_seq_item)
-            seq_item.data1            = cur_data1;
-            seq_item.data2            = cur_data2;
-            seq_item.immediate_data   = cur_imm;
-            seq_item.control_in       = cur_control_in;
-            seq_item.compflg_in       = cur_cmp;
-            seq_item.program_counter_in  = cur_pc;
-            `uvm_info(get_name(), $sformatf("Memory data between to scoreboard=0x%0h",seq_item.data2), UVM_LOW);
-
-            // --- Optionally publish to analysis port for scoreboard ---
-            m_analysis_port.write(seq_item);
-
+                // --- Optionally publish to analysis port for scoreboard ---
+                m_analysis_port.write(seq_item);
+                m_config.m_vif.instr_valid_ex_in = 0;
+            end
             
         end
     endtask : run_phase
