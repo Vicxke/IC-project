@@ -101,6 +101,7 @@ class decode_stage_input_monitor extends uvm_monitor;
             // --- Optionally publish to analysis port for scoreboard ---
             m_analysis_port.write(seq_item);
 
+
             
         end
     endtask : run_phase

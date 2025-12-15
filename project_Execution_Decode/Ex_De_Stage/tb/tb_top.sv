@@ -123,6 +123,85 @@ module tb_top;
     );
 
     // --------------------- connection missing for decode stage DUT if applicable ---------------------
+    always @(
+        i_execute_input_if.data1,
+        i_execute_input_if.data2,
+        i_execute_input_if.immediate_data,
+        i_execute_input_if.control_in,
+        i_execute_input_if.program_counter_in,
+        i_execute_input_if.compflg_in
+    ) begin
+        $display("[%0t] EX-IN:"
+                , $time,
+                " d1=%0h d2=%0h imm=%0h instr=%0h pc=%0h cmp=%0b",
+                i_execute_input_if.data1,
+                i_execute_input_if.data2,
+                i_execute_input_if.immediate_data,
+                i_execute_input_if.control_in.alu_op.name(),
+                i_execute_input_if.program_counter_in,
+                i_execute_input_if.compflg_in);       
+    end
+
+
+    always @(
+        data1_decode_to_execute,
+        data2_decode_to_execute,
+        immediate_data_decode_to_execute,
+        control_in_decode_to_execute,
+        program_counter_in_decode_to_execute,
+        compflg_in_decode_to_execute
+    ) begin
+            $display("[%0t] DEC-OUT:"
+                , $time,
+                " d1=%0h d2=%0h imm=%0h instr=%0h pc=%0h cmp=%0b",
+                data1_decode_to_execute,
+                data2_decode_to_execute,
+                immediate_data_decode_to_execute,
+                control_in_decode_to_execute.alu_op.name(),
+                program_counter_in_decode_to_execute,
+                compflg_in_decode_to_execute);       
+    end
+
+    always @(
+        i_decode_input_if.instruction,
+        i_decode_input_if.pc,
+        i_decode_input_if.compflg,
+        i_decode_input_if.write_en,
+        i_decode_input_if.write_id,
+        i_decode_input_if.write_data,
+        i_decode_input_if.mux_data1,
+        i_decode_input_if.mux_data2
+    ) begin
+            $display("[%0t] DEC-IN:"
+                , $time,
+                " instr=%0h pc=%0h comp=%0h write_en=%0h write_id=%0h write_data=%0h mux1=%0h mux2=%0h",
+                i_decode_input_if.instruction,
+                i_decode_input_if.pc,
+                i_decode_input_if.compflg,
+                i_decode_input_if.write_en,
+                i_decode_input_if.write_id,
+                i_decode_input_if.write_data,
+                i_decode_input_if.mux_data1,
+                i_decode_input_if.mux_data2);       
+    end
+
+    always @(
+        i_execute_output_if.control_out,
+        i_execute_output_if.alu_data,
+        i_execute_output_if.memory_data,
+        i_execute_output_if.overflow_flag,
+        i_execute_output_if.compflg_out
+    ) begin
+            $display("[%0t] EXE-OUT:"
+                , $time,
+                " ctrl_out=%0h alu_data=%0h memory_data=%0h overflow_flag=%0h compflg_out=%0b",
+                i_execute_output_if.control_out,
+                i_execute_output_if.alu_data,
+                i_execute_output_if.memory_data,
+                i_execute_output_if.overflow_flag,
+                i_execute_output_if.compflg_out);       
+    end
+
 
     // Initialize TB configuration
     initial begin
@@ -143,10 +222,11 @@ module tb_top;
 
     // Start UVM test_base environment
     initial begin // only one run valid
-        run_test("ExDeStage_00"); 
+        // run_test("ExDeStage_00"); 
         //run_test("ExDeStage_01"); 
         //run_test("ExDeStage_02"); 
-        // run_test("ExDeStage_03"); 
+        // run_test("ExDeStage_03");
+        run_test("ExDeStage_04");
     end
 
 endmodule

@@ -38,11 +38,11 @@ class top_config extends uvm_object;
 
         // Create and configure execution_stage uVC configuration with driver and monitor
         m_execution_stage_input_config = new("m_execution_stage_input_config");
-        m_execution_stage_input_config.is_active = 1;
+        m_execution_stage_input_config.is_active = 0;  // Passive - driven by decode stage outputs
         m_execution_stage_input_config.has_monitor = 1;
-
+    
         m_execution_stage_output_config = new("m_execution_stage_output_config");
-        m_execution_stage_output_config.is_active = 1;
+        m_execution_stage_output_config.is_active = 0;  // Passive - driven by execution stage DUT
         m_execution_stage_output_config.has_monitor = 1;
         
         // Create and configure decode_stage uVC configuration with driver and monitor
@@ -52,7 +52,7 @@ class top_config extends uvm_object;
 
         // Create and configure decode_stage output uVC configuration with driver and monitor
         m_decode_stage_output_config = new("m_decode_stage_output_config");
-        m_decode_stage_output_config.is_active = 1;
+        m_decode_stage_output_config.is_active = 0;  // Passive - driven by decode stage DUT
         m_decode_stage_output_config.has_monitor = 1;
 
         

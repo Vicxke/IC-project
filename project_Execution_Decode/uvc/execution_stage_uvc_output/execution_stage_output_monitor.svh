@@ -40,7 +40,7 @@ class execution_stage_output_monitor extends uvm_monitor;
 
 
         forever begin
-            @(posedge m_config.m_vif.clk);
+            @(negedge m_config.m_vif.clk);
             seq_item = execution_stage_output_seq_item::type_id::create("monitor_item");
 
             // Outputs direkt auf dieser Flanke lesen
@@ -53,8 +53,8 @@ class execution_stage_output_monitor extends uvm_monitor;
             seq_item.compflg_out   = m_config.m_vif.compflg_out;
 
             `uvm_info(get_name(), $sformatf("Memory data after execution stage=0x%0h",seq_item.memory_data), UVM_LOW);
-            @(posedge m_config.m_vif.clk);
 
+            // Send immediately - execution is combinatorial, no pipeline delay
             `uvm_info(get_name(), $sformatf("Memory data after execution stage to scoreboard=0x%0h",seq_item.memory_data), UVM_LOW);
 
             m_analysis_port.write(seq_item);

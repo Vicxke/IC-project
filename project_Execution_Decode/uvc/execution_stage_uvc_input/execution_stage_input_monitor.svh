@@ -58,9 +58,8 @@ class execution_stage_input_monitor extends uvm_monitor;
         
         forever begin
 
-            // Sample on clock edge
-            @(posedge m_config.m_vif.clk);
-
+            // Sample on negedge to ensure all combinatorial logic has settled
+            @(negedge m_config.m_vif.clk);
 
             // Read current values (assign to temporaries declared above)
             cur_data1       = m_config.m_vif.data1;

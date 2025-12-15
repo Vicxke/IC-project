@@ -59,6 +59,14 @@ class scoreboard extends uvm_component;
 
     bit first_input = 0;
     bit first_input_decode = 0;
+    
+    // Previous values for change detection
+    logic [31:0] prev_data1 = 0;
+    logic [31:0] prev_data2 = 0;
+    logic [31:0] prev_immediate_data = 0;
+    control_type prev_control_in;
+    logic prev_compflg_in = 0;
+    logic [31:0] prev_program_counter_in = 0;
 
     typedef struct {
         int unsigned  data1_FIFO;
@@ -801,9 +809,34 @@ class scoreboard extends uvm_component;
     //------------------------------------------------------------------------------
     virtual function void write_scoreboard_execution_stage_input(execution_stage_input_seq_item item);
         ex_expected_t tx;
+        bit data_changed;
 
-        first_input = 1;
+        // Check if this is the first input or if data has changed
+        if (first_input == 0) begin
+            data_changed = 1;  // First transaction always counts as change
+            first_input = 1;
+        end else begin
+            // Detect if any relevant input has changed
+            data_changed = (item.data1 !== prev_data1) ||
+                          (item.data2 !== prev_data2) ||
+                          (item.immediate_data !== prev_immediate_data) ||
+                          (item.control_in !== prev_control_in) ||
+                          (item.compflg_in !== prev_compflg_in) ||
+                          (item.program_counter_in !== prev_program_counter_in);
+        end
+
+        // Only process if data has actually changed
+        if (!data_changed) begin
+            return;  // Skip duplicate/unchanged data
+        end
         
+        // Update previous values
+        prev_data1 = item.data1;
+        prev_data2 = item.data2;
+        prev_immediate_data = item.immediate_data;
+        prev_control_in = item.control_in;
+        prev_compflg_in = item.compflg_in;
+        prev_program_counter_in = item.program_counter_in;
 
         // 1) Eingänge in tx ablegen
         tx.data1_FIFO              = item.data1;
