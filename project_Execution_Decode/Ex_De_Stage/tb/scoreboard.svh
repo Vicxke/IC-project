@@ -881,7 +881,7 @@ class scoreboard extends uvm_component;
 
         //wait for inputs
         if (first_input == 0) begin
-            `uvm_info(get_name(), "First input not received yet", UVM_LOW)
+            `uvm_info(get_name(), "First output data for execution stage not received yet", UVM_LOW)
             return;
         end
 
@@ -975,7 +975,7 @@ class scoreboard extends uvm_component;
 
         //wait for inputs
         if (first_input_decode == 0) begin
-            `uvm_info(get_name(), "First input not received yet", UVM_LOW)
+            `uvm_info(get_name(), "First output data for decode stage not received yet", UVM_LOW)
             return;
         end
 
