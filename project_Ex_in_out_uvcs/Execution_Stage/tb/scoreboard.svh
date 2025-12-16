@@ -105,7 +105,7 @@ class scoreboard extends uvm_component;
     logic        squash_after_JALR;
 
 
-    //fifo for decode stage
+    //fifo for decode extra outputs stage
     typedef struct {    
         instruction_type instruction_FIFO;
         logic [31:0]  pc_FIFO;
@@ -126,24 +126,32 @@ class scoreboard extends uvm_component;
         logic        decode_expected_squash_after_J_FIFO;
         logic        decode_expected_squash_after_JALR_FIFO;
 
-    } de_expected_t;
+    } de_compare;
 
     de_expected_t m_de_expected_q[$];  // FIFO-Queue
 
+    typedef struct {    
+        instruction_type instruction_FIFO;
+        logic [31:0]  pc_FIFO;
+        logic         compflg_FIFO;
+        logic         write_en_FIFO;   
+        logic [31:0]  write_id_FIFO;
+        logic [31:0]  write_data_FIFO;
+        logic [31:0]  mux_data1_FIFO; 
+        logic [31:0]  mux_data2_FIFO; 
 
-    typedef struct {
+        //expected outputs
         //outputs (inputs to execution stage)
         int unsigned  decode_expected_data1_FIFO;
         int unsigned  decode_expected_data2_FIFO;
         int unsigned  decode_expected_immediate_data_FIFO;
         control_type  decode_expected_control_in_FIFO;
         logic         decode_expected_compflg_in_FIFO;
-        logic [31:0]  pc_FIFO; // correlate with execution input PC
-    } de_to_ex_expected_t;
+        logic [31:0]  pc_FIFO;
 
-    de_to_ex_expected_t m_de_to_ex_expected_q[$];  // FIFO-Queue
-
-
+    } de_ex_compare;
+    
+    de_ex_compare m_de_ex_compare_q[$];  // FIFO-Queue
 
     //------------------------------------------------------------------------------
     // Functional coverage definitions
@@ -807,36 +815,42 @@ class scoreboard extends uvm_component;
     //------------------------------------------------------------------------------
     // Write implementation for write_scoreboard_execution_stage_input analysis port.
     //------------------------------------------------------------------------------
+    virtual function void write_scoreboard_decode_stage_input(decode_stage_input_seq_item item);
+        // declare locals before any statements to satisfy tool parsing
+        de_expected_t de_in_ex_out;
+
+        first_input_decode = 1;
+
+        // add items to queue
+        de_in_ex_out.instruction_FIFO = item.instruction;
+        de_in_ex_out.pc_FIFO          = item.pc;
+        de_in_ex_out.compflg_FIFO     = item.compflg;
+        de_in_ex_out.write_en_FIFO    = item.write_en;
+        de_in_ex_out.write_id_FIFO    = item.write_id;
+        de_in_ex_out.write_data_FIFO  = item.write_data;
+        de_in_ex_out.mux_data1_FIFO   = item.mux_data1;
+        de_in_ex_out.mux_data2_FIFO   = item.mux_data2;
+
+        //calculate onle the results if there are results to calculte
+        calculate_expected_decode_results(de_in_ex_out); // fills expected fields in de_in_ex_out
+        //here for the scoreboard we just sample coverage and store inputs for later checking
+        instruction = item.instruction;
+        pc          = item.pc;
+        compflg     = item.compflg;
+        write_en    = item.write_en;
+        write_id    = item.write_id;
+        write_data  = item.write_data;
+        mux_data1   = item.mux_data1;
+        mux_data2   = item.mux_data2;
+
+
+        decode_stage_input_covergrp.sample();
+        `uvm_info(get_name(), $sformatf("Scoreboard received decode stage input: Write data=0x%0h", item.write_data), UVM_LOW);
+
+    endfunction:write_scoreboard_decode_stage_input
+    
     virtual function void write_scoreboard_execution_stage_input(execution_stage_input_seq_item item);
         ex_expected_t tx;
-        bit data_changed;
-
-        // Check if this is the first input or if data has changed
-        if (first_input == 0) begin
-            data_changed = 1;  // First transaction always counts as change
-            first_input = 1;
-        end else begin
-            // Detect if any relevant input has changed
-            data_changed = (item.data1 !== prev_data1) ||
-                          (item.data2 !== prev_data2) ||
-                          (item.immediate_data !== prev_immediate_data) ||
-                          (item.control_in !== prev_control_in) ||
-                          (item.compflg_in !== prev_compflg_in) ||
-                          (item.program_counter_in !== prev_program_counter_in);
-        end
-
-        // Only process if data has actually changed
-        if (!data_changed) begin
-            return;  // Skip duplicate/unchanged data
-        end
-        
-        // Update previous values
-        prev_data1 = item.data1;
-        prev_data2 = item.data2;
-        prev_immediate_data = item.immediate_data;
-        prev_control_in = item.control_in;
-        prev_compflg_in = item.compflg_in;
-        prev_program_counter_in = item.program_counter_in;
 
         // 1) Eingänge in tx ablegen
         tx.data1_FIFO              = item.data1;
@@ -847,7 +861,7 @@ class scoreboard extends uvm_component;
         tx.program_counter_in_FIFO = item.program_counter_in; // nicht program_counter_in
         // 2) Globale Variablen für Coverage & Berechnung setzen
         data1              = tx.data1_FIFO;
-        data2            = tx.data2_FIFO;
+        data2              = tx.data2_FIFO;
         immediate_data     = tx.immediate_data_FIFO; 
         control_in         = tx.control_in_FIFO;
         compflg_in         = tx.compflg_in_FIFO;
@@ -921,9 +935,6 @@ class scoreboard extends uvm_component;
     endfunction: write_scoreboard_execution_stage_output
 
 
-    //------------------------------------------------------------------------------
-    // Write implementation for write_scoreboard_reset analysis port.
-    //------------------------------------------------------------------------------
     virtual function void write_scoreboard_reset(reset_seq_item item);
         `uvm_info(get_name(),$sformatf("RESET_MONITOR:\n%s",item.sprint()),UVM_HIGH)
 
@@ -933,41 +944,6 @@ class scoreboard extends uvm_component;
 
     endfunction :  write_scoreboard_reset
 
-    virtual function void write_scoreboard_decode_stage_input(decode_stage_input_seq_item item);
-        // declare locals before any statements to satisfy tool parsing
-        de_expected_t de_tx;
-        // `uvm_info(get_name(),$sformatf("DECODE_STAGE_INPUT_MONITOR:\n%s",item.sprint()),UVM_HIGH)
-
-        first_input_decode = 1;
-
-        // add items to queue
-        de_tx.instruction_FIFO = item.instruction;
-        de_tx.pc_FIFO          = item.pc;
-        de_tx.compflg_FIFO     = item.compflg;
-        de_tx.write_en_FIFO    = item.write_en;
-        de_tx.write_id_FIFO    = item.write_id;
-        de_tx.write_data_FIFO  = item.write_data;
-        de_tx.mux_data1_FIFO   = item.mux_data1;
-        de_tx.mux_data2_FIFO   = item.mux_data2;
-
-        //calculate onle the results if there are results to calculte
-        calculate_expected_decode_results(de_tx); // fills expected fields in de_tx
-
-        //here for the scoreboard we just sample coverage and store inputs for later checking
-        instruction = item.instruction;
-        pc          = item.pc;
-        compflg     = item.compflg;
-        write_en    = item.write_en;
-        write_id    = item.write_id;
-        write_data  = item.write_data;
-        mux_data1   = item.mux_data1;
-        mux_data2   = item.mux_data2;
-
-
-        decode_stage_input_covergrp.sample();
-        `uvm_info(get_name(), $sformatf("Scoreboard received decode stage input: Write data=0x%0h", item.write_data), UVM_LOW);
-
-    endfunction:write_scoreboard_decode_stage_input
 
     virtual function void write_scoreboard_decode_stage_output(decode_stage_output_seq_item item);
         // `uvm_info(get_name(),$sformatf("DECODE_STAGE_OUTPUT_MONITOR:\n%s",item.sprint()),UVM_HIGH)
@@ -997,8 +973,10 @@ class scoreboard extends uvm_component;
 
     endfunction:write_scoreboard_decode_stage_output
 
-
+    //------------------------------------------------------------------------------
     // ----------- end write functions ------------
+    //------------------------------------------------------------------------------
+
 
     virtual function void calculate_expected_decode_results(de_expected_t de_tx);
         de_expected_t prev_de_tx1;
