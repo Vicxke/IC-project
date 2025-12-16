@@ -15,5 +15,6 @@ interface execution_stage_output_if (input logic clk, input logic rst_n);
     logic zero_flag;
     control_type control_out;
     logic compflg_out;
+    logic instr_valid_ex_in;
 
 endinterface : execution_stage_output_if

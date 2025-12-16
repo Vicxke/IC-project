@@ -14,5 +14,6 @@ interface decode_stage_output_if (input logic clk, input logic rst_n);
     logic        select_target_pc;
     logic        squash_after_J;
     logic        squash_after_JALR;
+    logic        instr_valid;
 
 endinterface : decode_stage_output_if

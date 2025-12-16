@@ -10,6 +10,7 @@ class execution_stage_output_seq_item extends uvm_sequence_item;
     bit zero_flag;
     control_type control_out;
     logic compflg_out;
+    logic instr_valid_ex_in;
 
 
 

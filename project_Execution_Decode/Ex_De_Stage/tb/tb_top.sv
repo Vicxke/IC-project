@@ -74,8 +74,6 @@ module tb_top;
         .mux_data2(i_decode_input_if.mux_data2),
         //outputs decode (no execution stage input)
         .reg_rd_id(i_decode_output_if.reg_rd_id),
-
-
         .select_target_pc(i_decode_output_if.select_target_pc),    //J-type is also taken into account
         .resolve(i_decode_output_if.resolve),                      //only high for B-type
         .squash_after_J(i_decode_output_if.squash_after_J), //sqaush from ID following a sequeatially fetched Jump
@@ -102,7 +100,13 @@ module tb_top;
     assign i_execute_input_if.control_in      = control_in_decode_to_execute;
     assign i_execute_input_if.compflg_in      = compflg_in_decode_to_execute;
     assign i_execute_input_if.program_counter_in = program_counter_in_decode_to_execute;
+
+    // pass instr_valid_ex_in from decode input interface to execute input and output interfaces
     assign i_execute_input_if.instr_valid_ex_in = i_decode_input_if.instr_valid_ex_in;
+    assign i_execute_output_if.instr_valid_ex_in = i_decode_input_if.instr_valid_ex_in; 
+
+    // pass instr_valid from decode input interface to decode output interface
+    assign i_decode_output_if.instr_valid = i_decode_input_if.instr_valid;
 
 
     // Instantiation of the execute_stage RTL DUT
@@ -151,17 +155,19 @@ module tb_top;
         immediate_data_decode_to_execute,
         control_in_decode_to_execute,
         program_counter_in_decode_to_execute,
-        compflg_in_decode_to_execute
+        compflg_in_decode_to_execute,
+        i_decode_output_if.reg_rd_id
     ) begin
             $display("[%0t] DEC-OUT:"
                 , $time,
-                " d1=%0h d2=%0h imm=%0h instr=%0h pc=%0h cmp=%0b",
+                " d1=%0h d2=%0h imm=%0h instr=%0h pc=%0h cmp=%0b rd_id=%0h",
                 data1_decode_to_execute,
                 data2_decode_to_execute,
                 immediate_data_decode_to_execute,
                 control_in_decode_to_execute.alu_op.name(),
                 program_counter_in_decode_to_execute,
-                compflg_in_decode_to_execute);       
+                compflg_in_decode_to_execute,
+                i_decode_output_if.reg_rd_id);       
     end
 
     always @(
