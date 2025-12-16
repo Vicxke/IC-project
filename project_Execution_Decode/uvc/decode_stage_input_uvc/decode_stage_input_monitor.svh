@@ -104,6 +104,7 @@ class decode_stage_input_monitor extends uvm_monitor;
                 // `uvm_info(get_name(), $sformatf("decode input scoreboard: Write data=0x%0h",seq_item.write_data), UVM_LOW);
                 // --- Optionally publish to analysis port for scoreboard ---
                 m_analysis_port.write(seq_item);
+                @(negedge m_config.m_vif.clk); // wait so decode output monitor can read as well
                 m_config.m_vif.instr_valid = 0;
             end
 

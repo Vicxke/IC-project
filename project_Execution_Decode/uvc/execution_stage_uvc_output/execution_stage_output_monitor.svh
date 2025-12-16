@@ -41,23 +41,25 @@ class execution_stage_output_monitor extends uvm_monitor;
 
         forever begin
             @(posedge m_config.m_vif.clk);
-            seq_item = execution_stage_output_seq_item::type_id::create("monitor_item");
+            if (m_config.m_vif.instr_valid_ex_in) begin
+                seq_item = execution_stage_output_seq_item::type_id::create("monitor_item");
 
-            // Outputs direkt auf dieser Flanke lesen
-            seq_item.alu_data      = m_config.m_vif.alu_data;
-            seq_item.memory_data   = m_config.m_vif.memory_data;
-            seq_item.overflow_flag = m_config.m_vif.overflow_flag;
-            // zero_flag gibt's im IF nicht – also weglassen oder auf 0 setzen
-            // seq_item.zero_flag     = m_config.m_vif.zero_flag;
-            seq_item.control_out   = m_config.m_vif.control_out;
-            seq_item.compflg_out   = m_config.m_vif.compflg_out;
+                // Outputs direkt auf dieser Flanke lesen
+                seq_item.alu_data      = m_config.m_vif.alu_data;
+                seq_item.memory_data   = m_config.m_vif.memory_data;
+                seq_item.overflow_flag = m_config.m_vif.overflow_flag;
+                // zero_flag gibt's im IF nicht – also weglassen oder auf 0 setzen
+                // seq_item.zero_flag     = m_config.m_vif.zero_flag;
+                seq_item.control_out   = m_config.m_vif.control_out;
+                seq_item.compflg_out   = m_config.m_vif.compflg_out;
+                seq_item.instr_valid_ex_in = m_config.m_vif.instr_valid_ex_in;
 
-            `uvm_info(get_name(), $sformatf("Memory data after execution stage=0x%0h",seq_item.memory_data), UVM_LOW);
+                // Send immediately - execution is combinatorial, no pipeline delay
+                `uvm_info(get_name(), $sformatf("EX-output scoreboard=0x%0h",seq_item.alu_data), UVM_LOW);
 
-            // Send immediately - execution is combinatorial, no pipeline delay
-            `uvm_info(get_name(), $sformatf("Memory data after execution stage to scoreboard=0x%0h",seq_item.memory_data), UVM_LOW);
-
-            m_analysis_port.write(seq_item);
+                m_analysis_port.write(seq_item);
+                m_config.m_vif.instr_valid_ex_in = 0;
+            end
         end
     endtask : run_phase
 

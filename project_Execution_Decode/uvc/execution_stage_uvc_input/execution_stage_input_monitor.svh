@@ -59,7 +59,7 @@ class execution_stage_input_monitor extends uvm_monitor;
         forever begin
 
             // Sample on negedge to ensure all combinatorial logic has settled
-            @(negedge m_config.m_vif.clk);
+            @(posedge m_config.m_vif.clk);
             `uvm_info(get_name(), $sformatf("instr_valid_ex_in=%0b", m_config.m_vif.instr_valid_ex_in), UVM_LOW);
             if (m_config.m_vif.instr_valid_ex_in) begin
                 // Read current values (assign to temporaries declared above)
@@ -83,7 +83,7 @@ class execution_stage_input_monitor extends uvm_monitor;
 
                 // --- Optionally publish to analysis port for scoreboard ---
                 m_analysis_port.write(seq_item);
-                m_config.m_vif.instr_valid_ex_in = 0;
+                m_config.m_vif.instr_valid_ex_in = 0; // reset done in execution stage input and output monitor
             end
             
         end

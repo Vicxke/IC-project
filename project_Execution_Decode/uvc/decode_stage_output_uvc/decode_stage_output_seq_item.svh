@@ -10,6 +10,7 @@ class decode_stage_output_seq_item extends uvm_sequence_item;
     logic        select_target_pc;
     logic        squash_after_J;
     logic        squash_after_JALR;
+    logic       instr_valid;
 
     // monitor helper flag
     bit monitor_data_valid;
