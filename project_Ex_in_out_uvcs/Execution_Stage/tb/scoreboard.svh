@@ -68,79 +68,6 @@ class scoreboard extends uvm_component;
     ex_expected_t m_expected_q[$];  // FIFO-Queue
 
 
-
-<<<<<<< HEAD
-    // all signals for the decode stage input and outputs that are not already in use
-    //inputs
-    instruction_type instruction;  
-    logic [31:0]  pc;
-    logic         compflg;
-    logic         write_en;   
-    logic [31:0]  write_id;
-    logic [31:0]  write_data;
-    logic [31:0]  mux_data1; 
-    logic [31:0]  mux_data2; 
-
-    
-    logic [5:0]  reg_rd_id;
-    logic [4:0]  rs1_id;
-    logic [4:0]  rs2_id;
-    logic        resolve;
-    logic        select_target_pc;
-    logic        squash_after_J;
-    logic        squash_after_JALR;
-
-
-    //fifo for decode extra outputs stage
-    typedef struct {    
-        instruction_type instruction_FIFO;
-        logic [31:0]  pc_FIFO;
-        logic         compflg_FIFO;
-        logic         write_en_FIFO;   
-        logic [31:0]  write_id_FIFO;
-        logic [31:0]  write_data_FIFO;
-        logic [31:0]  mux_data1_FIFO; 
-        logic [31:0]  mux_data2_FIFO; 
-
-        //expected outputs
-        //other outputs
-        logic [5:0]  decode_expected_reg_rd_id_FIFO;
-        logic [4:0]  decode_expected_rs1_id_FIFO;
-        logic [4:0]  decode_expected_rs2_id_FIFO;
-        logic        decode_expected_resolve_FIFO;
-        logic        decode_expected_select_target_pc_FIFO;
-        logic        decode_expected_squash_after_J_FIFO;
-        logic        decode_expected_squash_after_JALR_FIFO;
-
-    } de_compare;
-
-    de_expected_t m_de_expected_q[$];  // FIFO-Queue
-
-    typedef struct {    
-        instruction_type instruction_FIFO;
-        logic [31:0]  pc_FIFO;
-        logic         compflg_FIFO;
-        logic         write_en_FIFO;   
-        logic [31:0]  write_id_FIFO;
-        logic [31:0]  write_data_FIFO;
-        logic [31:0]  mux_data1_FIFO; 
-        logic [31:0]  mux_data2_FIFO; 
-
-        //expected outputs
-        //outputs (inputs to execution stage)
-        int unsigned  decode_expected_data1_FIFO;
-        int unsigned  decode_expected_data2_FIFO;
-        int unsigned  decode_expected_immediate_data_FIFO;
-        control_type  decode_expected_control_in_FIFO;
-        logic         decode_expected_compflg_in_FIFO;
-        logic [31:0]  pc_FIFO;
-
-    } de_ex_compare;
-    
-    de_ex_compare m_de_ex_compare_q[$];  // FIFO-Queue
-=======
->>>>>>> parent of e0aac85 (vic scoreboard)
-
     //------------------------------------------------------------------------------
     // Functional coverage definitions
     //------------------------------------------------------------------------------
@@ -445,12 +372,6 @@ class scoreboard extends uvm_component;
     
     virtual function void write_scoreboard_execution_stage_input(execution_stage_input_seq_item item);
         ex_expected_t tx;
-<<<<<<< HEAD
-=======
-
-        first_input = 1;
-        
->>>>>>> parent of e0aac85 (vic scoreboard)
 
         // 1) Eingänge in tx ablegen
         tx.data1_FIFO              = item.data1;
@@ -541,7 +462,6 @@ class scoreboard extends uvm_component;
 
     endfunction :  write_scoreboard_reset
 
-<<<<<<< HEAD
 
     virtual function void write_scoreboard_decode_stage_output(decode_stage_output_seq_item item);
         // `uvm_info(get_name(),$sformatf("DECODE_STAGE_OUTPUT_MONITOR:\n%s",item.sprint()),UVM_HIGH)
@@ -699,8 +619,6 @@ class scoreboard extends uvm_component;
         //not implemented yet
     endfunction : compare_exp_alu_input_results
 
-=======
->>>>>>> parent of e0aac85 (vic scoreboard)
     virtual function void calculate_expected_results();
         expected_overflow = 1'b0;  // default for non-add/sub ops
 
