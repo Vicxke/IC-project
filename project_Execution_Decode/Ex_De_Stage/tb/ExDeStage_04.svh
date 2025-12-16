@@ -82,6 +82,7 @@ class ExDeStage_04 extends uvm_test;
 
             write_id_store1 = decode_stage_input.write_id;
             decode_stage_input.instr_valid = 1; // input decode stage
+            decode_stage_input.instr_valid_ex_in = 0; // input execution stage
             decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
 
             @(posedge m_tb_env.m_clock_agent.m_config.m_vif.clock);
