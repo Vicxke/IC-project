@@ -66,5 +66,6 @@ package tb_pkg;
     `include "ExDeStage_02.svh"
     `include "ExDeStage_03.svh"
     `include "ExDeStage_04.svh"
+    `include "ExDeStage_05.svh"
 
 endpackage: tb_pkg

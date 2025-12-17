@@ -11,8 +11,8 @@
 // See more detailed information in base_test
 //------------------------------------------------------------------------------
 import common::*;
-class ExDeStage_04 extends uvm_test;
-    `uvm_component_utils(ExDeStage_04)
+class ExDeStage_05 extends uvm_test;
+    `uvm_component_utils(ExDeStage_05)
 
     // Testbench top configuration object with all setup for the TB
     top_config  m_top_config;
@@ -123,4 +123,4 @@ class ExDeStage_04 extends uvm_test;
 
     endtask : run_phase
 
-endclass : ExDeStage_04
+endclass : ExDeStage_05
