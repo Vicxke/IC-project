@@ -833,7 +833,7 @@ class scoreboard extends uvm_component;
     //------------------------------------------------------------------------------
     virtual function void write_scoreboard_decode_stage_input(decode_stage_input_seq_item item);
         de_inputs de_tx;
-        de_input_output de_in_out;
+        de_inputs de_in_out;
         // `uvm_info(get_name(),$sformatf("DECODE_STAGE_INPUT_MONITOR:\n%s",item.sprint()),UVM_HIGH)
 
         // add items to queue
@@ -857,7 +857,8 @@ class scoreboard extends uvm_component;
         `uvm_info(get_name(), $sformatf("Scoreboard received decode stage input: Write data=0x%0h", item.write_data), UVM_LOW);
 
         //calculate onle the results if there are results to calculte
-        calculate_expected_decode_results(de_tx); // fills expected fields in de_tx
+        calculate_expected_dec_in_to_ex_out(de_tx); // fills expected fields in de_tx
+        calculate_expected_decode_out_addit_signals(de_in_out); // fills expected fields in de_in_out
 
         //here for the scoreboard we just sample coverage and store inputs for later checking
         instruction = item.instruction;
@@ -1002,9 +1003,9 @@ class scoreboard extends uvm_component;
         zero_flag       = item.zero_flag;
         compflg_out     = item.compflg_out;
 
-        // `uvm_info(get_name(),
-        // $sformatf("Result from DUT: res=%0h ovf=%0h", alu_result, overflow_flag),
-        // UVM_MEDIUM)
+        `uvm_info(get_name(),
+        $sformatf("Result from DUT: res=%0h ovf=%0h", alu_result, overflow_flag),
+        UVM_MEDIUM)
 
         execution_stage_output_covergrp.sample();
 
@@ -1025,17 +1026,20 @@ class scoreboard extends uvm_component;
 
 
     //------------------------------------------------------------------------------
-    //  end write functions 
+    //  end write functions, start overall comparison
     //------------------------------------------------------------------------------
 
-    virtual function void calculate_expected_decode_results(de_inputs dec_input);
+    virtual function void calculate_expected_dec_in_to_ex_out(de_inputs dec_input);
         de_inputs prev_de_tx1;
         de_inputs prev_de_tx2;
         ex_queue_t ex_output;
-        `uvm_info(get_name(), $sformatf("START: calculate_expected_decode_results"), UVM_LOW);
+        `uvm_info(get_name(), $sformatf("START: calculate_expected_dec_in_to_ex_out"), UVM_LOW);
 
 
         if (dec_input.write_en_FIFO) begin //
+            if(dec_input.write_id_FIFO == 5'd0) begin
+                dec_input.write_data_FIFO = 32'd0; // x0 is always zero            
+            end
             m_de_inputs_q.push_back(dec_input);
             // `uvm_info(get_name(), $sformatf("DEC input element: Write_data= 0x%0h, FIFO_length=%0d", dec_input.write_data_FIFO, m_de_inputs_q.size()), UVM_LOW);
             return; // No need to calculate further for write instructions
@@ -1066,6 +1070,7 @@ class scoreboard extends uvm_component;
                     3'b111: control_in.alu_op = ALU_AND;
                 endcase
                 ex_output.control_in_FIFO   = control_in;
+                ex_output.compflg_in_FIFO     = dec_input.compflg_FIFO;
 
 
                 //now take out the data from the previous queue entries
@@ -1099,41 +1104,7 @@ class scoreboard extends uvm_component;
             //calulate the expected results here with to variable from the register file
             
         end
-    endfunction :  calculate_expected_decode_results
-
-    virtual function void compare_exp_DUT_decode_results();
-        de_input_output de_in_out;
-
-        if (m_de_input_output_q.size() == 0) begin
-            `uvm_error(get_name(), "Error: write_scoreboard_decode_stage_output");
-            return;
-        end
-
-
-        de_in_out = m_de_input_output_q.pop_front();
-
-        // Only compare RS IDs for S-type instructions; skip other opcodes
-        if (de_in_out.instruction_FIFO.opcode == 7'b0100011) begin
-            if (rs1_id !== de_in_out.decode_expected_rs1_id_FIFO) begin
-                `uvm_error("DECODE_RS1_ID_MISMATCH",
-                    $sformatf("RS1 ID mismatch: DUT_RS1_ID=0x%02h, EXP_RS1_ID=0x%02h",
-                                rs1_id, de_in_out.decode_expected_rs1_id_FIFO));
-            end
-
-            if (rs2_id !== de_in_out.decode_expected_rs2_id_FIFO) begin
-                `uvm_error("DECODE_RS2_ID_MISMATCH",
-                    $sformatf("RS2 ID mismatch: DUT_RS2_ID=0x%02h, EXP_RS2_ID=0x%02h",
-                                rs2_id, de_in_out.decode_expected_rs2_id_FIFO));
-            end
-        end
-        else begin
-            `uvm_info("DECODE_COMPARE_SKIPPED",
-                $sformatf("Skipping decode RS compare for non S-type opcode=0x%02h", de_in_out.instruction_FIFO.opcode), UVM_LOW)
-        end
-
-        //not implemented yet
-    endfunction : compare_exp_DUT_decode_results
-
+    endfunction :  calculate_expected_dec_in_to_ex_out
 
     virtual function void calculate_expected_results();
         expected_overflow = 1'b0;  // default for non-add/sub ops
@@ -1291,6 +1262,61 @@ class scoreboard extends uvm_component;
         `uvm_info(get_name(), "Compare results done", UVM_MEDIUM)
     endfunction :  compare_exp_DUT_results
 
+    //------------------------------------------------------------------------------
+    // Additional decode outputs
+    // ------------------------------------------------------------------------------
+
+    virtual function void calculate_expected_decode_out_addit_signals(de_inputs dec_input);
+        de_input_output de_out;
+
+        de_out.instruction_FIFO = dec_input.instruction_FIFO;
+        de_out.decode_expected_rs1_id_FIFO = dec_input.instruction_FIFO.rs1;
+        de_out.decode_expected_rs2_id_FIFO = dec_input.instruction_FIFO.rs2;
+
+        //         logic [5:0]  decode_expected_reg_rd_id_FIFO;
+        // logic [4:0]  decode_expected_rs1_id_FIFO;
+        // logic [4:0]  decode_expected_rs2_id_FIFO;
+        // logic        decode_expected_resolve_FIFO;
+        // logic        decode_expected_select_target_pc_FIFO;
+        // logic        decode_expected_squash_after_J_FIFO;
+        // logic        decode_expected_squash_after_JALR_FIFO;
+
+        // Store the expected decode outputs for later comparison
+        m_de_input_output_q.push_back(de_out);
+    endfunction :  calculate_expected_decode_out_addit_signals
+    
+    virtual function void compare_exp_DUT_decode_results();
+        de_input_output de_in_out;
+
+        if (m_de_input_output_q.size() == 0) begin
+            `uvm_error(get_name(), "Error: write_scoreboard_decode_stage_output");
+            return;
+        end
+
+
+        de_in_out = m_de_input_output_q.pop_front();
+
+        // Only compare RS IDs for S-type instructions; skip other opcodes
+        if (de_in_out.instruction_FIFO.opcode == 7'b0100011) begin
+            if (rs1_id !== de_in_out.decode_expected_rs1_id_FIFO) begin
+                `uvm_error("DECODE_RS1_ID_MISMATCH",
+                    $sformatf("RS1 ID mismatch: DUT_RS1_ID=0x%02h, EXP_RS1_ID=0x%02h",
+                                rs1_id, de_in_out.decode_expected_rs1_id_FIFO));
+            end
+
+            if (rs2_id !== de_in_out.decode_expected_rs2_id_FIFO) begin
+                `uvm_error("DECODE_RS2_ID_MISMATCH",
+                    $sformatf("RS2 ID mismatch: DUT_RS2_ID=0x%02h, EXP_RS2_ID=0x%02h",
+                                rs2_id, de_in_out.decode_expected_rs2_id_FIFO));
+            end
+        end
+        else begin
+            `uvm_info("DECODE_COMPARE_SKIPPED",
+                $sformatf("Skipping decode RS compare for non S-type opcode=0x%02h", de_in_out.instruction_FIFO.opcode), UVM_LOW)
+        end
+
+        //not implemented yet
+    endfunction : compare_exp_DUT_decode_results
     //------------------------------------------------------------------------------
     // UVM check phase
     //------------------------------------------------------------------------------

@@ -48,7 +48,7 @@ class ExDeStage_04 extends uvm_test;
     // Start UVM test in running phase.
     //------------------------------------------------------------------------------
 
-    int n = 1; // x for 100% coverage
+    int n = 10; // x for 100% coverage
 
 
     virtual task run_phase(uvm_phase phase);
@@ -116,9 +116,10 @@ class ExDeStage_04 extends uvm_test;
             decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
 
             @(posedge m_tb_env.m_clock_agent.m_config.m_vif.clock);
-            @(posedge m_tb_env.m_clock_agent.m_config.m_vif.clock); // wait until comparison is done
+            // @(posedge m_tb_env.m_clock_agent.m_config.m_vif.clock); // wait until comparison is done
         end
         
+        @(posedge m_tb_env.m_clock_agent.m_config.m_vif.clock);
 
         // Drop objection if no UVM test is running
         phase.drop_objection(this);

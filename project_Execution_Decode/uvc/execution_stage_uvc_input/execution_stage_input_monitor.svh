@@ -79,10 +79,11 @@ class execution_stage_input_monitor extends uvm_monitor;
                 seq_item.control_in       = cur_control_in;
                 seq_item.compflg_in       = cur_cmp;
                 seq_item.program_counter_in  = cur_pc;
-                `uvm_info(get_name(), $sformatf("EX-input scoreboard=0x%0h",seq_item.data2), UVM_LOW);
+                `uvm_info(get_name(), $sformatf("EX-input scoreboard data1=0x%0h, data2=0x%0h",seq_item.data1, seq_item.data2), UVM_LOW);
 
                 // --- Optionally publish to analysis port for scoreboard ---
                 m_analysis_port.write(seq_item);
+                // @(negedge m_config.m_vif.clk); // to be sure that output monitir starts
                 m_config.m_vif.instr_valid_ex_in = 0; // reset done in execution stage input and output monitor
             end
             
