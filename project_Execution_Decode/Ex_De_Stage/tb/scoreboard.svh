@@ -56,7 +56,6 @@ class scoreboard extends uvm_component;
     logic [31:0] op1, op2;
 
 
-
     bit first_input = 0;
     bit first_input_decode = 0;
     
@@ -1269,11 +1268,20 @@ class scoreboard extends uvm_component;
     virtual function void calculate_expected_decode_out_addit_signals(de_inputs dec_input);
         de_input_output de_out;
 
-        de_out.instruction_FIFO = dec_input.instruction_FIFO;
+        // Opcode
+        de_out.instruction_FIFO.opcode = dec_input.instruction_FIFO.opcode; // always stays the same
+
+        // Rd
+            // -> R-Type
+            de_out.decode_expected_reg_rd_id_FIFO = dec_input.instruction_FIFO.rd;
+
+
+            // -> S-Type
+
         de_out.decode_expected_rs1_id_FIFO = dec_input.instruction_FIFO.rs1;
         de_out.decode_expected_rs2_id_FIFO = dec_input.instruction_FIFO.rs2;
 
-        //         logic [5:0]  decode_expected_reg_rd_id_FIFO;
+        // logic [5:0]  decode_expected_reg_rd_id_FIFO;
         // logic [4:0]  decode_expected_rs1_id_FIFO;
         // logic [4:0]  decode_expected_rs2_id_FIFO;
         // logic        decode_expected_resolve_FIFO;
