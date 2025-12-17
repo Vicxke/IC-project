@@ -1035,7 +1035,7 @@ class scoreboard extends uvm_component;
         ex_queue_t ex_output;
         `uvm_info(get_name(), $sformatf("START: calculate_expected_dec_in_to_ex_out"), UVM_LOW);
 
-
+        //this if is only when we are writing to the register file
         if (dec_input.write_en_FIFO) begin //
             if(dec_input.write_id_FIFO == 5'd0) begin
                 dec_input.write_data_FIFO = 32'd0; // x0 is always zero            
@@ -1045,66 +1045,61 @@ class scoreboard extends uvm_component;
             return; // No need to calculate further for write instructions
         end
 
+
+        if(m_de_inputs_q.size() == 1) begin
+            //test S-types
+            control_in = get_control_signals_from_instruction(dec_input.instruction_FIFO);
+
+            ex_output.control_in_FIFO   = control_in;
+            ex_output.compflg_in_FIFO     = dec_input.compflg_FIFO;
+
+            //now take out the data from the previous queue entry
+            prev_de_tx1 = m_de_inputs_q.pop_front();
+
+            data1 = prev_de_tx1.write_data_FIFO; // rs1
+            //calculate the immidiate value
+            immediate_data[11:5] = dec_input.instruction_FIFO.funct7;
+            immediate_data[4:0]  = dec_input.instruction_FIFO.rd;
+            immediate_data = $signed(immediate_data); //sign extend
+            //calculate the results now
+            calculate_expected_results(); 
+            
+            ex_output.expected_result_FIFO   = expected_result;
+            ex_output.expected_overflow_FIFO = expected_overflow;
+            //store expected rs ids for later comparison
+            m_execution_q.push_back(ex_output);
+        end
+
         `uvm_info(get_name(), $sformatf("Start calculation: FIFO_length=%0d", m_de_inputs_q.size()), UVM_LOW);
         if (m_de_inputs_q.size() == 2) begin
             `uvm_info(get_name(), $sformatf("Start calculation after if"), UVM_LOW);
             //first calculate epected inputs for alu so that these can be calculated.
-            if(dec_input.instruction_FIFO.opcode == 7'b0110011) begin //R-types
-                control_in.alu_src = 2'b00; // both operands from registers
-                control_in.encoding = R_TYPE;
-                control_in.funct3 = dec_input.instruction_FIFO.funct3;
-                control_in.mem_read = 1'b0;
-                control_in.mem_write = 1'b0;
-                control_in.reg_write = 1'b1;
-                control_in.mem_to_reg = 1'b0;
-                control_in.is_branch = 1'b0;
-                // Determine ALU operation based on funct3 and funct7
-                unique case (dec_input.instruction_FIFO.funct3)
-                    3'b000: control_in.alu_op = (dec_input.instruction_FIFO.funct7 == 7'b0100000) ? ALU_SUB : ALU_ADD;
-                    3'b001: control_in.alu_op = ALU_SLL;
-                    3'b010: control_in.alu_op = ALU_SLT;
-                    3'b011: control_in.alu_op = ALU_SLTU;
-                    3'b100: control_in.alu_op = ALU_XOR;
-                    3'b101: control_in.alu_op = (dec_input.instruction_FIFO.funct7 == 7'b0100000) ? ALU_SRA : ALU_SRL;
-                    3'b110: control_in.alu_op = ALU_OR;
-                    3'b111: control_in.alu_op = ALU_AND;
-                endcase
-                ex_output.control_in_FIFO   = control_in;
-                ex_output.compflg_in_FIFO     = dec_input.compflg_FIFO;
+            control_in = get_control_signals_from_instruction(dec_input.instruction_FIFO);
+
+            ex_output.control_in_FIFO   = control_in;
+            ex_output.compflg_in_FIFO     = dec_input.compflg_FIFO;
+            //now take out the data from the previous queue entries
+            prev_de_tx1 = m_de_inputs_q.pop_front();
+            prev_de_tx2 = m_de_inputs_q.pop_front();
+
+            data1 = prev_de_tx1.write_data_FIFO; // rs1
+            data2 = prev_de_tx2.write_data_FIFO; // rs2
+
+            `uvm_info(get_name(), $sformatf("calculate_expected_results: data1= 0x%0h, data2= 0x%0h", data1,data2), UVM_LOW);
 
 
-                //now take out the data from the previous queue entries
-                prev_de_tx1 = m_de_inputs_q.pop_front();
-                prev_de_tx2 = m_de_inputs_q.pop_front();
+            //calculate the results now
+            calculate_expected_results(); 
+            
 
-
-                // `uvm_info(get_name(), $sformatf("Popped prev_de_tx1: write_data=0x%0h", prev_de_tx1.write_data_FIFO), UVM_LOW);
-                // `uvm_info(get_name(), $sformatf("Popped prev_de_tx2: write_data=0x%0h", prev_de_tx2.write_data_FIFO), UVM_LOW);
-
-                data1 = prev_de_tx1.write_data_FIFO; // rs1
-                data2 = prev_de_tx2.write_data_FIFO; // rs2
-
-                `uvm_info(get_name(), $sformatf("calculate_expected_results: data1= 0x%0h, data2= 0x%0h", data1,data2), UVM_LOW);
-
-
-                //calculate the results now
-                calculate_expected_results(); 
-                
-
-                ex_output.expected_result_FIFO   = expected_result;
-                ex_output.expected_overflow_FIFO = expected_overflow;
-                //store expected rs ids for later comparison
-                m_execution_q.push_back(ex_output);
-
-                foreach (m_execution_q[i]) begin
-                    `uvm_info(get_name(), $sformatf("Before model Queue[%0d]: expected_result_FIFO=0x%0h", i, m_execution_q[i].expected_result_FIFO), UVM_LOW);
-                end
-
-            end
-            //calulate the expected results here with to variable from the register file
+            ex_output.expected_result_FIFO   = expected_result;
+            ex_output.expected_overflow_FIFO = expected_overflow;
+            //store expected rs ids for later comparison
+            m_execution_q.push_back(ex_output);
             
         end
     endfunction :  calculate_expected_dec_in_to_ex_out
+
 
     virtual function void calculate_expected_results();
         expected_overflow = 1'b0;  // default for non-add/sub ops
@@ -1273,7 +1268,7 @@ class scoreboard extends uvm_component;
         de_out.decode_expected_rs1_id_FIFO = dec_input.instruction_FIFO.rs1;
         de_out.decode_expected_rs2_id_FIFO = dec_input.instruction_FIFO.rs2;
 
-        //         logic [5:0]  decode_expected_reg_rd_id_FIFO;
+        // logic [5:0]  decode_expected_reg_rd_id_FIFO;
         // logic [4:0]  decode_expected_rs1_id_FIFO;
         // logic [4:0]  decode_expected_rs2_id_FIFO;
         // logic        decode_expected_resolve_FIFO;
@@ -1292,7 +1287,6 @@ class scoreboard extends uvm_component;
             `uvm_error(get_name(), "Error: write_scoreboard_decode_stage_output");
             return;
         end
-
 
         de_in_out = m_de_input_output_q.pop_front();
 
@@ -1317,6 +1311,50 @@ class scoreboard extends uvm_component;
 
         //not implemented yet
     endfunction : compare_exp_DUT_decode_results
+
+    //------------------------------------------------------------------------------
+    // reference model functions
+    // ------------------------------------------------------------------------------
+
+    virtual function control_type get_control_signals_from_instruction(instruction_type instruction);
+        control_type ctrl;
+        if(instruction.opcode == 7'b0110011) begin //R-types
+            ctrl.alu_src = 2'b00; // both operands from registers
+            ctrl.encoding = R_TYPE;
+            ctrl.funct3 = instruction.funct3;
+            ctrl.mem_read = 1'b0;
+            ctrl.mem_write = 1'b0;
+            ctrl.reg_write = 1'b1;
+            ctrl.mem_to_reg = 1'b0;
+            ctrl.is_branch = 1'b0;
+            // Determine ALU operation based on funct3 and funct7
+            unique case (instruction.funct3)
+                3'b000: ctrl.alu_op = (instruction.funct7 == 7'b0100000) ? ALU_SUB : ALU_ADD;
+                3'b001: ctrl.alu_op = ALU_SLL;
+                3'b010: ctrl.alu_op = ALU_SLT;
+                3'b011: ctrl.alu_op = ALU_SLTU;
+                3'b100: ctrl.alu_op = ALU_XOR;
+                3'b101: ctrl.alu_op = (instruction.funct7 == 7'b0100000) ? ALU_SRA : ALU_SRL;
+                3'b110: ctrl.alu_op = ALU_OR;
+                3'b111: ctrl.alu_op = ALU_AND;
+            endcase
+        end
+
+        if(instruction.opcode == 7'b0100011) begin //S-types
+            control_in.alu_src = 2'b01; // second operand is immediate
+            control_in.encoding = S_TYPE;
+            control_in.funct3 = instruction.funct3;
+            control_in.mem_read = 1'b0;
+            control_in.mem_write = 1'b1;
+            control_in.reg_write = 1'b0;
+            control_in.mem_to_reg = 1'b0; // don't care
+            control_in.is_branch = 1'b0;
+            // the operation is always an add for address calculation
+            control_in.alu_op = ALU_ADD;
+        end
+        return ctrl;
+    endfunction : get_control_signals_from_instruction
+    
     //------------------------------------------------------------------------------
     // UVM check phase
     //------------------------------------------------------------------------------
