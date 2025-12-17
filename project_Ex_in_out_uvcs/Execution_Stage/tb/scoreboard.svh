@@ -31,6 +31,7 @@ class scoreboard extends uvm_component;
 
     // ExStage outputs
     int unsigned alu_result;
+    int unsigned prev_alu_result;
     int unsigned memory_data_out;
     logic overflow_flag;
     logic zero_flag;
@@ -44,6 +45,29 @@ class scoreboard extends uvm_component;
 
     logic [4:0] shamt;
     logic [31:0] op1, op2;
+
+    // Handshake-Flags between Input/Output and Compare
+    bit input_valid;
+    bit output_valid;
+
+    bit first_input = 0;
+    bit first_round = 1;
+
+    typedef struct {
+        int unsigned  data1_FIFO;
+        int unsigned  data2_FIFO;
+        int unsigned  immediate_data_FIFO;
+        control_type  control_in_FIFO;
+        logic         compflg_in_FIFO;
+        logic [31:0]  program_counter_in_FIFO;
+
+        logic [31:0]  expected_result_FIFO;
+        bit           expected_overflow_FIFO;
+    } ex_expected_t;
+
+    ex_expected_t m_expected_q[$];  // FIFO-Queue
+
+
 
 
     //------------------------------------------------------------------------------
@@ -288,6 +312,10 @@ class scoreboard extends uvm_component;
         // Create coverage group
         execution_stage_input_covergrp = new();
         execution_stage_output_covergrp = new();
+
+        // Flags initial
+        input_valid  = 0;
+        output_valid = 0;
     endfunction: new
 
     //------------------------------------------------------------------------------
@@ -311,43 +339,90 @@ class scoreboard extends uvm_component;
     // Write implementation for write_scoreboard_execution_stage_input analysis port.
     //------------------------------------------------------------------------------
     virtual function void write_scoreboard_execution_stage_input(execution_stage_input_seq_item item);
-        // if (item.exp_alu_data !== 'x && item.exp_alu_data !== '0) begin
-        //     `uvm_info(get_name(), $sformatf("Item provided expected ALU data=0x%08h", item.exp_alu_data), UVM_LOW)
-        // end
-        
-        data1 = item.data1;
-        data2 = item.data2;
-        immediate_data = item.immediate_data; 
-        control_in = item.control_in;
-        compflg_in = item.compflg_in;
-        program_counter_in = item.program_counter_in;
-        
-        
-        //`uvm_info(get_name(), $sformatf("ALU_OPRESET_function: alu_op=%00s reset_value=%0b", alu_op.name(), reset_value), UVM_LOW)
-        execution_stage_input_covergrp.sample();
-        check_data();
+        ex_expected_t tx;
 
-    endfunction: write_scoreboard_execution_stage_input
+        first_input = 1;
+        
+
+        // 1) Eingänge in tx ablegen
+        tx.data1_FIFO              = item.data1;
+        tx.data2_FIFO              = item.data2;
+        tx.immediate_data_FIFO     = item.immediate_data;
+        tx.control_in_FIFO         = item.control_in;
+        tx.compflg_in_FIFO         = item.compflg_in;
+        tx.program_counter_in_FIFO = item.program_counter_in; // nicht program_counter_in
+        // 2) Globale Variablen für Coverage & Berechnung setzen
+        data1              = tx.data1_FIFO;
+        data2            = tx.data2_FIFO;
+        immediate_data     = tx.immediate_data_FIFO; 
+        control_in         = tx.control_in_FIFO;
+        compflg_in         = tx.compflg_in_FIFO;
+        program_counter_in = tx.program_counter_in_FIFO;
+
+        `uvm_info(get_name(),
+        $sformatf("Input DUT: data1=%0h, data2=%0h, immediate_data=%0h, operation=%s",
+                    data1, data2, immediate_data, control_in.alu_op.name()),
+        UVM_MEDIUM)
+
+        execution_stage_input_covergrp.sample();
+
+        // 3) Expected für diese Transaktion berechnen
+        calculate_expected_results();         // schreibt expected_result & expected_overflow (global)
+
+        // 4) In tx übernehmen
+        tx.expected_result_FIFO   = expected_result;
+        tx.expected_overflow_FIFO = expected_overflow;
+
+        // 5) In Queue legen
+        m_expected_q.push_back(tx);
+    endfunction:write_scoreboard_execution_stage_input
 
     virtual function void write_scoreboard_execution_stage_output(execution_stage_output_seq_item item);
-        // if (item.exp_alu_data !== 'x && item.exp_alu_data !== '0) begin
-        //     `uvm_info(get_name(), $sformatf("Item provided expected ALU data=0x%08h", item.exp_alu_data), UVM_LOW)
-        // end
+        ex_expected_t tx;
 
-        alu_result = item.alu_data;
+        //wait for inputs
+        if (first_input == 0) begin
+            `uvm_info(get_name(), "First input not received yet", UVM_LOW)
+            return;
+        end
+
+
+        if (m_expected_q.size() == 0) begin
+            `uvm_error(get_name(), "Got DUT output but no pending expected transaction");
+            return;
+        end
+
+        // Älteste Erwartung zu diesem Output holen
+        tx = m_expected_q.pop_front();
+
+        // Globale Variablen für Vergleichs- und Fehlermeldungs-Logik setzen
+        data1              = tx.data1_FIFO;
+        data2              = tx.data2_FIFO;
+        immediate_data     = tx.immediate_data_FIFO;
+        control_in         = tx.control_in_FIFO;
+        compflg_in         = tx.compflg_in_FIFO;
+        program_counter_in = tx.program_counter_in_FIFO;
+        expected_result    = tx.expected_result_FIFO;
+        expected_overflow  = tx.expected_overflow_FIFO;
+
+        // DUT-Ausgänge übernehmen
+        alu_result      = item.alu_data;
         memory_data_out = item.memory_data;
-        control_out = item.control_out;
-        
-        // ---- flags ----
-        overflow_flag = item.overflow_flag;
-        zero_flag = item.zero_flag;
-        compflg_out = item.compflg_out;
-        
-        //`uvm_info(get_name(), $sformatf("ALU_OPRESET_function: alu_op=%00s reset_value=%0b", alu_op.name(), reset_value), UVM_LOW)
-        execution_stage_output_covergrp.sample();
-        check_data();
+        control_out     = item.control_out;
+        overflow_flag   = item.overflow_flag;
+        zero_flag       = item.zero_flag;
+        compflg_out     = item.compflg_out;
 
+        `uvm_info(get_name(),
+        $sformatf("Result from DUT: res=%0h ovf=%0h", alu_result, overflow_flag),
+        UVM_MEDIUM)
+
+        execution_stage_output_covergrp.sample();
+
+        // jetzt passt Input/Expected zu diesem Output → JETZT vergleichen
+        compare_exp_DUT_results();
     endfunction: write_scoreboard_execution_stage_output
+
 
     //------------------------------------------------------------------------------
     // Write implementation for write_scoreboard_reset analysis port.
@@ -361,7 +436,7 @@ class scoreboard extends uvm_component;
 
     endfunction :  write_scoreboard_reset
 
-    virtual function void check_data();
+    virtual function void calculate_expected_results();
         expected_overflow = 1'b0;  // default for non-add/sub ops
 
         // alu_src: when 2'b01 the intermediate value is the RIGHT operand (op2)
@@ -437,10 +512,12 @@ class scoreboard extends uvm_component;
 
         end
         endcase
+        `uvm_info(get_name(), $sformatf("Expected result calculated: exp_res=0x%08h, exp_ovf=%0b", expected_result, expected_overflow), UVM_MEDIUM)
 
-        `uvm_info(get_name(), $sformatf("Result from DUT: res=%0h ovf=%0h",alu_result, overflow_flag), UVM_MEDIUM)
+    endfunction :  calculate_expected_results
 
 
+    virtual function void compare_exp_DUT_results();
         // --- Compare DUT result with expected result (all ops) ---
         if (alu_result !== expected_result) begin
         `uvm_error("ALU_RESULT_MISMATCH",
@@ -509,7 +586,8 @@ class scoreboard extends uvm_component;
             $sformatf("Compression flag passthrough mismatch: DUT_compflg_out=%0b, EXP_compflg_in=%0b",
                         compflg_out, compflg_in))
         end
-    endfunction :  check_data
+        `uvm_info(get_name(), "Compare results done", UVM_MEDIUM)
+    endfunction :  compare_exp_DUT_results
 
     //------------------------------------------------------------------------------
     // UVM check phase
