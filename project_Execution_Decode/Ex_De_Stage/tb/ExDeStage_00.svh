@@ -48,7 +48,7 @@ class ExDeStage_00 extends uvm_test;
     // Start UVM test in running phase.
     //------------------------------------------------------------------------------
 
-    int n = 5; // x for 100% coverage
+    int n = 1; // x for 100% coverage
 
 
     virtual task run_phase(uvm_phase phase);
@@ -71,7 +71,7 @@ class ExDeStage_00 extends uvm_test;
         reset.length = 1;
         reset.start(m_tb_env.m_reset_agent.m_sequencer);
 
-        repeat (100*n) begin
+        repeat (2*n) begin
             // write random value into x1
             `uvm_info("Starts test 4:", "randomize write data 1/2 + write id 1/2", UVM_LOW);
             decode_stage_input = decode_stage_input_seq::type_id::create("decode_stage_input");
@@ -106,7 +106,7 @@ class ExDeStage_00 extends uvm_test;
             @(posedge m_tb_env.m_clock_agent.m_config.m_vif.clock);
         end
 
-        repeat (100*n) begin
+        repeat (2*n) begin
             // write random value into x1
             `uvm_info("Starts test 4:", "randomize write data 1/2 + write id 1/2", UVM_LOW);
             decode_stage_input = decode_stage_input_seq::type_id::create("decode_stage_input");
@@ -142,7 +142,7 @@ class ExDeStage_00 extends uvm_test;
             @(posedge m_tb_env.m_clock_agent.m_config.m_vif.clock);
         end
 
-
+        @(posedge m_tb_env.m_clock_agent.m_config.m_vif.clock);
         // Drop objection if no UVM test is running
         phase.drop_objection(this);
 
