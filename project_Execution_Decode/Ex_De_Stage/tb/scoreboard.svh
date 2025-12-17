@@ -1045,8 +1045,8 @@ class scoreboard extends uvm_component;
         end
 
 
+        //all signals where only one input is needed
         if(m_de_inputs_q.size() == 1) begin
-            //test S-types
             control_in = get_control_signals_from_instruction(dec_input.instruction_FIFO);
 
             ex_output.control_in_FIFO   = control_in;
@@ -1056,15 +1056,15 @@ class scoreboard extends uvm_component;
             prev_de_tx1 = m_de_inputs_q.pop_front();
 
             data1 = prev_de_tx1.write_data_FIFO; // rs1
-            //calculate the immidiate value
-            immediate_data[11:5] = dec_input.instruction_FIFO.funct7;
-            immediate_data[4:0]  = dec_input.instruction_FIFO.rd;
-            immediate_data = $signed(immediate_data); //sign extend
+
             //calculate the results now
             calculate_expected_results(); 
             
             ex_output.expected_result_FIFO   = expected_result;
             ex_output.expected_overflow_FIFO = expected_overflow;
+
+            `uvm_info(get_name(), $sformatf("Expected result calculated (single input): exp_res=0x%08h, exp_ovf=%0b", expected_result, expected_overflow), UVM_MEDIUM);
+
             //store expected rs ids for later comparison
             m_execution_q.push_back(ex_output);
         end
@@ -1084,9 +1084,16 @@ class scoreboard extends uvm_component;
             data1 = prev_de_tx1.write_data_FIFO; // rs1
             data2 = prev_de_tx2.write_data_FIFO; // rs2
 
+            ex_output.data2_FIFO        = data2;
+
             `uvm_info(get_name(), $sformatf("calculate_expected_results: data1= 0x%0h, data2= 0x%0h", data1,data2), UVM_LOW);
 
-
+            if (control_in.encoding == S_TYPE) begin
+                immediate_data[11:5] = dec_input.instruction_FIFO.funct7;
+                immediate_data[4:0]  = dec_input.instruction_FIFO.rd;
+                immediate_data = $signed(immediate_data); //sign extend
+                `uvm_info(get_name(), $sformatf("calculate_expected_results (single input): data1= 0x%0h, immediate_data= 0x%0h", data1, immediate_data), UVM_LOW);
+            end
             //calculate the results now
             calculate_expected_results(); 
             
@@ -1108,6 +1115,9 @@ class scoreboard extends uvm_component;
         op1 = data1;
         op2 = (control_in.alu_src == 2'b01) ? immediate_data : data2;
         shamt = op2[4:0];
+
+        //print operqtions
+        `uvm_info(get_name(), $sformatf("Calculating expected results: op1=0x%08h, op2=0x%08h, alu_op=%s, alu_src=%0b", op1, op2, control_in.alu_op.name(), control_in.alu_src),UVM_MEDIUM)
 
         unique case (control_in.alu_op)
         ALU_ADD: begin
@@ -1349,16 +1359,16 @@ class scoreboard extends uvm_component;
         end
 
         if(instruction.opcode == 7'b0100011) begin //S-types
-            control_in.alu_src = 2'b01; // second operand is immediate
-            control_in.encoding = S_TYPE;
-            control_in.funct3 = instruction.funct3;
-            control_in.mem_read = 1'b0;
-            control_in.mem_write = 1'b1;
-            control_in.reg_write = 1'b0;
-            control_in.mem_to_reg = 1'b0; // don't care
-            control_in.is_branch = 1'b0;
+            ctrl.alu_src = 2'b01; // second operand is immediate
+            ctrl.encoding = S_TYPE;
+            ctrl.funct3 = instruction.funct3;
+            ctrl.mem_read = 1'b0;
+            ctrl.mem_write = 1'b1;
+            ctrl.reg_write = 1'b0;
+            ctrl.mem_to_reg = 1'b0; // don't care
+            ctrl.is_branch = 1'b0;
             // the operation is always an add for address calculation
-            control_in.alu_op = ALU_ADD;
+            ctrl.alu_op = ALU_ADD;
         end
         return ctrl;
     endfunction : get_control_signals_from_instruction

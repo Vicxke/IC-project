@@ -48,7 +48,7 @@ class ExDeStage_00 extends uvm_test;
     // Start UVM test in running phase.
     //------------------------------------------------------------------------------
 
-    int n = 1; // x for 100% coverage
+    int n = 5; // x for 100% coverage
 
 
     virtual task run_phase(uvm_phase phase);
@@ -57,7 +57,7 @@ class ExDeStage_00 extends uvm_test;
         reset_seq reset;
         decode_stage_input_seq decode_stage_input;
         instruction_type instruction;
-        logic [4:0] write_id_store;
+        logic [4:0] write_id_store1, write_id_store2;
         logic [31:0] write_data;
         super.run_phase(phase);
 
@@ -71,7 +71,7 @@ class ExDeStage_00 extends uvm_test;
         reset.length = 1;
         reset.start(m_tb_env.m_reset_agent.m_sequencer);
 
-        repeat (2*n) begin
+        repeat (100*n) begin
             // write random value into x1
             `uvm_info("Starts test 4:", "randomize write data 1/2 + write id 1/2", UVM_LOW);
             decode_stage_input = decode_stage_input_seq::type_id::create("decode_stage_input");
@@ -80,8 +80,21 @@ class ExDeStage_00 extends uvm_test;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
-            write_id_store = decode_stage_input.write_id;
-            `uvm_info(get_name(),$sformatf("lw in reg: Write ID: %0d;", write_id_store), UVM_LOW)
+            write_id_store1 = decode_stage_input.write_id;
+            decode_stage_input.instr_valid = 1; // input decode stage
+            decode_stage_input.instr_valid_ex_in = 0; // input execution stage
+            decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
+
+            @(posedge m_tb_env.m_clock_agent.m_config.m_vif.clock);
+
+            // write B into x2
+            decode_stage_input = decode_stage_input_seq::type_id::create("wr_x2");
+            if (!(decode_stage_input.randomize() with {
+                write_en == 1;
+            }))
+                `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
+
+            write_id_store2 = decode_stage_input.write_id;
             decode_stage_input.instr_valid = 1; // input decode stage
             decode_stage_input.instr_valid_ex_in = 0; // input execution stage
             decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
@@ -94,30 +107,44 @@ class ExDeStage_00 extends uvm_test;
                 write_en == 0;
                 instruction.opcode == 7'b0100011; //sw
                 instruction.funct3 inside {3'b000, 3'b001, 3'b010, 3'b011}; //differend S-types
-                instruction.rs2 == write_id_store;  // RS2 provides store data (data2)
+                instruction.rs2 == write_id_store2;  // RS2 provides store data (data2)
+                instruction.rs1 == write_id_store1;  // RS1 provides base address
                 compflg == 0;
                 instr_valid == 1;
                 instr_valid_ex_in == 1;
             }))
 
-            `uvm_info(get_name(),$sformatf("sw in reg: Read ID: %0d;", write_id_store), UVM_LOW)
+            `uvm_info(get_name(),$sformatf("sw in reg: Read ID: %0d;", write_id_store2), UVM_LOW)
             decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
 
             @(posedge m_tb_env.m_clock_agent.m_config.m_vif.clock);
         end
 
-        repeat (2*n) begin
+        repeat (50*n) begin
             // write random value into x1
             `uvm_info("Starts test 4:", "randomize write data 1/2 + write id 1/2", UVM_LOW);
             decode_stage_input = decode_stage_input_seq::type_id::create("decode_stage_input");
             if (!(decode_stage_input.randomize() with {
+                write_en == 1;
                 write_data inside {32'h0000_0000, 32'hFFFF_FFFF};
+            }))
+                `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
+
+            write_id_store1 = decode_stage_input.write_id;
+            decode_stage_input.instr_valid = 1; // input decode stage
+            decode_stage_input.instr_valid_ex_in = 0; // input execution stage
+            decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
+
+            @(posedge m_tb_env.m_clock_agent.m_config.m_vif.clock);
+
+            // write B into x2
+            decode_stage_input = decode_stage_input_seq::type_id::create("wr_x2");
+            if (!(decode_stage_input.randomize() with {
                 write_en == 1;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
-            write_id_store = decode_stage_input.write_id;
-            `uvm_info(get_name(),$sformatf("lw in reg: Write ID: %0d;", write_id_store), UVM_LOW)
+            write_id_store2 = decode_stage_input.write_id;
             decode_stage_input.instr_valid = 1; // input decode stage
             decode_stage_input.instr_valid_ex_in = 0; // input execution stage
             decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
@@ -130,13 +157,14 @@ class ExDeStage_00 extends uvm_test;
                 write_en == 0;
                 instruction.opcode == 7'b0100011; //sw
                 instruction.funct3 inside {3'b000, 3'b001, 3'b010, 3'b011}; //differend S-types
-                instruction.rs2 == write_id_store;  // RS2 provides store data (data2)
+                instruction.rs2 == write_id_store2;  // RS2 provides store data (data2)
+                instruction.rs1 == write_id_store1;  // RS1 provides base address
                 compflg == 0;
                 instr_valid == 1;
                 instr_valid_ex_in == 1;
             }))
 
-            `uvm_info(get_name(),$sformatf("sw in reg: Read ID: %0d;", write_id_store), UVM_LOW)
+            `uvm_info(get_name(),$sformatf("sw in reg: Read ID: %0d;", write_id_store2), UVM_LOW)
             decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
 
             @(posedge m_tb_env.m_clock_agent.m_config.m_vif.clock);
