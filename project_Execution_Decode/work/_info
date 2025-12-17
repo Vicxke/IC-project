@@ -347,6 +347,28 @@ R0
 R0
 R0
 R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
+R0
 !s11f vlog 2022.1 2022.01, Jan 29 2022
 13
 !s112 1.1
@@ -745,22 +767,21 @@ R49
 R1
 T_opt9
 !s11d tb_pkg //stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/IC-project/project_Execution_Decode/work 6 clock_if 1 //stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/IC-project/project_Execution_Decode/work reset_if 1 //stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/IC-project/project_Execution_Decode/work execution_stage_input_if 1 //stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/IC-project/project_Execution_Decode/work execution_stage_output_if 1 //stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/IC-project/project_Execution_Decode/work decode_stage_input_if 1 //stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/IC-project/project_Execution_Decode/work decode_stage_output_if 1 //stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/IC-project/project_Execution_Decode/work 
-!s110 1765904269
-V^C3[_OJJ>`JE0HPTVGOLQ0
+!s110 1765973544
+Vi>FXSY9:Ae_:hk?GmNlF;3
 R46
-=1-6c2b59f03066-69418f8a-396-3c40
+=1-6c2b59f03066-69429e25-28a-461c
 R0
 R47
 R48
 R18
 n@_opt9
 R49
-R1
 valu
 Z53 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
 Z54 DXx4 work 6 common 0 22 2A8XU7BB6zEzcCgb[X6Mh0
 DXx4 work 11 alu_sv_unit 0 22 04]U^nVoc5>k4WcG5@Oij1
-Z55 !s110 1765904652
+Z55 !s110 1765973539
 R12
 r1
 !s85 0
@@ -773,16 +794,16 @@ Z56 d//stu.net.lth.se/vi0501he-s/Documents/GitHub/IC-project/IC-project/project_
 Z57 w1765898350
 Z58 8Ex_De_Stage/dut/alu.sv
 Z59 FEx_De_Stage/dut/alu.sv
-!i122 526
+!i122 556
 R3
 R4
 31
-Z60 !s108 1765904652.000000
-!s107 Ex_De_Stage/tb/ExDeStage_04.svh|Ex_De_Stage/tb/ExDeStage_03.svh|Ex_De_Stage/tb/ExDeStage_02.svh|Ex_De_Stage/tb/ExDeStage_01.svh|Ex_De_Stage/tb/ExDeStage_00.svh|Ex_De_Stage/tb/tb_env.svh|Ex_De_Stage/tb/top_config.svh|Ex_De_Stage/tb/scoreboard.svh|uvc/decode_stage_output_uvc/decode_stage_output_agent.svh|uvc/decode_stage_output_uvc/decode_stage_output_monitor.svh|uvc/decode_stage_output_uvc/decode_stage_output_config.svh|uvc/decode_stage_output_uvc/decode_stage_output_seq_item.svh|uvc/decode_stage_input_uvc/decode_stage_input_agent.svh|uvc/decode_stage_input_uvc/decode_stage_input_monitor.svh|uvc/decode_stage_input_uvc/decode_stage_input_driver.svh|uvc/decode_stage_input_uvc/decode_stage_input_config.svh|uvc/decode_stage_input_uvc/decode_stage_input_seq.svh|uvc/decode_stage_input_uvc/decode_stage_input_seq_item.svh|uvc/execution_stage_uvc_output/execution_stage_output_agent.svh|uvc/execution_stage_uvc_output/execution_stage_output_monitor.svh|uvc/execution_stage_uvc_output/execution_stage_output_config.svh|uvc/execution_stage_uvc_output/execution_stage_output_seq_item.svh|uvc/execution_stage_uvc_input/execution_stage_input_agent.svh|uvc/execution_stage_uvc_input/execution_stage_input_monitor.svh|uvc/execution_stage_uvc_input/execution_stage_input_driver.svh|uvc/execution_stage_uvc_input/execution_stage_input_config.svh|uvc/execution_stage_uvc_input/execution_stage_input_seq.svh|uvc/execution_stage_uvc_input/execution_stage_input_seq_item.svh|uvc/reset_uvc/reset_agent.svh|uvc/reset_uvc/reset_monitor.svh|uvc/reset_uvc/reset_driver.svh|uvc/reset_uvc/reset_config.svh|uvc/reset_uvc/reset_seq.svh|uvc/reset_uvc/reset_seq_item.svh|uvc/clock_uvc/clock_agent.svh|uvc/clock_uvc/clock_driver.svh|uvc/clock_uvc/clock_config.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_deprecated_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_reg_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_callback_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_sequence_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/tlm1/uvm_tlm_imps.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_tlm_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_printer_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_object_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_phase_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_message_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_version_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/uvm_macros.svh|Ex_De_Stage/tb/tb_top.sv|Ex_De_Stage/tb/tb_pkg.sv|uvc/decode_stage_output_uvc/decode_stage_output_if.sv|uvc/decode_stage_input_uvc/decode_stage_input_if.sv|uvc/execution_stage_uvc_output/execution_stage_output_if.sv|uvc/execution_stage_uvc_input/execution_stage_input_if.sv|uvc/reset_uvc/reset_if.sv|uvc/clock_uvc/clock_if.sv|Ex_De_Stage/dut/register_file.sv|Ex_De_Stage/dut/pc_resolver.sv|Ex_De_Stage/dut/control.sv|Ex_De_Stage/dut/branch_decider.sv|Ex_De_Stage/dut/decode_stage.sv|Ex_De_Stage/dut/execute_stage.sv|Ex_De_Stage/dut/common.sv|Ex_De_Stage/dut/alu.sv|
-Z61 !s90 -reportprogress|300|-sv|-timescale|1ns/1ns|+incdir+uvc/clock_uvc|+incdir+uvc/reset_uvc|+incdir+uvc/execution_stage_uvc_input|+incdir+uvc/execution_stage_uvc_output|+incdir+uvc/decode_stage_input_uvc|+incdir+uvc/decode_stage_output_uvc|Ex_De_Stage/dut/alu.sv|Ex_De_Stage/dut/common.sv|Ex_De_Stage/dut/execute_stage.sv|Ex_De_Stage/dut/decode_stage.sv|Ex_De_Stage/dut/branch_decider.sv|Ex_De_Stage/dut/control.sv|Ex_De_Stage/dut/pc_resolver.sv|Ex_De_Stage/dut/register_file.sv|uvc/clock_uvc/clock_if.sv|uvc/reset_uvc/reset_if.sv|uvc/execution_stage_uvc_input/execution_stage_input_if.sv|uvc/execution_stage_uvc_output/execution_stage_output_if.sv|uvc/decode_stage_input_uvc/decode_stage_input_if.sv|uvc/decode_stage_output_uvc/decode_stage_output_if.sv|+incdir+Ex_De_Stage/tb|Ex_De_Stage/tb/tb_pkg.sv|Ex_De_Stage/tb/tb_top.sv|
+Z60 !s108 1765973539.000000
+Z61 !s107 Ex_De_Stage/tb/ExDeStage_04.svh|Ex_De_Stage/tb/ExDeStage_03.svh|Ex_De_Stage/tb/ExDeStage_02.svh|Ex_De_Stage/tb/ExDeStage_01.svh|Ex_De_Stage/tb/ExDeStage_00.svh|Ex_De_Stage/tb/tb_env.svh|Ex_De_Stage/tb/top_config.svh|Ex_De_Stage/tb/scoreboard.svh|uvc/decode_stage_output_uvc/decode_stage_output_agent.svh|uvc/decode_stage_output_uvc/decode_stage_output_monitor.svh|uvc/decode_stage_output_uvc/decode_stage_output_config.svh|uvc/decode_stage_output_uvc/decode_stage_output_seq_item.svh|uvc/decode_stage_input_uvc/decode_stage_input_agent.svh|uvc/decode_stage_input_uvc/decode_stage_input_monitor.svh|uvc/decode_stage_input_uvc/decode_stage_input_driver.svh|uvc/decode_stage_input_uvc/decode_stage_input_config.svh|uvc/decode_stage_input_uvc/decode_stage_input_seq.svh|uvc/decode_stage_input_uvc/decode_stage_input_seq_item.svh|uvc/execution_stage_uvc_output/execution_stage_output_agent.svh|uvc/execution_stage_uvc_output/execution_stage_output_monitor.svh|uvc/execution_stage_uvc_output/execution_stage_output_config.svh|uvc/execution_stage_uvc_output/execution_stage_output_seq_item.svh|uvc/execution_stage_uvc_input/execution_stage_input_agent.svh|uvc/execution_stage_uvc_input/execution_stage_input_monitor.svh|uvc/execution_stage_uvc_input/execution_stage_input_driver.svh|uvc/execution_stage_uvc_input/execution_stage_input_config.svh|uvc/execution_stage_uvc_input/execution_stage_input_seq.svh|uvc/execution_stage_uvc_input/execution_stage_input_seq_item.svh|uvc/reset_uvc/reset_agent.svh|uvc/reset_uvc/reset_monitor.svh|uvc/reset_uvc/reset_driver.svh|uvc/reset_uvc/reset_config.svh|uvc/reset_uvc/reset_seq.svh|uvc/reset_uvc/reset_seq_item.svh|uvc/clock_uvc/clock_agent.svh|uvc/clock_uvc/clock_driver.svh|uvc/clock_uvc/clock_config.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_deprecated_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_reg_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_callback_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_sequence_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/tlm1/uvm_tlm_imps.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_tlm_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_printer_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_object_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_phase_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_message_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_version_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/uvm_macros.svh|Ex_De_Stage/tb/tb_top.sv|Ex_De_Stage/tb/tb_pkg.sv|uvc/decode_stage_output_uvc/decode_stage_output_if.sv|uvc/decode_stage_input_uvc/decode_stage_input_if.sv|uvc/execution_stage_uvc_output/execution_stage_output_if.sv|uvc/execution_stage_uvc_input/execution_stage_input_if.sv|uvc/reset_uvc/reset_if.sv|uvc/clock_uvc/clock_if.sv|Ex_De_Stage/dut/register_file.sv|Ex_De_Stage/dut/pc_resolver.sv|Ex_De_Stage/dut/control.sv|Ex_De_Stage/dut/branch_decider.sv|Ex_De_Stage/dut/decode_stage.sv|Ex_De_Stage/dut/execute_stage.sv|Ex_De_Stage/dut/common.sv|Ex_De_Stage/dut/alu.sv|
+Z62 !s90 -reportprogress|300|-sv|-timescale|1ns/1ns|+incdir+uvc/clock_uvc|+incdir+uvc/reset_uvc|+incdir+uvc/execution_stage_uvc_input|+incdir+uvc/execution_stage_uvc_output|+incdir+uvc/decode_stage_input_uvc|+incdir+uvc/decode_stage_output_uvc|Ex_De_Stage/dut/alu.sv|Ex_De_Stage/dut/common.sv|Ex_De_Stage/dut/execute_stage.sv|Ex_De_Stage/dut/decode_stage.sv|Ex_De_Stage/dut/branch_decider.sv|Ex_De_Stage/dut/control.sv|Ex_De_Stage/dut/pc_resolver.sv|Ex_De_Stage/dut/register_file.sv|uvc/clock_uvc/clock_if.sv|uvc/reset_uvc/reset_if.sv|uvc/execution_stage_uvc_input/execution_stage_input_if.sv|uvc/execution_stage_uvc_output/execution_stage_output_if.sv|uvc/decode_stage_input_uvc/decode_stage_input_if.sv|uvc/decode_stage_output_uvc/decode_stage_output_if.sv|+incdir+Ex_De_Stage/tb|Ex_De_Stage/tb/tb_pkg.sv|Ex_De_Stage/tb/tb_top.sv|
 !i113 0
 R16
-Z62 !s92 -sv -timescale 1ns/1ns +incdir+uvc/clock_uvc +incdir+uvc/reset_uvc +incdir+uvc/execution_stage_uvc_input +incdir+uvc/execution_stage_uvc_output +incdir+uvc/decode_stage_input_uvc +incdir+uvc/decode_stage_output_uvc +incdir+Ex_De_Stage/tb -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z63 !s92 -sv -timescale 1ns/1ns +incdir+uvc/clock_uvc +incdir+uvc/reset_uvc +incdir+uvc/execution_stage_uvc_input +incdir+uvc/execution_stage_uvc_output +incdir+uvc/decode_stage_input_uvc +incdir+uvc/decode_stage_output_uvc +incdir+Ex_De_Stage/tb -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
 R18
 Xalu_sv_unit
 R53
@@ -800,16 +821,16 @@ R56
 R57
 R58
 R59
-!i122 526
+!i122 556
 R19
 R4
 31
 R60
-Z63 !s107 Ex_De_Stage/tb/ExDeStage_04.svh|Ex_De_Stage/tb/ExDeStage_03.svh|Ex_De_Stage/tb/ExDeStage_02.svh|Ex_De_Stage/tb/ExDeStage_01.svh|Ex_De_Stage/tb/ExDeStage_00.svh|Ex_De_Stage/tb/tb_env.svh|Ex_De_Stage/tb/top_config.svh|Ex_De_Stage/tb/scoreboard.svh|uvc/decode_stage_output_uvc/decode_stage_output_agent.svh|uvc/decode_stage_output_uvc/decode_stage_output_monitor.svh|uvc/decode_stage_output_uvc/decode_stage_output_config.svh|uvc/decode_stage_output_uvc/decode_stage_output_seq_item.svh|uvc/decode_stage_input_uvc/decode_stage_input_agent.svh|uvc/decode_stage_input_uvc/decode_stage_input_monitor.svh|uvc/decode_stage_input_uvc/decode_stage_input_driver.svh|uvc/decode_stage_input_uvc/decode_stage_input_config.svh|uvc/decode_stage_input_uvc/decode_stage_input_seq.svh|uvc/decode_stage_input_uvc/decode_stage_input_seq_item.svh|uvc/execution_stage_uvc_output/execution_stage_output_agent.svh|uvc/execution_stage_uvc_output/execution_stage_output_monitor.svh|uvc/execution_stage_uvc_output/execution_stage_output_config.svh|uvc/execution_stage_uvc_output/execution_stage_output_seq_item.svh|uvc/execution_stage_uvc_input/execution_stage_input_agent.svh|uvc/execution_stage_uvc_input/execution_stage_input_monitor.svh|uvc/execution_stage_uvc_input/execution_stage_input_driver.svh|uvc/execution_stage_uvc_input/execution_stage_input_config.svh|uvc/execution_stage_uvc_input/execution_stage_input_seq.svh|uvc/execution_stage_uvc_input/execution_stage_input_seq_item.svh|uvc/reset_uvc/reset_agent.svh|uvc/reset_uvc/reset_monitor.svh|uvc/reset_uvc/reset_driver.svh|uvc/reset_uvc/reset_config.svh|uvc/reset_uvc/reset_seq.svh|uvc/reset_uvc/reset_seq_item.svh|uvc/clock_uvc/clock_agent.svh|uvc/clock_uvc/clock_driver.svh|uvc/clock_uvc/clock_config.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_deprecated_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_reg_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_callback_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_sequence_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/tlm1/uvm_tlm_imps.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_tlm_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_printer_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_object_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_phase_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_message_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_version_defines.svh|C:/Program Files/questasim64_2022.1/uvm-1.1d/../verilog_src/uvm-1.1d/src/uvm_macros.svh|Ex_De_Stage/tb/tb_top.sv|Ex_De_Stage/tb/tb_pkg.sv|uvc/decode_stage_output_uvc/decode_stage_output_if.sv|uvc/decode_stage_input_uvc/decode_stage_input_if.sv|uvc/execution_stage_uvc_output/execution_stage_output_if.sv|uvc/execution_stage_uvc_input/execution_stage_input_if.sv|uvc/reset_uvc/reset_if.sv|uvc/clock_uvc/clock_if.sv|Ex_De_Stage/dut/register_file.sv|Ex_De_Stage/dut/pc_resolver.sv|Ex_De_Stage/dut/control.sv|Ex_De_Stage/dut/branch_decider.sv|Ex_De_Stage/dut/decode_stage.sv|Ex_De_Stage/dut/execute_stage.sv|Ex_De_Stage/dut/common.sv|Ex_De_Stage/dut/alu.sv|
 R61
+R62
 !i113 0
 R16
-R62
+R63
 R18
 vbranch_decider
 R53
@@ -828,16 +849,16 @@ R56
 R57
 Z64 8Ex_De_Stage/dut/branch_decider.sv
 Z65 FEx_De_Stage/dut/branch_decider.sv
-!i122 526
+!i122 556
 L0 10 59
 R4
 31
 R60
-R63
 R61
+R62
 !i113 0
 R16
-R62
+R63
 R18
 Xbranch_decider_sv_unit
 R53
@@ -855,16 +876,16 @@ R56
 R57
 R64
 R65
-!i122 526
+!i122 556
 L0 8 0
 R4
 31
 R60
-R63
 R61
+R62
 !i113 0
 R16
-R62
+R63
 R18
 Yclock_if
 R53
@@ -877,7 +898,7 @@ R56
 Z66 w1765898351
 8uvc/clock_uvc/clock_if.sv
 Fuvc/clock_uvc/clock_if.sv
-!i122 526
+!i122 556
 R20
 R12
 R4
@@ -885,11 +906,11 @@ r1
 !s85 0
 31
 R60
-R63
 R61
+R62
 !i113 0
 R16
-R62
+R63
 R18
 Xcommon
 R53
@@ -902,7 +923,7 @@ R56
 R57
 8Ex_De_Stage/dut/common.sv
 FEx_De_Stage/dut/common.sv
-!i122 526
+!i122 556
 R21
 V2A8XU7BB6zEzcCgb[X6Mh0
 R4
@@ -910,11 +931,11 @@ r1
 !s85 0
 31
 R60
-R63
 R61
+R62
 !i113 0
 R16
-R62
+R63
 R18
 vcontrol
 R53
@@ -933,16 +954,16 @@ R56
 R57
 Z67 8Ex_De_Stage/dut/control.sv
 Z68 FEx_De_Stage/dut/control.sv
-!i122 526
+!i122 556
 L0 12 374
 R4
 31
 R60
-R63
 R61
+R62
 !i113 0
 R16
-R62
+R63
 R18
 Xcontrol_sv_unit
 R53
@@ -960,16 +981,16 @@ R56
 R57
 R67
 R68
-!i122 526
+!i122 556
 R23
 R4
 31
 R60
-R63
 R61
+R62
 !i113 0
 R16
-R62
+R63
 R18
 vdecode_stage
 R53
@@ -988,16 +1009,16 @@ R56
 R57
 Z69 8Ex_De_Stage/dut/decode_stage.sv
 Z70 FEx_De_Stage/dut/decode_stage.sv
-!i122 526
+!i122 556
 L0 14 111
 R4
 31
 R60
-R63
 R61
+R62
 !i113 0
 R16
-R62
+R63
 R18
 Ydecode_stage_input_if
 R53
@@ -1011,7 +1032,7 @@ R56
 R66
 8uvc/decode_stage_input_uvc/decode_stage_input_if.sv
 Fuvc/decode_stage_input_uvc/decode_stage_input_if.sv
-!i122 526
+!i122 556
 R24
 R12
 R4
@@ -1019,16 +1040,16 @@ r1
 !s85 0
 31
 R60
-R63
 R61
+R62
 !i113 0
 R16
-R62
+R63
 R18
 Ydecode_stage_output_if
 R53
 R54
-Z71 !s110 1765904653
+R55
 !i10b 1
 !s100 :QJ<4aj2OKz>5Q:]mX=8K0
 IT;57SP_2zDnEYTQLD2?Sm2
@@ -1037,7 +1058,7 @@ R56
 R66
 8uvc/decode_stage_output_uvc/decode_stage_output_if.sv
 Fuvc/decode_stage_output_uvc/decode_stage_output_if.sv
-!i122 526
+!i122 556
 R24
 R12
 R4
@@ -1045,11 +1066,11 @@ r1
 !s85 0
 31
 R60
-R63
 R61
+R62
 !i113 0
 R16
-R62
+R63
 R18
 Xdecode_stage_sv_unit
 R53
@@ -1067,16 +1088,16 @@ R56
 R57
 R69
 R70
-!i122 526
+!i122 556
 L0 11 0
 R4
 31
 R60
-R63
 R61
+R62
 !i113 0
 R16
-R62
+R63
 R18
 vexecute_stage
 R53
@@ -1093,18 +1114,18 @@ I<FeOeL<BS2S6]4F`=aoog3
 S1
 R56
 R57
-Z72 8Ex_De_Stage/dut/execute_stage.sv
-Z73 FEx_De_Stage/dut/execute_stage.sv
-!i122 526
+Z71 8Ex_De_Stage/dut/execute_stage.sv
+Z72 FEx_De_Stage/dut/execute_stage.sv
+!i122 556
 R22
 R4
 31
 R60
-R63
 R61
+R62
 !i113 0
 R16
-R62
+R63
 R18
 Xexecute_stage_sv_unit
 R53
@@ -1120,18 +1141,18 @@ I2HQB1U;^mB60@ba>:7bYH0
 S1
 R56
 R57
+R71
 R72
-R73
-!i122 526
+!i122 556
 R23
 R4
 31
 R60
-R63
 R61
+R62
 !i113 0
 R16
-R62
+R63
 R18
 Yexecution_stage_if
 R53
@@ -1171,7 +1192,7 @@ R56
 R66
 8uvc/execution_stage_uvc_input/execution_stage_input_if.sv
 Fuvc/execution_stage_uvc_input/execution_stage_input_if.sv
-!i122 526
+!i122 556
 R24
 R12
 R4
@@ -1179,11 +1200,11 @@ r1
 !s85 0
 31
 R60
-R63
 R61
+R62
 !i113 0
 R16
-R62
+R63
 R18
 Yexecution_stage_output_if
 R53
@@ -1197,7 +1218,7 @@ R56
 R66
 8uvc/execution_stage_uvc_output/execution_stage_output_if.sv
 Fuvc/execution_stage_uvc_output/execution_stage_output_if.sv
-!i122 526
+!i122 556
 R24
 R12
 R4
@@ -1205,11 +1226,11 @@ r1
 !s85 0
 31
 R60
-R63
 R61
+R62
 !i113 0
 R16
-R62
+R63
 R18
 vpc_resolver
 R53
@@ -1226,18 +1247,18 @@ IPbffX8NEMlCQSW_KMJk:_2
 S1
 R56
 R57
-Z74 8Ex_De_Stage/dut/pc_resolver.sv
-Z75 FEx_De_Stage/dut/pc_resolver.sv
-!i122 526
+Z73 8Ex_De_Stage/dut/pc_resolver.sv
+Z74 FEx_De_Stage/dut/pc_resolver.sv
+!i122 556
 L0 12 50
 R4
 31
 R60
-R63
 R61
+R62
 !i113 0
 R16
-R62
+R63
 R18
 Xpc_resolver_sv_unit
 R53
@@ -1253,18 +1274,18 @@ Ik0?Cb@oX:cznHo^5EzlIm0
 S1
 R56
 R57
+R73
 R74
-R75
-!i122 526
+!i122 556
 R23
 R4
 31
 R60
-R63
 R61
+R62
 !i113 0
 R16
-R62
+R63
 R18
 vregister_file
 R53
@@ -1277,7 +1298,7 @@ R56
 R57
 8Ex_De_Stage/dut/register_file.sv
 FEx_De_Stage/dut/register_file.sv
-!i122 526
+!i122 556
 L0 4 69
 R12
 R4
@@ -1285,11 +1306,11 @@ r1
 !s85 0
 31
 R60
-R63
 R61
+R62
 !i113 0
 R16
-R62
+R63
 R18
 Yreset_if
 R53
@@ -1302,7 +1323,7 @@ R56
 R66
 8uvc/reset_uvc/reset_if.sv
 Fuvc/reset_uvc/reset_if.sv
-!i122 526
+!i122 556
 R20
 R12
 R4
@@ -1310,11 +1331,11 @@ r1
 !s85 0
 31
 R60
-R63
 R61
+R62
 !i113 0
 R16
-R62
+R63
 R18
 Xtb_pkg
 !s115 decode_stage_output_if
@@ -1323,16 +1344,16 @@ Xtb_pkg
 !s115 execution_stage_input_if
 !s115 reset_if
 !s115 clock_if
-Z76 DXx6 mtiUvm 7 uvm_pkg 0 22 8V[`8]Q0W57le7Z>zYaAj1
+Z75 DXx6 mtiUvm 7 uvm_pkg 0 22 8V[`8]Q0W57le7Z>zYaAj1
 R53
 R54
-R71
+Z76 !s110 1765973540
 !i10b 1
-!s100 43JHKX=[8VQ0fU_Ugkj0J1
-I9k4HTLD<T_>0NETYi3;UN0
+!s100 [dD:Sc>cW=Gb8iaKh:e<k3
+IHU[1MPdZIEaLSoOMga3=M0
 S1
 R56
-w1765904650
+w1765973398
 8Ex_De_Stage/tb/tb_pkg.sv
 FEx_De_Stage/tb/tb_pkg.sv
 R25
@@ -1384,32 +1405,32 @@ FEx_De_Stage/tb/ExDeStage_01.svh
 FEx_De_Stage/tb/ExDeStage_02.svh
 FEx_De_Stage/tb/ExDeStage_03.svh
 FEx_De_Stage/tb/ExDeStage_04.svh
-!i122 526
+!i122 556
 R45
-V9k4HTLD<T_>0NETYi3;UN0
+VHU[1MPdZIEaLSoOMga3=M0
 R4
 r1
 !s85 0
 31
 R60
-R63
 R61
+R62
 !i113 0
 R16
-R62
+R63
 R18
 vtb_top
-R76
+R75
 R53
 R54
-DXx4 work 6 tb_pkg 0 22 9k4HTLD<T_>0NETYi3;UN0
-R71
+DXx4 work 6 tb_pkg 0 22 HU[1MPdZIEaLSoOMga3=M0
+R76
 !i10b 1
-!s100 ThoSP^SFZl3_mBB?VHi953
-IafHI5FSNJBXH`4Pm=ik>z0
+!s100 iYfo^Y7@e706QSABEgXzL1
+IT_U5n5D^VPh>8le]HUYg^0
 S1
 R56
-w1765903568
+w1765962420
 8Ex_De_Stage/tb/tb_top.sv
 FEx_De_Stage/tb/tb_top.sv
 R25
@@ -1424,7 +1445,7 @@ R33
 R34
 R35
 R11
-!i122 526
+!i122 556
 L0 16 6705
 R12
 R4
@@ -1432,9 +1453,9 @@ r1
 !s85 0
 31
 R60
-R63
 R61
+R62
 !i113 0
 R16
-R62
+R63
 R18

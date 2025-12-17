@@ -54,11 +54,13 @@ class execution_stage_output_monitor extends uvm_monitor;
                 seq_item.compflg_out   = m_config.m_vif.compflg_out;
                 seq_item.instr_valid_ex_in = m_config.m_vif.instr_valid_ex_in;
 
+                @(posedge m_config.m_vif.clk); // wait for calulaton of expected results in scoreboard
+
                 // Send immediately - execution is combinatorial, no pipeline delay
                 `uvm_info(get_name(), $sformatf("EX-output scoreboard=0x%0h",seq_item.alu_data), UVM_LOW);
 
                 m_analysis_port.write(seq_item);
-                m_config.m_vif.instr_valid_ex_in = 0;
+                // m_config.m_vif.instr_valid_ex_in = 0;
             end
         end
     endtask : run_phase

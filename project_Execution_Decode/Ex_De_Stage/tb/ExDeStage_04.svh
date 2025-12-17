@@ -116,6 +116,7 @@ class ExDeStage_04 extends uvm_test;
             decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
 
             @(posedge m_tb_env.m_clock_agent.m_config.m_vif.clock);
+            @(posedge m_tb_env.m_clock_agent.m_config.m_vif.clock); // wait until comparison is done
         end
         
 
