@@ -136,7 +136,7 @@ module tb_top;
         i_execute_input_if.control_in,
         i_execute_input_if.program_counter_in,
         i_execute_input_if.compflg_in
-    ) begin
+        ) begin
         $display("[%0t] EX-IN:"
                 , $time,
                 " d1=%0h d2=%0h imm=%0h instr=%0h pc=%0h cmp=%0b",
@@ -157,7 +157,7 @@ module tb_top;
         program_counter_in_decode_to_execute,
         compflg_in_decode_to_execute,
         i_decode_output_if.reg_rd_id
-    ) begin
+        ) begin
             $display("[%0t] DEC-OUT:"
                 , $time,
                 " d1=%0h d2=%0h imm=%0h instr=%0h pc=%0h cmp=%0b rd_id=%0h",
@@ -179,7 +179,7 @@ module tb_top;
         i_decode_input_if.write_data,
         i_decode_input_if.mux_data1,
         i_decode_input_if.mux_data2
-    ) begin
+        ) begin
             $display("[%0t] DEC-IN:"
                 , $time,
                 " instr=%0h pc=%0h comp=%0h write_en=%0h write_id=%0h write_data=%0h mux1=%0h mux2=%0h",
@@ -199,7 +199,7 @@ module tb_top;
         i_execute_output_if.memory_data,
         i_execute_output_if.overflow_flag,
         i_execute_output_if.compflg_out
-    ) begin
+        ) begin
             $display("[%0t] EXE-OUT:"
                 , $time,
                 " ctrl_out=%0h alu_data=%0h memory_data=%0h overflow_flag=%0h compflg_out=%0b",
@@ -212,7 +212,7 @@ module tb_top;
 
     always @(
         i_execute_input_if.instr_valid_ex_in
-    ) begin
+        ) begin
         $display("[%0t] EX-INSTR_VALID:"
                 , $time,
                 " instr_valid_ex_in=%0b",

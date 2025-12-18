@@ -991,6 +991,7 @@ class scoreboard extends uvm_component;
 
     virtual function void write_scoreboard_decode_stage_output(decode_stage_output_seq_item item);
         de_input_output dec_out_addi;
+        `uvm_info(get_name(),$sformatf("DECODE_STAGE_OUTPUT_MONITOR:\n%s",item.sprint()),UVM_HIGH)
 
         dec_out_addi = m_de_input_output_before_q.pop_front();
 
@@ -1117,6 +1118,8 @@ class scoreboard extends uvm_component;
         overflow_flag   = item.overflow_flag;
         zero_flag       = item.zero_flag;
         compflg_out     = item.compflg_out;
+
+        // m_de_input_output_after_q = m_de_input_output_after_q.pop_front();
 
         `uvm_info(get_name(),
         $sformatf("Result from DUT: res=%0h ovf=%0h", alu_result, overflow_flag),

@@ -78,6 +78,7 @@ class ExDeStage_06 extends uvm_test;
             if (!(decode_stage_input.randomize() with {
                 write_en == 1;
                 instruction.opcode == 7'b1100111; // U-Type
+                compflg== 0;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
@@ -96,6 +97,7 @@ class ExDeStage_06 extends uvm_test;
                 instruction.opcode == 7'b1100111; // U-Type
                 instruction.funct3 == 3'b000;
                 instruction.rs1==    write_id_store1;
+                compflg== 0;
                 // REST OF INSTRUCTION RANDOMIZED
                 // PC ALSO RANDOMIZED
                 instr_valid == 1;
@@ -117,6 +119,7 @@ class ExDeStage_06 extends uvm_test;
             if (!(decode_stage_input.randomize() with {
                 write_en == 1;
                 instruction.opcode == 7'b1100111; // U-Type
+                compflg== 0;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
@@ -137,6 +140,7 @@ class ExDeStage_06 extends uvm_test;
                 instruction.rs2 inside {5'd0,5'd31};
                 instruction.funct3 == 3'b000;
                 instruction.rs1 ==    write_id_store1;
+                compflg == 0;
                 instr_valid == 1;
                 instr_valid_ex_in == 1;
             }))
@@ -155,6 +159,7 @@ class ExDeStage_06 extends uvm_test;
         if (!(decode_stage_input.randomize() with {
             write_en == 1;
             instruction.opcode == 7'b1100111; // U-Type
+            compflg== 0;
         }))
             `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
@@ -195,7 +200,7 @@ class ExDeStage_06 extends uvm_test;
             if (!(decode_stage_input.randomize() with {
                 write_en == 1;
                 instruction.opcode == 7'b1100111; // U-Type
-
+                compflg== 0;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
