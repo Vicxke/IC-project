@@ -687,7 +687,22 @@ class scoreboard extends uvm_component;
             bins rd_13 = { 5'd13 };
             bins rd_14 = { 5'd14 };
             bins rd_15 = { 5'd15 };
-            // Further bins can be added as needed
+            bins rd_16 = { 5'd16 };
+            bins rd_17 = { 5'd17 };
+            bins rd_18 = { 5'd18 };
+            bins rd_19 = { 5'd19 };
+            bins rd_20 = { 5'd20 };
+            bins rd_21 = { 5'd21 };
+            bins rd_22 = { 5'd22 };
+            bins rd_23 = { 5'd23 };
+            bins rd_24 = { 5'd24 };
+            bins rd_25 = { 5'd25 };
+            bins rd_26 = { 5'd26 };
+            bins rd_27 = { 5'd27 };
+            bins rd_28 = { 5'd28 };
+            bins rd_29 = { 5'd29 };
+            bins rd_30 = { 5'd30 };
+            bins rd_31 = { 5'd31 };
         }
         rs1_id : coverpoint rs1_id {
             bins rs1_0  = { 5'd0 };
@@ -706,7 +721,22 @@ class scoreboard extends uvm_component;
             bins rs1_13 = { 5'd13 };
             bins rs1_14 = { 5'd14 };
             bins rs1_15 = { 5'd15 };
-            // Further bins can be added as needed
+            bins rs1_16 = { 5'd16 };
+            bins rs1_17 = { 5'd17 };
+            bins rs1_18 = { 5'd18 };
+            bins rs1_19 = { 5'd19 };
+            bins rs1_20 = { 5'd20 };
+            bins rs1_21 = { 5'd21 };
+            bins rs1_22 = { 5'd22 };
+            bins rs1_23 = { 5'd23 };
+            bins rs1_24 = { 5'd24 };
+            bins rs1_25 = { 5'd25 };
+            bins rs1_26 = { 5'd26 };
+            bins rs1_27 = { 5'd27 };
+            bins rs1_28 = { 5'd28 };
+            bins rs1_29 = { 5'd29 };
+            bins rs1_30 = { 5'd30 };
+            bins rs1_31 = { 5'd31 };
         }
         rs2_id : coverpoint rs2_id {
             bins rs2_0  = { 5'd0 };
@@ -725,7 +755,22 @@ class scoreboard extends uvm_component;
             bins rs2_13 = { 5'd13 };
             bins rs2_14 = { 5'd14 };
             bins rs2_15 = { 5'd15 };
-            // Further bins can be added as needed
+            bins rs2_16 = { 5'd16 };
+            bins rs2_17 = { 5'd17 };
+            bins rs2_18 = { 5'd18 };
+            bins rs2_19 = { 5'd19 };
+            bins rs2_20 = { 5'd20 };
+            bins rs2_21 = { 5'd21 };
+            bins rs2_22 = { 5'd22 };
+            bins rs2_23 = { 5'd23 };
+            bins rs2_24 = { 5'd24 };
+            bins rs2_25 = { 5'd25 };
+            bins rs2_26 = { 5'd26 };
+            bins rs2_27 = { 5'd27 };
+            bins rs2_28 = { 5'd28 };
+            bins rs2_29 = { 5'd29 };
+            bins rs2_30 = { 5'd30 };
+            bins rs2_31 = { 5'd31 };
         }
         
         //inputs of the execution stage
@@ -1116,8 +1161,8 @@ class scoreboard extends uvm_component;
             return; // No need to calculate further for write instructions
         end
 
-        // case: AUIPC instruction where all operands are decode stage inputs: pc and immediate in instruction
-        if (dec_input.instruction_FIFO.opcode == 7'b0010111) begin // AUIPC
+        // case: LUI instruction where all operands are decode stage inputs: pc and immediate in instruction
+        if (dec_input.instruction_FIFO.opcode == 7'b0110111) begin // LUI
             control_in = get_control_signals_from_instruction(dec_input.instruction_FIFO);
 
             ex_output.control_in_FIFO   = control_in;
@@ -1135,6 +1180,37 @@ class scoreboard extends uvm_component;
 
             data2 = dec_input.pc_FIFO; // pc is input 1
             `uvm_info(get_name(), $sformatf("calculate_expected_results (AUIPC): data2= 0x%0h, immediate_data= 0x%0h", data2, immediate_data), UVM_LOW);
+            //calculate the results now
+            calculate_expected_results(); 
+            
+            ex_output.expected_result_FIFO   = expected_result;
+            ex_output.expected_overflow_FIFO = expected_overflow;
+
+            `uvm_info(get_name(), $sformatf("Expected result calculated (AUIPC): exp_res=0x%08h, exp_ovf=%0b", expected_result, expected_overflow), UVM_MEDIUM);
+
+            //store expected rs ids for later comparison
+            m_execution_q.push_back(ex_output);
+            return;
+        end
+
+            if (dec_input.instruction_FIFO.opcode == 7'b0010111) begin // AUIPC
+            control_in = get_control_signals_from_instruction(dec_input.instruction_FIFO);
+
+            ex_output.control_in_FIFO   = control_in;
+            ex_output.compflg_in_FIFO   = 0; // compressed instructions not allowed for LUI
+
+            // shifted immediate value by 12 is set 
+            immediate_data[31:25]  = dec_input.instruction_FIFO.funct7;
+            immediate_data[24:20]  = dec_input.instruction_FIFO.rs2;
+            immediate_data[19:15]  = dec_input.instruction_FIFO.rs1;
+            immediate_data[14:12]  = dec_input.instruction_FIFO.funct3;
+            immediate_data[11:0]  = 12'b000000000000; // lower 12 bits are zero 
+            immediate_data = $signed(immediate_data); //sign extend
+
+            `uvm_info(get_name(), $sformatf("calculate_expected_results (LUI): immediate_data before shift= 0x%0b", immediate_data), UVM_LOW);
+
+            data2 = dec_input.pc_FIFO; // pc is input 1
+            `uvm_info(get_name(), $sformatf("calculate_expected_results (LUI): data2= 0x%0h, immediate_data= 0x%0h", data2, immediate_data), UVM_LOW);
             //calculate the results now
             calculate_expected_results(); 
             
@@ -1233,7 +1309,7 @@ class scoreboard extends uvm_component;
         end
 
         //print operqtions`
-        `uvm_info(get_name(), $sformatf("Calculating expected results: op1=0x%08h, op2=0x%08h, alu_op=%s, alu_src=%0b, pc=0x%08h", op1, op2, control_in.alu_op.name(), control_in.alu_src, program_counter_in),UVM_MEDIUM)
+        // `uvm_info(get_name(), $sformatf("Calculating expected results: op1=0x%08h, op2=0x%08h, alu_op=%s, alu_src=%0b, pc=0x%08h", op1, op2, control_in.alu_op.name(), control_in.alu_src, program_counter_in),UVM_MEDIUM)
 
         unique case (control_in.alu_op)
         ALU_ADD: begin
@@ -1272,7 +1348,8 @@ class scoreboard extends uvm_component;
             op1 = immediate_data; // Value was already shifted by decode stage
             op2 = 32'd0;
             shamt = op2[4:0];
-            
+            `uvm_info(get_name(), $sformatf("Calculating expected results: op1=0x%08h, op2=0x%08h, alu_op=%s, alu_src=%0b, pc=0x%08h, shamt=%0d", op1, op2, control_in.alu_op.name(), control_in.alu_src, program_counter_in, shamt ),UVM_MEDIUM)
+
         end 
         
         expected_result = op1 <<  shamt;                    // logical left
@@ -1503,7 +1580,21 @@ class scoreboard extends uvm_component;
             // the operation is always an add for address calculation
             ctrl.alu_op = ALU_ADD;
         end
-
+        
+        // LUI ExDeStage_03
+        if(instruction.opcode == 7'b0110111) begin //U-type LUI
+            ctrl.alu_src = 2'b11; // first operand is pc
+            ctrl.encoding = U_TYPE;
+            ctrl.funct3 = 2'b000;
+            ctrl.mem_read = 1'b0;
+            ctrl.mem_write = 1'b0;
+            ctrl.reg_write = 1'b1;
+            ctrl.mem_to_reg = 1'b0;
+            ctrl.is_branch = 1'b0;
+            // the operation is an SLL for LUI in this design
+            ctrl.alu_op = ALU_SLL;
+        end
+        
         // AUIPC ExDeStage_05
         if(instruction.opcode == 7'b0010111) begin //U-type AUIPC
             ctrl.alu_src = 2'b10; // first operand is pc
@@ -1517,6 +1608,8 @@ class scoreboard extends uvm_component;
             // the operation is always an add for AUIPC
             ctrl.alu_op = ALU_ADD;
         end
+
+
         return ctrl;
     endfunction : get_control_signals_from_instruction
     
