@@ -1044,7 +1044,36 @@ class scoreboard extends uvm_component;
             return; // No need to calculate further for write instructions
         end
 
+        // case: AUIPC instruction where all operands are decode stage inputs: pc and immediate in instruction
+        if (dec_input.instruction_FIFO.opcode == 7'b0010111) begin // AUIPC
+            control_in = get_control_signals_from_instruction(dec_input.instruction_FIFO);
 
+            ex_output.control_in_FIFO   = control_in;
+            ex_output.compflg_in_FIFO   = dec_input.compflg_FIFO;
+
+            // shifted immediate value by 12 is set 
+            immediate_data[31:25]  = dec_input.instruction_FIFO.funct7;
+            immediate_data[24:20]  = dec_input.instruction_FIFO.rs2;
+            immediate_data[19:15]  = dec_input.instruction_FIFO.rs1;
+            immediate_data[14:12]  = dec_input.instruction_FIFO.funct3;
+            immediate_data[11:7] = dec_input.instruction_FIFO.rd; 
+            immediate_data = $signed(immediate_data); //sign extend
+
+            data1 = dec_input.pc_FIFO; // pc is input 1
+
+            //calculate the results now
+            calculate_expected_results(); 
+            
+            ex_output.expected_result_FIFO   = expected_result;
+            ex_output.expected_overflow_FIFO = expected_overflow;
+
+            `uvm_info(get_name(), $sformatf("Expected result calculated (AUIPC): exp_res=0x%08h, exp_ovf=%0b", expected_result, expected_overflow), UVM_MEDIUM);
+
+            //store expected rs ids for later comparison
+            m_execution_q.push_back(ex_output);
+            return;
+        end
+        
         //all signals where only one input is needed
         if(m_de_inputs_q.size() == 1) begin
             control_in = get_control_signals_from_instruction(dec_input.instruction_FIFO);
@@ -1368,6 +1397,20 @@ class scoreboard extends uvm_component;
             ctrl.mem_to_reg = 1'b0; // don't care
             ctrl.is_branch = 1'b0;
             // the operation is always an add for address calculation
+            ctrl.alu_op = ALU_ADD;
+        end
+
+        // AUIPC ExDeStage_05
+        if(instruction.opcode == 7'b0010111) begin //U-type AUIPC
+            ctrl.alu_src = 2'b10; // first operand is pc
+            ctrl.encoding = U_TYPE;
+            // ctrl.funct3 = // don't care
+            ctrl.mem_read = 1'b0;
+            ctrl.mem_write = 1'b0;
+            ctrl.reg_write = 1'b1;
+            ctrl.mem_to_reg = 1'b0;
+            ctrl.is_branch = 1'b0;
+            // the operation is always an add for AUIPC
             ctrl.alu_op = ALU_ADD;
         end
         return ctrl;
