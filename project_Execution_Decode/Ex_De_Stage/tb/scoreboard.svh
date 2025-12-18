@@ -452,7 +452,22 @@ class scoreboard extends uvm_component;
             bins rd_13 = { 5'd13 };
             bins rd_14 = { 5'd14 };
             bins rd_15 = { 5'd15 };
-            // Further bins can be added as needed
+            bins rd_16 = { 5'd16 };
+            bins rd_17 = { 5'd17 };
+            bins rd_18 = { 5'd18 };
+            bins rd_19 = { 5'd19 };
+            bins rd_20 = { 5'd20 };
+            bins rd_21 = { 5'd21 };
+            bins rd_22 = { 5'd22 };
+            bins rd_23 = { 5'd23 };
+            bins rd_24 = { 5'd24 };
+            bins rd_25 = { 5'd25 };
+            bins rd_26 = { 5'd26 };
+            bins rd_27 = { 5'd27 };
+            bins rd_28 = { 5'd28 };
+            bins rd_29 = { 5'd29 };
+            bins rd_30 = { 5'd30 };
+            bins rd_31 = { 5'd31 };
         }
         instruction_rs1 : coverpoint instruction.rs1 {
             bins rs1_0  = { 5'd0 };
@@ -471,7 +486,22 @@ class scoreboard extends uvm_component;
             bins rs1_13 = { 5'd13 };
             bins rs1_14 = { 5'd14 };
             bins rs1_15 = { 5'd15 };
-            // Further bins can be added as needed
+            bins rs1_16 = { 5'd16 };
+            bins rs1_17 = { 5'd17 };
+            bins rs1_18 = { 5'd18 };
+            bins rs1_19 = { 5'd19 };
+            bins rs1_20 = { 5'd20 };
+            bins rs1_21 = { 5'd21 };
+            bins rs1_22 = { 5'd22 };
+            bins rs1_23 = { 5'd23 };
+            bins rs1_24 = { 5'd24 };
+            bins rs1_25 = { 5'd25 };
+            bins rs1_26 = { 5'd26 };
+            bins rs1_27 = { 5'd27 };
+            bins rs1_28 = { 5'd28 };
+            bins rs1_29 = { 5'd29 };
+            bins rs1_30 = { 5'd30 };
+            bins rs1_31 = { 5'd31 };
         }
 
         instruction_rs2 : coverpoint instruction.rs2 {
@@ -491,7 +521,22 @@ class scoreboard extends uvm_component;
             bins rs2_13 = { 5'd13 };
             bins rs2_14 = { 5'd14 };
             bins rs2_15 = { 5'd15 };
-            // Further bins can be added as needed
+            bins rs2_16 = { 5'd16 };
+            bins rs2_17 = { 5'd17 };
+            bins rs2_18 = { 5'd18 };
+            bins rs2_19 = { 5'd19 };
+            bins rs2_20 = { 5'd20 };
+            bins rs2_21 = { 5'd21 };
+            bins rs2_22 = { 5'd22 };
+            bins rs2_23 = { 5'd23 };
+            bins rs2_24 = { 5'd24 };
+            bins rs2_25 = { 5'd25 };
+            bins rs2_26 = { 5'd26 };
+            bins rs2_27 = { 5'd27 };
+            bins rs2_28 = { 5'd28 };
+            bins rs2_29 = { 5'd29 };
+            bins rs2_30 = { 5'd30 };
+            bins rs2_31 = { 5'd31 };
         }
 
         pc_range : coverpoint pc {
@@ -532,7 +577,22 @@ class scoreboard extends uvm_component;
             bins id_13 = { 5'd13 };
             bins id_14 = { 5'd14 };
             bins id_15 = { 5'd15 };
-            // Further bins can be added as needed
+            bins id_16 = { 5'd16 };
+            bins id_17 = { 5'd17 };
+            bins id_18 = { 5'd18 };
+            bins id_19 = { 5'd19 };
+            bins id_20 = { 5'd20 };
+            bins id_21 = { 5'd21 };
+            bins id_22 = { 5'd22 };
+            bins id_23 = { 5'd23 };
+            bins id_24 = { 5'd24 };
+            bins id_25 = { 5'd25 };
+            bins id_26 = { 5'd26 };
+            bins id_27 = { 5'd27 };
+            bins id_28 = { 5'd28 };
+            bins id_29 = { 5'd29 };
+            bins id_30 = { 5'd30 };
+            bins id_31 = { 5'd31 };
         }
         write_data_bins : coverpoint write_data {
             bins range_very_low   = { [32'h0000_0000 : 32'h1FFF_FFFF] };
@@ -1068,11 +1128,13 @@ class scoreboard extends uvm_component;
             immediate_data[24:20]  = dec_input.instruction_FIFO.rs2;
             immediate_data[19:15]  = dec_input.instruction_FIFO.rs1;
             immediate_data[14:12]  = dec_input.instruction_FIFO.funct3;
-            immediate_data[11:7] = dec_input.instruction_FIFO.rd; 
+            immediate_data[11:0]  = 12'b000000000000; // lower 12 bits are zero 
             immediate_data = $signed(immediate_data); //sign extend
 
-            data1 = dec_input.pc_FIFO; // pc is input 1
+            `uvm_info(get_name(), $sformatf("calculate_expected_results (AUIPC): immediate_data before shift= 0x%0b", immediate_data), UVM_LOW);
 
+            data2 = dec_input.pc_FIFO; // pc is input 1
+            `uvm_info(get_name(), $sformatf("calculate_expected_results (AUIPC): data2= 0x%0h, immediate_data= 0x%0h", data2, immediate_data), UVM_LOW);
             //calculate the results now
             calculate_expected_results(); 
             
@@ -1164,8 +1226,14 @@ class scoreboard extends uvm_component;
         op2 = (control_in.alu_src == 2'b01) ? immediate_data : data2;
         shamt = op2[4:0];
 
-        //print operqtions
-        `uvm_info(get_name(), $sformatf("Calculating expected results: op1=0x%08h, op2=0x%08h, alu_op=%s, alu_src=%0b", op1, op2, control_in.alu_op.name(), control_in.alu_src),UVM_MEDIUM)
+        if (control_in.encoding == U_TYPE && control_in.alu_src == 2'b10 && control_in.alu_op==ALU_ADD) begin
+        // AUIPC
+        op1 = immediate_data; // Value was already shifted by decode stage
+        
+        end
+
+        //print operqtions`
+        `uvm_info(get_name(), $sformatf("Calculating expected results: op1=0x%08h, op2=0x%08h, alu_op=%s, alu_src=%0b, pc=0x%08h", op1, op2, control_in.alu_op.name(), control_in.alu_src, program_counter_in),UVM_MEDIUM)
 
         unique case (control_in.alu_op)
         ALU_ADD: begin
@@ -1173,12 +1241,7 @@ class scoreboard extends uvm_component;
             op1 = (compflg_in) ? 32'd2 : 32'd4; 
         end
         
-        if (control_in.encoding == U_TYPE && control_in.alu_src == 2'b10) begin
-        // AUIPC
-        op1 = immediate_data; // Value was already shifted by decode stage
-        
-        end
-        
+
         expected_result   = op1 + op2;
         expected_overflow =
         (~op1[31] & ~op2[31] &  expected_result[31]) |
@@ -1445,7 +1508,7 @@ class scoreboard extends uvm_component;
         if(instruction.opcode == 7'b0010111) begin //U-type AUIPC
             ctrl.alu_src = 2'b10; // first operand is pc
             ctrl.encoding = U_TYPE;
-            // ctrl.funct3 = // don't care
+            ctrl.funct3 = 2'b000;
             ctrl.mem_read = 1'b0;
             ctrl.mem_write = 1'b0;
             ctrl.reg_write = 1'b1;
