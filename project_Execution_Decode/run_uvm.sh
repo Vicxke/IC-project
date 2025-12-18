@@ -10,8 +10,8 @@ vlog -sv -timescale 1ns/1ns \
     +incdir+uvc/decode_stage_input_uvc \
     +incdir+uvc/decode_stage_output_uvc \
     \
-    Ex_De_Stage/dut/alu.sv \
     Ex_De_Stage/dut/common.sv \
+    Ex_De_Stage/dut/alu.sv \
     Ex_De_Stage/dut/execute_stage.sv \
     Ex_De_Stage/dut/decode_stage.sv \
     Ex_De_Stage/dut/branch_decider.sv \
