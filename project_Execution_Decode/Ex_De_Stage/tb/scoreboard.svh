@@ -1176,6 +1176,37 @@ class scoreboard extends uvm_component;
             immediate_data[11:0]  = 12'b000000000000; // lower 12 bits are zero 
             immediate_data = $signed(immediate_data); //sign extend
 
+            `uvm_info(get_name(), $sformatf("calculate_expected_results (LUI): immediate_data before shift= 0x%0b", immediate_data), UVM_LOW);
+
+            data2 = dec_input.pc_FIFO; // pc is input 1
+            `uvm_info(get_name(), $sformatf("calculate_expected_results (LUI): data2= 0x%0h, immediate_data= 0x%0h", data2, immediate_data), UVM_LOW);
+            //calculate the results now
+            calculate_expected_results(); 
+            
+            ex_output.expected_result_FIFO   = expected_result;
+            ex_output.expected_overflow_FIFO = expected_overflow;
+
+            `uvm_info(get_name(), $sformatf("Expected result calculated (LUI): exp_res=0x%08h, exp_ovf=%0b", expected_result, expected_overflow), UVM_MEDIUM);
+
+            //store expected rs ids for later comparison
+            m_execution_q.push_back(ex_output);
+            return;
+        end
+
+        if (dec_input.instruction_FIFO.opcode == 7'b0010111) begin // AUIPC
+            control_in = get_control_signals_from_instruction(dec_input.instruction_FIFO);
+
+            ex_output.control_in_FIFO   = control_in;
+            ex_output.compflg_in_FIFO   = 0; // compressed instructions not allowed for LUI
+
+            // shifted immediate value by 12 is set 
+            immediate_data[31:25]  = dec_input.instruction_FIFO.funct7;
+            immediate_data[24:20]  = dec_input.instruction_FIFO.rs2;
+            immediate_data[19:15]  = dec_input.instruction_FIFO.rs1;
+            immediate_data[14:12]  = dec_input.instruction_FIFO.funct3;
+            immediate_data[11:0]  = 12'b000000000000; // lower 12 bits are zero 
+            immediate_data = $signed(immediate_data); //sign extend
+
             `uvm_info(get_name(), $sformatf("calculate_expected_results (AUIPC): immediate_data before shift= 0x%0b", immediate_data), UVM_LOW);
 
             data2 = dec_input.pc_FIFO; // pc is input 1
@@ -1193,36 +1224,77 @@ class scoreboard extends uvm_component;
             return;
         end
 
-            if (dec_input.instruction_FIFO.opcode == 7'b0010111) begin // AUIPC
+        // case: JAL
+        if (dec_input.instruction_FIFO.opcode == 7'b1101111) begin // JAL
             control_in = get_control_signals_from_instruction(dec_input.instruction_FIFO);
 
             ex_output.control_in_FIFO   = control_in;
-            ex_output.compflg_in_FIFO   = 0; // compressed instructions not allowed for LUI
+            ex_output.compflg_in_FIFO   = dec_input.compflg_FIFO;
 
             // shifted immediate value by 12 is set 
-            immediate_data[31:25]  = dec_input.instruction_FIFO.funct7;
-            immediate_data[24:20]  = dec_input.instruction_FIFO.rs2;
-            immediate_data[19:15]  = dec_input.instruction_FIFO.rs1;
-            immediate_data[14:12]  = dec_input.instruction_FIFO.funct3;
-            immediate_data[11:0]  = 12'b000000000000; // lower 12 bits are zero 
+            immediate_data[20]  = dec_input.instruction_FIFO[31];
+            immediate_data[19:12]  = dec_input.instruction_FIFO[19:12];
+            immediate_data[11]  = dec_input.instruction_FIFO[20];
+            immediate_data[10:1]  = dec_input.instruction_FIFO[30:21];
+            immediate_data[0]  = 1'b0; // lower 1 bit is zero 
             immediate_data = $signed(immediate_data); //sign extend
 
-            `uvm_info(get_name(), $sformatf("calculate_expected_results (LUI): immediate_data before shift= 0x%0b", immediate_data), UVM_LOW);
+            `uvm_info(get_name(), $sformatf("calculate_expected_results (JAL): immediate_data before shift= 0x%0b", immediate_data), UVM_LOW);
 
             data2 = dec_input.pc_FIFO; // pc is input 1
-            `uvm_info(get_name(), $sformatf("calculate_expected_results (LUI): data2= 0x%0h, immediate_data= 0x%0h", data2, immediate_data), UVM_LOW);
+            `uvm_info(get_name(), $sformatf("calculate_expected_results (JAL): data2= 0x%0h, immediate_data= 0x%0h", data2, immediate_data), UVM_LOW);
+            compflg_in = dec_input.compflg_FIFO;
             //calculate the results now
             calculate_expected_results(); 
             
             ex_output.expected_result_FIFO   = expected_result;
             ex_output.expected_overflow_FIFO = expected_overflow;
 
-            `uvm_info(get_name(), $sformatf("Expected result calculated (AUIPC): exp_res=0x%08h, exp_ovf=%0b", expected_result, expected_overflow), UVM_MEDIUM);
+            `uvm_info(get_name(), $sformatf("Expected result calculated (JAL): exp_res=0x%08h, exp_ovf=%0b", expected_result, expected_overflow), UVM_MEDIUM);
 
             //store expected rs ids for later comparison
             m_execution_q.push_back(ex_output);
             return;
         end
+
+        // case: JALR
+        if (dec_input.instruction_FIFO.opcode == 7'b1100111) begin // JALR
+            control_in = get_control_signals_from_instruction(dec_input.instruction_FIFO);
+
+            ex_output.control_in_FIFO   = control_in;
+            ex_output.compflg_in_FIFO   = dec_input.compflg_FIFO;
+
+            // shifted immediate value by 12 is set 
+ 
+            immediate_data[11:0]  = dec_input.instruction_FIFO[31:20];
+            immediate_data = $signed(immediate_data); //sign extend
+
+            `uvm_info(get_name(), $sformatf("calculate_expected_results (JALR): immediate_data before shift= 0x%0b", immediate_data), UVM_LOW);
+
+            data2 = dec_input.pc_FIFO; // pc is input 1
+            `uvm_info(get_name(), $sformatf("calculate_expected_results (JALR): data2= 0x%0h, immediate_data= 0x%0h", data2, immediate_data), UVM_LOW);
+            compflg_in = dec_input.compflg_FIFO;
+
+            
+            //now take out the data from the previous queue entry
+            prev_de_tx1 = m_de_inputs_q.pop_front();
+
+            data1 = prev_de_tx1.write_data_FIFO; // rs1
+
+            
+            //calculate the results now
+            calculate_expected_results(); 
+            
+            ex_output.expected_result_FIFO   = expected_result;
+            ex_output.expected_overflow_FIFO = expected_overflow;
+
+            `uvm_info(get_name(), $sformatf("Expected result calculated (JALR): exp_res=0x%08h, exp_ovf=%0b", expected_result, expected_overflow), UVM_MEDIUM);
+
+            //store expected rs ids for later comparison
+            m_execution_q.push_back(ex_output);
+            return;
+        end
+        
         
         //all signals where only one input is needed
         if(m_de_inputs_q.size() == 1) begin
@@ -1315,8 +1387,10 @@ class scoreboard extends uvm_component;
         ALU_ADD: begin
         if ( (control_in.encoding inside {J_TYPE, I_TYPE}) && (control_in.alu_src == 2'b10) ) begin // special case for ExStage_03
             op1 = (compflg_in) ? 32'd2 : 32'd4; 
+            `uvm_info(get_name(), $sformatf("Calculating expected results: op1=0x%08h, op2=0x%08h, alu_op=%s, alu_src=%0b, pc=0x%08h", op1, op2, control_in.alu_op.name(), control_in.alu_src, program_counter_in),UVM_MEDIUM)
+
         end
-        
+
 
         expected_result   = op1 + op2;
         expected_overflow =
@@ -1348,7 +1422,7 @@ class scoreboard extends uvm_component;
             op1 = immediate_data; // Value was already shifted by decode stage
             op2 = 32'd0;
             shamt = op2[4:0];
-            `uvm_info(get_name(), $sformatf("Calculating expected results: op1=0x%08h, op2=0x%08h, alu_op=%s, alu_src=%0b, pc=0x%08h, shamt=%0d", op1, op2, control_in.alu_op.name(), control_in.alu_src, program_counter_in, shamt ),UVM_MEDIUM)
+            // `uvm_info(get_name(), $sformatf("Calculating expected results: op1=0x%08h, op2=0x%08h, alu_op=%s, alu_src=%0b, pc=0x%08h, shamt=%0d", op1, op2, control_in.alu_op.name(), control_in.alu_src, program_counter_in, shamt ),UVM_MEDIUM)
 
         end 
         
@@ -1608,10 +1682,38 @@ class scoreboard extends uvm_component;
             ctrl.alu_op = ALU_SLL;
         end
         
-        // AUIPC ExDeStage_05
+        // AUIPC ExDeStage_04
         if(instruction.opcode == 7'b0010111) begin //U-type AUIPC
             ctrl.alu_src = 2'b10; // first operand is pc
             ctrl.encoding = U_TYPE;
+            ctrl.funct3 = 2'b000;
+            ctrl.mem_read = 1'b0;
+            ctrl.mem_write = 1'b0;
+            ctrl.reg_write = 1'b1;
+            ctrl.mem_to_reg = 1'b0;
+            ctrl.is_branch = 1'b0;
+            // the operation is always an add for AUIPC
+            ctrl.alu_op = ALU_ADD;
+        end
+
+        // JAL ExDeStage_05
+        if(instruction.opcode == 7'b1101111) begin //JAL-type
+            ctrl.alu_src = 2'b10; // first operand is pc
+            ctrl.encoding = J_TYPE;
+            ctrl.funct3 = 2'b000;
+            ctrl.mem_read = 1'b0;
+            ctrl.mem_write = 1'b0;
+            ctrl.reg_write = 1'b1;
+            ctrl.mem_to_reg = 1'b0;
+            ctrl.is_branch = 1'b0;
+            // the operation is always an add for AUIPC
+            ctrl.alu_op = ALU_ADD;
+        end
+
+        // JALR ExDeStage_06
+        if(instruction.opcode == 7'b1100111) begin //JALR-type
+            ctrl.alu_src = 2'b10; // first operand is pc
+            ctrl.encoding = I_TYPE;
             ctrl.funct3 = 2'b000;
             ctrl.mem_read = 1'b0;
             ctrl.mem_write = 1'b0;

@@ -71,7 +71,7 @@ class ExDeStage_example extends uvm_test;
         reset.length = 1;
         reset.start(m_tb_env.m_reset_agent.m_sequencer);
 
-        repeat (2*n) begin
+        repeat (100*n) begin
             // write random value into x1
             `uvm_info("Starts test 4:", "randomize write data 1/2 + write id 1/2", UVM_LOW);
             decode_stage_input = decode_stage_input_seq::type_id::create("decode_stage_input");
