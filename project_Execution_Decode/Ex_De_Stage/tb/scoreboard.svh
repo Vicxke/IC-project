@@ -885,9 +885,9 @@ class scoreboard extends uvm_component;
     endfunction:write_scoreboard_decode_stage_input
 
     virtual function void write_scoreboard_decode_stage_output(decode_stage_output_seq_item item);
-        de_input_output dec_out_addi
+        de_input_output dec_out_addi;
 
-        dec_out_addi =m_de_input_output_before_q.pop_front();
+        dec_out_addi = m_de_input_output_before_q.pop_front();
 
         reg_rd_id = item.reg_rd_id;
         rs1_id   = item.rs1_id;
