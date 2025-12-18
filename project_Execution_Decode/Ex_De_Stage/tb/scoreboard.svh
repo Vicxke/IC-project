@@ -1546,10 +1546,10 @@ class scoreboard extends uvm_component;
             endcase
         end
 
-        if(instruction.opcode == 7'b0010011 || instruction.opcode == 7'b0000011) begin //I-types
+        if(instruction.opcode == 7'b0010011) begin //I-types
             ctrl.alu_src = 2'b01; //immidiate
             ctrl.encoding = I_TYPE;
-            ctrl.funct3 = 3'b000; // some cases should have actual values
+            ctrl.funct3 =  3'b000; // load instructions have funct3 = 000
             ctrl.mem_read = 1'b0;
             ctrl.mem_write = 1'b0;
             ctrl.reg_write = 1'b1;
@@ -1557,7 +1557,7 @@ class scoreboard extends uvm_component;
             ctrl.is_branch = 1'b0;
             // Determine ALU operation based on funct3 and funct7
             unique case (instruction.funct3)
-                3'b000: ctrl.alu_op = (instruction.funct7 == 7'b0100000) ? ALU_SUB : ALU_ADD;
+                3'b000: ctrl.alu_op = ALU_ADD;
                 3'b001: ctrl.alu_op = ALU_SLL;
                 3'b010: ctrl.alu_op = ALU_SLT;
                 3'b011: ctrl.alu_op = ALU_SLTU;
@@ -1566,6 +1566,19 @@ class scoreboard extends uvm_component;
                 3'b110: ctrl.alu_op = ALU_OR;
                 3'b111: ctrl.alu_op = ALU_AND;
             endcase
+        end
+        // Load instructions
+        if(instruction.opcode == 7'b0000011) begin //I-types
+            ctrl.alu_src = 2'b01; //immidiate
+            ctrl.encoding = I_TYPE;
+            ctrl.funct3 = instruction.funct3; // load instructions have funct3 = 000
+            ctrl.mem_read = 1'b1;
+            ctrl.mem_write = 1'b0;
+            ctrl.reg_write = 1'b1;
+            ctrl.mem_to_reg = 1'b1;
+            ctrl.is_branch = 1'b0;
+            ctrl.alu_op = ALU_ADD; // address calculation
+
         end
 
         if(instruction.opcode == 7'b0100011) begin //S-types

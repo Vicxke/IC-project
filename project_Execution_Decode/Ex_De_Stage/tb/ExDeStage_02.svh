@@ -73,13 +73,14 @@ class ExDeStage_02 extends uvm_test;
         reset.start(m_tb_env.m_reset_agent.m_sequencer);
 
         //this will test all I-type operations
-
+        // this repeat only tests load instructions
         repeat (1*n) begin
             // write random value into x1
             `uvm_info("Starts test 4:", "randomize write data 1/2 + write id 1/2", UVM_LOW);
             decode_stage_input = decode_stage_input_seq::type_id::create("decode_stage_input");
             if (!(decode_stage_input.randomize() with {
                 write_en == 1;
+                write_id != 0;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
@@ -95,7 +96,7 @@ class ExDeStage_02 extends uvm_test;
                 write_en == 0;
                 instruction.opcode == 7'b0000011; //R-types
                 instruction.funct3 inside {3'b000, 3'b001, 3'b010, 3'b011, 3'b100, 3'b101, 3'b110};
-                instruction.rs2 == write_id_store;  // RS2 provides store data (data2)
+                instruction.rs1 == write_id_store;  // RS2 provides store data (data2)
                 compflg == 0;
                 instr_valid == 1;
                 instr_valid_ex_in == 1;
@@ -106,13 +107,14 @@ class ExDeStage_02 extends uvm_test;
             @(posedge m_tb_env.m_clock_agent.m_config.m_vif.clock);
         end
         
-        //only for sub and sra
+        //
         repeat (1*n) begin
             // write random value into x1
             `uvm_info("Starts test 4:", "randomize write data 1/2 + write id 1/2", UVM_LOW);
             decode_stage_input = decode_stage_input_seq::type_id::create("decode_stage_input");
             if (!(decode_stage_input.randomize() with {
                 write_en == 1;
+                write_id != 0;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
@@ -128,6 +130,7 @@ class ExDeStage_02 extends uvm_test;
                 write_en == 0;
                 instruction.opcode == 7'b0010011; //R-types
                 instruction.rs1 == write_id_store;  // RS2 provides store data (data2)
+                instruction.funct3 inside {3'b000, 3'b010, 3'b011, 3'b100, 3'b110, 3'b111};
                 compflg == 0;
                 instr_valid == 1;
                 instr_valid_ex_in == 1;
