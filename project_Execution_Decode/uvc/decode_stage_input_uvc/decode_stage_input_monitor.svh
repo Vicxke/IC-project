@@ -105,7 +105,7 @@ class decode_stage_input_monitor extends uvm_monitor;
                 // --- Optionally publish to analysis port for scoreboard ---
                 m_analysis_port.write(seq_item);
                 @(negedge m_config.m_vif.clk); // wait so decode output monitor can read as well
-                m_config.m_vif.instr_valid = 0;
+                m_config.m_vif.instr_valid = 0; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             end
 
             
