@@ -102,6 +102,14 @@ class scoreboard extends uvm_component;
 
         // expected outputs
         //other outputs
+        logic [5:0]  decode_reg_rd_id_FIFO;
+        logic [4:0]  decode_rs1_id_FIFO;
+        logic [4:0]  decode_rs2_id_FIFO;
+        logic        decode_resolve_FIFO;
+        logic        decode_select_target_pc_FIFO;
+        logic        decode_squash_after_J_FIFO;
+        logic        decode_squash_after_JALR_FIFO;
+
         logic [5:0]  decode_expected_reg_rd_id_FIFO;
         logic [4:0]  decode_expected_rs1_id_FIFO;
         logic [4:0]  decode_expected_rs2_id_FIFO;
@@ -112,7 +120,9 @@ class scoreboard extends uvm_component;
 
     } de_input_output;
 
-    de_input_output m_de_input_output_q[$];  // FIFO-Queue
+    de_input_output m_de_input_output_before_q[$];  // FIFO-Queue
+    de_input_output m_de_input_output_after_q[$];  // FIFO-Queue
+
 
     typedef struct {    
         instruction_type    instruction_FIFO;
@@ -875,18 +885,9 @@ class scoreboard extends uvm_component;
     endfunction:write_scoreboard_decode_stage_input
 
     virtual function void write_scoreboard_decode_stage_output(decode_stage_output_seq_item item);
-        // `uvm_info(get_name(),$sformatf("DECODE_STAGE_OUTPUT_MONITOR:\n%s",item.sprint()),UVM_HIGH)
+        de_input_output dec_out_addi
 
-        // //wait for inputs
-        // if (first_input_decode == 0) begin
-        //     `uvm_info(get_name(), "First output data for decode stage not received yet", UVM_LOW)
-        //     return;
-        // end
-
-        // if (m_de_expected_q.size() == 0) begin
-        //     `uvm_error(get_name(), "Got DUT output but no pending expected transaction");
-        //     return;
-        // end
+        dec_out_addi =m_de_input_output_before_q.pop_front();
 
         reg_rd_id = item.reg_rd_id;
         rs1_id   = item.rs1_id;
@@ -896,7 +897,17 @@ class scoreboard extends uvm_component;
         squash_after_J = item.squash_after_J;
         squash_after_JALR = item.squash_after_JALR;
 
-        compare_exp_DUT_decode_results();
+        dec_out_addit_signals.reg_rd_id_FIFO          = item.reg_rd_id;
+        dec_out_addit_signals.rs1_id_FIFO            = item.rs1_id;
+        dec_out_addit_signals.rs2_id_FIFO            = item.rs2_id;
+        dec_out_addit_signals.resolve_FIFO           = item.resolve;
+        dec_out_addit_signals.select_target_pc_FIFO  = item.select_target_pc;
+        dec_out_addit_signals.squash_after_J_FIFO    = item.squash_after_J;
+        dec_out_addit_signals.squash_after_JALR_FIFO = item.squash_after_JALR;
+
+        m_de_input_output_after_q.push_back(dec_out_addi);
+
+        // compare_exp_DUT_decode_results();
         
         decode_stage_output_covergrp.sample(); // part of decode stage output covergroup
 
@@ -1010,6 +1021,7 @@ class scoreboard extends uvm_component;
 
         // jetzt passt Input/Expected zu diesem Output → JETZT vergleichen
         compare_exp_DUT_results();
+        // compare_exp_DUT_decode_results(); //changed
     endfunction: write_scoreboard_execution_stage_output
 
 
@@ -1324,7 +1336,7 @@ class scoreboard extends uvm_component;
         // logic        decode_expected_squash_after_JALR_FIFO;
 
         // Store the expected decode outputs for later comparison
-        m_de_input_output_q.push_back(de_out);
+        m_de_input_output_before_q.push_back(de_out);
     endfunction :  calculate_expected_decode_out_addit_signals
     
     virtual function void compare_exp_DUT_decode_results();
