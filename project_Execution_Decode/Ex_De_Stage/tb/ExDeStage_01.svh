@@ -48,7 +48,7 @@ class ExDeStage_01 extends uvm_test;
     // Start UVM test in running phase.
     //------------------------------------------------------------------------------
 
-    int n = 2; // x for 100% coverage
+    int n = 5; // x for 100% coverage
 
 
     virtual task run_phase(uvm_phase phase);
@@ -57,7 +57,7 @@ class ExDeStage_01 extends uvm_test;
         reset_seq reset;
         decode_stage_input_seq decode_stage_input;
         instruction_type instruction;
-        logic [4:0] write_id_store, write_id_store1, write_id_store2;
+        logic [4:0] write_id_store1, write_id_store2;
         logic [31:0] write_data;
         super.run_phase(phase);
 
@@ -95,6 +95,14 @@ class ExDeStage_01 extends uvm_test;
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
             write_id_store2 = decode_stage_input.write_id;
+            // Force different register if collision detected
+            if (write_id_store2 == write_id_store1) begin
+                //`uvm_warning(get_name(), $sformatf("Collision detected! Both IDs are %0d, forcing different ID...", write_id_store1))
+                // Pick a different ID by adding 1 (modulo 32, skip x0)
+                decode_stage_input.write_id = (write_id_store1 + 1) % 32;
+                write_id_store2 = decode_stage_input.write_id;
+            end
+
             decode_stage_input.instr_valid = 1; // input decode stage
             decode_stage_input.instr_valid_ex_in = 0; // input execution stage
             decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
@@ -105,11 +113,13 @@ class ExDeStage_01 extends uvm_test;
                 write_en == 0;
                 instruction.opcode == 7'b0110011; //R-types
                 instruction.funct7 == 7'b0000000; //standard operations
-                instruction.rs2 == write_id_store;  // RS2 provides store data (data2)
+                instruction.rs2 == write_id_store2;  // RS2 provides store data (data2)
+                instruction.rs1 == write_id_store1;  // RS1 provides base address
                 compflg == 0;
                 instr_valid == 1;
                 instr_valid_ex_in == 1;
             }))
+                `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
             decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
 
             @(posedge m_tb_env.m_clock_agent.m_config.m_vif.clock);
@@ -140,6 +150,14 @@ class ExDeStage_01 extends uvm_test;
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
             write_id_store2 = decode_stage_input.write_id;
+            // Force different register if collision detected
+            if (write_id_store2 == write_id_store1) begin
+                //`uvm_warning(get_name(), $sformatf("Collision detected! Both IDs are %0d, forcing different ID...", write_id_store1))
+                // Pick a different ID by adding 1 (modulo 32, skip x0)
+                decode_stage_input.write_id = (write_id_store1 + 1) % 32;
+                write_id_store2 = decode_stage_input.write_id;
+            end
+            
             decode_stage_input.instr_valid = 1; // input decode stage
             decode_stage_input.instr_valid_ex_in = 0; // input execution stage
             decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
@@ -151,11 +169,14 @@ class ExDeStage_01 extends uvm_test;
                 instruction.opcode == 7'b0110011; //R-types
                 instruction.funct7 == 7'b0100000; //standard operations
                 instruction.funct3 inside {3'b000, 3'b101}; //ADD/SUB and SRL/SRA
-                instruction.rs2 == write_id_store;  // RS2 provides store data (data2)
+                instruction.rs2 == write_id_store2;  // RS2 provides store data (data2)
+                instruction.rs1 == write_id_store1;  // RS1 provides base address
                 compflg == 0;
                 instr_valid == 1;
                 instr_valid_ex_in == 1;
             }))
+                `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
+
             decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
 
             @(posedge m_tb_env.m_clock_agent.m_config.m_vif.clock);

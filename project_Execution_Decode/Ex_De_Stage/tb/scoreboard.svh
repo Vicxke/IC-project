@@ -1098,6 +1098,13 @@ class scoreboard extends uvm_component;
 
             data1 = prev_de_tx1.write_data_FIFO; // rs1
 
+            if (control_in.encoding == I_TYPE) begin
+                immediate_data[11:5] = dec_input.instruction_FIFO.funct7;
+                immediate_data[4:0]  = dec_input.instruction_FIFO.rs2;
+                immediate_data = $signed(immediate_data); //sign extend
+                `uvm_info(get_name(), $sformatf("calculate_expected_results (single input): data1= 0x%0h, immediate_data= 0x%0h", data1, immediate_data), UVM_LOW);
+            end
+
             //calculate the results now
             calculate_expected_results(); 
             
@@ -1380,7 +1387,29 @@ class scoreboard extends uvm_component;
         if(instruction.opcode == 7'b0110011) begin //R-types
             ctrl.alu_src = 2'b00; // both operands from registers
             ctrl.encoding = R_TYPE;
-            ctrl.funct3 = instruction.funct3;
+            ctrl.funct3 = 3'b000; // some cases should have actual values
+            ctrl.mem_read = 1'b0;
+            ctrl.mem_write = 1'b0;
+            ctrl.reg_write = 1'b1;
+            ctrl.mem_to_reg = 1'b0;
+            ctrl.is_branch = 1'b0;
+            // Determine ALU operation based on funct3 and funct7
+            unique case (instruction.funct3)
+                3'b000: ctrl.alu_op = (instruction.funct7 == 7'b0100000) ? ALU_SUB : ALU_ADD;
+                3'b001: ctrl.alu_op = ALU_SLL;
+                3'b010: ctrl.alu_op = ALU_SLT;
+                3'b011: ctrl.alu_op = ALU_SLTU;
+                3'b100: ctrl.alu_op = ALU_XOR;
+                3'b101: ctrl.alu_op = (instruction.funct7 == 7'b0100000) ? ALU_SRA : ALU_SRL;
+                3'b110: ctrl.alu_op = ALU_OR;
+                3'b111: ctrl.alu_op = ALU_AND;
+            endcase
+        end
+
+        if(instruction.opcode == 7'b0010011 || instruction.opcode == 7'b0000011) begin //I-types
+            ctrl.alu_src = 2'b01; //immidiate
+            ctrl.encoding = I_TYPE;
+            ctrl.funct3 = 3'b000; // some cases should have actual values
             ctrl.mem_read = 1'b0;
             ctrl.mem_write = 1'b0;
             ctrl.reg_write = 1'b1;

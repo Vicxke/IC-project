@@ -48,7 +48,7 @@ class ExDeStage_02 extends uvm_test;
     // Start UVM test in running phase.
     //------------------------------------------------------------------------------
 
-    int n = 2; // x for 100% coverage
+    int n = 50; // x for 100% coverage
 
 
     virtual task run_phase(uvm_phase phase);
@@ -57,8 +57,7 @@ class ExDeStage_02 extends uvm_test;
         reset_seq reset;
         decode_stage_input_seq decode_stage_input;
         instruction_type instruction;
-        logic [4:0] write_id_1;
-        logic [4:0] write_id_2;
+        logic [4:0] write_id_store;
         super.run_phase(phase);
 
         `uvm_info("ExDeStage_02 Info", "Starting ExDeStage_02 run_phase", UVM_LOW);
@@ -73,37 +72,71 @@ class ExDeStage_02 extends uvm_test;
         reset.length = 1;
         reset.start(m_tb_env.m_reset_agent.m_sequencer);
 
-        //this will test all R-type operations
+        //this will test all I-type operations
 
-         repeat (50*n) begin
+        repeat (1*n) begin
+            // write random value into x1
+            `uvm_info("Starts test 4:", "randomize write data 1/2 + write id 1/2", UVM_LOW);
             decode_stage_input = decode_stage_input_seq::type_id::create("decode_stage_input");
-
-             if (!(decode_stage_input.randomize() with {
-                write_en == 0;
-                compflg == 0;
-                instruction.opcode == 7'b0000011; //I-type
-                instruction.funct3 inside {3'b000, 3'b001, 3'b010, 3'b011, 3'b100, 3'b101, 3'b110}; 
-             }))
-                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
-
-            decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
-         end
-
-        // do zith all zeros and ones
-        repeat (50*n) begin
-        decode_stage_input = decode_stage_input_seq::type_id::create("decode_stage_input");
-
             if (!(decode_stage_input.randomize() with {
-            write_en == 0;
-            compflg == 0;
-            instruction.opcode == 7'b0010011; //I-type
-            instruction.funct3;
+                write_en == 1;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
-        decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
-        end
+            write_id_store = decode_stage_input.write_id;
+            decode_stage_input.instr_valid = 1; // input decode stage
+            decode_stage_input.instr_valid_ex_in = 0; // input execution stage
+            decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
 
+            @(posedge m_tb_env.m_clock_agent.m_config.m_vif.clock);
+
+            decode_stage_input = decode_stage_input_seq::type_id::create("decode_stage_input");
+            if (!(decode_stage_input.randomize() with {
+                write_en == 0;
+                instruction.opcode == 7'b0000011; //R-types
+                instruction.funct3 inside {3'b000, 3'b001, 3'b010, 3'b011, 3'b100, 3'b101, 3'b110};
+                instruction.rs2 == write_id_store;  // RS2 provides store data (data2)
+                compflg == 0;
+                instr_valid == 1;
+                instr_valid_ex_in == 1;
+            }))
+                `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
+            decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
+
+            @(posedge m_tb_env.m_clock_agent.m_config.m_vif.clock);
+        end
+        
+        //only for sub and sra
+        repeat (1*n) begin
+            // write random value into x1
+            `uvm_info("Starts test 4:", "randomize write data 1/2 + write id 1/2", UVM_LOW);
+            decode_stage_input = decode_stage_input_seq::type_id::create("decode_stage_input");
+            if (!(decode_stage_input.randomize() with {
+                write_en == 1;
+            }))
+                `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
+
+            write_id_store = decode_stage_input.write_id;
+            decode_stage_input.instr_valid = 1; // input decode stage
+            decode_stage_input.instr_valid_ex_in = 0; // input execution stage
+            decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
+
+            @(posedge m_tb_env.m_clock_agent.m_config.m_vif.clock);
+
+            decode_stage_input = decode_stage_input_seq::type_id::create("decode_stage_input");
+            if (!(decode_stage_input.randomize() with {
+                write_en == 0;
+                instruction.opcode == 7'b0010011; //R-types
+                instruction.rs1 == write_id_store;  // RS2 provides store data (data2)
+                compflg == 0;
+                instr_valid == 1;
+                instr_valid_ex_in == 1;
+            }))
+                `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
+            decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
+
+            @(posedge m_tb_env.m_clock_agent.m_config.m_vif.clock);
+        end
 
         // Drop objection if no UVM test is running
         phase.drop_objection(this);
