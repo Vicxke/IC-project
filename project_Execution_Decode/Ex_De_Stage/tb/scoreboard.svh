@@ -897,13 +897,13 @@ class scoreboard extends uvm_component;
         squash_after_J = item.squash_after_J;
         squash_after_JALR = item.squash_after_JALR;
 
-        dec_out_addit_signals.reg_rd_id_FIFO          = item.reg_rd_id;
-        dec_out_addit_signals.rs1_id_FIFO            = item.rs1_id;
-        dec_out_addit_signals.rs2_id_FIFO            = item.rs2_id;
-        dec_out_addit_signals.resolve_FIFO           = item.resolve;
-        dec_out_addit_signals.select_target_pc_FIFO  = item.select_target_pc;
-        dec_out_addit_signals.squash_after_J_FIFO    = item.squash_after_J;
-        dec_out_addit_signals.squash_after_JALR_FIFO = item.squash_after_JALR;
+        dec_out_addi.decode_reg_rd_id_FIFO          = item.reg_rd_id;
+        dec_out_addi.decode_rs1_id_FIFO            = item.rs1_id;
+        dec_out_addi.decode_rs2_id_FIFO            = item.rs2_id;
+        dec_out_addi.decode_resolve_FIFO           = item.resolve;
+        dec_out_addi.decode_select_target_pc_FIFO  = item.select_target_pc;
+        dec_out_addi.decode_squash_after_J_FIFO    = item.squash_after_J;
+        dec_out_addi.decode_squash_after_JALR_FIFO = item.squash_after_JALR;
 
         m_de_input_output_after_q.push_back(dec_out_addi);
 
@@ -1342,12 +1342,12 @@ class scoreboard extends uvm_component;
     virtual function void compare_exp_DUT_decode_results();
         de_input_output de_in_out;
 
-        if (m_de_input_output_q.size() == 0) begin
+        if (m_de_input_output_after_q.size() == 0) begin
             `uvm_error(get_name(), "Error: write_scoreboard_decode_stage_output");
             return;
         end
 
-        de_in_out = m_de_input_output_q.pop_front();
+        de_in_out = m_de_input_output_after_q.pop_front();
 
         // Only compare RS IDs for S-type instructions; skip other opcodes
         if (de_in_out.instruction_FIFO.opcode == 7'b0100011) begin
