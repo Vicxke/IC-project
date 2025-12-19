@@ -18,6 +18,7 @@ interface decode_stage_input_if (input logic clk, input logic rst_n);
 
     logic instr_valid;
     logic instr_valid_ex_in;
+    logic decode_output_valid;
 
 
 endinterface : decode_stage_input_if

@@ -37,7 +37,7 @@ class decode_stage_output_monitor extends uvm_monitor;
         bit cur_select_target_pc;
         bit cur_squash_after_J;
         bit cur_squash_after_JALR;
-        bit instr_valid;
+        bit decode_output_valid;
 
 
         `uvm_info(get_name(), $sformatf("Starting decode_stage monitoring"), UVM_HIGH)
@@ -58,8 +58,8 @@ class decode_stage_output_monitor extends uvm_monitor;
 
             // // Sample on clock edge
             @(posedge m_config.m_vif.clk);
-            `uvm_info(get_name(), $sformatf("DEC-output instr_valid=%0b", m_config.m_vif.instr_valid), UVM_LOW);
-            if (m_config.m_vif.instr_valid) begin
+            `uvm_info(get_name(), $sformatf("DEC-output decode_output_valid=%0b", m_config.m_vif.decode_output_valid), UVM_LOW);
+            if (m_config.m_vif.decode_output_valid) begin
                 // Read current values (assign to temporaries declared above)
                 cur_reg_rd_id         = m_config.m_vif.reg_rd_id;
                 cur_rs1_id            = m_config.m_vif.rs1_id;
@@ -89,7 +89,7 @@ class decode_stage_output_monitor extends uvm_monitor;
                 
                 // --- Optionally publish to analysis port for scoreboard ---
                 m_analysis_port.write(seq_item);
-                m_config.m_vif.instr_valid = 0; // reset done in decode stage input and output monitor
+                m_config.m_vif.decode_output_valid = 0; // reset done in decode stage input and output monitor
             end
         end
     endtask : run_phase

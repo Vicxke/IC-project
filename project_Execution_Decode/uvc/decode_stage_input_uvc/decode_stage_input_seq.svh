@@ -26,6 +26,7 @@ class decode_stage_input_seq extends uvm_sequence#(decode_stage_input_seq_item);
     rand int unsigned mux_data2;
     rand bit instr_valid;
     rand bit instr_valid_ex_in;
+    rand bit decode_output_valid;
 
     // decode_stage_input_seq_item decode_req;
     // decode_stage_input_seq_item rsp;
@@ -50,6 +51,7 @@ class decode_stage_input_seq extends uvm_sequence#(decode_stage_input_seq_item);
         req.mux_data2    = mux_data2;
         req.instr_valid = instr_valid;
         req.instr_valid_ex_in = instr_valid_ex_in;
+        req.decode_output_valid = decode_output_valid;
 
 
         // Start/finish item pattern

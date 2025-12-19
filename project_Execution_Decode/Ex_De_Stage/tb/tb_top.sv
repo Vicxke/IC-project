@@ -106,7 +106,7 @@ module tb_top;
     assign i_execute_output_if.instr_valid_ex_in = i_decode_input_if.instr_valid_ex_in; 
 
     // pass instr_valid from decode input interface to decode output interface
-    assign i_decode_output_if.instr_valid = i_decode_input_if.instr_valid;
+    assign i_decode_output_if.decode_output_valid = i_decode_input_if.decode_output_valid;
 
 
     // Instantiation of the execute_stage RTL DUT
@@ -240,12 +240,12 @@ module tb_top;
     // Start UVM test_base environment
     initial begin // only one run valid
         // run_test("ExDeStage_00");
-        run_test("ExDeStage_01"); 
+        // run_test("ExDeStage_01"); 
         // run_test("ExDeStage_02"); 
         // run_test("ExDeStage_03");
-        //run_test("ExDeStage_04");
+        // run_test("ExDeStage_04");
         // run_test("ExDeStage_05");
-        // run_test("ExDeStage_06");
+        run_test("ExDeStage_06");
 
     end
 

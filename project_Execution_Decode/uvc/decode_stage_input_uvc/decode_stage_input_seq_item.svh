@@ -14,6 +14,7 @@ class decode_stage_input_seq_item extends uvm_sequence_item;
 
     rand bit instr_valid;
     rand bit instr_valid_ex_in; // for execution stage instruction
+    rand bit decode_output_valid;
 
     // monitor helper flag
     bit monitor_data_valid;

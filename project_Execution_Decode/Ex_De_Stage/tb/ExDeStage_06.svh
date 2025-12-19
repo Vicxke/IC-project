@@ -79,12 +79,13 @@ class ExDeStage_06 extends uvm_test;
                 write_en == 1;
                 instruction.opcode == 7'b1100111; // U-Type
                 compflg== 0;
+                instr_valid == 1;
+                instr_valid_ex_in == 0;
+                decode_output_valid == 0;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
             write_id_store1 = decode_stage_input.write_id;
-            decode_stage_input.instr_valid = 1; // input decode stage
-            decode_stage_input.instr_valid_ex_in = 0; // input execution stage
             decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
 
             @(posedge m_tb_env.m_clock_agent.m_config.m_vif.clock);
@@ -102,6 +103,7 @@ class ExDeStage_06 extends uvm_test;
                 // PC ALSO RANDOMIZED
                 instr_valid == 1;
                 instr_valid_ex_in == 1;
+                decode_output_valid == 1;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
             `uvm_info(get_name(), $sformatf("Randomization done with instr_valid_ex_in=%0b", decode_stage_input.instr_valid_ex_in), UVM_LOW);
@@ -120,12 +122,13 @@ class ExDeStage_06 extends uvm_test;
                 write_en == 1;
                 instruction.opcode == 7'b1100111; // U-Type
                 compflg== 0;
+                instr_valid == 1;
+                instr_valid_ex_in == 0;
+                decode_output_valid == 0;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
             write_id_store1 = decode_stage_input.write_id;
-            decode_stage_input.instr_valid = 1; // input decode stage
-            decode_stage_input.instr_valid_ex_in = 0; // input execution stage
             decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
             @(posedge m_tb_env.m_clock_agent.m_config.m_vif.clock);
             
@@ -143,6 +146,7 @@ class ExDeStage_06 extends uvm_test;
                 compflg == 0;
                 instr_valid == 1;
                 instr_valid_ex_in == 1;
+                decode_output_valid == 1;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
             `uvm_info(get_name(), $sformatf("Randomization done with instr_valid_ex_in=%0b", decode_stage_input.instr_valid_ex_in), UVM_LOW);
@@ -160,12 +164,14 @@ class ExDeStage_06 extends uvm_test;
             write_en == 1;
             instruction.opcode == 7'b1100111; // U-Type
             compflg== 0;
+            instr_valid == 1;
+            instr_valid_ex_in == 0;
+            decode_output_valid == 0;
         }))
             `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
         write_id_store1 = decode_stage_input.write_id;
-        decode_stage_input.instr_valid = 1; // input decode stage
-        decode_stage_input.instr_valid_ex_in = 0; // input execution stage
+
         decode_stage_input.start(m_tb_env.m_decode_stage_input_agent.m_sequencer);
 
         @(posedge m_tb_env.m_clock_agent.m_config.m_vif.clock);
@@ -184,6 +190,7 @@ class ExDeStage_06 extends uvm_test;
             compflg == 0;
             instr_valid == 1;
             instr_valid_ex_in == 1;
+            decode_output_valid == 1;
         }))
             `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
         `uvm_info(get_name(), $sformatf("Randomization done with instr_valid_ex_in=%0b", decode_stage_input.instr_valid_ex_in), UVM_LOW);
@@ -201,6 +208,9 @@ class ExDeStage_06 extends uvm_test;
                 write_en == 1;
                 instruction.opcode == 7'b1100111; // U-Type
                 compflg== 0;
+                instr_valid == 1;
+                instr_valid_ex_in == 0;
+                decode_output_valid == 0;
             }))
                 `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
 
@@ -225,6 +235,7 @@ class ExDeStage_06 extends uvm_test;
             compflg == 0;
             instr_valid == 1;
             instr_valid_ex_in == 1;
+            decode_output_valid == 1;
         }))
             `uvm_fatal(get_name(), "Failed to randomize execute_stage sequence")
         `uvm_info(get_name(), $sformatf("Randomization done with instr_valid_ex_in=%0b", decode_stage_input.instr_valid_ex_in), UVM_LOW);
