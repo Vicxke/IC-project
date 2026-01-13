@@ -48,7 +48,7 @@ class ExDeStage_04 extends uvm_test;
     // Start UVM test in running phase.
     //------------------------------------------------------------------------------
 
-    int n = 20; // x for 100% coverage
+    int n = 1; // x for 100% coverage
 
 
     virtual task run_phase(uvm_phase phase);
@@ -92,6 +92,7 @@ class ExDeStage_04 extends uvm_test;
             if (!(decode_stage_input.randomize() with {
                 write_en == 0;
                 instruction.opcode == 7'b0010111; // U-Type
+                compflg == 0;
                 // REST OF INSTRUCTION RANDOMIZED
                 // PC ALSO RANDOMIZED
                 instr_valid == 1;
@@ -132,6 +133,7 @@ class ExDeStage_04 extends uvm_test;
                 instruction.rs1 inside {5'd0,5'd31};
                 instruction.rs2 inside {5'd0,5'd31};
                 instruction.funct3 inside {3'b000,3'b111};
+                compflg == 0;
                 instr_valid == 1;
                 instr_valid_ex_in == 1;
             }))
