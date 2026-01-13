@@ -47,7 +47,7 @@ module execute_stage(
                     left_operand = compflg_in?32'd2 : 32'd4;
                 end
                 U_TYPE: begin
-                    left_operand = immediate_data << 12; //AUIPC
+                    left_operand = immediate_data << 12; //AUIPC bug?
                 end
             endcase
         end
